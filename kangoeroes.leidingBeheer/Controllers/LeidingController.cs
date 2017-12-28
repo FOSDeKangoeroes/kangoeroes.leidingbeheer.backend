@@ -20,6 +20,10 @@ namespace kangoeroes.leidingBeheer.Controllers
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
     }
+    /// <summary>
+    /// Geeft alle leiding terug
+    /// </summary>
+    /// <returns></returns>
     [HttpGet] //GET /api/leiding
     public IActionResult Index()
     {
@@ -43,7 +47,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       return Ok(new ApiOkResponse(leiding));
     }
 
-    [HttpPost]
+    [HttpPost] //POST api/leiding
     public IActionResult AddLeiding([FromBody] AddLeidingViewModel viewmodel)
     {
       var tak = _takRepository.FindById(viewmodel.TakId);
@@ -58,7 +62,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       return CreatedAtRoute(leiding.Id, new ApiOkResponse(leiding));
     }
 
-    [HttpPut]
+    [HttpPut] //PUT api/leiding
     public IActionResult UpdateLeiding([FromBody] UpdateLeidingViewModel viewmodel)
     {
       var leiding = _leidingRepository.FindById(viewmodel.Id);
