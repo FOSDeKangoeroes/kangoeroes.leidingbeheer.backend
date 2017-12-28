@@ -39,6 +39,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       /// <param name="id">Unieke identifier van de tak</param>
       /// <returns>1 tak object</returns>
       [Route("{id}")] //GET api/tak/{id}
+      [HttpGet]
       public IActionResult GetTakById([FromRoute] int id)
       {
 

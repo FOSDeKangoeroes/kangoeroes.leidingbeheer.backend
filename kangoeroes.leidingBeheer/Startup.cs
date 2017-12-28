@@ -45,6 +45,7 @@ namespace kangoeroes.leidingBeheer
 
       services.AddScoped<ApplicationDbContext>();
       services.AddTransient<ITakRepository, TakRepository>();
+      services.AddTransient<ILeidingRepository, LeidingRepository>();
 
     }
 

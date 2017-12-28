@@ -7,6 +7,7 @@ namespace kangoeroes.core.Data.Context
     public class ApplicationDbContext: DbContext
     {
         public DbSet<Tak> Takken { get; set; }
+        public DbSet<Leiding> Leiding { get; set; }
 
         public ApplicationDbContext()
         {
@@ -21,11 +22,17 @@ namespace kangoeroes.core.Data.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Tak>(MapTak);
+            modelBuilder.Entity<Leiding>(MapLeiding);
         }
 
         private static void MapTak(EntityTypeBuilder<Tak> builder)
         {
             builder.ToTable("tak");
+        }
+
+        private static void MapLeiding(EntityTypeBuilder<Leiding> builder)
+        {
+            builder.ToTable("leiding");
         }
     }
 }
