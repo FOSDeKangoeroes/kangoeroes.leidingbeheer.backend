@@ -41,7 +41,8 @@ namespace kangoeroes.leidingBeheer
       {
         options.UseMySQL(Configuration.GetConnectionString("Default"));
       });
-      services.AddMvcCore().AddJsonFormatters();
+      services.AddMvc();
+
       services.AddScoped<ApplicationDbContext>();
       services.AddTransient<ITakRepository, TakRepository>();
 

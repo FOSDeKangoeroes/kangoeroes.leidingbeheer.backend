@@ -1,6 +1,7 @@
 
 using System;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.Filters;
 using kangoeroes.leidingBeheer.Models.Responses;
 using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
@@ -51,9 +52,23 @@ namespace kangoeroes.leidingBeheer.Controllers
       }
 
       [HttpPost]
-      public IActionResult AddTak(AddTakViewModel viewmodel)
+      public IActionResult AddTak([FromBody] AddTakViewModel viewmodel)
       {
-throw new NotImplementedException();
+
+        var tak = MapToTak(viewmodel);
+        _takRepository.Add(tak);
+        _takRepository.SaveChanges();
+        return CreatedAtRoute(tak.Id, new ApiOkResponse(tak));
+      }
+
+      private Tak MapToTak(AddTakViewModel viewModel)
+      {
+        Tak tak = new Tak()
+        {
+          Naam = viewModel.Naam,
+          Volgorde =  viewModel.Volgorde
+        };
+        return tak;
       }
     }
 }
