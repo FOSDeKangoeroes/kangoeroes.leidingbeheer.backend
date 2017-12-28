@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer
 {
@@ -41,7 +42,10 @@ namespace kangoeroes.leidingBeheer
       {
         options.UseMySQL(Configuration.GetConnectionString("Default"));
       });
-      services.AddMvc();
+      services.AddMvc().AddJsonOptions(options =>
+        {
+          options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        });
 
       services.AddScoped<ApplicationDbContext>();
       services.AddTransient<ITakRepository, TakRepository>();

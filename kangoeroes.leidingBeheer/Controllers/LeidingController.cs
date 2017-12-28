@@ -5,7 +5,7 @@ using kangoeroes.leidingBeheer.Filters;
 using kangoeroes.leidingBeheer.Models.Responses;
 using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
 using Microsoft.AspNetCore.Mvc;
-//TODO: Update, delete
+
 namespace kangoeroes.leidingBeheer.Controllers
 {
   [Route("/api/[controller]")]
@@ -49,7 +49,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       var tak = _takRepository.FindById(viewmodel.TakId);
       if (tak == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven tak met {viewmodel.TakId} werd niet gevonden"));
+        return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
       }
      Leiding leiding = new Leiding();
       leiding = MapToLeiding(leiding, tak, viewmodel);
@@ -58,7 +58,31 @@ namespace kangoeroes.leidingBeheer.Controllers
       return CreatedAtRoute(leiding.Id, new ApiOkResponse(leiding));
     }
 
-    private Leiding MapToLeiding(Leiding leiding,Tak tak, AddLeidingViewModel viewModel)
+    [HttpPut]
+    public IActionResult UpdateLeiding([FromBody] UpdateLeidingViewModel viewmodel)
+    {
+      var leiding = _leidingRepository.FindById(viewmodel.Id);
+
+      if (leiding == null)
+      {
+        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {viewmodel.Id} werd niet gevonden"));
+      }
+      var tak = _takRepository.FindById(viewmodel.TakId);
+
+      if (tak == null)
+      {
+        return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
+
+      }
+
+      leiding = MapToLeiding(leiding, tak, viewmodel);
+      _leidingRepository.Update(leiding);
+      _leidingRepository.SaveChanges();
+
+      return Ok(new ApiOkResponse(leiding));
+    }
+
+    private static Leiding MapToLeiding(Leiding leiding,Tak tak, AddLeidingViewModel viewModel)
     {
       leiding.Auth0Id = viewModel.Auth0Id;
       leiding.DatumGestopt = viewModel.DatumGestopt;
