@@ -15,6 +15,8 @@ namespace kangoeroes.core.Data.Repositories.Interfaces
 
         void Delete(Tak tak);
 
+        void Update(Tak tak);
+
         void SaveChanges();
     }
 }

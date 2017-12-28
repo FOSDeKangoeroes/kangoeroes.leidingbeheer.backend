@@ -49,6 +49,11 @@ namespace kangoeroes.core.Data.Repositories
             _takken.Remove(tak);
         }
 
+        public void Update(Tak tak)
+        {
+            _takken.Update(tak);
+        }
+
         public void SaveChanges()
         {
             _dbContext.SaveChanges();
