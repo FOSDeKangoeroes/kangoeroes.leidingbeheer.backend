@@ -1,12 +1,16 @@
 
+using System;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Filters;
 using kangoeroes.leidingBeheer.Models.Responses;
+using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
     [Route("/api/[controller]")]
+    [ApiValidationFilter]
     public class TakController: Controller
     {
       private readonly ITakRepository _takRepository;
@@ -20,7 +24,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       /// Geeft alle takken terug
       /// </summary>
       /// <returns>Lijst van alle takken</returns>
-      [Route("")]
+      //[Route("")]
       public IActionResult Index()
       {
         var takken = _takRepository.GetAll();
@@ -36,10 +40,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       [Route("{id}")]
       public IActionResult GetTakById([FromRoute] int id)
       {
-        if (!ModelState.IsValid)
-        {
-          return BadRequest(new ApiBadRequestResponse(ModelState));
-        }
+
         var tak = _takRepository.FindById(id);
         if (tak == null)
         {
@@ -47,6 +48,12 @@ namespace kangoeroes.leidingBeheer.Controllers
         }
 
         return Ok(new ApiOkResponse(tak));
+      }
+
+      [HttpPost]
+      public IActionResult AddTak(AddTakViewModel viewmodel)
+      {
+throw new NotImplementedException();
       }
     }
 }
