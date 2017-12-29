@@ -19,7 +19,6 @@ namespace kangoeroes.leidingBeheer
 {
   public class Startup
   {
-
     public IConfigurationRoot Configuration { get; }
 
     public Startup(IHostingEnvironment env)
@@ -31,44 +30,46 @@ namespace kangoeroes.leidingBeheer
 
       builder.AddEnvironmentVariables();
       Configuration = builder.Build();
-
     }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<ApplicationDbContext>(options =>
-      {
+      //Te gebruiken database configureren
+      services.AddDbContext<ApplicationDbContext>(options => {
+
         options.UseMySQL(Configuration.GetConnectionString("Default"));
       });
-      services.AddMvc().AddJsonOptions(options =>
-        {
-          options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-        });
 
+      //Mvc en bijhorende opties configureren
+      services.AddMvc().AddJsonOptions(options => {
+
+        //Loops in response worden genegeerd. Bijv: Leiding -> Tak -> Leiding -> Tak -> .. wordt Leiding -> Tak
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+      });
+
+      //Dependency Injection registreren
       services.AddScoped<ApplicationDbContext>();
       services.AddTransient<ITakRepository, TakRepository>();
       services.AddTransient<ILeidingRepository, LeidingRepository>();
-
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
-      if (env.IsDevelopment())
-      {
+      if (env.IsDevelopment()) {
         app.UseDeveloperExceptionPage();
       }
 
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
 
+      app.UseDefaultFiles();
+      app.UseStaticFiles();
 
-     app.UseDefaultFiles();
-     app.UseStaticFiles();
-      app.Use(async (context, next) =>
-      {
+      app.Use(async (context, next) => {
+
         await next();
         if (context.Response.StatusCode == 404 &&
             !Path.HasExtension(context.Request.Path.Value) &&
@@ -78,8 +79,6 @@ namespace kangoeroes.leidingBeheer
           await next();
         }
       });
-
-
 
       app.UseMvcWithDefaultRoute();
     }

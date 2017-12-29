@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace kangoeroes.leidingBeheer.Models.Responses
+namespace kangoeroes.core.Models.Responses
 {
   public class ApiResponse
   {

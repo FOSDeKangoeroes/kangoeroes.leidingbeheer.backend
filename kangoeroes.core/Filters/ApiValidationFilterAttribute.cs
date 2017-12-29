@@ -1,8 +1,8 @@
-﻿using kangoeroes.leidingBeheer.Models.Responses;
+﻿using kangoeroes.core.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace kangoeroes.leidingBeheer.Filters
+namespace kangoeroes.core.Filters
 {
   public class ApiValidationFilterAttribute: ActionFilterAttribute
   {
@@ -14,5 +14,7 @@ namespace kangoeroes.leidingBeheer.Filters
       }
       base.OnActionExecuting(context);
     }
+
+
   }
 }

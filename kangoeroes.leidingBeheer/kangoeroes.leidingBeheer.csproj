@@ -30,6 +30,12 @@
     <ProjectReference Include="..\kangoeroes.core\kangoeroes.core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model" />
+    <Compile Remove="Model\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Model\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Model\**" />
   </ItemGroup>
 </Project>

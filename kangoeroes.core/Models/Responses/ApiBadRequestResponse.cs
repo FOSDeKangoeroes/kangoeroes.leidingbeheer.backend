@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace kangoeroes.leidingBeheer.Models.Responses
+namespace kangoeroes.core.Models.Responses
 {
   public class ApiBadRequestResponse: ApiResponse
   {

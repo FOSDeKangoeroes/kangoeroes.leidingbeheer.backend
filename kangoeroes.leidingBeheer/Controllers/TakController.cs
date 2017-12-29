@@ -1,9 +1,8 @@
 
-using System;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.core.Filters;
 using kangoeroes.core.Models;
-using kangoeroes.leidingBeheer.Filters;
-using kangoeroes.leidingBeheer.Models.Responses;
+using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
 using Microsoft.AspNetCore.Mvc;
 
