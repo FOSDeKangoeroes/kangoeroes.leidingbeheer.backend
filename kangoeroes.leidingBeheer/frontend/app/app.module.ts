@@ -40,7 +40,7 @@ const APP_COMPONENTS = [
   AppSidebarHeaderComponent,
   AppSidebarMinimizerComponent,
   APP_SIDEBAR_NAV
-]
+];
 
 // Import directives
 import {
@@ -55,7 +55,7 @@ const APP_DIRECTIVES = [
   NAV_DROPDOWN_DIRECTIVES,
   ReplaceDirective,
   SIDEBAR_TOGGLE_DIRECTIVES
-]
+];
 
 // Import routing module
 import { AppRoutingModule } from './app.routing';
@@ -64,11 +64,14 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { TakModule } from './tak/tak.module';
+
 
 @NgModule({
   imports: [
     BrowserModule,
     AppRoutingModule,
+    TakModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule

@@ -8,6 +8,7 @@ import {
 } from './containers';
 
 export const routes: Routes = [
+  // Normale url (localhost:4200 bijv.) redirecten naar localhost:4200/#/dashboard
   {
     path: '',
     redirectTo: 'dashboard',
@@ -23,9 +24,14 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+      },
+      {
+        path: 'tak',
+        loadChildren: './tak/tak.module#TakModule'
       }
     ]
   }
+
 ];
 
 @NgModule({
