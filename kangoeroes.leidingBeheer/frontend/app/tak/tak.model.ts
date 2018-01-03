@@ -33,4 +33,8 @@ get naam() {
 get leiding() {
     return this._leiding;
 }
+
+get id() {
+    return this._id;
+}
 }

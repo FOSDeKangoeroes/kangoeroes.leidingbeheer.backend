@@ -18,6 +18,10 @@ export class DataService {
     return this.http.get(this._takUrl).map(response =>
       response.json().result.map(item => Tak.fromJSON(item))
     );
+  }
 
+  getTak(id): Observable<Tak> {
+    return this.http.get(`${this._takUrl}/${id}`)
+      .map(response => response.json().result).map(item => Tak.fromJSON(item));
   }
 }

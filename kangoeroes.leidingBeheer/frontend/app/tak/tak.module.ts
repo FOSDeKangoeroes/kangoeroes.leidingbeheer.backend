@@ -6,6 +6,8 @@ import { TakListComponent } from './tak-list/tak-list.component';
 import { DataService } from '../data.service';
 import { HttpModule } from '@angular/http';
 import { LeidingModule } from '../leiding/leiding.module';
+import { TakDetailComponent } from './tak-detail/tak-detail.component';
+import { TakResolverService } from './tak-resolver.service';
 
 const routes = [
   {
@@ -14,7 +16,16 @@ const routes = [
     pathMatch: 'full',
     data: {
       title: 'Takken'
-    } }
+    }
+   },
+    {
+      path: ':id',
+      component: TakDetailComponent,
+      resolve: {tak: TakResolverService},
+      data: {
+        title: 'Takdetail'
+      }
+    }
 ];
 
 @NgModule({
@@ -25,8 +36,9 @@ const routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
-    DataService
+    DataService,
+    TakResolverService
   ],
-  declarations: [TakComponent, TakListComponent]
+  declarations: [TakComponent, TakListComponent, TakDetailComponent]
 })
 export class TakModule { }
