@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Tak } from '../tak.model';
 
 @Component({
   selector: 'app-tak',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TakComponent implements OnInit {
 
+  @Input() public tak: Tak;
   constructor() { }
 
   ngOnInit() {

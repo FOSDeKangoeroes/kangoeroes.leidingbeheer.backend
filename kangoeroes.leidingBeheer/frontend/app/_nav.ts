@@ -8,6 +8,6 @@ export const navigation = [
   {
     name: 'Takken',
     url: '/tak',
-    icon: 'icon-speedometer'
+    icon: 'icon-people'
   }
 ];

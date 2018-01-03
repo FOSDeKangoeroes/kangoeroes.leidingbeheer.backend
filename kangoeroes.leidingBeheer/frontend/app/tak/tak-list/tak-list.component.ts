@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Tak } from '../tak.model';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-tak-list',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TakListComponent implements OnInit {
 
-  constructor() { }
+  private _takken: Tak[];
+  constructor(private _dataService: DataService) { }
 
   ngOnInit() {
+    this._dataService.takken.subscribe(items => this._takken = items);
+  }
+
+  get takken()  {
+    return this._takken;
   }
 
 }
