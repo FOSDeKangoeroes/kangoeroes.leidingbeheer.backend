@@ -9,6 +9,7 @@ import { LeidingModule } from '../leiding/leiding.module';
 import { TakDetailComponent } from './tak-detail/tak-detail.component';
 import { TakResolverService } from './tak-resolver.service';
 import {MatTableModule} from '@angular/material';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 const routes = [
   {
@@ -35,6 +36,7 @@ const routes = [
     CommonModule,
     LeidingModule,
     MatTableModule,
+    ModalModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   providers: [

@@ -37,4 +37,8 @@ get leiding() {
 get id() {
     return this._id;
 }
+
+ public hasLeiding(): boolean {
+    return this._leiding.length > 0;
+}
 }

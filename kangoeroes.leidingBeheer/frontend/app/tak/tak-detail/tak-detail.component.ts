@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Tak } from '../tak.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { Leiding } from '../../leiding/leiding.model';
 import { DataService } from '../../data.service';
+import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 
 @Component({
   selector: 'app-tak-detail',
@@ -12,12 +13,18 @@ import { DataService } from '../../data.service';
   styleUrls: ['./tak-detail.component.scss']
 })
 export class TakDetailComponent implements OnInit {
-private _tak: Tak;
+  public editModal;
+  public deleteModal;
+
+
+  private _tak: Tak;
+  public hasLeiding: boolean;
 
   private _dataSource: LeidingDataSource;
   displayedColumns = ['naam', 'email', 'leidingSinds', 'datumGestopt'];
 
-  constructor(private route: ActivatedRoute, private dataService: DataService) { }
+  constructor(private route: ActivatedRoute, private dataService: DataService) {
+  }
 
   get tak() {
     return this._tak;
@@ -30,6 +37,7 @@ private _tak: Tak;
   ngOnInit() {
     this.route.data.subscribe(item => this._tak = item['tak']);
     this._dataSource = new LeidingDataSource(this.dataService, this._tak.id);
+    this.hasLeiding = this._tak.leiding.length > 0;
   }
 
 }

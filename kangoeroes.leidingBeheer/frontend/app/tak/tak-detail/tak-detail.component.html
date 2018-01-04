@@ -1,19 +1,22 @@
 <div class="row">
 <div class="col-md-12">
   <h1 class="h1"> {{tak.naam}}</h1>
-
+<!--Actieknoppen-->
 <div class="card card-accent-primary">
   <div class="card-header">
    Acties
   </div>
   <div class="card-body">
-  <button type="button" class="btn btn-primary"><i class="fa fa-pencil"> Wijzigen</i></button> 
-  <button type="button" class="btn btn-danger"><i class="fa fa-remove"> Verwijderen</i></button>
+  <button type="button" class="btn btn-primary"  data-toggle="modal" (click)="editModal.show()"><i class="fa fa-pencil"> Wijzigen</i></button> 
+  <button type="button" class="btn btn-danger" [disabled]="hasLeiding" data-toggle="modal" (click)="deleteModal.show()"><i class="fa fa-remove"> Verwijderen</i></button>
   <button type="button" class="btn btn-success pull-right">
     <i class="fa fa-user"> Persoon toevoegen</i>
   </button>
   </div>
-</div>
+</div><!--Einde actieknoppen-->
+
+
+<!--Tabel met leiding voor gekozen tak-->
 <div class="card card-accent-primary">
   <div class="card-header">
     Personen in {{tak.naam}}
@@ -42,4 +45,47 @@
 </div>
 </div>
 </div>
+</div>
+
+
+<!--Modal voor het wijzigen van takgegevens -->
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Wijzig {{tak.naam}}</h4>
+        <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="editModal.hide()"><i class="fa fa-danger"></i> Annuleren</button>
+        <button type="button" class="btn btn-success">Verwijderen</button>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<!--Modal voor het verwijderen van een tak-->
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Wijzig {{tak.naam}}</h4>
+        <button type="button" class="close" (click)="deleteModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-danger" ><i class="fa fa-remove"> Verwijderen</i></button>
+      </div>
+    </div>
+  </div>
 </div>
