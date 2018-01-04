@@ -13,13 +13,15 @@ import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
   styleUrls: ['./tak-detail.component.scss']
 })
 export class TakDetailComponent implements OnInit {
+  // Modals
   public editModal;
   public deleteModal;
 
-
+  // Entity
   private _tak: Tak;
   public hasLeiding: boolean;
 
+  // Angular Material table
   private _dataSource: LeidingDataSource;
   displayedColumns = ['naam', 'email', 'leidingSinds', 'datumGestopt'];
 
@@ -42,6 +44,7 @@ export class TakDetailComponent implements OnInit {
 
 }
 
+// Datasource voor de tabel
 export class LeidingDataSource extends DataSource<any> {
   constructor(private dataService: DataService, private takId: number) {
     super();
