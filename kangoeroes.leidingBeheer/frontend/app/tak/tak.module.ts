@@ -10,6 +10,7 @@ import { TakDetailComponent } from './tak-detail/tak-detail.component';
 import { TakResolverService } from './tak-resolver.service';
 import {MatTableModule} from '@angular/material';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes = [
   {
@@ -36,6 +37,7 @@ const routes = [
     CommonModule,
     LeidingModule,
     MatTableModule,
+    ReactiveFormsModule,
     ModalModule.forRoot(),
     RouterModule.forChild(routes)
   ],

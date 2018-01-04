@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
 import { Tak } from '../tak.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
@@ -6,6 +6,12 @@ import { Observable } from 'rxjs/Observable';
 import { Leiding } from '../../leiding/leiding.model';
 import { DataService } from '../../data.service';
 import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router/src/router';
+import { ModalContainerComponent } from 'ngx-bootstrap/modal/modal-container.component';
+
+
+
 
 @Component({
   selector: 'app-tak-detail',
@@ -13,6 +19,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
   styleUrls: ['./tak-detail.component.scss']
 })
 export class TakDetailComponent implements OnInit {
+
   // Modals
   public editModal;
   public deleteModal;
@@ -21,11 +28,26 @@ export class TakDetailComponent implements OnInit {
   private _tak: Tak;
   public hasLeiding: boolean;
 
+  // Wijzigen
+  @Output() public updatedTak = new EventEmitter<Tak>();
+  public editDebtFormGroup: FormGroup;
+
   // Angular Material table
   private _dataSource: LeidingDataSource;
   displayedColumns = ['naam', 'email', 'leidingSinds', 'datumGestopt'];
 
-  constructor(private route: ActivatedRoute, private dataService: DataService) {
+  constructor(private route: ActivatedRoute, private dataService: DataService, private fb: FormBuilder) {
+  }
+  ngOnInit() {
+    this.route.data.subscribe(item => this._tak = item['tak']);
+    this._dataSource = new LeidingDataSource(this.dataService, this._tak.id);
+    this.hasLeiding = this._tak.leiding.length > 0;
+
+    this.editDebtFormGroup = this.fb.group({
+      naam: ['', [Validators.required, Validators.minLength(2)]],
+      volgorde: ['', [Validators.required]]
+
+    });
   }
 
   get tak() {
@@ -36,10 +58,16 @@ export class TakDetailComponent implements OnInit {
     return this._dataSource;
   }
 
-  ngOnInit() {
-    this.route.data.subscribe(item => this._tak = item['tak']);
-    this._dataSource = new LeidingDataSource(this.dataService, this._tak.id);
-    this.hasLeiding = this._tak.leiding.length > 0;
+  onSubmit() {
+
+  }
+
+  onDelete() {
+
+  }
+
+  onAdd() {
+
   }
 
 }
