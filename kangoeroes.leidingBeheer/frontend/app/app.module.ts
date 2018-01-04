@@ -57,6 +57,8 @@ const APP_DIRECTIVES = [
   SIDEBAR_TOGGLE_DIRECTIVES
 ];
 
+import 'hammerjs';
+
 // Import routing module
 import { AppRoutingModule } from './app.routing';
 

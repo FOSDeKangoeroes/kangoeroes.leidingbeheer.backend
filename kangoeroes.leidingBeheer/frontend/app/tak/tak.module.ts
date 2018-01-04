@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { LeidingModule } from '../leiding/leiding.module';
 import { TakDetailComponent } from './tak-detail/tak-detail.component';
 import { TakResolverService } from './tak-resolver.service';
+import {MatTableModule} from '@angular/material';
 
 const routes = [
   {
@@ -33,6 +34,7 @@ const routes = [
     HttpModule,
     CommonModule,
     LeidingModule,
+    MatTableModule,
     RouterModule.forChild(routes)
   ],
   providers: [

@@ -14,39 +14,28 @@
   <div class="card-header">
     Personen in {{tak.naam}}
   </div>
-  <div class="card-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Date registered</th>
-            <th>Role</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let localLeiding of tak.leiding">
-            <td>Naam</td>
-            <td>Email</td>
-            <td>Datum</td>
-            <td>
-              <span class="badge badge-success">Actief</span>
-            </td>
-         
-          </tr>
-          <tr *ngFor="let localLeiding of tak.leiding">
-            <td>Naam</td>
-            <td>Email</td>
-            <td>Datum</td>
-            <td>
-              <span class="badge badge-danger">Gestopt</span>
-            </td>
-          
-          </tr>
-       
-        </tbody>
-      </table>
-  </div>
+<div class="table table-striped">
+  <mat-table [dataSource]="dataSource" >
+<ng-container matColumnDef="naam">
+  <mat-header-cell *matHeaderCellDef>Naam</mat-header-cell>
+  <mat-cell *matCellDef="let leiding">{{leiding.voornaam}} {{leiding.naam}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="email">
+  <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+  <mat-cell *matCellDef="let leiding">{{leiding.email}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="leidingSinds">
+  <mat-header-cell *matHeaderCellDef>Leiding sinds</mat-header-cell>
+  <mat-cell *matCellDef="let leiding">{{leiding.leidingSinds}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="datumGestopt">
+  <mat-header-cell *matHeaderCellDef>Datum gestopt als leiding</mat-header-cell>
+  <mat-cell *matCellDef="let leiding">{{leiding.datumGestopt}}</mat-cell>
+</ng-container>
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
 </div>
 </div>
 </div>
