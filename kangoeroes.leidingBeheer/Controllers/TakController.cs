@@ -113,6 +113,20 @@ namespace kangoeroes.leidingBeheer.Controllers
         return Ok(tak);
       }
 
+
+      [HttpGet]
+      [Route("{id}/leiding")]
+      public IActionResult GetLeidingForTak([FromRoute] int id)
+      {
+        var tak = _takRepository.FindById(id);
+        if (tak == null)
+        {
+          return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
+        }
+
+        return Ok(new ApiOkResponse(tak.Leiding));
+      }
+
      /// <summary>
      /// Mappen van een tak viewmodel uit een request naar een tak entiteit
      /// </summary>
