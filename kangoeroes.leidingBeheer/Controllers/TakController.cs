@@ -57,7 +57,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     [HttpPost] //POST /api/tak
     public IActionResult AddTak([FromBody] AddTakViewModel viewmodel)
     {
-      Tak tak = new Tak();
+      var tak = new Tak();
       tak = MapToTak(tak, viewmodel);
       _takRepository.Add(tak);
       _takRepository.SaveChanges();
@@ -72,7 +72,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     [HttpPut] //PUT /api/tak
     public IActionResult UpdateTak([FromBody] UpdateTakViewModel viewmodel)
     {
-      Tak tak = _takRepository.FindById(viewmodel.Id);
+      var tak = _takRepository.FindById(viewmodel.Id);
 
       if (tak == null)
       {
