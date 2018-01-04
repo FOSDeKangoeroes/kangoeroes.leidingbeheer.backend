@@ -9,5 +9,10 @@ export const navigation = [
     name: 'Takken',
     url: '/tak',
     icon: 'icon-people'
+  },
+  {
+    name: 'Personen',
+    url: '/leiding',
+    icon: 'icon-user'
   }
 ];

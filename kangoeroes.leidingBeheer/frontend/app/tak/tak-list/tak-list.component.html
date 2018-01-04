@@ -1,4 +1,13 @@
 <div class="animated fadeIn row">
-  <app-tak *ngFor="let localTak of takken" [tak]="localTak"></app-tak>
+  <div class="col-md-12">
+  <div class="card card-accent-primary">
+    <div class="card-header">
+      Takken
+    </div>
+    <div class="card-body">
+    <app-tak *ngFor="let localTak of takken" [tak]="localTak"></app-tak>
+    </div>
+  </div>
+  </div>
 </div>
  

@@ -7,5 +7,8 @@ export class Leiding {
     private _leidingSinds: Date;
     private _datumGestops: Date;
 
+    get naam() {
+        return this._naam;
+    }
 
 }

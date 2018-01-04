@@ -1,3 +1,52 @@
-<p>
-{{tak?.naam}}
-</p>
+<div class="row">
+<div class="col-md-12">
+  <h1 class="h1"> {{tak.naam}}</h1>
+
+<div class="card card-accent-primary">
+  <div class="card-header">
+   Acties
+  </div>
+  <div class="card-body">
+  <button type="button" class="btn btn-primary"><i class="fa fa-pencil"> Wijzigen</i></button> <button type="button" class="btn btn-danger"><i class="fa fa-remove"> Verwijderen</i></button>
+  </div>
+</div>
+<div class="card card-accent-primary">
+  <div class="card-header">
+    Personen in {{tak.naam}}
+  </div>
+  <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Date registered</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let localLeiding of tak.leiding">
+            <td>Naam</td>
+            <td>Email</td>
+            <td>Datum</td>
+            <td>
+              <span class="badge badge-success">Actief</span>
+            </td>
+         
+          </tr>
+          <tr *ngFor="let localLeiding of tak.leiding">
+            <td>Naam</td>
+            <td>Email</td>
+            <td>Datum</td>
+            <td>
+              <span class="badge badge-danger">Gestopt</span>
+            </td>
+          
+          </tr>
+       
+        </tbody>
+      </table>
+  </div>
+</div>
+</div>
+</div>
