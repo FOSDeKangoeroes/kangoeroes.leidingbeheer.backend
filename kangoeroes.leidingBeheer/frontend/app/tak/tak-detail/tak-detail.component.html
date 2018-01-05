@@ -1,6 +1,7 @@
 <div class="row">
 <div class="col-md-12">
   <h1 class="h1"> {{tak.naam}}</h1>
+  <p>Volgorde: {{tak.volgorde}}</p>
 <!--Actieknoppen-->
 <div class="card card-accent-primary">
   <div class="card-header">
@@ -9,7 +10,7 @@
   <div class="card-body">
   <button type="button" class="btn btn-primary"  data-toggle="modal" (click)="openEditModal()"><i class="icon-pencil"> Wijzigen</i></button> 
   <button type="button" class="btn btn-danger" [disabled]="hasLeiding" data-toggle="modal" (click)="openDeleteModal()"><i class="icon-trash" popover="Een tak kan enkel verwijderd worden wanneer deze geen leiding meer bevat."> Verwijderen</i></button>
-  <button type="button" class="btn btn-success pull-right"  data-toggle="modal" (click)="addModal.show()">
+  <button type="button" class="btn btn-success pull-right"  data-toggle="modal" (click)="openAddModal()">
     <i class="icon-user-follow"> Persoon toevoegen</i>
   </button>
   </div>
@@ -54,21 +55,7 @@
 <div bsModal #addModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Persoon toevoegen aan "{{tak.naam}}"</h4>
-        <button type="button" class="close" (click)="addModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-danger">
-          <i class="fa fa-plus"> Toevoegen</i>
-        </button>
-      </div>
+  
     </div>
   </div>
 </div>

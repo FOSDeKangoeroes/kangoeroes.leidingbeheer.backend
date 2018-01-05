@@ -10,8 +10,9 @@ import { Router } from '@angular/router/src/router';
 import { ModalContainerComponent } from 'ngx-bootstrap/modal/modal-container.component';
 import { BsModalService } from 'ngx-bootstrap/modal/bs-modal.service';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import { EditTakComponent } from '../edit-tak/edit-tak.component';
+import { TakEditComponent } from '../tak-edit/tak-edit.component';
 import { TakDeleteComponent } from '../tak-delete/tak-delete.component';
+import { TakLeidingAddComponent } from '../tak-leiding-add/tak-leiding-add.component';
 
 
 
@@ -26,6 +27,7 @@ export class TakDetailComponent implements OnInit {
   // Modals
   public editModal: BsModalRef;
   public deleteModal: BsModalRef;
+  public addLeidingModal: BsModalRef;
 
   // Entity
   private _tak: Tak;
@@ -55,7 +57,7 @@ export class TakDetailComponent implements OnInit {
   }
 
   openEditModal() {
-    this.editModal = this.modalService.show(EditTakComponent);
+    this.editModal = this.modalService.show(TakEditComponent);
     this.editModal.content.takId = this._tak.id;
     this.editModal.content.naam = this._tak.naam;
     this.editModal.content.volgorde = this._tak.volgorde;
@@ -66,6 +68,12 @@ export class TakDetailComponent implements OnInit {
     this.deleteModal.content.takId = this._tak.id;
     this.deleteModal.content.title = this._tak.naam;
 
+  }
+
+  openAddModal() {
+    this.addLeidingModal = this.modalService.show(TakLeidingAddComponent);
+    this.addLeidingModal.content.naam = this._tak.naam;
+    this.addLeidingModal.content.takId = this._tak.id;
   }
 
 }

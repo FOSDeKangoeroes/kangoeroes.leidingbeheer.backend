@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 export class TakEditComponent implements OnInit {
 
   // Wijzigen
-  @Output() public updatedTak = new EventEmitter<Tak>();
   public editTakFormGroup: FormGroup;
 
  // tak: Tak;
