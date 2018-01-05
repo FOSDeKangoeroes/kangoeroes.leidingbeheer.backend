@@ -1,7 +1,7 @@
 <form [formGroup]='addLeidingFormGroup' (ngSubmit)='onSubmit()' class="form-horizontal">
   <div class="modal-header">
     <h4 class="modal-title">Persoon toevoegen aan "{{naam}}"</h4>
-    <button type="button" class="close" (click)="editModalRef.hide()" aria-label="Close">
+    <button type="button" class="close" (click)="addLeidingModalRef.hide()" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -9,7 +9,7 @@
 
     <fieldset>
       <div class="form-group">
-        <label class="col-12 control-label" for="naam_id">Naam</label>
+        <label class="col-12 control-label" for="naam_id">Naam<i class="text-danger">*</i></label> 
         <div class="col-12">
           <input id="naam_id" formControlName='naam' class="form-control">
         </div>
@@ -17,7 +17,7 @@
       </div>
 
         <div class="form-group">
-          <label class="col-12 control-label" for="voornaam_id">Voornaam</label>
+          <label class="col-12 control-label" for="voornaam_id">Voornaam<i class="text-danger">*</i></label>
           <div class="col-12">
             <input id="voornaam_id" formControlName='voornaam' class="form-control">
           </div>
