@@ -12,19 +12,20 @@
 
           <fieldset>
             <div class="form-group">
-              <label class="col-12 control-label no-padding" for="naam_id">Naam</label>
-              <div class="col-12 no-padding">
+              <label class="col-12 control-label" for="naam_id">Naam</label>
+              <div class="col-12">
                 <input id="naam_id" formControlName='naam' class="form-control">
               </div>
               <div class="text-danger" *ngIf='editDebtFormGroup.get("naam").errors?.required && editDebtFormGroup.get("naam").touched'>Dit veld is verplicht.</div>
             </div>
 
             <div class="form-group">
-              <label class="col-12 control-label no-padding" for="volgorde_id">Volgorde</label>
-              <div class="col-12 no-padding">
+              <label class="col-12 control-label" for="volgorde_id">Volgorde</label>
+              <div class="col-12">
                 <input type="number" id="volgorde_id" formControlName='volgorde' class="form-control">
               </div>
               <div class="text-danger" *ngIf='editDebtFormGroup.get("volgorde").errors?.required && editDebtFormGroup.get("volgorde").touched'>Dit veld is verplicht.</div>
+              <div class="text-danger" *ngIf='editDebtFormGroup.get("volgorde").errors?.min && editDebtFormGroup.get("volgorde").touched'>De waarde moet minstens 1 zijn.</div>
 
             </div>
 

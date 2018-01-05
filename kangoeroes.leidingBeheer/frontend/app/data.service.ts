@@ -32,4 +32,15 @@ export class DataService {
       .map(response =>
         response.json().result.map(item => Leiding.fromJSON(item)));
   }
+
+  updateTak(tak: Tak): Observable<boolean> {
+   return this.http.put(this._takUrl, tak.toJSON()).map(response => response.json()).map(item => {
+      const updatedTak = Tak.fromJSON(item);
+      if (updatedTak) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 }

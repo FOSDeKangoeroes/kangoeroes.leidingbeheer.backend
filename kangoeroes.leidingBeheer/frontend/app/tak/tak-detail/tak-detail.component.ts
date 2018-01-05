@@ -56,6 +56,7 @@ export class TakDetailComponent implements OnInit {
   openEditModal() {
     this.editModal = this.modalService.show(EditTakComponent);
     this.editModal.content.title = `Wijzig \"${this._tak.naam}\"`;
+    this.editModal.content.takId = this._tak.id;
   }
 
 
