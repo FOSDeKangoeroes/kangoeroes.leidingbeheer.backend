@@ -5,18 +5,6 @@ import { DataService } from '../../data.service';
 import { Router } from '@angular/router';
 import { Tak } from '../tak.model';
 
-function takNaamValidator(takNaam: string): ValidatorFn {
-  console.log(takNaam);
-  return (control: AbstractControl): { [key: string]: any } => {
-    if (control.value === takNaam) {
-      return null;
-    } else {
-      return { 'nameIsWrong': false };
-    }
-  };
-}
-
-
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'modal-content',
@@ -30,14 +18,9 @@ export class TakDeleteComponent implements OnInit {
   constructor(public deleteModalRef: BsModalRef,
     private dataService: DataService,
     private _router: Router
-  ) {
-   }
+  ) {}
 
-
-  ngOnInit() {
-    console.log(this.deleteModalRef.content);
-
-  }
+  ngOnInit() {  }
 
   onDelete() {
     this.dataService.deleteTak(this.takId).subscribe(res => {
@@ -46,8 +29,6 @@ export class TakDeleteComponent implements OnInit {
         this._router.navigate(['tak']);
       }
     });
-
   }
-
 
 }
