@@ -1,7 +1,7 @@
 <!--Modal voor het wijzigen van takgegevens -->
 
 
-    <form [formGroup]='editDebtFormGroup' (ngSubmit)='onSubmit()' class="form-horizontal">
+    <form [formGroup]='editTakFormGroup' (ngSubmit)='onSubmit()' class="form-horizontal">
         <div class="modal-header">
           <h4 class="modal-title">{{title}}</h4>
           <button type="button" class="close" (click)="editModalRef.hide()" aria-label="Close">
@@ -16,7 +16,7 @@
               <div class="col-12">
                 <input id="naam_id" formControlName='naam' class="form-control">
               </div>
-              <div class="text-danger" *ngIf='editDebtFormGroup.get("naam").errors?.required && editDebtFormGroup.get("naam").touched'>Dit veld is verplicht.</div>
+              <div class="text-danger" *ngIf='editTakFormGroup.get("naam").errors?.required && editTakFormGroup.get("naam").touched'>Dit veld is verplicht.</div>
             </div>
 
             <div class="form-group">
@@ -24,8 +24,8 @@
               <div class="col-12">
                 <input type="number" id="volgorde_id" formControlName='volgorde' class="form-control">
               </div>
-              <div class="text-danger" *ngIf='editDebtFormGroup.get("volgorde").errors?.required && editDebtFormGroup.get("volgorde").touched'>Dit veld is verplicht.</div>
-              <div class="text-danger" *ngIf='editDebtFormGroup.get("volgorde").errors?.min && editDebtFormGroup.get("volgorde").touched'>De waarde moet minstens 1 zijn.</div>
+              <div class="text-danger" *ngIf='editTakFormGroup.get("volgorde").errors?.required && editTakFormGroup.get("volgorde").touched'>Dit veld is verplicht.</div>
+              <div class="text-danger" *ngIf='editTakFormGroup.get("volgorde").errors?.min && editTakFormGroup.get("volgorde").touched'>De waarde moet minstens 1 zijn.</div>
 
             </div>
 
@@ -34,7 +34,7 @@
         </div>
         <div class="modal-footer">
 
-          <button type="submit" [disabled]="!editDebtFormGroup.valid" class="btn btn-success">Wijzigen</button>
+          <button type="submit" [disabled]="!editTakFormGroup.valid" class="btn btn-success">Wijzigen</button>
         </div>   
     </form>
   

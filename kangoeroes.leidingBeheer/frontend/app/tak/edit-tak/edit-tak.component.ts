@@ -16,14 +16,14 @@ export class EditTakComponent implements OnInit {
 
   // Wijzigen
   @Output() public updatedTak = new EventEmitter<Tak>();
-  public editDebtFormGroup: FormGroup;
+  public editTakFormGroup: FormGroup;
   title: string;
   takId: number;
 
   constructor(public editModalRef: BsModalRef, private fb: FormBuilder, private dataService: DataService, private _router: Router) { }
 
   ngOnInit() {
-    this.editDebtFormGroup = this.fb.group({
+    this.editTakFormGroup = this.fb.group({
       naam: ['', [Validators.required, Validators.minLength(2)]],
       volgorde: ['', [Validators.required, , Validators.min(1)]]
 
@@ -31,7 +31,7 @@ export class EditTakComponent implements OnInit {
   }
 
   onSubmit() {
-   const tak = new Tak(this.editDebtFormGroup.value.naam, this.editDebtFormGroup.value.volgorde);
+   const tak = new Tak(this.editTakFormGroup.value.naam, this.editTakFormGroup.value.volgorde);
     tak.id = this.takId;
     this.dataService.updateTak(tak).subscribe(res => {
       if (res) {
