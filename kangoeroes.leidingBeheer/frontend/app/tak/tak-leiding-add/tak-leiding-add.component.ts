@@ -30,9 +30,7 @@ export class TakLeidingAddComponent implements OnInit {
     this.addLeidingFormGroup = this.fb.group({
       naam: ['', [Validators.required, Validators.minLength(2)]],
       voornaam: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [emailOrEmpty([Validators.email])]],
-      datumGestopt: [''],
-      leidingSinds: ['']
+      email: ['', [emailOrEmpty([Validators.email])]]
     });
   }
 
@@ -40,10 +38,7 @@ export class TakLeidingAddComponent implements OnInit {
     const leiding = new Leiding(
       this.addLeidingFormGroup.value.naam,
       this.addLeidingFormGroup.value.voornaam);
-
-    leiding.leidingSinds = this.addLeidingFormGroup.value.leidingSinds;
-    leiding.datumGestopt = this.addLeidingFormGroup.value.datumGestopt;
-    leiding.takId = this.takId;
+      leiding.takId = this.takId;
 
     this.dataService.addLeiding(leiding).subscribe(item => {
       this.addLeidingModalRef.hide();
