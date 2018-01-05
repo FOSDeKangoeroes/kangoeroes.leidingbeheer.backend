@@ -8,7 +8,7 @@
   </div>
   <div class="card-body">
   <button type="button" class="btn btn-primary"  data-toggle="modal" (click)="openEditModal()"><i class="icon-pencil"> Wijzigen</i></button> 
-  <button type="button" class="btn btn-danger" [disabled]="hasLeiding" data-toggle="modal" (click)="deleteModal.show()"><i class="icon-trash"> Verwijderen</i></button>
+  <button type="button" class="btn btn-danger" [disabled]="hasLeiding" data-toggle="modal" (click)="openDeleteModal()"><i class="icon-trash"> Verwijderen</i></button>
   <button type="button" class="btn btn-success pull-right"  data-toggle="modal" (click)="addModal.show()">
     <i class="icon-user-follow"> Persoon toevoegen</i>
   </button>
@@ -47,26 +47,7 @@
 </div>
 </div>
 
-<!--Modal voor het verwijderen van een tak-->
-<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-danger" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Verwijder "{{tak.naam}}"</h4>
-        <button type="button" class="close" (click)="deleteModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        
-        <button type="button" class="btn btn-danger" ><i class="fa fa-remove"> Verwijderen</i></button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 <!--Modal voor het toevoegen van een persoon in een tak-->

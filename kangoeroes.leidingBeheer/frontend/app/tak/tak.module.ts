@@ -12,6 +12,7 @@ import {MatTableModule} from '@angular/material';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditTakComponent } from './edit-tak/edit-tak.component';
+import { TakDeleteComponent } from './tak-delete/tak-delete.component';
 
 const routes = [
   {
@@ -46,7 +47,7 @@ const routes = [
     DataService,
     TakResolverService
   ],
-  declarations: [TakComponent, TakListComponent, TakDetailComponent, EditTakComponent],
-  entryComponents: [EditTakComponent]
+  declarations: [TakComponent, TakListComponent, TakDetailComponent, EditTakComponent, TakDeleteComponent],
+  entryComponents: [EditTakComponent, TakDeleteComponent]
 })
 export class TakModule { }

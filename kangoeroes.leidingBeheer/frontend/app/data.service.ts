@@ -43,4 +43,15 @@ export class DataService {
       }
     });
   }
+
+  deleteTak(id: number): Observable<boolean> {
+    return this.http.delete(`${this._takUrl}/${id}`).map(response => response.json()).map(item => {
+      const deletedTak = Tak.fromJSON(item);
+      if ( deletedTak) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 }

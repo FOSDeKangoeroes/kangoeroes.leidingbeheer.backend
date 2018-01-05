@@ -17,7 +17,10 @@ export class EditTakComponent implements OnInit {
   // Wijzigen
   @Output() public updatedTak = new EventEmitter<Tak>();
   public editTakFormGroup: FormGroup;
-  title: string;
+ 
+ // tak: Tak;
+  naam: string;
+  volgorde: number;
   takId: number;
 
   constructor(public editModalRef: BsModalRef, private fb: FormBuilder, private dataService: DataService, private _router: Router) { }

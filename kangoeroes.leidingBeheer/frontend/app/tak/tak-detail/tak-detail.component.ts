@@ -11,6 +11,7 @@ import { ModalContainerComponent } from 'ngx-bootstrap/modal/modal-container.com
 import { BsModalService } from 'ngx-bootstrap/modal/bs-modal.service';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import { EditTakComponent } from '../edit-tak/edit-tak.component';
+import { TakDeleteComponent } from '../tak-delete/tak-delete.component';
 
 
 
@@ -24,7 +25,7 @@ export class TakDetailComponent implements OnInit {
 
   // Modals
   public editModal: BsModalRef;
-  public deleteModal;
+  public deleteModal: BsModalRef;
 
   // Entity
   private _tak: Tak;
@@ -55,10 +56,17 @@ export class TakDetailComponent implements OnInit {
 
   openEditModal() {
     this.editModal = this.modalService.show(EditTakComponent);
-    this.editModal.content.title = `Wijzig \"${this._tak.naam}\"`;
     this.editModal.content.takId = this._tak.id;
+    this.editModal.content.naam = this._tak.naam;
+    this.editModal.content.volgorde = this._tak.volgorde;
   }
 
+  openDeleteModal() {
+    this.deleteModal = this.modalService.show(TakDeleteComponent);
+    this.deleteModal.content.takId = this._tak.id;
+    this.deleteModal.content.title = this._tak.naam;
+
+  }
 
 }
 

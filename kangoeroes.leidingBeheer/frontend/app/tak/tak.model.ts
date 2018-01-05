@@ -42,6 +42,10 @@ set id(id: number) {
     this._id = id;
 }
 
+get volgorde() {
+    return this._volgorde;
+}
+
  public hasLeiding(): boolean {
     return this._leiding.length > 0;
 }
