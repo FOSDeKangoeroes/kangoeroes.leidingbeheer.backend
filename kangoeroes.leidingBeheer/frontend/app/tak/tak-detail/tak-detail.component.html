@@ -7,7 +7,7 @@
    Acties
   </div>
   <div class="card-body">
-  <button type="button" class="btn btn-primary"  data-toggle="modal" (click)="editModal.show()"><i class="icon-pencil"> Wijzigen</i></button> 
+  <button type="button" class="btn btn-primary"  data-toggle="modal" (click)="openEditModal()"><i class="icon-pencil"> Wijzigen</i></button> 
   <button type="button" class="btn btn-danger" [disabled]="hasLeiding" data-toggle="modal" (click)="deleteModal.show()"><i class="icon-trash"> Verwijderen</i></button>
   <button type="button" class="btn btn-success pull-right"  data-toggle="modal" (click)="addModal.show()">
     <i class="icon-user-follow"> Persoon toevoegen</i>
@@ -45,50 +45,6 @@
 </div>
 </div>
 </div>
-</div>
-
-
-<!--Modal voor het wijzigen van takgegevens -->
-<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document"> 
-    <form [formGroup]='editDebtFormGroup' (ngSubmit)='onSubmit()' class="form-horizontal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Wijzig "{{tak.naam}}"</h4>
-        <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         
-            <fieldset>
-              <div class="form-group">
-                <label class="col-12 control-label no-padding" for="naam_id">Naam</label>
-                <div class="col-12 no-padding">
-                  <input id="naam_id" formControlName='naam' class="form-control">
-                </div>
-                <div class="text-danger" *ngIf='editDebtFormGroup.get("naam").errors?.required && editDebtFormGroup.get("naam").touched'>Dit veld is verplicht.</div>
-              </div>
-          
-              <div class="form-group">
-                <label class="col-12 control-label no-padding" for="volgorde_id">Volgorde</label>
-                <div class="col-12 no-padding">
-                  <input type="number" id="volgorde_id" formControlName='volgorde' class="form-control">
-                </div>
-                <div class="text-danger" *ngIf='editDebtFormGroup.get("volgorde").errors?.required && editDebtFormGroup.get("volgorde").touched'>Dit veld is verplicht.</div>
-          
-              </div>
-          
-            </fieldset>
-         
-      </div>
-      <div class="modal-footer">
-       
-        <button type="submit" [disabled]="!editDebtFormGroup.valid" class="btn btn-success">Wijzigen</button>
-      </div>
-    </div> 
-  </form>
-  </div>  
 </div>
 
 <!--Modal voor het verwijderen van een tak-->
