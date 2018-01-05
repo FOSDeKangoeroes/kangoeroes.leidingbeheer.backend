@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { DataService } from '../../data.service';
+import { Leiding } from '../../leiding/leiding.model';
 
 // Custom validator om optionele velden te valideren
 function emailOrEmpty(validators?: (ValidatorFn | null | undefined)[] ): ValidatorFn {
@@ -36,7 +37,17 @@ export class TakLeidingAddComponent implements OnInit {
   }
 
   onSubmit() {
+    const leiding = new Leiding(
+      this.addLeidingFormGroup.value.naam,
+      this.addLeidingFormGroup.value.voornaam);
 
+    leiding.leidingSinds = this.addLeidingFormGroup.value.leidingSinds;
+    leiding.datumGestopt = this.addLeidingFormGroup.value.datumGestopt;
+    leiding.takId = this.takId;
+
+    this.dataService.addLeiding(leiding).subscribe(item => {
+      this.addLeidingModalRef.hide();
+    });
   }
 
 }

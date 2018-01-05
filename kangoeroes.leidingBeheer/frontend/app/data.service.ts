@@ -12,6 +12,7 @@ import { Leiding } from './leiding/leiding.model';
 export class DataService {
 
   private _takUrl = '/api/tak';
+  private _leidingUrl = '/api/leiding';
 
   constructor(private http: Http) { }
 
@@ -53,5 +54,9 @@ export class DataService {
         return false;
       }
     });
+  }
+
+  addLeiding(leiding: Leiding): Observable<Leiding> {
+    return this.http.post(this._leidingUrl, leiding.toJSON()).map(response => response.json()).map(item => Leiding.fromJSON(item));
   }
 }
