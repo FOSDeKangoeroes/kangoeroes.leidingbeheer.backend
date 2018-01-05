@@ -8,7 +8,7 @@
   </div>
   <div class="card-body">
   <button type="button" class="btn btn-primary"  data-toggle="modal" (click)="openEditModal()"><i class="icon-pencil"> Wijzigen</i></button> 
-  <button type="button" class="btn btn-danger" [disabled]="hasLeiding" data-toggle="modal" (click)="openDeleteModal()"><i class="icon-trash"> Verwijderen</i></button>
+  <button type="button" class="btn btn-danger" [disabled]="hasLeiding" data-toggle="modal" (click)="openDeleteModal()"><i class="icon-trash" popover="Een tak kan enkel verwijderd worden wanneer deze geen leiding meer bevat."> Verwijderen</i></button>
   <button type="button" class="btn btn-success pull-right"  data-toggle="modal" (click)="addModal.show()">
     <i class="icon-user-follow"> Persoon toevoegen</i>
   </button>

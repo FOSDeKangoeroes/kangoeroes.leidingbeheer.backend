@@ -10,6 +10,7 @@ import { TakDetailComponent } from './tak-detail/tak-detail.component';
 import { TakResolverService } from './tak-resolver.service';
 import {MatTableModule} from '@angular/material';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import {PopoverModule} from 'ngx-bootstrap/popover';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditTakComponent } from './edit-tak/edit-tak.component';
 import { TakDeleteComponent } from './tak-delete/tak-delete.component';
@@ -41,6 +42,7 @@ const routes = [
     MatTableModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    PopoverModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   providers: [
