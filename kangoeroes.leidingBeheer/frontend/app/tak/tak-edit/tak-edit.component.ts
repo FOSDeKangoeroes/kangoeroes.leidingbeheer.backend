@@ -9,15 +9,15 @@ import { Router } from '@angular/router';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'modal-content',
-  templateUrl: './edit-tak.component.html',
-  styleUrls: ['./edit-tak.component.scss']
+  templateUrl: './tak-edit.component.html',
+  styleUrls: ['./tak-edit.component.scss']
 })
-export class EditTakComponent implements OnInit {
+export class TakEditComponent implements OnInit {
 
   // Wijzigen
   @Output() public updatedTak = new EventEmitter<Tak>();
   public editTakFormGroup: FormGroup;
- 
+
  // tak: Tak;
   naam: string;
   volgorde: number;
