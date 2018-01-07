@@ -90,7 +90,10 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       leiding.Auth0Id = viewModel.Auth0Id;
       leiding.DatumGestopt = viewModel.DatumGestopt;
-      leiding.Email = viewModel.Email;
+      if (viewModel.Email.Trim() != "")
+      {
+        leiding.Email = viewModel.Email;
+      }
       leiding.LeidingSinds = viewModel.LeidingSinds;
       leiding.Naam = viewModel.Naam;
       leiding.Voornaam = viewModel.Voornaam;
