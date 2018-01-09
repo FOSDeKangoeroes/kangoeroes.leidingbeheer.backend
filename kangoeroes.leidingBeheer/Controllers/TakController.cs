@@ -1,3 +1,4 @@
+using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
 using kangoeroes.core.Models;
@@ -13,10 +14,12 @@ namespace kangoeroes.leidingBeheer.Controllers
   public class TakController : Controller
   {
     private readonly ITakRepository _takRepository;
+    private readonly IMapper _mapper;
 
-    public TakController(ITakRepository takRepository)
+    public TakController(ITakRepository takRepository, IMapper mapper)
     {
       _takRepository = takRepository;
+      _mapper = mapper;
     }
 
     /// <summary>
@@ -58,7 +61,8 @@ namespace kangoeroes.leidingBeheer.Controllers
     public IActionResult AddTak([FromBody] AddTakViewModel viewmodel)
     {
       var tak = new Tak();
-      tak = MapToTak(tak, viewmodel);
+     // tak = MapToTak(tak, viewmodel);
+      tak = _mapper.Map<Tak>(viewmodel);
       _takRepository.Add(tak);
       _takRepository.SaveChanges();
       return CreatedAtRoute(tak.Id, new ApiOkResponse(tak));
@@ -68,18 +72,22 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// Updaten van de naam en/of volgorde van een tak. De meegegeven id bepaalt de te updaten tak. Leiding speelt geen rol.
     /// </summary>
     /// <param name="viewmodel"></param>
+    /// <param name="id"></param>
     /// <returns></returns>
     [HttpPut] //PUT /api/tak
-    public IActionResult UpdateTak([FromBody] UpdateTakViewModel viewmodel)
+    [Route("{id}")]
+    public IActionResult UpdateTak( [FromRoute] int id,[FromBody] AddTakViewModel viewmodel)
     {
-      var tak = _takRepository.FindById(viewmodel.Id);
+      var tak = _takRepository.FindById(id);
 
       if (tak == null)
       {
-        return NotFound(new ApiResponse(404, $"Tak met id {viewmodel.Id} werd niet gevonden"));
+        return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
       }
 
-      tak = MapToTak(tak, viewmodel);
+
+      tak = _mapper.Map(viewmodel, tak);
+
       _takRepository.Update(tak);
       _takRepository.SaveChanges();
       return Ok(new ApiOkResponse(tak));

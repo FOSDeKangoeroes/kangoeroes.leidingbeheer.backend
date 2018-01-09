@@ -19,7 +19,7 @@ namespace kangoeroes.core.Data.Repositories
         }
         public IEnumerable<Leiding> GetAll()
         {
-            return _leiding.ToList();
+            return _leiding.Include(x => x.Tak).ToList();
         }
 
         public Leiding FindById(int id)

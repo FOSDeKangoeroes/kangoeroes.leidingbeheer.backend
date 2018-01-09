@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories;
 using kangoeroes.core.Data.Repositories.Interfaces;
@@ -25,8 +26,8 @@ namespace kangoeroes.leidingBeheer
     {
       var builder = new ConfigurationBuilder()
         .SetBasePath(env.ContentRootPath)
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+        .AddJsonFile("appsettings.json", true, true)
+        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
       builder.AddEnvironmentVariables();
       Configuration = builder.Build();
@@ -41,12 +42,14 @@ namespace kangoeroes.leidingBeheer
 
         options.UseMySQL(Configuration.GetConnectionString("Default"));
       });
+      services.AddAutoMapper();
 
       //Mvc en bijhorende opties configureren
       services.AddMvc().AddJsonOptions(options => {
 
         //Loops in response worden genegeerd. Bijv: Leiding -> Tak -> Leiding -> Tak -> .. wordt Leiding -> Tak
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
       });
 
       //Dependency Injection registreren
