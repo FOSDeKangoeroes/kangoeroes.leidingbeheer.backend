@@ -24,7 +24,7 @@ namespace kangoeroes.core.Data.Repositories
 
         public Leiding FindById(int id)
         {
-            return _leiding.FirstOrDefault(x => x.Id == id);
+            return _leiding.Include(x => x.Tak).FirstOrDefault(x => x.Id == id);
         }
 
         public void Add(Leiding leiding)

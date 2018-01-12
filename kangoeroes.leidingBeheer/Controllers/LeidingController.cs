@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
 using kangoeroes.core.Models;
@@ -14,11 +16,13 @@ namespace kangoeroes.leidingBeheer.Controllers
   {
     private readonly ILeidingRepository _leidingRepository;
     private readonly ITakRepository _takRepository;
+    private readonly IMapper _mapper;
 
-    public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository)
+    public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper)
     {
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
+      _mapper = mapper;
     }
     /// <summary>
     /// Geeft alle leiding terug
@@ -28,7 +32,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     public IActionResult Index()
     {
       var leiding = _leidingRepository.GetAll();
-      return Ok(new ApiOkResponse(leiding));
+
+      var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
+      return Ok(new ApiOkResponse(viewModels));
 
     }
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
 
-namespace kangoeroes.leidingBeheer.Models.Profiles.Tak
+namespace kangoeroes.leidingBeheer.Models.Profiles
 {
   public class TakProfile: Profile
   {

@@ -60,9 +60,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     [HttpPost] //POST /api/tak
     public IActionResult AddTak([FromBody] AddTakViewModel viewmodel)
     {
-      var tak = new Tak();
-     // tak = MapToTak(tak, viewmodel);
-      tak = _mapper.Map<Tak>(viewmodel);
+      var tak = _mapper.Map<Tak>(viewmodel);
       _takRepository.Add(tak);
       _takRepository.SaveChanges();
       return CreatedAtRoute(tak.Id, new ApiOkResponse(tak));
@@ -137,17 +135,5 @@ namespace kangoeroes.leidingBeheer.Controllers
       return Ok(new ApiOkResponse(tak.Leiding));
     }
 
-    /// <summary>
-    /// Mappen van een tak viewmodel uit een request naar een tak entiteit
-    /// </summary>
-    /// <param name="tak">Entiteit</param>
-    /// <param name="viewModel">Viewmodel</param>
-    /// <returns></returns>
-    private Tak MapToTak(Tak tak, AddTakViewModel viewModel)
-    {
-      tak.Naam = viewModel.Naam;
-      tak.Volgorde = viewModel.Volgorde;
-      return tak;
-    }
   }
 }
