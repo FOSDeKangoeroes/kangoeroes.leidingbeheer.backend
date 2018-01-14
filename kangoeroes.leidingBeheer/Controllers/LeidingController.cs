@@ -61,11 +61,12 @@ namespace kangoeroes.leidingBeheer.Controllers
       {
         return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
       }
-     Leiding leiding = new Leiding();
+      Leiding leiding = new Leiding();
       leiding = MapToLeiding(leiding, tak, viewmodel);
       _leidingRepository.Add(leiding);
       _leidingRepository.SaveChanges();
-      return CreatedAtRoute(leiding.Id, new ApiOkResponse(leiding));
+      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+      return CreatedAtRoute(leiding.Id, new ApiOkResponse(model));
     }
 
     [HttpPut] //PUT api/leiding
@@ -96,7 +97,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       leiding.Auth0Id = viewModel.Auth0Id;
       leiding.DatumGestopt = viewModel.DatumGestopt;
-      if (viewModel.Email.Trim() != "")
+      if (viewModel.Email != null && viewModel.Email.Trim() != "")
       {
         leiding.Email = viewModel.Email;
       }
