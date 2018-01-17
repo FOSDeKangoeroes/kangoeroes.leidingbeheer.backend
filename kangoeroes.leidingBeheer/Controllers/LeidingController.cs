@@ -44,13 +44,14 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       var leiding = _leidingRepository.FindById(id);
 
+      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
 
       if (leiding == null)
       {
         return NotFound(new ApiResponse(404, $"Leiding met id {id} werd niet gevonden"));
       }
 
-      return Ok(new ApiOkResponse(leiding));
+      return Ok(new ApiOkResponse(model));
     }
 
     [HttpPost] //POST api/leiding
@@ -91,6 +92,32 @@ namespace kangoeroes.leidingBeheer.Controllers
       _leidingRepository.SaveChanges();
 
       return Ok(new ApiOkResponse(leiding));
+    }
+
+    [Route("{leidingId}/changeTak")]
+    [HttpPut]
+    public IActionResult ChangeTak([FromRoute] int leidingId, [FromBody] ChangeTakViewModel viewModel)
+    {
+      var leiding = _leidingRepository.FindById(leidingId);
+      if (leiding == null)
+      {
+        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+      }
+
+      var newTak = _takRepository.FindById(viewModel.NewTakId);
+      if (newTak == null)
+      {
+        return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden"));
+
+      }
+
+
+      leiding.Tak = newTak;
+      _leidingRepository.Update(leiding);
+      _leidingRepository.SaveChanges();
+      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+
+      return Ok(new ApiOkResponse(model));
     }
 
     private static Leiding MapToLeiding(Leiding leiding,Tak tak, AddLeidingViewModel viewModel)
