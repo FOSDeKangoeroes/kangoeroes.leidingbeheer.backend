@@ -7,6 +7,7 @@ using AutoMapper;
 using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Auth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -52,10 +53,17 @@ namespace kangoeroes.leidingBeheer
 
       });
 
+      services.AddOptions();
       //Dependency Injection registreren
       services.AddScoped<ApplicationDbContext>();
       services.AddTransient<ITakRepository, TakRepository>();
       services.AddTransient<ILeidingRepository, LeidingRepository>();
+
+       services.AddSingleton<IConfiguration>(Configuration);
+      //services.Configure<Auth0Config>(Configuration.GetSection("Auth0"));
+      services.AddScoped<Auth0Helper>();
+
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
