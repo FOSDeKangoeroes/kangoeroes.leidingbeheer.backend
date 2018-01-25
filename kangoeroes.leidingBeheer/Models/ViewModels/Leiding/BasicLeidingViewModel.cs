@@ -19,5 +19,7 @@ namespace kangoeroes.leidingBeheer.Models.ViewModels.Leiding
     public DateTime DatumGestopt { get; set; }
 
     public string TakNaam { get; set; }
+
+    public int TakId { get; set; }
   }
 }

@@ -9,6 +9,7 @@ namespace kangoeroes.leidingBeheer.Models.Profiles
     public LeidingProfile()
     {
       CreateMap<Leiding, BasicLeidingViewModel>();
+      CreateMap<UpdateLeidingViewModel, Leiding>();
     }
   }
 }
