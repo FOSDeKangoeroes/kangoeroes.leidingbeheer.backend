@@ -41,7 +41,7 @@ namespace kangoeroes.leidingBeheer
       //Te gebruiken database configureren
       services.AddDbContext<ApplicationDbContext>(options => {
 
-        options.UseMySQL(Configuration.GetConnectionString("Default"));
+        options.UseMySql(Configuration.GetConnectionString("Default"));
       });
       services.AddAutoMapper();
 

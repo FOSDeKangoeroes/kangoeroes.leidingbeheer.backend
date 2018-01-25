@@ -2,7 +2,8 @@
 {
   public class TokenViewModel
   {
-    public string AccessToken { get; set; }
+
+    public string Access_Token { get; set; }
 
   }
 }

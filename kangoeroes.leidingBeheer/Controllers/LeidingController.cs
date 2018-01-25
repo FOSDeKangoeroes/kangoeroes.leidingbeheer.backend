@@ -1,26 +1,20 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Auth;
-using kangoeroes.leidingBeheer.Models.AuthViewModels;
+
 using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
-using kangoeroes.leidingBeheer.Network;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
+
 using Microsoft.Extensions.Configuration;
 using RestSharp;
-using RestClient = RestEase.RestClient;
+
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
@@ -136,7 +130,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [Route("{leidingId}/createUser")]
-    [HttpPost]
+    [HttpGet]
     public IActionResult CreateUser([FromRoute] int leidingId)
     {
       var leiding = _leidingRepository.FindById(leidingId);
@@ -153,26 +147,19 @@ namespace kangoeroes.leidingBeheer.Controllers
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
 
-      //  var token = await _auth0Helper.GetTokenAsync();
-      var url = _configuration["Auth0:domain"];
-      var clientId = _configuration["Auth0:ni_client_id"];
-      var clientSecret = _configuration["Auth0:ni_client_secret"];
-      var audience = _configuration["Auth0:audience"];
 
-      var keyValues = new Dictionary<string, string>
+      //TODO: checken of gebruiker al een authId heeft. Zoja: bad request
+      if (leiding.Auth0Id != null)
       {
-        {"grant_type", "client_credentials"},
-        {"client_id", clientId},
-        {"client_secret", clientSecret},
-        {"audience", audience}
-      };
+        ModelState.AddModelError("UserExists", "Er bestaat al een gebruikersaccount voor deze persoon.");
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
 
-  var client = new HttpClient();
-      var fullDomain = url + "/oauth/token";
-      HttpContent content = new FormUrlEncodedContent(keyValues);
-   // var result = await  client.PostAsync(fullDomain,content).ConfigureAwait(continueOnCapturedContext:false);
-      var result = Task.Run(() => client.PostAsync(fullDomain,content)).Result;
-      return Ok(result);
+      var userModel = _auth0Helper.MakeNewUserFor(leiding.Email);
+      leiding.Auth0Id = userModel.User_Id;
+      _leidingRepository.SaveChanges();
+      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+      return Created(model.Email,model);
     }
 
     private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)
