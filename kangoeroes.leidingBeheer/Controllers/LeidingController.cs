@@ -130,8 +130,8 @@ namespace kangoeroes.leidingBeheer.Controllers
       return Ok(new ApiOkResponse(model));
     }
 
-    [Route("{leidingId}/createUser")]
-    [HttpGet]
+    [Route("{leidingId}/user")]
+    [HttpPost]
     public async Task<IActionResult> CreateUser([FromRoute] int leidingId)
     {
       var leiding = _leidingRepository.FindById(leidingId);
@@ -156,7 +156,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       leiding.Auth0Id = userModel.UserId;
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
-      return Created(model.Email,model);
+      return Created(model.Email,new ApiCreatedResponse(model));
       }
       catch (ApiException ex)
       {

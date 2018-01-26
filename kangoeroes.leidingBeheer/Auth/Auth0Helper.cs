@@ -32,6 +32,7 @@ namespace kangoeroes.leidingBeheer.Auth
     public async Task<User> MakeNewUserFor(string email)
     {
       //Get token
+
       var token = GetToken();
       var password = GenerateRandomPassword();
       var user = await CreateUser(email, token.Access_Token, password);
@@ -62,6 +63,7 @@ namespace kangoeroes.leidingBeheer.Auth
       }
 
      throw new ApiException(response.StatusCode,new ApiError(){Message = response.ErrorMessage});
+
     }
 
 
