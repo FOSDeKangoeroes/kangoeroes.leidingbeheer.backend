@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Auth0.AuthenticationApi;
 using Auth0.AuthenticationApi.Models;
@@ -35,7 +36,8 @@ namespace kangoeroes.leidingBeheer.Auth
 
       var uri = new Uri($"{_configuration["Auth0:domain"]}/api/v2");
       _managementApi = new ManagementApiClient(_accessToken,uri);
-      _authenticationApi = new AuthenticationApiClient(_configuration["Auth0:domain"]);
+      var authUri = new Uri(_configuration["Auth0:domain"]);
+      _authenticationApi = new AuthenticationApiClient(authUri);
     }
 
 

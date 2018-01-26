@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Responses;
+using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
 using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +32,8 @@ namespace kangoeroes.leidingBeheer.Controllers
     public IActionResult Index()
     {
       var takken = _takRepository.GetAll();
-      return Ok(new ApiOkResponse(takken));
+      var model = _mapper.Map<IEnumerable<BasicTakViewModel>>(takken);
+      return Ok(new ApiOkResponse(model));
     }
 
     /// <summary>
@@ -49,7 +52,9 @@ namespace kangoeroes.leidingBeheer.Controllers
         return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
       }
 
-      return Ok(new ApiOkResponse(tak));
+      var model = _mapper.Map<BasicTakViewModel>(tak);
+
+      return Ok(new ApiOkResponse(model));
     }
 
     /// <summary>
@@ -63,7 +68,8 @@ namespace kangoeroes.leidingBeheer.Controllers
       var tak = _mapper.Map<Tak>(viewmodel);
       _takRepository.Add(tak);
       _takRepository.SaveChanges();
-      return CreatedAtRoute(tak.Id, new ApiOkResponse(tak));
+      var model = _mapper.Map<BasicTakViewModel>(tak);
+      return CreatedAtRoute(tak.Id, new ApiOkResponse(model));
     }
 
     /// <summary>
@@ -88,7 +94,8 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       _takRepository.Update(tak);
       _takRepository.SaveChanges();
-      return Ok(new ApiOkResponse(tak));
+      var model = _mapper.Map<BasicTakViewModel>(tak);
+      return Ok(new ApiOkResponse(model));
     }
 
     /// <summary>
@@ -114,7 +121,8 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       _takRepository.Delete(tak);
       _takRepository.SaveChanges();
-      return Ok(tak);
+      var model = _mapper.Map<BasicTakViewModel>(tak);
+      return Ok(model);
     }
 
     /// <summary>
@@ -132,7 +140,9 @@ namespace kangoeroes.leidingBeheer.Controllers
         return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
       }
 
-      return Ok(new ApiOkResponse(tak.Leiding));
+      var model = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(tak.Leiding);
+
+      return Ok(new ApiOkResponse(model));
     }
 
   }

@@ -22,6 +22,7 @@ namespace kangoeroes.core.Data.Repositories
         }
         public IEnumerable<Tak> GetAll()
         {
+       
             return _takken.Include(x => x.Leiding).OrderBy(x => x.Volgorde).ToList();
         }
 

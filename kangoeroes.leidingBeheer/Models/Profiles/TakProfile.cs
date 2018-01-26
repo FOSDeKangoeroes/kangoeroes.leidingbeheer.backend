@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
 
 namespace kangoeroes.leidingBeheer.Models.Profiles
@@ -7,8 +8,9 @@ namespace kangoeroes.leidingBeheer.Models.Profiles
   {
     public TakProfile()
     {
-      CreateMap<AddTakViewModel, core.Models.Tak>();
-      CreateMap<UpdateTakViewModel, core.Models.Tak>();
+      CreateMap<AddTakViewModel,Tak>();
+      CreateMap<UpdateTakViewModel, Tak>();
+      CreateMap<Tak, BasicTakViewModel>();
 
     }
   }

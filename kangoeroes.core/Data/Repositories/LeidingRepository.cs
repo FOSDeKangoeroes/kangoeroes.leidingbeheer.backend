@@ -5,6 +5,8 @@ using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace kangoeroes.core.Data.Repositories
 {
     public class LeidingRepository: ILeidingRepository
