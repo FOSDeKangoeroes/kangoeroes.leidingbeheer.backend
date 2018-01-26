@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
+using Auth0.Core.Exceptions;
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
@@ -131,7 +132,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
     [Route("{leidingId}/createUser")]
     [HttpGet]
-    public IActionResult CreateUser([FromRoute] int leidingId)
+    public async Task<IActionResult> CreateUser([FromRoute] int leidingId)
     {
       var leiding = _leidingRepository.FindById(leidingId);
 
@@ -148,18 +149,21 @@ namespace kangoeroes.leidingBeheer.Controllers
       }
 
 
-      //TODO: checken of gebruiker al een authId heeft. Zoja: bad request
-      if (leiding.Auth0Id != null)
-      {
-        ModelState.AddModelError("UserExists", "Er bestaat al een gebruikersaccount voor deze persoon.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
-      }
 
-      var userModel = _auth0Helper.MakeNewUserFor(leiding.Email);
-      leiding.Auth0Id = userModel.User_Id;
+      try
+      {
+        var userModel = await _auth0Helper.MakeNewUserFor(leiding.Email);
+      leiding.Auth0Id = userModel.UserId;
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
       return Created(model.Email,model);
+      }
+      catch (ApiException ex)
+      {
+        ModelState.AddModelError("auth0Exception",ex.Message);
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
+
     }
 
     private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
+using Auth0.AuthenticationApi;
+using Auth0.AuthenticationApi.Models;
+using Auth0.Core;
+using Auth0.Core.Exceptions;
+using Auth0.ManagementApi;
+using Auth0.ManagementApi.Models;
 using kangoeroes.leidingBeheer.Models.AuthViewModels;
-using kangoeroes.leidingBeheer.Network;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
@@ -29,20 +29,19 @@ namespace kangoeroes.leidingBeheer.Auth
     }
 
 
-    public UserViewModel MakeNewUserFor(string email)
+    public async Task<User> MakeNewUserFor(string email)
     {
       //Get token
       var token = GetToken();
       var password = GenerateRandomPassword();
-      var user = CreateUser(email, token.Access_Token, password);
-      TriggerPasswordResetForUser(email);
+      var user = await CreateUser(email, token.Access_Token, password);
+      await TriggerPasswordResetForUser(email);
 
       return user;
     }
 
     private TokenViewModel GetToken()
     {
-
       var clientId = _configuration["Auth0:ni_client_id"];
       var clientSecret = _configuration["Auth0:ni_client_secret"];
       var audience = _configuration["Auth0:audience"];
@@ -61,45 +60,66 @@ namespace kangoeroes.leidingBeheer.Auth
         var model = JsonConvert.DeserializeObject<TokenViewModel>(response.Content);
         return model;
       }
-      throw new Exception($"Token kon niet opgehaald worden. {response.Content}");
 
-
+     throw new ApiException(response.StatusCode,new ApiError(){Message = response.ErrorMessage});
     }
 
 
-    private UserViewModel CreateUser(string email, string token, string password)
+    private async Task<User> CreateUser(string email, string token, string password)
     {
-      var request = new RestRequest("/api/v2/users", Method.POST);
-      var connection = _configuration["Auth0:standard_connection"];
-      request.AddHeader("content-type", "application/json");
-      request.AddHeader("authorization",
-        $"Bearer {token}");
 
-      request.AddParameter("application/json",
-        "{\"connection\": \"" + connection + "\"," +
-        "\"email\":\"" + email +
-        "\",\"password\": \"" + password + "\", " +
-        "\"email_verified\": true}",
-        ParameterType.RequestBody);
+      var uri = new Uri($"{_configuration["Auth0:domain"]}/api/v2");
+      var management = new ManagementApiClient(token,uri);
 
-      IRestResponse response = _client.Execute(request);
-      if (response.IsSuccessful)
+      var createRequest = new UserCreateRequest()
       {
-            var model = JsonConvert.DeserializeObject<UserViewModel>(response.Content);
-            return model;
-      }
+        Email = email,
+        Password = password,
+        EmailVerified = true,
+        Connection = _configuration["Auth0:standard_connection"]
+      };
+      var user = await management.Users.CreateAsync(createRequest);
+      /* var request = new RestRequest("/api/v2/users", Method.POST);
+       var connection = _configuration["Auth0:standard_connection"];
+       request.AddHeader("content-type", "application/json");
+       request.AddHeader("authorization",
+         $"Bearer {token}");
 
-      throw new Exception("Gebruiker kon niet aangemaakt worden");
+       request.AddParameter("application/json",
+         "{\"connection\": \"" + connection + "\"," +
+         "\"email\":\"" + email +
+         "\",\"password\": \"" + password + "\", " +
+         "\"email_verified\": true}",
+         ParameterType.RequestBody);
 
+       IRestResponse response = _client.Execute(request);
+       if (response.IsSuccessful)
+       {
+             var model = JsonConvert.DeserializeObject<UserViewModel>(response.Content);
+             return model;
+       }
 
+       throw new Exception("Gebruiker kon niet aangemaakt worden");*/
+      return user;
     }
 
-    private void TriggerPasswordResetForUser(string email)
+    private async Task<string> TriggerPasswordResetForUser(string email)
     {
-
+      var uri = new Uri($"{_configuration["Auth0:domain"]}");
       var clientId = _configuration["Auth0:ni_client_id"];
-      var request = new RestRequest("/dbconnections/change_password", Method.POST);
       var connection = _configuration["Auth0:standard_connection"];
+      var management = new AuthenticationApiClient(uri);
+      var resetRequest = new ChangePasswordRequest()
+      {
+        ClientId = clientId,
+        Connection = connection,
+        Email = email
+      };
+     return await management.ChangePasswordAsync(resetRequest);
+
+      /*
+      var request = new RestRequest("/dbconnections/change_password", Method.POST);
+
       request.AddHeader("content-type", "application/x-www-form-urlencoded");
       request.AddHeader("cache-control", "no-cache");
       request.AddParameter("application/x-www-form-urlencoded",
@@ -108,7 +128,7 @@ namespace kangoeroes.leidingBeheer.Auth
       if (!response.IsSuccessful)
       {
         throw new Exception("Wachtwoord reset werd niet gestart.");
-      }
+      }*/
     }
 
     private string GenerateRandomPassword()
