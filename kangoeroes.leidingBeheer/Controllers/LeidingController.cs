@@ -104,7 +104,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       return Ok(new ApiOkResponse(model));
     }
 
-    [Route("{leidingId}/changeTak")]
+    [Route("{leidingId}/tak")]
     [HttpPut]
     public IActionResult ChangeTak([FromRoute] int leidingId, [FromBody] ChangeTakViewModel viewModel)
     {

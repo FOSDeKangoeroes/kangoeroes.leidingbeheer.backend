@@ -19,13 +19,23 @@ namespace kangoeroes.leidingBeheer.Auth
   {
     private IConfiguration _configuration;
     private RestClient _client;
+    private ManagementApiClient _managementApi;
+    private AuthenticationApiClient _authenticationApi;
+    private string _accessToken;
 
 
     public Auth0Helper(IConfiguration configuration)
     {
-      this._configuration = configuration;
+      _configuration = configuration;
+
       var url = _configuration["Auth0:domain"];
       _client = new RestClient(url);
+
+      _accessToken = GetToken().Access_Token;
+
+      var uri = new Uri($"{_configuration["Auth0:domain"]}/api/v2");
+      _managementApi = new ManagementApiClient(_accessToken,uri);
+      _authenticationApi = new AuthenticationApiClient(_configuration["Auth0:domain"]);
     }
 
 
@@ -70,8 +80,7 @@ namespace kangoeroes.leidingBeheer.Auth
     private async Task<User> CreateUser(string email, string token, string password)
     {
 
-      var uri = new Uri($"{_configuration["Auth0:domain"]}/api/v2");
-      var management = new ManagementApiClient(token,uri);
+
 
       var createRequest = new UserCreateRequest()
       {
@@ -80,28 +89,8 @@ namespace kangoeroes.leidingBeheer.Auth
         EmailVerified = true,
         Connection = _configuration["Auth0:standard_connection"]
       };
-      var user = await management.Users.CreateAsync(createRequest);
-      /* var request = new RestRequest("/api/v2/users", Method.POST);
-       var connection = _configuration["Auth0:standard_connection"];
-       request.AddHeader("content-type", "application/json");
-       request.AddHeader("authorization",
-         $"Bearer {token}");
+      var user = await _managementApi.Users.CreateAsync(createRequest);
 
-       request.AddParameter("application/json",
-         "{\"connection\": \"" + connection + "\"," +
-         "\"email\":\"" + email +
-         "\",\"password\": \"" + password + "\", " +
-         "\"email_verified\": true}",
-         ParameterType.RequestBody);
-
-       IRestResponse response = _client.Execute(request);
-       if (response.IsSuccessful)
-       {
-             var model = JsonConvert.DeserializeObject<UserViewModel>(response.Content);
-             return model;
-       }
-
-       throw new Exception("Gebruiker kon niet aangemaakt worden");*/
       return user;
     }
 
@@ -110,32 +99,23 @@ namespace kangoeroes.leidingBeheer.Auth
       var uri = new Uri($"{_configuration["Auth0:domain"]}");
       var clientId = _configuration["Auth0:ni_client_id"];
       var connection = _configuration["Auth0:standard_connection"];
-      var management = new AuthenticationApiClient(uri);
+
       var resetRequest = new ChangePasswordRequest()
       {
         ClientId = clientId,
         Connection = connection,
         Email = email
       };
-     return await management.ChangePasswordAsync(resetRequest);
+     return await _authenticationApi.ChangePasswordAsync(resetRequest);
 
-      /*
-      var request = new RestRequest("/dbconnections/change_password", Method.POST);
 
-      request.AddHeader("content-type", "application/x-www-form-urlencoded");
-      request.AddHeader("cache-control", "no-cache");
-      request.AddParameter("application/x-www-form-urlencoded",
-        $"client_id={clientId}&email={email}&connection={connection}", ParameterType.RequestBody);
-      IRestResponse response = _client.Execute(request);
-      if (!response.IsSuccessful)
-      {
-        throw new Exception("Wachtwoord reset werd niet gestart.");
-      }*/
     }
 
+
+    //Very basic random password generator
     private string GenerateRandomPassword()
     {
-      string[] randomChars = new[]
+      string[] randomChars =
       {
         "ABCDEFGHJKLMNOPQRSTUVWXYZ", // uppercase
         "abcdefghijkmnopqrstuvwxyz", // lowercase

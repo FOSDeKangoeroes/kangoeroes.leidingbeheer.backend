@@ -7,8 +7,10 @@ using AutoMapper;
 using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Auth;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -71,7 +73,31 @@ namespace kangoeroes.leidingBeheer
     {
       if (env.IsDevelopment()) {
         app.UseDeveloperExceptionPage();
+
       }
+
+      app.UseExceptionHandler(options =>
+      {
+        options.Run(async context =>
+        {
+         context.Response.StatusCode = 500;
+          context.Response.ContentType = "application/json";
+          var response = new ApiServerErrorResponse("Oops. Er ging iets fout");
+          if (env.IsDevelopment())
+          {
+            var ex = context.Features.Get<IExceptionHandlerFeature>();
+            if (ex != null)
+            {
+              response.DetailedMessage = ex.Error.Message;
+              response.StackTrace = ex.Error.StackTrace;
+            }
+
+            await context.Response.WriteAsync(JsonConvert.SerializeObject(response)).ConfigureAwait(false);
+
+          }
+
+        });
+      });
 
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
