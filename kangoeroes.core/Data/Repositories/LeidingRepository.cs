@@ -10,7 +10,7 @@ using System.Linq.Dynamic.Core;
 
 namespace kangoeroes.core.Data.Repositories
 {
-    public class LeidingRepository: ILeidingRepository
+    public class LeidingRepository : ILeidingRepository
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly DbSet<Leiding> _leiding;
@@ -25,6 +25,7 @@ namespace kangoeroes.core.Data.Repositories
         {
             return _leiding.Include(x => x.Tak);
         }
+
         public IEnumerable<Leiding> FindAll()
         {
             return GetAllWithAllIncluded().ToList();
@@ -38,18 +39,19 @@ namespace kangoeroes.core.Data.Repositories
         public IEnumerable<Leiding> FindAll(string searchString, string sortString)
         {
             //Tijdelijke hack. Should NOT be here
-           
+
             if (sortString.Trim() == String.Empty)
             {
                 sortString = "naam";
             }
-            return GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString) | 
-                                                      x.Voornaam.Contains(searchString) | 
-                                                      x.Email.Contains(searchString) 
-                                                      )
+
+            return GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString) |
+                                                      x.Voornaam.Contains(searchString) |
+                                                      x.Email.Contains(searchString)
+                )
                 .OrderBy(sortString);
         }
-       
+
 
         public Leiding FindById(int id)
         {
