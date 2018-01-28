@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories.Interfaces;
@@ -24,16 +25,30 @@ namespace kangoeroes.core.Data.Repositories
         {
             return _leiding.Include(x => x.Tak);
         }
-        public IEnumerable<Leiding> GetAll()
+        public IEnumerable<Leiding> FindAll()
         {
             return GetAllWithAllIncluded().ToList();
         }
 
-        public IEnumerable<Leiding> GetAllSortedBy(string sortBy)
+        public IEnumerable<Leiding> FindAll(string sortBy)
         {
             return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
         }
 
+        public IEnumerable<Leiding> FindAll(string searchString, string sortString)
+        {
+            //Tijdelijke hack. Should NOT be here
+           
+            if (sortString.Trim() == String.Empty)
+            {
+                sortString = "naam";
+            }
+            return GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString) | 
+                                                      x.Voornaam.Contains(searchString) | 
+                                                      x.Email.Contains(searchString) 
+                                                      )
+                .OrderBy(sortString);
+        }
        
 
         public Leiding FindById(int id)
