@@ -4,7 +4,7 @@ using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Linq.Dynamic.Core;
 
 
 namespace kangoeroes.core.Data.Repositories
@@ -19,14 +19,26 @@ namespace kangoeroes.core.Data.Repositories
             _dbContext = dbContext;
             _leiding = _dbContext.Leiding;
         }
+
+        private IQueryable<Leiding> GetAllWithAllIncluded()
+        {
+            return _leiding.Include(x => x.Tak);
+        }
         public IEnumerable<Leiding> GetAll()
         {
-            return _leiding.Include(x => x.Tak).ToList();
+            return GetAllWithAllIncluded().ToList();
         }
+
+        public IEnumerable<Leiding> GetAllSortedBy(string sortBy)
+        {
+            return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
+        }
+
+       
 
         public Leiding FindById(int id)
         {
-            return _leiding.Include(x => x.Tak).FirstOrDefault(x => x.Id == id);
+            return GetAllWithAllIncluded().FirstOrDefault(x => x.Id == id);
         }
 
         public void Add(Leiding leiding)
