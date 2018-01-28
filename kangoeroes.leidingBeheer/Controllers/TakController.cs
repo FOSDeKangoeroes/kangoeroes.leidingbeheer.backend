@@ -31,7 +31,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     [HttpGet] //GET api/tak
     public IActionResult Index()
     {
-      var takken = _takRepository.GetAll();
+      var takken = _takRepository.FindAll();
       var model = _mapper.Map<IEnumerable<BasicTakViewModel>>(takken);
       return Ok(new ApiOkResponse(model));
     }

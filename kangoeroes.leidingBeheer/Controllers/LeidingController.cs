@@ -44,13 +44,16 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// </summary>
     /// <returns></returns>
     [HttpGet] //GET /api/leiding
-    public IActionResult Index([FromQuery] string sortBy = "", [FromQuery] string sortOrder = "", [FromQuery] string query = "")
+    public IActionResult Index([FromQuery] string sortBy = "", [FromQuery] string sortOrder = "", [FromQuery] string query = "", [FromQuery] int tak = 0)
     {
 
-
+      if (query == null)
+      {
+        query = "";
+      }
 
       var sortString = sortBy + " " + sortOrder;
-      var leiding = _leidingRepository.FindAll(query,sortString);
+      var leiding = _leidingRepository.FindAll(query,sortString,tak);
 
       var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
       return Ok(new ApiOkResponse(viewModels));

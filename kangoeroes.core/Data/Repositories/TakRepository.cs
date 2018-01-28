@@ -5,6 +5,7 @@ using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 
 namespace kangoeroes.core.Data.Repositories
@@ -20,20 +21,43 @@ namespace kangoeroes.core.Data.Repositories
             _dbContext = dbContext;
             _takken = dbContext.Takken;
         }
-        public IEnumerable<Tak> GetAll()
+
+        private IQueryable<Tak> GetAllWithAllIncluded()
+        {
+            return _takken.Include(x => x.Leiding);
+        }
+        public IEnumerable<Tak> FindAll()
         {
        
-            return _takken.Include(x => x.Leiding).OrderBy(x => x.Volgorde).ToList();
+            return GetAllWithAllIncluded().OrderBy(x => x.Volgorde).ToList();
+        }
+
+        public IEnumerable<Tak> FindAll(string sortBy)
+        {
+            return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
+        }
+
+        public IEnumerable<Tak> FindAll(string searchString, string sortString)
+        {
+            //Tijdelijke hack. Should NOT be here
+
+            if (sortString.Trim() == String.Empty)
+            {
+                sortString = "naam";
+            }
+
+            return GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString))
+                .OrderBy(sortString);
         }
 
         public Tak FindById(int id)
         {
-            return _takken.Include(x => x.Leiding).FirstOrDefault(x => x.Id == id);
+            return GetAllWithAllIncluded().FirstOrDefault(x => x.Id == id);
         }
 
         public Tak FindByNaam(string naam)
         {
-            return _takken.Include(x => x.Leiding).FirstOrDefault(x => x.Naam == naam);
+            return GetAllWithAllIncluded().FirstOrDefault(x => x.Naam == naam);
         }
 
         public void Add(Tak tak)

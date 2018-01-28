@@ -26,30 +26,34 @@ namespace kangoeroes.core.Data.Repositories
             return _leiding.Include(x => x.Tak);
         }
 
-        public IEnumerable<Leiding> FindAll()
-        {
-            return GetAllWithAllIncluded().ToList();
-        }
+        /* public IEnumerable<Leiding> FindAll()
+         {
+             return GetAllWithAllIncluded().ToList();
+         }*/
 
-        public IEnumerable<Leiding> FindAll(string sortBy)
-        {
-            return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
-        }
+        /* public IEnumerable<Leiding> FindAll(string sortBy)
+         {
+             return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
+         }*/
 
-        public IEnumerable<Leiding> FindAll(string searchString, string sortString)
+        public IEnumerable<Leiding> FindAll(string searchString = "", string sortString = "naam", int takId = 0)
         {
-            //Tijdelijke hack. Should NOT be here
+            var result = GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString) |
+                                                            x.Voornaam.Contains(searchString) |
+                                                            x.Email.Contains(searchString)
+            );
 
-            if (sortString.Trim() == String.Empty)
+            if (sortString.Trim() != String.Empty)
             {
-                sortString = "naam";
+                result = result.OrderBy(sortString);
+            }
+              
+            if (takId != 0)
+            {
+                result = result.Where(x => x.Tak.Id == takId);
             }
 
-            return GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString) |
-                                                      x.Voornaam.Contains(searchString) |
-                                                      x.Email.Contains(searchString)
-                )
-                .OrderBy(sortString);
+            return result.ToList();
         }
 
 
