@@ -5,9 +5,9 @@ namespace kangoeroes.core.Data.Repositories.Interfaces
 {
     public interface ITakRepository
     {
-        IEnumerable<Tak> FindAll();
-        IEnumerable<Tak> FindAll(string sortBy);
-        IEnumerable<Tak> FindAll(string searchString, string sortString);
+      //  IEnumerable<Tak> FindAll();
+        //IEnumerable<Tak> FindAll(string sortBy);
+        IEnumerable<Tak> FindAll(string searchString = "", string sortString = "naam") ;
 
         Tak FindById(int id);
 

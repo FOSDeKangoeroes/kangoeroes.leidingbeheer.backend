@@ -26,7 +26,7 @@ namespace kangoeroes.core.Data.Repositories
         {
             return _takken.Include(x => x.Leiding);
         }
-        public IEnumerable<Tak> FindAll()
+      /*  public IEnumerable<Tak> FindAll()
         {
        
             return GetAllWithAllIncluded().OrderBy(x => x.Volgorde).ToList();
@@ -35,19 +35,20 @@ namespace kangoeroes.core.Data.Repositories
         public IEnumerable<Tak> FindAll(string sortBy)
         {
             return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
-        }
+        }*/
 
-        public IEnumerable<Tak> FindAll(string searchString, string sortString)
+        public IEnumerable<Tak> FindAll(string searchString = "", string sortString = "naam")
         {
             //Tijdelijke hack. Should NOT be here
 
-            if (sortString.Trim() == String.Empty)
+            var result = GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString));
+            
+            if (sortString.Trim() != String.Empty)
             {
-                sortString = "naam";
+                result = result.OrderBy(sortString);
             }
 
-            return GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString))
-                .OrderBy(sortString);
+            return result.ToList();
         }
 
         public Tak FindById(int id)
