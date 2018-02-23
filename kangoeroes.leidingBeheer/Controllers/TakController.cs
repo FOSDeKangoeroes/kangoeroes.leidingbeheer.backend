@@ -29,14 +29,17 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// </summary>
     /// <returns>Lijst van alle takken</returns>
     [HttpGet] //GET api/tak
-    public IActionResult Index([FromQuery] string sortBy = "", [FromQuery] string sortOrder ="",[FromQuery]  string query = "")
+    public IActionResult Index([FromQuery] string sortBy = "naam", [FromQuery] string sortOrder ="",[FromQuery]  string query = "")
     {
 
       if (query == null)
       {
         query = "";
       }
-
+      if (sortBy == null)
+      {
+        sortBy = "naam";
+      }
       var sortString = sortBy + " " + sortOrder;
       var takken = _takRepository.FindAll(query,sortString);
       var model = _mapper.Map<IEnumerable<BasicTakViewModel>>(takken);

@@ -10,7 +10,7 @@ using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Auth;
 
 using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.Extensions.Configuration;
@@ -26,16 +26,16 @@ namespace kangoeroes.leidingBeheer.Controllers
     private readonly ILeidingRepository _leidingRepository;
     private readonly ITakRepository _takRepository;
     private readonly IMapper _mapper;
-    private readonly Auth0Helper _auth0Helper;
+    private readonly IAuth0Service _auth0Service;
     private readonly IConfiguration _configuration;
 
     public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper,
-      Auth0Helper auth0Helper, IConfiguration configuration)
+      IAuth0Service auth0Service, IConfiguration configuration)
     {
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
       _mapper = mapper;
-      this._auth0Helper = auth0Helper;
+       _auth0Service = auth0Service;
       _configuration = configuration;
     }
 
@@ -44,13 +44,15 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// </summary>
     /// <returns></returns>
     [HttpGet] //GET /api/leiding
-    public IActionResult Index([FromQuery] string sortBy = "", [FromQuery] string sortOrder = "", [FromQuery] string query = "", [FromQuery] int tak = 0)
+    public IActionResult Index([FromQuery] string sortBy = "naam", [FromQuery] string sortOrder = "", [FromQuery] string query = "", [FromQuery] int tak = 0)
     {
 
       if (query == null)
       {
         query = "";
       }
+
+
 
       var sortString = sortBy + " " + sortOrder;
       var leiding = _leidingRepository.FindAll(query,sortString,tak);
@@ -62,8 +64,11 @@ namespace kangoeroes.leidingBeheer.Controllers
 
     [HttpGet] //GET /api/leiding/id
     [Route("{id}")]
+   // [Authorize(Roles = "financieel_verantwoordelijke")]
     public IActionResult GetById([FromRoute] int id)
     {
+
+
       var leiding = _leidingRepository.FindById(id);
 
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
@@ -159,7 +164,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       try
       {
-        var userModel = await _auth0Helper.MakeNewUserFor(leiding.Email);
+        var userModel = await _auth0Service.MakeNewUserFor(leiding.Email);
       leiding.Auth0Id = userModel.UserId;
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);

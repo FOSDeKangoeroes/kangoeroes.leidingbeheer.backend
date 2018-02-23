@@ -16,7 +16,7 @@ using RestSharp;
 
 namespace kangoeroes.leidingBeheer.Auth
 {
-  public class Auth0Helper
+  public class Auth0Service : IAuth0Service
   {
     private IConfiguration _configuration;
     private RestClient _client;
@@ -25,7 +25,7 @@ namespace kangoeroes.leidingBeheer.Auth
     private string _accessToken;
 
 
-    public Auth0Helper(IConfiguration configuration)
+    public Auth0Service(IConfiguration configuration)
     {
       _configuration = configuration;
 
@@ -35,7 +35,7 @@ namespace kangoeroes.leidingBeheer.Auth
       _accessToken = GetToken().Access_Token;
 
       var uri = new Uri($"{_configuration["Auth0:domain"]}/api/v2");
-      _managementApi = new ManagementApiClient(_accessToken,uri);
+      _managementApi = new ManagementApiClient(_accessToken, uri);
       var authUri = new Uri(_configuration["Auth0:domain"]);
       _authenticationApi = new AuthenticationApiClient(authUri);
     }
@@ -44,7 +44,6 @@ namespace kangoeroes.leidingBeheer.Auth
     public async Task<User> MakeNewUserFor(string email)
     {
       //Get token
-
       var token = GetToken();
       var password = GenerateRandomPassword();
       var user = await CreateUser(email, token.Access_Token, password);
@@ -52,6 +51,7 @@ namespace kangoeroes.leidingBeheer.Auth
 
       return user;
     }
+
 
     private TokenViewModel GetToken()
     {
@@ -74,16 +74,12 @@ namespace kangoeroes.leidingBeheer.Auth
         return model;
       }
 
-     throw new ApiException(response.StatusCode,new ApiError(){Message = response.ErrorMessage});
-
+      throw new ApiException(response.StatusCode, new ApiError() {Message = response.ErrorMessage});
     }
 
 
     private async Task<User> CreateUser(string email, string token, string password)
     {
-
-
-
       var createRequest = new UserCreateRequest()
       {
         Email = email,
@@ -108,9 +104,7 @@ namespace kangoeroes.leidingBeheer.Auth
         Connection = connection,
         Email = email
       };
-     return await _authenticationApi.ChangePasswordAsync(resetRequest);
-
-
+      return await _authenticationApi.ChangePasswordAsync(resetRequest);
     }
 
 
