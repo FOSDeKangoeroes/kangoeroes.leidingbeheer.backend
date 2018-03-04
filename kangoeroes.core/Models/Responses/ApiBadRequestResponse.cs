@@ -16,7 +16,6 @@ namespace kangoeroes.core.Models.Responses
         throw  new ArgumentException("ModelState must be invalid.",nameof(modelState));
       }
 
-
       Errors = modelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToArray();
 
     }

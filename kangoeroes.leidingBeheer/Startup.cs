@@ -8,7 +8,7 @@ using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models.Responses;
-using kangoeroes.leidingBeheer.Auth;
+using kangoeroes.leidingBeheer.Services.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -54,6 +54,7 @@ namespace kangoeroes.leidingBeheer
 
         //Loops in response worden genegeerd. Bijv: Leiding -> Tak -> Leiding -> Tak -> .. wordt Leiding -> Tak
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
 
       });
 

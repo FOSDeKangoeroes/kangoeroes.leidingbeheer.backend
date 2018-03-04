@@ -26,21 +26,11 @@ namespace kangoeroes.core.Data.Repositories
         {
             return _takken.Include(x => x.Leiding);
         }
-      /*  public IEnumerable<Tak> FindAll()
-        {
-       
-            return GetAllWithAllIncluded().OrderBy(x => x.Volgorde).ToList();
-        }
-
-        public IEnumerable<Tak> FindAll(string sortBy)
-        {
-            return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
-        }*/
+     
 
         public IEnumerable<Tak> FindAll(string searchString = "", string sortString = "naam")
         {
-            //Tijdelijke hack. Should NOT be here
-
+            
             var result = GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString));
             
             if (sortString.Trim() != String.Empty)

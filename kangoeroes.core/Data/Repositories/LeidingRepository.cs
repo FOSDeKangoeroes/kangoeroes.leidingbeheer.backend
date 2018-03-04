@@ -21,20 +21,11 @@ namespace kangoeroes.core.Data.Repositories
             _leiding = _dbContext.Leiding;
         }
 
+        //Helper method to get all leiding with all dependencies already included
         private IQueryable<Leiding> GetAllWithAllIncluded()
         {
             return _leiding.Include(x => x.Tak);
         }
-
-        /* public IEnumerable<Leiding> FindAll()
-         {
-             return GetAllWithAllIncluded().ToList();
-         }*/
-
-        /* public IEnumerable<Leiding> FindAll(string sortBy)
-         {
-             return GetAllWithAllIncluded().OrderBy(sortBy).ToList();
-         }*/
 
         public IEnumerable<Leiding> FindAll(string searchString = "", string sortString = "naam", int takId = 0)
         {

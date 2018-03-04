@@ -1,7 +1,10 @@
-﻿namespace kangoeroes.leidingBeheer.Models.AuthViewModels
+﻿using Newtonsoft.Json;
+
+namespace kangoeroes.leidingBeheer.Models.AuthViewModels
 {
   public class UserViewModel
   {
-    public string User_Id { get; set; }
+    [JsonProperty("user_id")]
+    public string UserId { get; set; }
   }
 }

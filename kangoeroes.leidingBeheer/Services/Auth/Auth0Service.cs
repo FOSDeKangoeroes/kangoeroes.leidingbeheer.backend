@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Auth0.AuthenticationApi;
 using Auth0.AuthenticationApi.Models;
@@ -13,29 +12,29 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
 
-
-namespace kangoeroes.leidingBeheer.Auth
+namespace kangoeroes.leidingBeheer.Services.Auth
 {
   public class Auth0Service : IAuth0Service
   {
-    private IConfiguration _configuration;
-    private RestClient _client;
-    private ManagementApiClient _managementApi;
-    private AuthenticationApiClient _authenticationApi;
-    private string _accessToken;
+    private readonly IConfiguration _configuration;
+    private readonly RestClient _client;
+    private readonly ManagementApiClient _managementApi;
+    private readonly AuthenticationApiClient _authenticationApi;
 
 
     public Auth0Service(IConfiguration configuration)
     {
       _configuration = configuration;
 
+
+
       var url = _configuration["Auth0:domain"];
       _client = new RestClient(url);
 
-      _accessToken = GetToken().Access_Token;
+      var accessToken = GetToken().AccessToken;
 
       var uri = new Uri($"{_configuration["Auth0:domain"]}/api/v2");
-      _managementApi = new ManagementApiClient(_accessToken, uri);
+      _managementApi = new ManagementApiClient(accessToken, uri);
       var authUri = new Uri(_configuration["Auth0:domain"]);
       _authenticationApi = new AuthenticationApiClient(authUri);
     }
@@ -43,10 +42,16 @@ namespace kangoeroes.leidingBeheer.Auth
 
     public async Task<User> MakeNewUserFor(string email)
     {
-      //Get token
+      //Get token to access auth0 api
       var token = GetToken();
+
+      //Random password for the new user
       var password = GenerateRandomPassword();
-      var user = await CreateUser(email, token.Access_Token, password);
+
+      //Create the new user in auth0
+      var user = await CreateUser(email, token.AccessToken, password);
+
+      //Trigger a password reset for the newly created user
       await TriggerPasswordResetForUser(email);
 
       return user;
@@ -65,8 +70,11 @@ namespace kangoeroes.leidingBeheer.Auth
                                                ",\"client_secret\":\"" + clientSecret + "\"," +
                                                "\"audience\":\"" + audience + "\"," +
                                                "\"grant_type\":\"client_credentials\"}",
-        ParameterType.RequestBody);
-      IRestResponse response = _client.Execute(request);
+
+                                                ParameterType.RequestBody);
+
+
+      var response = _client.Execute(request);
 
       if (response.IsSuccessful)
       {
@@ -74,6 +82,7 @@ namespace kangoeroes.leidingBeheer.Auth
         return model;
       }
 
+      // If we got this far, request was unsuccessful. Throw an exception
       throw new ApiException(response.StatusCode, new ApiError() {Message = response.ErrorMessage});
     }
 

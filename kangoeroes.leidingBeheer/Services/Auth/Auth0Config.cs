@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.leidingBeheer.Auth
+﻿namespace kangoeroes.leidingBeheer.Services.Auth
 {
   public class Auth0Config
   {

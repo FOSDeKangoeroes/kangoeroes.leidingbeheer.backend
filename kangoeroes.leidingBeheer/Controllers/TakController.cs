@@ -43,7 +43,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       var sortString = sortBy + " " + sortOrder;
       var takken = _takRepository.FindAll(query,sortString);
       var model = _mapper.Map<IEnumerable<BasicTakViewModel>>(takken);
-      return Ok(new ApiOkResponse(model));
+      return Ok(model);
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       var model = _mapper.Map<BasicTakViewModel>(tak);
 
-      return Ok(new ApiOkResponse(model));
+      return Ok(model);
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       _takRepository.Add(tak);
       _takRepository.SaveChanges();
       var model = _mapper.Map<BasicTakViewModel>(tak);
-      return CreatedAtRoute(tak.Id, new ApiOkResponse(model));
+      return CreatedAtRoute(tak.Id, model); //TODO: routes effectief juist implementeren
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       _takRepository.Update(tak);
       _takRepository.SaveChanges();
       var model = _mapper.Map<BasicTakViewModel>(tak);
-      return Ok(new ApiOkResponse(model));
+      return Ok(model);
     }
 
     /// <summary>
@@ -152,7 +152,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       var model = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(tak.Leiding);
 
-      return Ok(new ApiOkResponse(model));
+      return Ok(model);
     }
 
   }

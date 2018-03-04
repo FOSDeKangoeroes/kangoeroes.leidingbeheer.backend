@@ -1,9 +1,13 @@
-﻿namespace kangoeroes.leidingBeheer.Models.AuthViewModels
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace kangoeroes.leidingBeheer.Models.AuthViewModels
 {
   public class TokenViewModel
   {
 
-    public string Access_Token { get; set; }
+    [JsonProperty("access_token")]
+    public string AccessToken { get; set; }
 
   }
 }

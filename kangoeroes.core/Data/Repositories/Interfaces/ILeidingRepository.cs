@@ -5,8 +5,6 @@ namespace kangoeroes.core.Data.Repositories.Interfaces
 {
     public interface ILeidingRepository
     {
-        //IEnumerable<Leiding> FindAll();
-        //IEnumerable<Leiding> FindAll(string sortBy);
         IEnumerable<Leiding> FindAll(string searchString = "", string sortString = "naam", int takId = 0);
         Leiding FindById(int id);
         void Add(Leiding leiding);

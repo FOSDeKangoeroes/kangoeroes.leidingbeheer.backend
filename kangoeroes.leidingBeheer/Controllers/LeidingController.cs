@@ -7,9 +7,8 @@ using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Responses;
-using kangoeroes.leidingBeheer.Auth;
-
 using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
+using kangoeroes.leidingBeheer.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
