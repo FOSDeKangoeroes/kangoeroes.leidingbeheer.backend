@@ -58,11 +58,14 @@ namespace kangoeroes.leidingBeheer.Services.Auth
     }
 
 
-    private TokenViewModel GetToken()
+    private TokenViewModel GetToken(string audience = "")
     {
+      if (string.IsNullOrEmpty(audience))
+      {
+        audience = _configuration["Auth0:audience"];
+      }
       var clientId = _configuration["Auth0:ni_client_id"];
       var clientSecret = _configuration["Auth0:ni_client_secret"];
-      var audience = _configuration["Auth0:audience"];
 
       var request = new RestRequest("/oauth/token", Method.POST);
       request.AddHeader("content-type", "application/json");
@@ -144,6 +147,31 @@ namespace kangoeroes.leidingBeheer.Services.Auth
       }
 
       return new string(chars.ToArray());
+    }
+
+
+    public IEnumerable<RoleViewModel> GetAllRoles()
+    {
+      var token = GetToken(_configuration["Auth0:authorization_audience"]);
+      var basUrl = _configuration["Auth0:authorization_url"];
+
+
+      var restClient = new RestClient(basUrl);
+      var request = new RestRequest("/roles", Method.GET);
+      request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+
+
+
+      var response = restClient.Execute(request);
+
+      if (response.IsSuccessful)
+      {
+        var model = JsonConvert.DeserializeObject<RolesViewModel>(response.Content);
+        return model.Roles;
+      }
+
+      // If we got this far, request was unsuccessful. Throw an exception
+      throw new ApiException(response.StatusCode, new ApiError() {Message = response.ErrorMessage});
     }
   }
 }
