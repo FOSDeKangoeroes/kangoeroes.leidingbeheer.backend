@@ -12,5 +12,7 @@ namespace kangoeroes.leidingBeheer.Services.Auth
 
     IEnumerable<RoleViewModel> GetAllRoles();
     IEnumerable<UserRolesViewModel> GetAllRolesForUser(string authId);
+    bool AddRoleToUser(string authId, string roleId);
+    bool RemoveRoleFromUser(string authId, string roleId);
   }
 }

@@ -197,7 +197,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (string.IsNullOrEmpty(leiding.Auth0Id))
       {
-        ModelState.AddModelError("NoEmail",
+        ModelState.AddModelError("NoAccount",
           "Deze leiding heeft nog geen account. Maak eerst een account aan.");
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
@@ -209,6 +209,65 @@ namespace kangoeroes.leidingBeheer.Controllers
       return Ok(_auth0Service.GetAllRolesForUser(leiding.Auth0Id));
     }
 
+    [HttpPatch("{leidingId}/roles/{roleId}")]
+    public IActionResult AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId)
+    {
+      var leiding = _leidingRepository.FindById(leidingId);
+
+
+      if (leiding == null)
+      {
+        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+      }
+
+      if (leiding.Email == null)
+      {
+        ModelState.AddModelError("NoEmail",
+          "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
+
+      if (string.IsNullOrEmpty(leiding.Auth0Id))
+      {
+        ModelState.AddModelError("NoAccount",
+          "Deze leiding heeft nog geen account. Maak eerst een account aan.");
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
+
+       var success = _auth0Service.AddRoleToUser(leiding.Auth0Id, roleId);
+
+      return Ok(success);
+    }
+
+    [HttpDelete("{leidingId}/roles/{roleId}")]
+    public IActionResult RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId)
+    {
+      var leiding = _leidingRepository.FindById(leidingId);
+
+
+      if (leiding == null)
+      {
+        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+      }
+
+      if (leiding.Email == null)
+      {
+        ModelState.AddModelError("NoEmail",
+          "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
+
+      if (string.IsNullOrEmpty(leiding.Auth0Id))
+      {
+        ModelState.AddModelError("NoAccount",
+          "Deze leiding heeft nog geen account. Maak eerst een account aan.");
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
+
+      var success = _auth0Service.RemoveRoleFromUser(leiding.Auth0Id, roleId);
+
+      return Ok(success);
+    }
     private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)
     {
       leiding.Auth0Id = viewModel.Auth0Id;

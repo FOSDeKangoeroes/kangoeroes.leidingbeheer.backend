@@ -177,10 +177,8 @@ namespace kangoeroes.leidingBeheer.Services.Auth
       throw new ApiException(response.StatusCode, new ApiError() {Message = response.ErrorMessage});
     }
 
-    public IEnumerable<UserRolesViewModel> GetAllRolesForUser(string authId)
+    private IEnumerable<RoleViewModel> GetAllRolesAssignedToUser(string authId)
     {
-      //api/users/{userId}/roles
-
 
       var token = GetToken(_configuration["Auth0:authorization_audience"]);
       var basUrl = _configuration["Auth0:authorization_url"];
@@ -197,32 +195,32 @@ namespace kangoeroes.leidingBeheer.Services.Auth
 
       var responseRolesForUser = restClient.Execute(requestRolesForUser);
 
-      var rolesForUser = new List<RoleViewModel>();
+
 
       if (responseRolesForUser.IsSuccessful)
       {
-        rolesForUser = JsonConvert.DeserializeObject<List<RoleViewModel>>(responseRolesForUser.Content);
-
+        var rolesForUser = JsonConvert.DeserializeObject<List<RoleViewModel>>(responseRolesForUser.Content);
+        return rolesForUser;
       }
+
+
+      throw new ApiException(responseRolesForUser.StatusCode, new ApiError() {Message = responseRolesForUser.ErrorMessage});
+
+    }
+
+    public IEnumerable<UserRolesViewModel> GetAllRolesForUser(string authId)
+    {
+      //Alle rollen voor de opgegeven gebruiker ophalen
+      var rolesForUser = GetAllRolesAssignedToUser(authId).ToList();
 
 
       //Alle rollen ophalen
-      var request = new RestRequest("/roles", Method.GET);
-      request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+      var allRoles = GetAllRoles();
 
+      //Niet toegekende rollen bepalen
+      var nonActiveRoles = allRoles.Except(rolesForUser,new RoleComparer()).ToList();
 
-
-      var response = restClient.Execute(request);
-
-      RolesViewModel allRoles = new RolesViewModel();
-      if (response.IsSuccessful)
-      {
-        allRoles = JsonConvert.DeserializeObject<RolesViewModel>(response.Content);
-
-      }
-
-      var nonActiveRoles = allRoles.Roles.Except(rolesForUser,new RoleComparer()).ToList();
-
+      //Terug te geven data opbouwen
       List<UserRolesViewModel> model = rolesForUser.Select(role => new UserRolesViewModel
         {
           IsActive = true,
@@ -239,6 +237,59 @@ namespace kangoeroes.leidingBeheer.Services.Auth
       }));
 
       return model;
+    }
+
+    public bool AddRoleToUser(string authId, string roleId)
+    {
+      var token = GetToken(_configuration["Auth0:authorization_audience"]);
+      var basUrl = _configuration["Auth0:authorization_url"];
+
+
+      var restClient = new RestClient(basUrl);
+
+      var request = new RestRequest($"/users/{authId}/roles", Method.PATCH);
+      request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+      var array = new string[1];
+      array[0] = roleId;
+
+      request.AddJsonBody(JsonConvert.SerializeObject(array));
+
+      var response = restClient.Execute(request);
+
+      if (response.IsSuccessful)
+      {
+        return true;
+      }
+
+      throw new ApiException(response.StatusCode, new ApiError() {Message = response.ErrorMessage});
+
+
+    }
+
+    public bool RemoveRoleFromUser(string authId, string roleId)
+    {
+      var token = GetToken(_configuration["Auth0:authorization_audience"]);
+      var basUrl = _configuration["Auth0:authorization_url"];
+
+
+      var restClient = new RestClient(basUrl);
+
+
+      var request = new RestRequest($"/users/{authId}/roles", Method.DELETE);
+      request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+      var array = new string[1];
+      array[0] = roleId;
+
+      request.AddJsonBody(JsonConvert.SerializeObject(array));
+
+      var response = restClient.Execute(request);
+
+      if (response.IsSuccessful)
+      {
+        return true;
+      }
+
+      throw new ApiException(response.StatusCode, new ApiError() {Message = response.ErrorMessage});
     }
   }
 }
