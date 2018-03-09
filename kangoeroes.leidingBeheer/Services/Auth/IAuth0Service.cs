@@ -11,5 +11,6 @@ namespace kangoeroes.leidingBeheer.Services.Auth
     Task<User> MakeNewUserFor(string email);
 
     IEnumerable<RoleViewModel> GetAllRoles();
+    IEnumerable<UserRolesViewModel> GetAllRolesForUser(string authId);
   }
 }

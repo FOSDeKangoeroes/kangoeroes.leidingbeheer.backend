@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Auth0.AuthenticationApi;
 using Auth0.AuthenticationApi.Models;
@@ -7,6 +8,7 @@ using Auth0.Core;
 using Auth0.Core.Exceptions;
 using Auth0.ManagementApi;
 using Auth0.ManagementApi.Models;
+using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Models.AuthViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -64,6 +66,7 @@ namespace kangoeroes.leidingBeheer.Services.Auth
       {
         audience = _configuration["Auth0:audience"];
       }
+
       var clientId = _configuration["Auth0:ni_client_id"];
       var clientSecret = _configuration["Auth0:ni_client_secret"];
 
@@ -74,7 +77,7 @@ namespace kangoeroes.leidingBeheer.Services.Auth
                                                "\"audience\":\"" + audience + "\"," +
                                                "\"grant_type\":\"client_credentials\"}",
 
-                                                ParameterType.RequestBody);
+        ParameterType.RequestBody);
 
 
       var response = _client.Execute(request);
@@ -172,6 +175,70 @@ namespace kangoeroes.leidingBeheer.Services.Auth
 
       // If we got this far, request was unsuccessful. Throw an exception
       throw new ApiException(response.StatusCode, new ApiError() {Message = response.ErrorMessage});
+    }
+
+    public IEnumerable<UserRolesViewModel> GetAllRolesForUser(string authId)
+    {
+      //api/users/{userId}/roles
+
+
+      var token = GetToken(_configuration["Auth0:authorization_audience"]);
+      var basUrl = _configuration["Auth0:authorization_url"];
+
+
+      var restClient = new RestClient(basUrl);
+
+
+      //Rollen toegekend aan gebruiker ophalen
+      var requestRolesForUser = new RestRequest($"/users/{authId}/roles", Method.GET);
+      requestRolesForUser.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+
+
+
+      var responseRolesForUser = restClient.Execute(requestRolesForUser);
+
+      var rolesForUser = new List<RoleViewModel>();
+
+      if (responseRolesForUser.IsSuccessful)
+      {
+        rolesForUser = JsonConvert.DeserializeObject<List<RoleViewModel>>(responseRolesForUser.Content);
+
+      }
+
+
+      //Alle rollen ophalen
+      var request = new RestRequest("/roles", Method.GET);
+      request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+
+
+
+      var response = restClient.Execute(request);
+
+      RolesViewModel allRoles = new RolesViewModel();
+      if (response.IsSuccessful)
+      {
+        allRoles = JsonConvert.DeserializeObject<RolesViewModel>(response.Content);
+
+      }
+
+      var nonActiveRoles = allRoles.Roles.Except(rolesForUser,new RoleComparer()).ToList();
+
+      List<UserRolesViewModel> model = rolesForUser.Select(role => new UserRolesViewModel
+        {
+          IsActive = true,
+          RoleId = role.Id,
+          RoleName = role.Name
+        })
+        .ToList();
+
+      model.AddRange(nonActiveRoles.Select(role => new UserRolesViewModel
+      {
+        IsActive = false,
+        RoleId = role.Id,
+        RoleName = role.Name
+      }));
+
+      return model;
     }
   }
 }

@@ -4,7 +4,7 @@ namespace kangoeroes.leidingBeheer.Models.AuthViewModels
 {
   public class RolesViewModel
   {
-    public List<RoleViewModel> Roles
+    public IEnumerable<RoleViewModel> Roles
     {
       get;
       set;

@@ -57,7 +57,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       var leiding = _leidingRepository.FindAll(query,sortString,tak);
 
       var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
-      return Ok(new ApiOkResponse(viewModels));
+      return Ok(viewModels);
 
     }
 
@@ -77,7 +77,7 @@ namespace kangoeroes.leidingBeheer.Controllers
         return NotFound(new ApiResponse(404, $"Leiding met id {id} werd niet gevonden"));
       }
 
-      return Ok(new ApiOkResponse(model));
+      return Ok(model);
     }
 
     [HttpPost] //POST api/leiding
@@ -94,7 +94,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       _leidingRepository.Add(leiding);
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
-      return CreatedAtRoute(leiding.Id, new ApiOkResponse(model));
+      return CreatedAtRoute(leiding.Id, model);
     }
 
     [HttpPut] //PUT api/leiding
@@ -112,7 +112,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       _leidingRepository.Update(leiding);
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
-      return Ok(new ApiOkResponse(model));
+      return Ok(model);
     }
 
     [Route("{leidingId}/tak")]
@@ -175,6 +175,38 @@ namespace kangoeroes.leidingBeheer.Controllers
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
 
+    }
+
+    [HttpGet("{leidingId}/roles")]
+    public IActionResult GetRolesForUser([FromRoute] int leidingId)
+    {
+      var leiding = _leidingRepository.FindById(leidingId);
+
+
+      if (leiding == null)
+      {
+        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+      }
+
+      if (leiding.Email == null)
+      {
+        ModelState.AddModelError("NoEmail",
+          "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
+
+      if (string.IsNullOrEmpty(leiding.Auth0Id))
+      {
+        ModelState.AddModelError("NoEmail",
+          "Deze leiding heeft nog geen account. Maak eerst een account aan.");
+        return BadRequest(new ApiBadRequestResponse(ModelState));
+      }
+
+
+      //Alle rollen ophalen, rollen checken van gegeven persoon, mappen
+
+
+      return Ok(_auth0Service.GetAllRolesForUser(leiding.Auth0Id));
     }
 
     private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)
