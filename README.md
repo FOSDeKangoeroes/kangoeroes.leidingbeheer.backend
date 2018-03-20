@@ -16,6 +16,7 @@ REST-api voor het beheren van leiding en takken
 ## Prerequisites
 
 - .NET Core 2.0 (https://www.microsoft.com/net/learn/get-started/windows)
+- MySQL databank
 
 ## Database
 Alle api's maken gebruik van 1 MySQL databank. Deze kan je aanmaken door `createSchema.sql` uit te voeren op een MySQL databank.
