@@ -13,6 +13,10 @@ REST-api voor het beheren van leiding en takken
 
 # How to run
 
+## Prerequisites
+
+- .NET Core 2.0 (https://www.microsoft.com/net/learn/get-started/windows)
+
 ## Database
 Alle api's maken gebruik van 1 MySQL databank. Deze kan je aanmaken door `createSchema.sql` uit te voeren op een MySQL databank.
 
@@ -29,3 +33,5 @@ Noteer zeker volgende zaken, deze moeten aangevuld worden in de `appsettings.jso
 
 Om de api te kunnen starten moet er een appsettings.development.json file aanwezig zijn. Deze bevat waarden om de authenticatie werkzaam te krijgen. Ook de database connectie string moet hier ingevuld worden.
 Deze json file moet aangevraagd worden.
+
+In de map van het project voer je `dotnet run` uit. 
