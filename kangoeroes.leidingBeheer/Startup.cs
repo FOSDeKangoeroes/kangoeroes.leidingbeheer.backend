@@ -9,6 +9,8 @@ using kangoeroes.core.Data.Repositories;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Services.Auth;
+using kangoeroes.leidingBeheer.Services.TotemServices;
+using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -75,15 +77,22 @@ namespace kangoeroes.leidingBeheer
       });
 
       services.AddOptions();
-      //Dependency Injection registreren
+      RegisterDependencyInjection(services);
+
+
+    }
+
+    private void RegisterDependencyInjection(IServiceCollection services)
+    {
       services.AddScoped<ApplicationDbContext>();
       services.AddTransient<ITakRepository, TakRepository>();
       services.AddTransient<ILeidingRepository, LeidingRepository>();
+      services.AddTransient<ITotemRepository, TotemRepository>();
 
-       services.AddSingleton<IConfiguration>(Configuration);
+      services.AddSingleton<IConfiguration>(Configuration);
       //services.Configure<Auth0Config>(Configuration.GetSection("Auth0"));
       services.AddTransient<IAuth0Service,Auth0Service>();
-
+      services.AddTransient<ITotemService, TotemService>();
 
     }
 

@@ -1,4 +1,5 @@
 ﻿using kangoeroes.core.Models;
+using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,6 +9,7 @@ namespace kangoeroes.core.Data.Context
     {
         public DbSet<Tak> Takken { get; set; }
         public DbSet<Leiding> Leiding { get; set; }
+        public DbSet<Totem> Totems { get; set; } 
 
         public ApplicationDbContext()
         {
@@ -23,6 +25,7 @@ namespace kangoeroes.core.Data.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Tak>(MapTak);
             modelBuilder.Entity<Leiding>(MapLeiding);
+            modelBuilder.Entity<Totem>(MapTotem);
         }
 
         private static void MapTak(EntityTypeBuilder<Tak> builder)
@@ -33,6 +36,11 @@ namespace kangoeroes.core.Data.Context
         private static void MapLeiding(EntityTypeBuilder<Leiding> builder)
         {
             builder.ToTable("leiding");
+        }
+        
+        private static void MapTotem(EntityTypeBuilder<Totem> builder)
+        {
+            builder.ToTable("totems.totem");
         }
     }
 }

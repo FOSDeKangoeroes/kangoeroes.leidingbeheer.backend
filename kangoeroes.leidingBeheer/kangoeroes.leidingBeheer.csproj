@@ -35,7 +35,4 @@
   <ItemGroup>
     <None Remove="Model\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services" />
-  </ItemGroup>
 </Project>

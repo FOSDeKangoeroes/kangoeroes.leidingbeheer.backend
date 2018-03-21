@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace kangoeroes.core.Models.Totem
+namespace kangoeroes.core.Models.Totems
 {
     public class TotemEntry
     {

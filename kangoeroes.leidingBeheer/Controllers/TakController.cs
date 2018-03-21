@@ -53,7 +53,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// <param name="id">Unieke identifier van de tak</param>
     /// <returns>1 tak object</returns>
     [Route("{id}")] //GET api/tak/{id}
-    [HttpGet]
+    [HttpGet(Name = "GetTakById")]
     public IActionResult GetTakById([FromRoute] int id)
     {
       var tak = _takRepository.FindById(id);
@@ -79,7 +79,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       _takRepository.Add(tak);
       _takRepository.SaveChanges();
       var model = _mapper.Map<BasicTakViewModel>(tak);
-      return CreatedAtRoute(tak.Id, model); //TODO: routes effectief juist implementeren
+      return CreatedAtRoute("GetTakById",new {id = model.Id}, model);
     }
 
     /// <summary>

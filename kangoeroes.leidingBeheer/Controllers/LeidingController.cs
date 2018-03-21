@@ -43,7 +43,10 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// </summary>
     /// <returns></returns>
     [HttpGet] //GET /api/leiding
-    public IActionResult Index([FromQuery] string sortBy = "naam", [FromQuery] string sortOrder = "", [FromQuery] string query = "", [FromQuery] int tak = 0)
+    public IActionResult Index([FromQuery] string sortBy = "naam",
+                               [FromQuery] string sortOrder = "",
+                               [FromQuery] string query = "",
+                               [FromQuery] int tak = 0)
     {
 
       if (query == null)
@@ -61,7 +64,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
     }
 
-    [HttpGet] //GET /api/leiding/id
+    [HttpGet(Name = "GetLeidingById")] //GET /api/leiding/id
     [Route("{id}")]
    // [Authorize(Roles = "financieel_verantwoordelijke")]
     public IActionResult GetById([FromRoute] int id)
@@ -138,7 +141,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
 
-      return Ok(new ApiOkResponse(model));
+      return Ok(model);
     }
 
     [Route("{leidingId}/user")]
@@ -167,7 +170,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       leiding.Auth0Id = userModel.UserId;
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
-      return Created(model.Email,new ApiCreatedResponse(model));
+      return CreatedAtRoute("GetLeidingById",new {id = model.Id},model);
       }
       catch (ApiException ex)
       {

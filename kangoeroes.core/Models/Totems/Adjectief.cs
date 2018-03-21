@@ -1,6 +1,6 @@
-﻿namespace kangoeroes.core.Models.Totem
+﻿namespace kangoeroes.core.Models.Totems
 {
-    public class Totem
+    public class Adjectief
     {
         public int Id { get; set; }
         
