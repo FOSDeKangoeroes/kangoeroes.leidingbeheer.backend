@@ -10,6 +10,7 @@ namespace kangoeroes.core.Data.Context
         public DbSet<Tak> Takken { get; set; }
         public DbSet<Leiding> Leiding { get; set; }
         public DbSet<Totem> Totems { get; set; } 
+        public DbSet<Adjectief> Adjectieven { get; set; }
 
         public ApplicationDbContext()
         {
@@ -26,6 +27,7 @@ namespace kangoeroes.core.Data.Context
             modelBuilder.Entity<Tak>(MapTak);
             modelBuilder.Entity<Leiding>(MapLeiding);
             modelBuilder.Entity<Totem>(MapTotem);
+            modelBuilder.Entity<Adjectief>(MapAdjectief);
         }
 
         private static void MapTak(EntityTypeBuilder<Tak> builder)
@@ -41,6 +43,11 @@ namespace kangoeroes.core.Data.Context
         private static void MapTotem(EntityTypeBuilder<Totem> builder)
         {
             builder.ToTable("totems.totem");
+        }
+        
+        private static void MapAdjectief(EntityTypeBuilder<Adjectief> builder)
+        {
+            builder.ToTable("totems.adjectief");
         }
     }
 }
