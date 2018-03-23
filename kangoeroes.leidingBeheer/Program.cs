@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace kangoeroes.leidingBeheer
 {
@@ -22,7 +14,6 @@ namespace kangoeroes.leidingBeheer
         .UseIISIntegration()
         .UseStartup<Startup>()
         .Build();
-
       host.Run();
     }
   }

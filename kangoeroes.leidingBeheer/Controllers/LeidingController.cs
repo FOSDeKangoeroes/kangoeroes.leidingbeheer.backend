@@ -47,7 +47,6 @@ namespace kangoeroes.leidingBeheer.Controllers
     public IActionResult Index([FromQuery] LeidingResourceParameters resourceParameters)
     {
 
-      var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
       var leiding = _leidingRepository.FindAll(resourceParameters);
 
       var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
@@ -236,7 +235,6 @@ namespace kangoeroes.leidingBeheer.Controllers
     public IActionResult RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId)
     {
       var leiding = _leidingRepository.FindById(leidingId);
-
 
       if (leiding == null)
       {
