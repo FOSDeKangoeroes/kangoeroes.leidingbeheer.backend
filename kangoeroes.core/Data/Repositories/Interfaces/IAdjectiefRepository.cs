@@ -8,7 +8,7 @@ namespace kangoeroes.core.Data.Repositories.Interfaces
     {
         IEnumerable<Adjectief> FindAll();
         Task<Adjectief> FindByIdAsync(int id);
-        Task<Adjectief> FindByNaamAsync(int id);
+        Task<Adjectief> FindByNaamAsync(string naam);
         Task AddAsync(Adjectief adjectief);
         Task SaveChangesAsync();
     }

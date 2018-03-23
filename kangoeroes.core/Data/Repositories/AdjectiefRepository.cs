@@ -17,7 +17,7 @@ namespace kangoeroes.core.Data.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task<Adjectief> FindByNaamAsync(int id)
+        public Task<Adjectief> FindByNaamAsync(string naam)
         {
             throw new System.NotImplementedException();
         }

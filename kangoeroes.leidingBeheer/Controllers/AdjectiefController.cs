@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
@@ -9,8 +10,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     // GET
     public IActionResult Index()
     {
-      return
-      View();
+      throw new NotImplementedException();
     }
   }
 }

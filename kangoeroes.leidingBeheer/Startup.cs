@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories;
 using kangoeroes.core.Data.Repositories.Interfaces;
@@ -16,11 +11,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer
@@ -72,25 +69,30 @@ namespace kangoeroes.leidingBeheer
 
         });
 
-      services.AddAuthorization(options =>
-      {
-      });
+      services.AddAuthorization();
 
       services.AddOptions();
       RegisterDependencyInjection(services);
-
-
     }
 
     private void RegisterDependencyInjection(IServiceCollection services)
     {
+
+      services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+      services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
+      {
+        var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+        return new UrlHelper(actionContext);
+      });
+
       services.AddScoped<ApplicationDbContext>();
+
       services.AddTransient<ITakRepository, TakRepository>();
       services.AddTransient<ILeidingRepository, LeidingRepository>();
       services.AddTransient<ITotemRepository, TotemRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
-      //services.Configure<Auth0Config>(Configuration.GetSection("Auth0"));
       services.AddTransient<IAuth0Service,Auth0Service>();
       services.AddTransient<ITotemService, TotemService>();
 
@@ -121,9 +123,7 @@ namespace kangoeroes.leidingBeheer
             }
 
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response)).ConfigureAwait(false);
-
           }
-
         });
       });
 
@@ -132,18 +132,6 @@ namespace kangoeroes.leidingBeheer
 
       app.UseDefaultFiles();
       app.UseStaticFiles();
-
-      /*app.Use(async (context, next) => {
-
-        await next();
-        if (context.Response.StatusCode == 404 &&
-            !Path.HasExtension(context.Request.Path.Value) &&
-            !context.Request.Path.Value.StartsWith("/api/"))
-        {
-          context.Request.Path = "/index.html";
-          await next();
-        }
-      });*/
 
       app.UseAuthentication();
 

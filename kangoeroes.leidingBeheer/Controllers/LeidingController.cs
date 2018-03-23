@@ -5,6 +5,7 @@ using Auth0.Core.Exceptions;
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
+using kangoeroes.core.Helpers;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
@@ -43,29 +44,18 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// </summary>
     /// <returns></returns>
     [HttpGet] //GET /api/leiding
-    public IActionResult Index([FromQuery] string sortBy = "naam",
-                               [FromQuery] string sortOrder = "",
-                               [FromQuery] string query = "",
-                               [FromQuery] int tak = 0)
+    public IActionResult Index([FromQuery] LeidingResourceParameters resourceParameters)
     {
 
-      if (query == null)
-      {
-        query = "";
-      }
-
-
-
-      var sortString = sortBy + " " + sortOrder;
-      var leiding = _leidingRepository.FindAll(query,sortString,tak);
+      var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
+      var leiding = _leidingRepository.FindAll(resourceParameters);
 
       var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
       return Ok(viewModels);
 
     }
 
-    [HttpGet(Name = "GetLeidingById")] //GET /api/leiding/id
-    [Route("{id}")]
+    [HttpGet("{id}",Name = "GetLeidingById")] //GET /api/leiding/id
    // [Authorize(Roles = "financieel_verantwoordelijke")]
     public IActionResult GetById([FromRoute] int id)
     {

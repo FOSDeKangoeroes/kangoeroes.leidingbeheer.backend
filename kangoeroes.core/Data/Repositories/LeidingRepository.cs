@@ -6,6 +6,7 @@ using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using kangoeroes.core.Helpers;
 
 
 namespace kangoeroes.core.Data.Repositories
@@ -27,11 +28,13 @@ namespace kangoeroes.core.Data.Repositories
             return _leiding.Include(x => x.Tak);
         }
 
-        public IEnumerable<Leiding> FindAll(string searchString = "", string sortString = "naam", int takId = 0)
+        public PagedList<Leiding> FindAll(LeidingResourceParameters resourceParameters)
         {
-            var result = GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString) |
-                                                            x.Voornaam.Contains(searchString) |
-                                                            x.Email.Contains(searchString)
+
+            var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
+            var result = GetAllWithAllIncluded().Where(x => x.Naam.Contains(resourceParameters.Query) |
+                                                            x.Voornaam.Contains(resourceParameters.Query) |
+                                                            x.Email.Contains(resourceParameters.Query)
             );
 
             if (sortString.Trim() != String.Empty)
@@ -39,12 +42,15 @@ namespace kangoeroes.core.Data.Repositories
                 result = result.OrderBy(sortString);
             }
               
-            if (takId != 0)
+            if (resourceParameters.Tak != 0)
             {
-                result = result.Where(x => x.Tak.Id == takId);
+                result = result.Where(x => x.Tak.Id == resourceParameters.Tak);
             }
 
-            return result.ToList();
+            var pagedList =
+                PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+
+            return pagedList;
         }
 
 
