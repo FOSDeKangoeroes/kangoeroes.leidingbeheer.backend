@@ -7,7 +7,7 @@ namespace kangoeroes.core.Models.Totems
     {
         public int Id { get; set; }
         
-        public DateTime DatumGekregen { get; set; }
+        public DateTime DatumGegeven { get; set; }
         
         public Leiding Leiding { get; set; }
         

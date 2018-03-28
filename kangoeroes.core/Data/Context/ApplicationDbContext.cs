@@ -11,6 +11,7 @@ namespace kangoeroes.core.Data.Context
         public DbSet<Leiding> Leiding { get; set; }
         public DbSet<Totem> Totems { get; set; } 
         public DbSet<Adjectief> Adjectieven { get; set; }
+        public DbSet<TotemEntry> TotemEntries { get; set; }
 
         public ApplicationDbContext()
         {
@@ -48,6 +49,11 @@ namespace kangoeroes.core.Data.Context
         private static void MapAdjectief(EntityTypeBuilder<Adjectief> builder)
         {
             builder.ToTable("totems.adjectief");
+        }
+        
+        private static void MapAdjectief(EntityTypeBuilder<TotemEntry> builder)
+        {
+            builder.ToTable("totems.entry");
         }
     }
 }

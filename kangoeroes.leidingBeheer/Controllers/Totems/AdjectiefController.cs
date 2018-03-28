@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Models.ViewModels.Adjectief;
@@ -7,17 +8,19 @@ using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.Controllers
+namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
   [Route("api/[controller]")]
   public class AdjectiefController : ControllerBase
   {
 
     private readonly IAdjectiefService _adjectiefService;
+    private readonly IMapper _mapper;
 
-    public AdjectiefController(IAdjectiefService adjectiefService)
+    public AdjectiefController(IAdjectiefService adjectiefService, IMapper mapper)
     {
       _adjectiefService = adjectiefService;
+      _mapper = mapper;
     }
 
     // GET
@@ -35,8 +38,10 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       };
 
+      var model = _mapper.Map<IEnumerable<BasicAdjectiefViewModel>>(adjectieven);
+
       Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
-      return Ok(adjectieven);
+      return Ok(model);
     }
 
     [HttpGet("{id}",Name = "GetAdjectiefById")]

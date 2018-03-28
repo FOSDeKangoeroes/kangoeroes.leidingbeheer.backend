@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using kangoeroes.core.Data.Repositories.Interfaces;
+﻿using System.Threading.Tasks;
 using kangoeroes.core.Filters;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Models.ViewModels.Totem;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace kangoeroes.leidingBeheer.Controllers
+namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
   [Route("api/[controller]")]
   [ApiValidationFilter]
