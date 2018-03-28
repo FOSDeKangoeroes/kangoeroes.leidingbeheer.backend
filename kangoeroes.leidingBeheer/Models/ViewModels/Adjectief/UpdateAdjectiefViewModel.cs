@@ -2,7 +2,7 @@
 
 namespace kangoeroes.leidingBeheer.Models.ViewModels.Adjectief
 {
-  public class AddAdjectiefViewModel
+  public class UpdateAdjectiefViewModel
   {
     [Required(AllowEmptyStrings = false)]
     public string Naam { get; set; }

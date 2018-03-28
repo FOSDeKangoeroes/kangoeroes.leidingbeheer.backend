@@ -9,5 +9,10 @@ namespace kangoeroes.core.Models.Totems
         public string Naam { get; set; }
         
         public DateTime CreatedOn { get; set; }
+
+        public Adjectief()
+        {
+            CreatedOn = DateTime.Now;
+        }
     }
 }

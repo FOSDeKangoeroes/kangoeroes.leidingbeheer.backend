@@ -32,12 +32,18 @@ namespace kangoeroes.core.Data.Repositories
         {
 
             var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
-            var result = GetAllWithAllIncluded().Where(x => x.Naam.Contains(resourceParameters.Query) |
-                                                            x.Voornaam.Contains(resourceParameters.Query) |
-                                                            x.Email.Contains(resourceParameters.Query)
-            );
 
-            if (sortString.Trim() != String.Empty)
+            var result = GetAllWithAllIncluded();
+            
+
+            if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
+            {
+                result = result.Where(x => x.Naam.Contains(resourceParameters.Query) |
+                                           x.Voornaam.Contains(resourceParameters.Query) |
+                                           x.Email.Contains(resourceParameters.Query));
+            }
+
+            if (!string.IsNullOrWhiteSpace(sortString))
             {
                 result = result.OrderBy(sortString);
             }
@@ -47,8 +53,7 @@ namespace kangoeroes.core.Data.Repositories
                 result = result.Where(x => x.Tak.Id == resourceParameters.Tak);
             }
 
-            var pagedList =
-                PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+            var pagedList = PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
             return pagedList;
         }

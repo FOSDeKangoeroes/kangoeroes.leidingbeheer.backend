@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RestSharp;
 
 
@@ -48,6 +49,17 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
 
       var leiding = _leidingRepository.FindAll(resourceParameters);
+
+      var paginationMetaData = new
+      {
+        totalCount = leiding.TotalCount,
+        pageSize = leiding.PageSize,
+        currentPage = leiding.CurrentPage,
+        totalPages = leiding.TotalPages,
+
+      };
+
+      Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
 
       var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
       return Ok(viewModels);

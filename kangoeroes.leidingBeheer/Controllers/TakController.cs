@@ -52,8 +52,8 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// </summary>
     /// <param name="id">Unieke identifier van de tak</param>
     /// <returns>1 tak object</returns>
-    [Route("{id}")] //GET api/tak/{id}
-    [HttpGet(Name = "GetTakById")]
+    //GET api/tak/{id}
+    [HttpGet("{id}",Name = "GetTakById")]
     public IActionResult GetTakById([FromRoute] int id)
     {
       var tak = _takRepository.FindById(id);

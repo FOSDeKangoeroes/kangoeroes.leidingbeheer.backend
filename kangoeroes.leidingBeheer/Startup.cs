@@ -91,10 +91,12 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<ITakRepository, TakRepository>();
       services.AddTransient<ILeidingRepository, LeidingRepository>();
       services.AddTransient<ITotemRepository, TotemRepository>();
+      services.AddTransient<IAdjectiefRepository, AdjectiefRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
       services.AddTransient<IAuth0Service,Auth0Service>();
       services.AddTransient<ITotemService, TotemService>();
+      services.AddTransient<IAdjectiefService, AdjectiefService>();
 
     }
 

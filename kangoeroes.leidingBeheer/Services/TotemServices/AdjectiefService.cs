@@ -2,15 +2,17 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.core.Helpers;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Models.ViewModels.Adjectief;
+using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices
 {
-  public class AdjectiefService
+  public class AdjectiefService : IAdjectiefService
   {
-    public IAdjectiefRepository _adjectiefRepository;
+    private readonly IAdjectiefRepository _adjectiefRepository;
     private readonly IMapper _mapper;
 
     public AdjectiefService(IAdjectiefRepository adjectiefRepository, IMapper mapper)
@@ -19,11 +21,11 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       _mapper = mapper;
     }
 
-    public IEnumerable<BasicAdjectiefViewModel> FindAll()
+    public PagedList<Adjectief> FindAll(ResourceParameters resourceParameters)
     {
-      var result = _adjectiefRepository.FindAll();
+      var result = _adjectiefRepository.FindAll(resourceParameters);
 
-      return _mapper.Map<IEnumerable<BasicAdjectiefViewModel>>(result);
+      return result;
     }
 
     public async Task<BasicAdjectiefViewModel> FindByIdAsync(int id)
@@ -54,6 +56,23 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       await _adjectiefRepository.SaveChangesAsync();
 
       var model = _mapper.Map<BasicAdjectiefViewModel>(newAdjectief);
+
+      return model;
+    }
+
+    public async Task<BasicAdjectiefViewModel> UpdateAdjectief(int adjectiefId, UpdateAdjectiefViewModel viewmodel)
+    {
+      var adjectief = await _adjectiefRepository.FindByIdAsync(adjectiefId);
+
+      if (adjectief == null)
+      {
+        throw new EntityNotFoundException($"Adjectief met id {adjectiefId} werd niet gevonden");
+      }
+
+      adjectief = _mapper.Map(viewmodel, adjectief);
+     await _adjectiefRepository.SaveChangesAsync();
+
+      var model = _mapper.Map<BasicAdjectiefViewModel>(adjectief);
 
       return model;
     }
