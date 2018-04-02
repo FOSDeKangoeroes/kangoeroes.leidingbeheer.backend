@@ -29,6 +29,7 @@ namespace kangoeroes.core.Data.Context
             modelBuilder.Entity<Leiding>(MapLeiding);
             modelBuilder.Entity<Totem>(MapTotem);
             modelBuilder.Entity<Adjectief>(MapAdjectief);
+            modelBuilder.Entity<TotemEntry>(MapTotemEntry);
         }
 
         private static void MapTak(EntityTypeBuilder<Tak> builder)
@@ -51,7 +52,7 @@ namespace kangoeroes.core.Data.Context
             builder.ToTable("totems.adjectief");
         }
         
-        private static void MapAdjectief(EntityTypeBuilder<TotemEntry> builder)
+        private static void MapTotemEntry(EntityTypeBuilder<TotemEntry> builder)
         {
             builder.ToTable("totems.entry");
         }

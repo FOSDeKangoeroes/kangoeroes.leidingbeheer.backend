@@ -9,6 +9,7 @@ namespace kangoeroes.core.Data.Repositories.Interfaces
     {
         PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters);
         Task<TotemEntry> FindByIdAsync(int id);
+        Task<TotemEntry> FindByLeidingIdAsync(int leidingId);
         Task AddAsync(TotemEntry totemEntry);
         Task DeleteAsync(TotemEntry totemEntry);
         Task SaveChangesAsync();

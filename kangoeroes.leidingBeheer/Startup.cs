@@ -98,6 +98,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<IAuth0Service,Auth0Service>();
       services.AddTransient<ITotemService, TotemService>();
       services.AddTransient<IAdjectiefService, AdjectiefService>();
+      services.AddTransient<ITotemEntryService, TotemEntryService>();
 
     }
 

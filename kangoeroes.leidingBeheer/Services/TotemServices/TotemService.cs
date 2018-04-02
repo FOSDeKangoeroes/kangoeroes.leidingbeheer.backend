@@ -64,12 +64,20 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
     {
       var totem = await _totemRepository.FindByIdAsync(id);
 
+
       if (totem == null)
       {
         throw new EntityNotFoundException($"Totem met id {id} werd niet gevonden");
       }
 
-      totem.Naam = viewModel.Naam;
+      var exists = await _totemRepository.FindByNaamAsync(viewModel.Naam.Trim().ToLowerInvariant()) != null;
+
+      if (exists)
+      {
+        throw new EntityExistsException($"Totem met naam {viewModel.Naam} bestaat al");
+      }
+
+      totem.Naam = viewModel.Naam.Trim().ToLowerInvariant();
       await _totemRepository.SaveChangesAsync();
 
       return _mapper.Map<BasicTotemViewModel>(totem);

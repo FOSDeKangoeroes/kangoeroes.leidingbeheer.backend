@@ -76,6 +76,10 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
       {
         return NotFound(e.Message);
       }
+      catch (EntityExistsException e)
+      {
+        return BadRequest(e.Message);
+      }
     }
 
 

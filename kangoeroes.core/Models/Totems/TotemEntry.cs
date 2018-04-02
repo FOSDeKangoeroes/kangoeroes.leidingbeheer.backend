@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace kangoeroes.core.Models.Totems
 {
     public class TotemEntry
     {
         public int Id { get; set; }
+        
         
         public DateTime DatumGegeven { get; set; }
         

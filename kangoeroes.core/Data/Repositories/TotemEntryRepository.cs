@@ -31,7 +31,7 @@ namespace kangoeroes.core.Data.Repositories
         {
             var sortString = resourceParameters.SortBy + resourceParameters.SortOrder;
 
-            var collectionBeforePaging = _totemEntries.AsQueryable();
+            var collectionBeforePaging = GetAllWithAllIncluded();
             
             if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
             {
@@ -53,6 +53,11 @@ namespace kangoeroes.core.Data.Repositories
         public Task<TotemEntry> FindByIdAsync(int id)
         {
             return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public Task<TotemEntry> FindByLeidingIdAsync(int leidingId)
+        {
+            return _totemEntries.Include(x => x.Leiding).FirstOrDefaultAsync(x => x.Leiding.Id == leidingId);
         }
 
         public Task AddAsync(TotemEntry totemEntry)

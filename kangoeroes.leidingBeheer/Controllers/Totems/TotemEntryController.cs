@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Helpers;
+using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Models.ViewModels.TotemEntry;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +14,8 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
   [Route("api/[controller]")]
   public class TotemEntryController : ControllerBase
   {
-    private ITotemEntryService _totemEntryService;
-    private IMapper _mapper;
+    private readonly ITotemEntryService _totemEntryService;
+    private readonly IMapper _mapper;
 
     public TotemEntryController(ITotemEntryService totemEntryService, IMapper mapper)
     {
@@ -38,6 +41,40 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
 
       Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
       return Ok(model);
+    }
+
+    [HttpGet("{id}", Name = "GetEntryById")]
+    public async Task<IActionResult> FindById([FromRoute] int id)
+    {
+      try
+      {
+        var entry = await _totemEntryService.FindByIdAsync(id);
+        return Ok(entry);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> AddEntry([FromBody] AddEntryExistingLeiding viewmodel)
+    {
+      try
+      {
+        var newEntry = await _totemEntryService.AddEntryAsync(viewmodel);
+
+        return CreatedAtRoute("GetEntryById", new {id = newEntry.Id}, newEntry);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+      catch (EntityExistsException e)
+      {
+        return BadRequest(e.Message);
+      }
     }
   }
 }
