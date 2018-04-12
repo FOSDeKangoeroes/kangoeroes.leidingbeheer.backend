@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Filters;
+using kangoeroes.core.Helpers;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
 using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 
 namespace kangoeroes.leidingBeheer.Controllers
@@ -29,19 +31,23 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// </summary>
     /// <returns>Lijst van alle takken</returns>
     [HttpGet] //GET api/tak
-    public IActionResult Index([FromQuery] string sortBy = "naam", [FromQuery] string sortOrder ="",[FromQuery]  string query = "")
+    public IActionResult Index([FromQuery] ResourceParameters resourceParameters)
     {
 
-      if (query == null)
+      var takken = _takRepository.FindAll(resourceParameters);
+
+      var paginationMetaData = new
       {
-        query = "";
-      }
-      if (sortBy == null)
-      {
-        sortBy = "naam";
-      }
-      var sortString = sortBy + " " + sortOrder;
-      var takken = _takRepository.FindAll(query,sortString);
+        totalCount = takken.TotalCount,
+        pageSize = takken.PageSize,
+        currentPage = takken.CurrentPage,
+        totalPages = takken.TotalPages,
+
+      };
+
+      Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
+
+
       var model = _mapper.Map<IEnumerable<BasicTakViewModel>>(takken);
       return Ok(model);
     }

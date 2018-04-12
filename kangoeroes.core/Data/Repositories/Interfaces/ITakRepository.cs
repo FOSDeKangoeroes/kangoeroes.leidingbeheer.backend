@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using kangoeroes.core.Helpers;
 using kangoeroes.core.Models;
 
 namespace kangoeroes.core.Data.Repositories.Interfaces
 {
     public interface ITakRepository
     {
-        IEnumerable<Tak> FindAll(string searchString = "", string sortString = "naam") ;
+        PagedList<Tak> FindAll(ResourceParameters resourceParameters) ;
 
         Tak FindById(int id);
 

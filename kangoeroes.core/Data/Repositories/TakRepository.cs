@@ -6,6 +6,7 @@ using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using kangoeroes.core.Helpers;
 
 
 namespace kangoeroes.core.Data.Repositories
@@ -28,17 +29,28 @@ namespace kangoeroes.core.Data.Repositories
         }
      
 
-        public IEnumerable<Tak> FindAll(string searchString = "", string sortString = "naam")
+        public PagedList<Tak> FindAll(ResourceParameters resourceParameters)
         {
+
+            var result = GetAllWithAllIncluded();
             
-            var result = GetAllWithAllIncluded().Where(x => x.Naam.Contains(searchString));
+            var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
+
+            if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
+            {
+                result = result.Where(x => x.Naam.Contains(resourceParameters.Query));
+                                           
+            }
             
-            if (sortString.Trim() != String.Empty)
+            
+            if (!string.IsNullOrWhiteSpace(sortString))
             {
                 result = result.OrderBy(sortString);
             }
 
-            return result.ToList();
+            var pagedList = PagedList<Tak>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+
+            return pagedList;
         }
 
         public Tak FindById(int id)
