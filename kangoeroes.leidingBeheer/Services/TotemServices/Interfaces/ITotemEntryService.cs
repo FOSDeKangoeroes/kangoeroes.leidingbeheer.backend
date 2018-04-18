@@ -10,5 +10,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices.Interfaces
     PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters);
     Task<BasicTotemEntryViewModel> FindByIdAsync(int id);
     Task<BasicTotemEntryViewModel> AddEntryAsync(AddEntryExistingLeiding viewmodel);
+    Task<BasicTotemEntryViewModel> AddVoorOuderAsync(int leidingId, int voorouderId);
+    Task<BasicTotemEntryViewModel> UpdateEntry(int entryId, UpdateTotemEntryViewModel viewmodel);
   }
 }

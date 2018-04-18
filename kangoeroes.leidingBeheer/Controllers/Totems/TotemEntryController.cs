@@ -76,5 +76,20 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
         return BadRequest(e.Message);
       }
     }
+
+    [HttpPost("{totemEntryId}/parent/{voorouderEntryId}")]
+    public async Task<IActionResult> AddVoorouder(int totemEntryId, int voorouderEntryId)
+    {
+      try
+      {
+        var model = await _totemEntryService.AddVoorOuderAsync(totemEntryId, voorouderEntryId);
+        return Ok(model);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+
+    }
   }
 }

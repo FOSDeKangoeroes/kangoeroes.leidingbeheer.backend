@@ -109,5 +109,67 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       return model;
 
     }
+
+    public async Task<BasicTotemEntryViewModel> AddVoorOuderAsync(int leidingId, int voorouderId)
+    {
+      var totemEntry = await _totemEntryRepository.FindByIdAsync(leidingId);
+
+      if (totemEntry == null)
+      {
+        throw new EntityNotFoundException($"Totem voor leiding met id {leidingId} werd niet gevonden.");
+      }
+
+      var voorouder = await _totemEntryRepository.FindByIdAsync(voorouderId);
+
+      if (voorouder == null)
+      {
+        throw new EntityNotFoundException($"Voorouder met id {voorouderId} werd niet gevonden.");
+      }
+
+      totemEntry.Voorouder = voorouder;
+      await _totemEntryRepository.SaveChangesAsync();
+
+      var model = _mapper.Map<BasicTotemEntryViewModel>(totemEntry);
+
+      return model;
+
+
+    }
+
+    public async Task<BasicTotemEntryViewModel> UpdateEntry(int entryId, UpdateTotemEntryViewModel viewmodel)
+    {
+      var entryToUpdate = await _totemEntryRepository.FindByIdAsync(entryId);
+
+      if (entryToUpdate == null)
+      {
+        throw new EntityNotFoundException($"Entry met id werd niet gevonden.");
+      }
+
+      var adjectief = await _adjectiefRepository.FindByIdAsync(viewmodel.AdjectiefId);
+
+      if (adjectief == null)
+      {
+        throw new EntityNotFoundException($"Adjectief met id {viewmodel.AdjectiefId} werd niet gevonden.");
+      }
+      entryToUpdate.Adjectief = adjectief;
+
+      var totem = await _totemRepository.FindByIdAsync(viewmodel.TotemId);
+
+      if (totem == null)
+      {
+        throw new EntityNotFoundException($"Dier met id {viewmodel.TotemId} werd niet gevonden.");
+      }
+
+      entryToUpdate.Totem = totem;
+      entryToUpdate.DatumGegeven = viewmodel.DatumGegeven;
+
+      await _totemEntryRepository.SaveChangesAsync();
+
+      var model = _mapper.Map<BasicTotemEntryViewModel>(entryToUpdate);
+
+      return model;
+
+    }
+
   }
 }
