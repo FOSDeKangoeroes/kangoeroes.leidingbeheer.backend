@@ -91,5 +91,19 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
       }
 
     }
+
+    [HttpPut("{totemEntryId}")]
+    public async Task<IActionResult> UpdateEntry([FromRoute] int totemEntryId, [FromBody] UpdateTotemEntryViewModel viewModel)
+    {
+      try
+      {
+        var model = await _totemEntryService.UpdateEntry(totemEntryId, viewModel);
+        return Ok(model);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+    }
   }
 }

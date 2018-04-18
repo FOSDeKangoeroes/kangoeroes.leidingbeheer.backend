@@ -11,7 +11,6 @@ namespace kangoeroes.leidingBeheer.Models.ViewModels.TotemEntry
   {
     public int Id { get; set; }
 
-
     public DateTime DatumGegeven { get; set; }
 
     public BasicLeidingViewModel Leiding { get; set; }
@@ -21,5 +20,8 @@ namespace kangoeroes.leidingBeheer.Models.ViewModels.TotemEntry
     public BasicAdjectiefViewModel Adjectief { get; set; }
 
     public int VoorouderId { get; set; }
+    public DateTime ReuseDateTotem { get; set; }
+    public DateTime ReuseDateAdjectief { get; set; }
+
   }
 }

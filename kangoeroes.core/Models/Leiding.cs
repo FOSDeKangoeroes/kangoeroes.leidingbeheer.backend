@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace kangoeroes.core.Models
 {
@@ -23,6 +24,8 @@ namespace kangoeroes.core.Models
         
         public Tak Tak { get; set; }
 
+        [NotMapped]
+        public bool HasBeenLeiding => DatumGestopt > LeidingSinds;
 
     }
 }
