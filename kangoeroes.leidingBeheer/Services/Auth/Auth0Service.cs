@@ -13,6 +13,7 @@ using kangoeroes.leidingBeheer.Models.AuthViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
+using static System.Int32;
 
 namespace kangoeroes.leidingBeheer.Services.Auth
 {
@@ -136,7 +137,7 @@ namespace kangoeroes.leidingBeheer.Services.Auth
       Random random = new Random(Environment.TickCount);
       List<char> chars = new List<char>();
 
-      int passwordLength = Int32.Parse(_configuration["Auth0:passwordLength"]);
+      int passwordLength = Parse(_configuration["Auth0:passwordLength"]);
       while (chars.Count < passwordLength)
       {
         chars.Insert(random.Next(0, chars.Count),

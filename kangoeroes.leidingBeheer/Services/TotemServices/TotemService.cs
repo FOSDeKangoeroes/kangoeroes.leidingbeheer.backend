@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.core.Helpers;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Models.ViewModels.Totem;
@@ -21,11 +22,11 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       _mapper = mapper;
     }
 
-    public IEnumerable<BasicTotemViewModel> FindAll()
+    public PagedList<Totem> FindAll(ResourceParameters resourceParameters)
     {
-      var result = _totemRepository.FindAll().ToList();
+      var result = _totemRepository.FindAll(resourceParameters);
 
-      return _mapper.Map<IEnumerable<BasicTotemViewModel>>(result);
+      return result;
     }
 
     public async Task<BasicTotemViewModel> FindByIdAsync(int id)
@@ -49,6 +50,9 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       {
         throw new EntityExistsException($"Totem met naam {viewModel.Naam} bestaat al");
       }
+
+      //Trailing spaces verwijderen uit nieuwe totem
+      viewModel.Naam = viewModel.Naam.Trim();
 
       var newTotem = _mapper.Map<Totem>(viewModel);
 

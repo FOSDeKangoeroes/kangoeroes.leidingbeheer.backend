@@ -9,7 +9,6 @@ namespace kangoeroes.leidingBeheer.Services.Auth
   public interface IAuth0Service
   {
     Task<User> MakeNewUserFor(string email);
-
     IEnumerable<RoleViewModel> GetAllRoles();
     IEnumerable<UserRolesViewModel> GetAllRolesForUser(string authId);
     bool AddRoleToUser(string authId, string roleId);
