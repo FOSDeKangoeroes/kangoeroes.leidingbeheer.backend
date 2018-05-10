@@ -3,9 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using kangoeroes.core.Data.Context;
 using kangoeroes.core.Data.Repositories.Interfaces;
+using kangoeroes.core.Helpers;
 using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Extensions.Internal;
+using System.Linq.Dynamic.Core;
 
 namespace kangoeroes.core.Data.Repositories
 {
@@ -25,9 +27,27 @@ namespace kangoeroes.core.Data.Repositories
             return _totems;
         }
 
-        public IEnumerable<Totem> FindAll()
+        public PagedList<Totem> FindAll(ResourceParameters resourceParameters)
         {
-            return GetAllWithAllIncluded().AsEnumerable();
+            var result = GetAllWithAllIncluded();
+            
+            var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
+
+            if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
+            {
+                result = result.Where(x => x.Naam.Contains(resourceParameters.Query));
+                                           
+            }
+            
+            
+            if (!string.IsNullOrWhiteSpace(sortString))
+            {
+                result = result.OrderBy(sortString);
+            }
+
+            var pagedList = PagedList<Totem>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+
+            return pagedList;
         }
 
         public Task<Totem> FindByIdAsync(int id)
