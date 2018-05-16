@@ -115,7 +115,8 @@ namespace kangoeroes.leidingBeheer
       {
         builder.WithOrigins("http://staging.admin.dekangoeroes.be")
           .AllowAnyHeader()
-          .AllowAnyMethod();
+          .AllowAnyMethod()
+          .AllowCredentials();
       });
 
       app.UseExceptionHandler(options =>
