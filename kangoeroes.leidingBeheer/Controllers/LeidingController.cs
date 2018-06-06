@@ -275,13 +275,13 @@ namespace kangoeroes.leidingBeheer.Controllers
     private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)
     {
       leiding.Auth0Id = viewModel.Auth0Id;
-      leiding.DatumGestopt = viewModel.DatumGestopt;
+      leiding.DatumGestopt = viewModel.DatumGestopt.ToLocalTime();
       if (viewModel.Email != null && viewModel.Email.Trim() != "")
       {
         leiding.Email = viewModel.Email;
       }
 
-      leiding.LeidingSinds = viewModel.LeidingSinds;
+      leiding.LeidingSinds = viewModel.LeidingSinds.ToLocalTime();
       leiding.Naam = viewModel.Naam;
       leiding.Voornaam = viewModel.Voornaam;
       leiding.Tak = tak;
