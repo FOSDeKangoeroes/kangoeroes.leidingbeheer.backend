@@ -114,6 +114,8 @@ namespace kangoeroes.leidingBeheer.Controllers
       }
 
       leiding = _mapper.Map(viewmodel, leiding);
+      leiding.DatumGestopt = viewmodel.DatumGestopt.ToLocalTime();
+      leiding.LeidingSinds = viewmodel.LeidingSinds.ToLocalTime();
       _leidingRepository.Update(leiding);
       _leidingRepository.SaveChanges();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
@@ -206,10 +208,6 @@ namespace kangoeroes.leidingBeheer.Controllers
           "Deze leiding heeft nog geen account. Maak eerst een account aan.");
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
-
-
-      //Alle rollen ophalen, rollen checken van gegeven persoon, mappen
-
 
       return Ok(_auth0Service.GetAllRolesForUser(leiding.Auth0Id));
     }
