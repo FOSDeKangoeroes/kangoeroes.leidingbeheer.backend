@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Auth0.Core.Exceptions;
 using AutoMapper;
@@ -12,7 +11,6 @@ using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
 using kangoeroes.leidingBeheer.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
@@ -22,14 +20,14 @@ namespace kangoeroes.leidingBeheer.Controllers
 {
   [Route("/api/[controller]")]
   [ApiValidationFilter]
- [Authorize(Roles = "financieel_verantwoordelijke")]
+  [Authorize(Roles = "financieel_verantwoordelijke")]
   public class LeidingController : Controller
   {
     private readonly ILeidingRepository _leidingRepository;
     private readonly ITakRepository _takRepository;
     private readonly IMapper _mapper;
     private readonly IAuth0Service _auth0Service;
-    private readonly IConfiguration _configuration;
+
 
     public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper,
       IAuth0Service auth0Service, IConfiguration configuration)
@@ -37,8 +35,8 @@ namespace kangoeroes.leidingBeheer.Controllers
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
       _mapper = mapper;
-       _auth0Service = auth0Service;
-      _configuration = configuration;
+      _auth0Service = auth0Service;
+
     }
 
     /// <summary>
@@ -48,7 +46,6 @@ namespace kangoeroes.leidingBeheer.Controllers
     [HttpGet] //GET /api/leiding
     public IActionResult Index([FromQuery] LeidingResourceParameters resourceParameters)
     {
-
       var leiding = _leidingRepository.FindAll(resourceParameters);
 
       var paginationMetaData = new
@@ -57,22 +54,18 @@ namespace kangoeroes.leidingBeheer.Controllers
         pageSize = leiding.PageSize,
         currentPage = leiding.CurrentPage,
         totalPages = leiding.TotalPages,
-
       };
 
-      Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
+      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
 
       var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
       return Ok(viewModels);
-
     }
 
-    [HttpGet("{id}",Name = "GetLeidingById")] //GET /api/leiding/id
-   // [Authorize(Roles = "financieel_verantwoordelijke")]
+    [HttpGet("{id}", Name = "GetLeidingById")] //GET /api/leiding/id
+    // [Authorize(Roles = "financieel_verantwoordelijke")]
     public IActionResult GetById([FromRoute] int id)
     {
-
-
       var leiding = _leidingRepository.FindById(id);
 
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
@@ -136,7 +129,6 @@ namespace kangoeroes.leidingBeheer.Controllers
       if (newTak == null)
       {
         return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden"));
-
       }
 
 
@@ -167,21 +159,19 @@ namespace kangoeroes.leidingBeheer.Controllers
       }
 
 
-
       try
       {
         var userModel = await _auth0Service.MakeNewUserFor(leiding.Email);
-      leiding.Auth0Id = userModel.UserId;
-      _leidingRepository.SaveChanges();
-      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
-      return CreatedAtRoute("GetLeidingById",new {id = model.Id},model);
+        leiding.Auth0Id = userModel.UserId;
+        _leidingRepository.SaveChanges();
+        var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+        return CreatedAtRoute("GetLeidingById", new {id = model.Id}, model);
       }
       catch (ApiException ex)
       {
-        ModelState.AddModelError("auth0Exception",ex.Message);
+        ModelState.AddModelError("auth0Exception", ex.Message);
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
-
     }
 
     [HttpGet("{leidingId}/roles")]
@@ -237,7 +227,7 @@ namespace kangoeroes.leidingBeheer.Controllers
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
 
-       var success = _auth0Service.AddRoleToUser(leiding.Auth0Id, roleId);
+      var success = _auth0Service.AddRoleToUser(leiding.Auth0Id, roleId);
 
       return Ok(success);
     }
@@ -270,6 +260,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       return Ok(success);
     }
+
     private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)
     {
       leiding.Auth0Id = viewModel.Auth0Id;
@@ -285,11 +276,6 @@ namespace kangoeroes.leidingBeheer.Controllers
       leiding.Tak = tak;
 
       return leiding;
-
     }
-
-
-
-
   }
 }
