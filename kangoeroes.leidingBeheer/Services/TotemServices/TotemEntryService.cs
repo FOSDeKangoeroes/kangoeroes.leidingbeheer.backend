@@ -7,6 +7,7 @@ using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Models.ViewModels.TotemEntry;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices
 {
@@ -84,7 +85,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       var newEntry = new TotemEntry
       {
         Adjectief = adjectief,
-        DatumGegeven = viewmodel.DatumGegeven,
+        DatumGegeven = viewmodel.DatumGegeven.ToLocalTime(),
         Leiding = leiding,
         Totem = totem
       };

@@ -20,7 +20,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 {
   [Route("/api/[controller]")]
   [ApiValidationFilter]
-  [Authorize(Roles = "financieel_verantwoordelijke")]
+  //[Authorize(Roles = "financieel_verantwoordelijke")]
   public class LeidingController : Controller
   {
     private readonly ILeidingRepository _leidingRepository;

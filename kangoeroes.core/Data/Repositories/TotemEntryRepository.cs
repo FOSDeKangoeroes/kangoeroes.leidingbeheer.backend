@@ -29,7 +29,7 @@ namespace kangoeroes.core.Data.Repositories
         
         public PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters)
         {
-            var sortString = resourceParameters.SortBy + resourceParameters.SortOrder;
+            var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
             var collectionBeforePaging = GetAllWithAllIncluded();
             
