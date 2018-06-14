@@ -24,12 +24,12 @@ namespace kangoeroes.core.Data.Repositories
         private IQueryable<TotemEntry> GetAllWithAllIncluded()
         {
             return _totemEntries.Include(x => x.Adjectief).Include(x => x.Leiding).Include(x => x.Totem)
-                .Include(x => x.Voorouder);
+                .Include(x => x.Voorouder).ThenInclude(x => x.Adjectief).Include(x => x.Voorouder).ThenInclude(x => x.Totem);
         }
         
         public PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters)
         {
-            var sortString = resourceParameters.SortBy + resourceParameters.SortOrder;
+            var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
             var collectionBeforePaging = GetAllWithAllIncluded();
             

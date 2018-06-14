@@ -1,4 +1,5 @@
-﻿using kangoeroes.core.Models.Responses;
+﻿using System.Linq;
+using kangoeroes.core.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -12,7 +13,7 @@ namespace kangoeroes.core.Filters
     {
       if (!context.ModelState.IsValid)
       {
-        context.Result = new BadRequestObjectResult(new ApiBadRequestResponse(context.ModelState));
+        context.Result = new BadRequestObjectResult(context.ModelState.Values.SelectMany(v => v.Errors).Select(v => v.ErrorMessage + " " + v.Exception?.Message));
       }
       base.OnActionExecuting(context);
     }

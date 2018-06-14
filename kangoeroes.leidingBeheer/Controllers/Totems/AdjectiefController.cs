@@ -72,5 +72,20 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
         return BadRequest(e.Message);
       }
     }
+
+    [HttpPut("{adjectiefId}")]
+    public async Task<IActionResult> UpdateAdjectief([FromRoute] int adjectiefId ,[FromBody] UpdateAdjectiefViewModel viewModel)
+    {
+      try
+      {
+        var updatedAdjectief = await _adjectiefService.UpdateAdjectief(adjectiefId, viewModel);
+
+        return Ok(updatedAdjectief);
+      }
+      catch (EntityNotFoundException ex)
+      {
+        return NotFound(ex.Message);
+      }
+    }
   }
 }
