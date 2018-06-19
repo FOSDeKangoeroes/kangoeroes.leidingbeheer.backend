@@ -113,7 +113,7 @@ namespace kangoeroes.leidingBeheer
 
       app.UseCors(builder =>
       {
-        builder.WithOrigins("http://staging.admin.dekangoeroes.be")
+        builder.WithOrigins("http://staging.admin.dekangoeroes.be","http://staging.totems.dekangoeroes.be")
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials();
