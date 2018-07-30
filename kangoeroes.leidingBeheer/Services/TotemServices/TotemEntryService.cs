@@ -162,7 +162,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       }
 
       entryToUpdate.Totem = totem;
-      entryToUpdate.DatumGegeven = viewmodel.DatumGegeven;
+      entryToUpdate.DatumGegeven = viewmodel.DatumGegeven.ToLocalTime();
 
       await _totemEntryRepository.SaveChangesAsync();
 
