@@ -74,5 +74,10 @@ namespace kangoeroes.core.Data.Repositories
         {
             return _dbContext.SaveChangesAsync();
         }
+
+        public IEnumerable<TotemEntry> GetDescendants(int totemEntryId)
+        {
+            return GetAllWithAllIncluded().Where(x => x.Voorouder.Id == totemEntryId);
+        }
     }
 }

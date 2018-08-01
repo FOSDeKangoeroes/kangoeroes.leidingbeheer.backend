@@ -105,5 +105,23 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
         return NotFound(e.Message);
       }
     }
+
+    [HttpGet("{totemEntryId}/descendants")]
+    public IActionResult GetVoorouders([FromRoute] int totemEntryId)
+    {
+
+      try
+      {
+        var descendants =  _totemEntryService.GetDescendants(totemEntryId);
+        return Ok(descendants);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+
+
+
+    }
   }
 }

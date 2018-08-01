@@ -26,16 +26,14 @@ namespace kangoeroes.leidingBeheer.Controllers
     private readonly ILeidingRepository _leidingRepository;
     private readonly ITakRepository _takRepository;
     private readonly IMapper _mapper;
-    private readonly IAuth0Service _auth0Service;
 
 
-    public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper,
-      IAuth0Service auth0Service, IConfiguration configuration)
+
+    public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper, IConfiguration configuration)
     {
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
       _mapper = mapper;
-      _auth0Service = auth0Service;
 
     }
 
@@ -142,7 +140,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
     [Route("{leidingId}/user")]
     [HttpPost]
-    public async Task<IActionResult> CreateUser([FromRoute] int leidingId)
+    public async Task<IActionResult> CreateUser([FromRoute] int leidingId, [FromServices] IAuth0Service auth0Service)
     {
       var leiding = _leidingRepository.FindById(leidingId);
 
@@ -161,7 +159,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       try
       {
-        var userModel = await _auth0Service.MakeNewUserFor(leiding.Email);
+        var userModel = await auth0Service.MakeNewUserFor(leiding.Email);
         leiding.Auth0Id = userModel.UserId;
         _leidingRepository.SaveChanges();
         var model = _mapper.Map<BasicLeidingViewModel>(leiding);
@@ -175,7 +173,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpGet("{leidingId}/roles")]
-    public IActionResult GetRolesForUser([FromRoute] int leidingId)
+    public IActionResult GetRolesForUser([FromRoute] int leidingId, [FromServices] Auth0Service auth0Service)
     {
       var leiding = _leidingRepository.FindById(leidingId);
 
@@ -199,11 +197,11 @@ namespace kangoeroes.leidingBeheer.Controllers
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
 
-      return Ok(_auth0Service.GetAllRolesForUser(leiding.Auth0Id));
+      return Ok(auth0Service.GetAllRolesForUser(leiding.Auth0Id));
     }
 
     [HttpPatch("{leidingId}/roles/{roleId}")]
-    public IActionResult AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId)
+    public IActionResult AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
     {
       var leiding = _leidingRepository.FindById(leidingId);
 
@@ -227,13 +225,13 @@ namespace kangoeroes.leidingBeheer.Controllers
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
 
-      var success = _auth0Service.AddRoleToUser(leiding.Auth0Id, roleId);
+      var success = auth0Service.AddRoleToUser(leiding.Auth0Id, roleId);
 
       return Ok(success);
     }
 
     [HttpDelete("{leidingId}/roles/{roleId}")]
-    public IActionResult RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId)
+    public IActionResult RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
     {
       var leiding = _leidingRepository.FindById(leidingId);
 
@@ -256,7 +254,7 @@ namespace kangoeroes.leidingBeheer.Controllers
         return BadRequest(new ApiBadRequestResponse(ModelState));
       }
 
-      var success = _auth0Service.RemoveRoleFromUser(leiding.Auth0Id, roleId);
+      var success = auth0Service.RemoveRoleFromUser(leiding.Auth0Id, roleId);
 
       return Ok(success);
     }
