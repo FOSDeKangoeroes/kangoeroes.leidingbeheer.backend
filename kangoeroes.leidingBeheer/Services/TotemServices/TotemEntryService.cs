@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Data.Repositories.Interfaces;
@@ -163,13 +164,32 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
 
       entryToUpdate.Totem = totem;
       entryToUpdate.DatumGegeven = viewmodel.DatumGegeven.ToLocalTime();
+      var voorouder = await _totemEntryRepository.FindByIdAsync(viewmodel.VoorouderId);
 
+      if (voorouder == null)
+      {
+        throw new EntityNotFoundException($"Voorouder met id {viewmodel.VoorouderId} werd niet gevonden.");
+      }
+
+      entryToUpdate.Voorouder = voorouder;
       await _totemEntryRepository.SaveChangesAsync();
 
       var model = _mapper.Map<BasicTotemEntryViewModel>(entryToUpdate);
 
       return model;
 
+    }
+
+    public List<BasicTotemEntryViewModel> GetDescendants(int entryId)
+    {
+      var entries =  _totemEntryRepository.GetDescendants(entryId);
+
+      if (entries == null)
+      {
+        throw new EntityNotFoundException($"Er werdern geen afstammelingen gevonden voor de totem met id {entryId}");
+      }
+
+      return _mapper.Map<List<BasicTotemEntryViewModel>>(entries);
     }
 
   }
