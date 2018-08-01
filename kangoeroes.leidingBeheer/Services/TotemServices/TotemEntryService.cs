@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +7,7 @@ using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.leidingBeheer.Models.ViewModels.FamilyTree;
 using kangoeroes.leidingBeheer.Models.ViewModels.TotemEntry;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -192,5 +194,16 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       return _mapper.Map<List<BasicTotemEntryViewModel>>(entries);
     }
 
+    public List<FamilyTreeViewModel> GetFamilyTree()
+    {
+      var tree = _totemEntryRepository.GetFamilyTree().Select(x => new FamilyTreeViewModel()
+      {
+        Key = x.Id,
+        Name = $"{x.Adjectief.Naam} {x.Totem.Naam}",
+        Parent = x.Voorouder?.Id ?? 0
+      });
+
+      return tree.ToList();
+    }
   }
 }
