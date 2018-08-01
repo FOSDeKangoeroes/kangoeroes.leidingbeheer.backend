@@ -13,6 +13,7 @@ namespace kangoeroes.core.Data.Repositories.Interfaces
         Task AddAsync(TotemEntry totemEntry);
         Task DeleteAsync(TotemEntry totemEntry);
         IEnumerable<TotemEntry> GetDescendants(int totemEntryId);
+        IEnumerable<TotemEntry> GetFamilyTree();
         Task SaveChangesAsync();
     }
 }

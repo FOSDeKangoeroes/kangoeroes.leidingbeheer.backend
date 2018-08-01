@@ -34,12 +34,11 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
         pageSize = totemEntries.PageSize,
         currentPage = totemEntries.CurrentPage,
         totalPages = totemEntries.TotalPages,
-
       };
 
       var model = _mapper.Map<IEnumerable<BasicTotemEntryViewModel>>(totemEntries);
 
-      Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
+      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
       return Ok(model);
     }
 
@@ -89,11 +88,11 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
       {
         return NotFound(e.Message);
       }
-
     }
 
     [HttpPut("{totemEntryId}")]
-    public async Task<IActionResult> UpdateEntry([FromRoute] int totemEntryId, [FromBody] UpdateTotemEntryViewModel viewModel)
+    public async Task<IActionResult> UpdateEntry([FromRoute] int totemEntryId,
+      [FromBody] UpdateTotemEntryViewModel viewModel)
     {
       try
       {
@@ -109,19 +108,22 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
     [HttpGet("{totemEntryId}/descendants")]
     public IActionResult GetVoorouders([FromRoute] int totemEntryId)
     {
-
       try
       {
-        var descendants =  _totemEntryService.GetDescendants(totemEntryId);
+        var descendants = _totemEntryService.GetDescendants(totemEntryId);
         return Ok(descendants);
       }
       catch (EntityNotFoundException e)
       {
         return NotFound(e.Message);
       }
+    }
 
-
-
+    [HttpGet("tree")]
+    public IActionResult GetFamilyTree()
+    {
+      var tree = _totemEntryService.GetFamilyTree();
+      return Ok(tree);
     }
   }
 }

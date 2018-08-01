@@ -79,5 +79,10 @@ namespace kangoeroes.core.Data.Repositories
         {
             return GetAllWithAllIncluded().Where(x => x.Voorouder.Id == totemEntryId);
         }
+
+        public IEnumerable<TotemEntry> GetFamilyTree()
+        {
+            return _totemEntries.Include(x => x.Adjectief).Include(x => x.Totem).Include(x => x.Voorouder);
+        }
     }
 }
