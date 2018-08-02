@@ -38,8 +38,12 @@ namespace kangoeroes.core.Data.Repositories
 
             if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
             {
-                result = result.Where(x => x.Naam.Contains(resourceParameters.Query) |
-                                           x.Voornaam.Contains(resourceParameters.Query) |
+                
+               // result = result.Where(x => x.Naam.Contains(resourceParameters.Query) |
+                 //                          x.Voornaam.Contains(resourceParameters.Query) |
+                   //                        x.Email.Contains(resourceParameters.Query));
+                
+                result = result.Where(x => (x.Voornaam + " " + x.Naam).Contains(resourceParameters.Query) |
                                            x.Email.Contains(resourceParameters.Query));
             }
 
