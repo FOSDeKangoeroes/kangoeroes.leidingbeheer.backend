@@ -79,11 +79,16 @@ namespace kangoeroes.leidingBeheer.Controllers
     [HttpPost] //POST api/leiding
     public IActionResult AddLeiding([FromBody] AddLeidingViewModel viewmodel)
     {
-      var tak = _takRepository.FindById(viewmodel.TakId);
-      if (tak == null)
+      Tak tak = null;
+      if (viewmodel.TakId != 0)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
+          tak = _takRepository.FindById(viewmodel.TakId);
+              if (tak == null)
+              {
+                return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
+              }
       }
+
 
       Leiding leiding = new Leiding();
       leiding = MapToLeiding(leiding, tak, viewmodel);
