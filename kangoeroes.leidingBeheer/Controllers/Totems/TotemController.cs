@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using kangoeroes.core.Filters;
-using kangoeroes.core.Helpers;
 using kangoeroes.core.Models.Exceptions;
+using kangoeroes.leidingBeheer.Filters;
+using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Models.ViewModels.Totem;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;

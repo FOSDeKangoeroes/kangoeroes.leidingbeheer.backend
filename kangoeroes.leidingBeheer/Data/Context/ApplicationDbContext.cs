@@ -1,9 +1,10 @@
 ﻿using kangoeroes.core.Models;
+using kangoeroes.core.Models.Poef;
 using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace kangoeroes.core.Data.Context
+namespace kangoeroes.leidingBeheer.Data.Context
 {
     public class ApplicationDbContext: DbContext
     {
@@ -12,6 +13,8 @@ namespace kangoeroes.core.Data.Context
         public DbSet<Totem> Totems { get; set; } 
         public DbSet<Adjectief> Adjectieven { get; set; }
         public DbSet<TotemEntry> TotemEntries { get; set; }
+        public DbSet<DrankType> DrankTypes { get; set; }
+        public DbSet<Drank> Dranken { get; set; }
 
         public ApplicationDbContext()
         {
@@ -30,6 +33,8 @@ namespace kangoeroes.core.Data.Context
             modelBuilder.Entity<Totem>(MapTotem);
             modelBuilder.Entity<Adjectief>(MapAdjectief);
             modelBuilder.Entity<TotemEntry>(MapTotemEntry);
+            modelBuilder.Entity<DrankType>(MapDrankType);
+            modelBuilder.Entity<Drank>(MapDrank);
         }
 
         private static void MapTak(EntityTypeBuilder<Tak> builder)
@@ -55,6 +60,16 @@ namespace kangoeroes.core.Data.Context
         private static void MapTotemEntry(EntityTypeBuilder<TotemEntry> builder)
         {
             builder.ToTable("totems.entry");
+        }
+
+        private static void MapDrankType(EntityTypeBuilder<DrankType> builder)
+        {
+            builder.ToTable("poef.drankType");
+        }
+
+        private static void MapDrank(EntityTypeBuilder<Drank> builder)
+        {
+            builder.ToTable("poef.drank");
         }
     }
 }

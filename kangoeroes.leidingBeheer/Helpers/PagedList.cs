@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace kangoeroes.core.Helpers
+namespace kangoeroes.leidingBeheer.Helpers
 {
     public class PagedList<T> : List<T>
     {

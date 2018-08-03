@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using kangoeroes.core.Data.Repositories.Interfaces;
-using kangoeroes.core.Helpers;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Models.ViewModels.Adjectief;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 

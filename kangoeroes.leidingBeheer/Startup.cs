@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using kangoeroes.core.Data.Context;
-using kangoeroes.core.Data.Repositories;
-using kangoeroes.core.Data.Repositories.Interfaces;
 using kangoeroes.core.Models.Responses;
+using kangoeroes.leidingBeheer.Data.Context;
+using kangoeroes.leidingBeheer.Data.Repositories;
+using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Services.Auth;
 using kangoeroes.leidingBeheer.Services.TotemServices;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using kangoeroes.core.Data.Context;
-using kangoeroes.core.Data.Repositories.Interfaces;
-using kangoeroes.core.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-using kangoeroes.core.Helpers;
+using kangoeroes.core.Models;
+using kangoeroes.leidingBeheer.Data.Context;
+using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Helpers;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace kangoeroes.core.Data.Repositories
+namespace kangoeroes.leidingBeheer.Data.Repositories
 {
     public class TakRepository: ITakRepository
     {

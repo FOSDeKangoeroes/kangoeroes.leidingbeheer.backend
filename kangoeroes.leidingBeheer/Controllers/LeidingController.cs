@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Auth0.Core.Exceptions;
 using AutoMapper;
-using kangoeroes.core.Data.Repositories.Interfaces;
-using kangoeroes.core.Filters;
-using kangoeroes.core.Helpers;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Responses;
+using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Filters;
+using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
 using kangoeroes.leidingBeheer.Services.Auth;
 using Microsoft.AspNetCore.Authorization;

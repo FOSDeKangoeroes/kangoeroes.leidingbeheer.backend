@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.core.Helpers
+﻿namespace kangoeroes.leidingBeheer.Helpers
 {
   public class ResourceParameters
   {

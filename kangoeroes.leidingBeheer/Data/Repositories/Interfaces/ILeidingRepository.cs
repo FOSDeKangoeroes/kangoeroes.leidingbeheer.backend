@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using kangoeroes.core.Helpers;
-using kangoeroes.core.Models;
+﻿using kangoeroes.core.Models;
+using kangoeroes.leidingBeheer.Helpers;
 
-namespace kangoeroes.core.Data.Repositories.Interfaces
+namespace kangoeroes.leidingBeheer.Data.Repositories.Interfaces
 {
     public interface ILeidingRepository
     {

@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using kangoeroes.core.Data.Context;
-using kangoeroes.core.Data.Repositories.Interfaces;
-using kangoeroes.core.Helpers;
-using kangoeroes.core.Models.Totems;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
+﻿using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
+using kangoeroes.core.Models.Totems;
+using kangoeroes.leidingBeheer.Data.Context;
+using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Helpers;
+using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.core.Data.Repositories
+namespace kangoeroes.leidingBeheer.Data.Repositories
 {
     public class TotemRepository : ITotemRepository
     {
