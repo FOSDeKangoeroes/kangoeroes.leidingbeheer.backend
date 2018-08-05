@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace kangoeroes.leidingBeheer
@@ -7,14 +8,16 @@ namespace kangoeroes.leidingBeheer
   {
     public static void Main(string[] args)
     {
-      var host = new WebHostBuilder()
-        .UseKestrel()
-        .UseUrls("http://localhost:5000")
-        .UseContentRoot(Directory.GetCurrentDirectory())
-        .UseIISIntegration()
-        .UseStartup<Startup>()
-        .Build();
-      host.Run();
+      BuildWebHost(args).Run();
     }
+
+    public static IWebHost BuildWebHost(string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+          .UseKestrel()
+          .UseUrls("http://localhost:5000")
+          .UseContentRoot(Directory.GetCurrentDirectory())
+          .UseIISIntegration()
+          .UseStartup<Startup>()
+          .Build();
   }
 }
