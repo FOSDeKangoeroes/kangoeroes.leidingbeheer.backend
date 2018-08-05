@@ -31,6 +31,11 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       _mapper = mapper;
     }
 
+    /// <summary>
+    /// Geeft alle getotemiseerden terug, rekening houdend met de gegeven parameters
+    /// </summary>
+    /// <param name="resourceParameters">Parameters voor paginatie, zoeken en sorteren</param>
+    /// <returns></returns>
     public PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters)
     {
       var entries = _totemEntryRepository.FindAll(resourceParameters);
