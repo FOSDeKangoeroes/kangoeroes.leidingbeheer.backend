@@ -62,9 +62,9 @@ namespace kangoeroes.leidingBeheer.Controllers
 
     [HttpGet("{id}", Name = "GetLeidingById")] //GET /api/leiding/id
     // [Authorize(Roles = "financieel_verantwoordelijke")]
-    public IActionResult GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
-      var leiding = _leidingRepository.FindById(id);
+      var leiding = await _leidingRepository.FindByIdAsync(id);
 
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
 
@@ -77,12 +77,12 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpPost] //POST api/leiding
-    public IActionResult AddLeiding([FromBody] AddLeidingViewModel viewmodel)
+    public async Task<IActionResult> AddLeiding([FromBody] AddLeidingViewModel viewmodel)
     {
       Tak tak = null;
       if (viewmodel.TakId != 0)
       {
-          tak = _takRepository.FindById(viewmodel.TakId);
+          tak = await _takRepository.FindByIdAsync(viewmodel.TakId);
               if (tak == null)
               {
                 return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
@@ -92,17 +92,17 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       Leiding leiding = new Leiding();
       leiding = MapToLeiding(leiding, tak, viewmodel);
-      _leidingRepository.Add(leiding);
-      _leidingRepository.SaveChanges();
+      await  _leidingRepository.AddAsync(leiding);
+      await  _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
       return CreatedAtRoute(leiding.Id, model);
     }
 
     [HttpPut] //PUT api/leiding
     [Route("{id}")]
-    public IActionResult UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeidingViewModel viewmodel)
+    public async Task<IActionResult> UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeidingViewModel viewmodel)
     {
-      var leiding = _leidingRepository.FindById(id);
+      var leiding = await _leidingRepository.FindByIdAsync(id);
 
       if (leiding == null)
       {
@@ -112,23 +112,23 @@ namespace kangoeroes.leidingBeheer.Controllers
       leiding = _mapper.Map(viewmodel, leiding);
       leiding.DatumGestopt = viewmodel.DatumGestopt.ToLocalTime();
       leiding.LeidingSinds = viewmodel.LeidingSinds.ToLocalTime();
-      _leidingRepository.Update(leiding);
-      _leidingRepository.SaveChanges();
+    // await _leidingRepository.UpdateAsync(leiding);
+      await   _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
       return Ok(model);
     }
 
     [Route("{leidingId}/tak")]
     [HttpPut]
-    public IActionResult ChangeTak([FromRoute] int leidingId, [FromBody] ChangeTakViewModel viewModel)
+    public async Task<IActionResult> ChangeTak([FromRoute] int leidingId, [FromBody] ChangeTakViewModel viewModel)
     {
-      var leiding = _leidingRepository.FindById(leidingId);
+      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
       if (leiding == null)
       {
         return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
       }
 
-      var newTak = _takRepository.FindById(viewModel.NewTakId);
+      var newTak = await _takRepository.FindByIdAsync(viewModel.NewTakId);
       if (newTak == null)
       {
         return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden"));
@@ -136,8 +136,8 @@ namespace kangoeroes.leidingBeheer.Controllers
 
 
       leiding.Tak = newTak;
-      _leidingRepository.Update(leiding);
-      _leidingRepository.SaveChanges();
+    //  _leidingRepository.Update(leiding);
+      await  _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
 
       return Ok(model);
@@ -147,7 +147,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromRoute] int leidingId, [FromServices] IAuth0Service auth0Service)
     {
-      var leiding = _leidingRepository.FindById(leidingId);
+      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
       if (leiding == null)
       {
@@ -166,7 +166,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       {
         var userModel = await auth0Service.MakeNewUserFor(leiding.Email);
         leiding.Auth0Id = userModel.UserId;
-        _leidingRepository.SaveChanges();
+        await  _leidingRepository.SaveChangesAsync();
         var model = _mapper.Map<BasicLeidingViewModel>(leiding);
         return CreatedAtRoute("GetLeidingById", new {id = model.Id}, model);
       }
@@ -178,9 +178,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpGet("{leidingId}/roles")]
-    public IActionResult GetRolesForUser([FromRoute] int leidingId, [FromServices] Auth0Service auth0Service)
+    public async Task<IActionResult> GetRolesForUser([FromRoute] int leidingId, [FromServices] Auth0Service auth0Service)
     {
-      var leiding = _leidingRepository.FindById(leidingId);
+      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
 
       if (leiding == null)
@@ -206,9 +206,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpPatch("{leidingId}/roles/{roleId}")]
-    public IActionResult AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
+    public async Task<IActionResult> AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
     {
-      var leiding = _leidingRepository.FindById(leidingId);
+      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
 
       if (leiding == null)
@@ -236,9 +236,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpDelete("{leidingId}/roles/{roleId}")]
-    public IActionResult RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
+    public async Task<IActionResult> RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
     {
-      var leiding = _leidingRepository.FindById(leidingId);
+      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
       if (leiding == null)
       {

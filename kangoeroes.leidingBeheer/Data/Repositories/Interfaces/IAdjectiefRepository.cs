@@ -4,12 +4,8 @@ using kangoeroes.leidingBeheer.Helpers;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories.Interfaces
 {
-    public interface IAdjectiefRepository
+    public interface IAdjectiefRepository: IBaseRepository<Adjectief>
     {
-        PagedList<Adjectief> FindAll(ResourceParameters resourceParameters);
-        Task<Adjectief> FindByIdAsync(int id);
         Task<Adjectief> FindByNaamAsync(string naam);
-        Task AddAsync(Adjectief adjectief);
-        Task SaveChangesAsync();
     }
 }

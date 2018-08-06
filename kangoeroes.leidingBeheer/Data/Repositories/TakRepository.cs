@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
@@ -9,15 +10,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories
 {
-    public class TakRepository: ITakRepository
+    public class TakRepository: BaseRepository<Tak>, ITakRepository
     {
 
         private readonly DbSet<Tak> _takken;
-        private readonly ApplicationDbContext _dbContext;
 
-        public TakRepository(ApplicationDbContext dbContext)
+
+        public TakRepository(ApplicationDbContext dbContext): base(dbContext)
         {
-            _dbContext = dbContext;
             _takken = dbContext.Takken;
         }
 
@@ -25,22 +25,22 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
         {
             return _takken.Include(x => x.Leiding);
         }
-     
 
-        public PagedList<Tak> FindAll(ResourceParameters resourceParameters)
+
+        public override PagedList<Tak> FindAll(ResourceParameters resourceParameters)
         {
 
             var result = GetAllWithAllIncluded();
-            
+
             var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
             if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
             {
                 result = result.Where(x => x.Naam.Contains(resourceParameters.Query));
-                                           
+
             }
-            
-            
+
+
             if (!string.IsNullOrWhiteSpace(sortString))
             {
                 result = result.OrderBy(sortString);
@@ -51,9 +51,9 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
             return pagedList;
         }
 
-        public Tak FindById(int id)
+        public override Task<Tak> FindByIdAsync(int id)
         {
-            return GetAllWithAllIncluded().FirstOrDefault(x => x.Id == id);
+            return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Tak FindByNaam(string naam)
@@ -61,28 +61,6 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
             return GetAllWithAllIncluded().FirstOrDefault(x => x.Naam == naam);
         }
 
-        public void Add(Tak tak)
-        {
-            _takken.Add(tak);
-        }
 
-        public void Delete(Tak tak)
-        {
-            if (tak.Leiding.Count > 0)
-            {
-                throw new ArgumentException("Tak bevat nog leiding. Verwijder eerst de leiding uit de tak vooraleer de tak te verwijderen.");
-            }
-            _takken.Remove(tak);
-        }
-
-        public void Update(Tak tak)
-        {
-            _takken.Update(tak);
-        }
-
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
     }
 }

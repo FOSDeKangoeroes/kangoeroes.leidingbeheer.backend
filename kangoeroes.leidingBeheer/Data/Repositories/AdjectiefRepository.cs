@@ -9,23 +9,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories
 {
-    public class AdjectiefRepository: IAdjectiefRepository
+    public class AdjectiefRepository: BaseRepository<Adjectief>, IAdjectiefRepository
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly DbSet<Adjectief> _adjectieven;
 
-        public AdjectiefRepository(ApplicationDbContext dbContext)
+        public AdjectiefRepository(ApplicationDbContext dbContext): base(dbContext)
         {
             _dbContext = dbContext;
             _adjectieven = dbContext.Adjectieven;
         }
-        
-        public PagedList<Adjectief> FindAll(ResourceParameters resourceParameters)
+
+        public override PagedList<Adjectief> FindAll(ResourceParameters resourceParameters)
         {
             var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
             var result = _adjectieven.AsQueryable();
-            
+
 
             if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
             {
@@ -38,13 +38,13 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
             {
                 result = result.OrderBy(sortString);
             }
-              
+
             var pagedList = PagedList<Adjectief>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
             return pagedList;
         }
 
-        public Task<Adjectief> FindByIdAsync(int id)
+        public override Task<Adjectief> FindByIdAsync(int id)
         {
             return _adjectieven.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -54,14 +54,6 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
             return _adjectieven.FirstOrDefaultAsync(x => x.Naam == naam);
         }
 
-        public Task AddAsync(Adjectief adjectief)
-        {
-           return _adjectieven.AddAsync(adjectief);
-        }
 
-        public Task SaveChangesAsync()
-        {
-           return _dbContext.SaveChangesAsync();
-        }
     }
 }

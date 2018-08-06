@@ -1,4 +1,6 @@
-﻿namespace kangoeroes.leidingBeheer.Helpers
+﻿using kangoeroes.core.Models;
+
+namespace kangoeroes.leidingBeheer.Helpers
 {
   public class LeidingResourceParameters : ResourceParameters
   {

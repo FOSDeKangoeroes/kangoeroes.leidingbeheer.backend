@@ -5,15 +5,11 @@ using kangoeroes.leidingBeheer.Helpers;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories.Interfaces
 {
-    public interface ITotemEntryRepository
+    public interface ITotemEntryRepository: IBaseRepository<TotemEntry>
     {
-        PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters);
-        Task<TotemEntry> FindByIdAsync(int id);
+
         Task<TotemEntry> FindByLeidingIdAsync(int leidingId);
-        Task AddAsync(TotemEntry totemEntry);
-        Task DeleteAsync(TotemEntry totemEntry);
         IEnumerable<TotemEntry> GetDescendants(int totemEntryId);
         IEnumerable<TotemEntry> GetFamilyTree();
-        Task SaveChangesAsync();
     }
 }

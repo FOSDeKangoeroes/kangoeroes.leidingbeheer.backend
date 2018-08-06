@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
@@ -8,81 +9,55 @@ using Microsoft.EntityFrameworkCore;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories
 {
-    public class LeidingRepository : ILeidingRepository
+  public class LeidingRepository : BaseRepository<Leiding>, ILeidingRepository
+  {
+
+    private readonly DbSet<Leiding> _leiding;
+
+    public LeidingRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
-        private readonly ApplicationDbContext _dbContext;
-        private readonly DbSet<Leiding> _leiding;
 
-        public LeidingRepository(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-            _leiding = _dbContext.Leiding;
-        }
-
-        //Helper method to get all leiding with all dependencies already included
-        private IQueryable<Leiding> GetAllWithAllIncluded()
-        {
-            return _leiding.Include(x => x.Tak);
-        }
-
-        public PagedList<Leiding> FindAll(LeidingResourceParameters resourceParameters)
-        {
-
-            var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
-
-            var result = GetAllWithAllIncluded();
-            
-
-            if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
-            {
-                
-               // result = result.Where(x => x.Naam.Contains(resourceParameters.Query) |
-                 //                          x.Voornaam.Contains(resourceParameters.Query) |
-                   //                        x.Email.Contains(resourceParameters.Query));
-                
-                result = result.Where(x => (x.Voornaam + " " + x.Naam).Contains(resourceParameters.Query) |
-                                           x.Email.Contains(resourceParameters.Query));
-            }
-
-            if (!string.IsNullOrWhiteSpace(sortString))
-            {
-                result = result.OrderBy(sortString);
-            }
-              
-            if (resourceParameters.Tak != 0)
-            {
-                result = result.Where(x => x.Tak.Id == resourceParameters.Tak);
-            }
-
-            var pagedList = PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
-
-            return pagedList;
-        }
-
-
-        public Leiding FindById(int id)
-        {
-            return GetAllWithAllIncluded().FirstOrDefault(x => x.Id == id);
-        }
-
-        public void Add(Leiding leiding)
-        {
-            _leiding.Add(leiding);
-        }
-
-        public void Update(Leiding leiding)
-        {
-            _leiding.Update(leiding);
-        }
-
-        public void Delete(Leiding leiding)
-        {
-            _leiding.Remove(leiding);
-        }
-
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
+      _leiding = dbContext.Leiding;
     }
+
+    //Helper method to get all leiding with all dependencies already included
+    private IQueryable<Leiding> GetAllWithAllIncluded()
+    {
+      return _leiding.Include(x => x.Tak);
+    }
+
+    public override PagedList<Leiding> FindAll(ResourceParameters resourceParameters)
+    {
+      var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
+
+      var result = GetAllWithAllIncluded();
+
+
+      if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
+      {
+        result = result.Where(x => (x.Voornaam + " " + x.Naam).Contains(resourceParameters.Query) |
+                                   x.Email.Contains(resourceParameters.Query));
+      }
+
+      if (!string.IsNullOrWhiteSpace(sortString))
+      {
+        result = result.OrderBy(sortString);
+      }
+
+      var leidingParameters = resourceParameters as LeidingResourceParameters;
+      if (leidingParameters.Tak != 0)
+      {
+        result = result.Where(x => x.Tak.Id == leidingParameters.Tak);
+      }
+
+      var pagedList = PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+
+      return pagedList;
+    }
+
+    public override Task<Leiding> FindByIdAsync(int id)
+    {
+      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
+    }
+  }
 }
