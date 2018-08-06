@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories
 {
-    public class TotemEntryRepository : ITotemEntryRepository
+    public class TotemEntryRepository : BaseRepository<TotemEntry>, ITotemEntryRepository
     {
-        private readonly ApplicationDbContext _dbContext;
+
         private readonly DbSet<TotemEntry> _totemEntries;
 
-        public TotemEntryRepository(ApplicationDbContext dbContext)
+        public TotemEntryRepository(ApplicationDbContext dbContext): base(dbContext)
         {
-            _dbContext = dbContext;
-            _totemEntries = _dbContext.TotemEntries;
+
+            _totemEntries = dbContext.TotemEntries;
         }
 
         private IQueryable<TotemEntry> GetAllWithAllIncluded()
@@ -26,13 +26,13 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
             return _totemEntries.Include(x => x.Adjectief).Include(x => x.Leiding).Include(x => x.Totem)
                 .Include(x => x.Voorouder).ThenInclude(x => x.Adjectief).Include(x => x.Voorouder).ThenInclude(x => x.Totem);
         }
-        
-        public PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters)
+
+        public override PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters)
         {
             var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
             var collectionBeforePaging = GetAllWithAllIncluded();
-            
+
             if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
             {
                 collectionBeforePaging = collectionBeforePaging.Where(x => x.Totem.Naam.ToLowerInvariant().Trim()
@@ -43,14 +43,14 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
             {
                 collectionBeforePaging = collectionBeforePaging.OrderBy(sortString);
             }
-              
+
             var pagedList = PagedList<TotemEntry>.Create(collectionBeforePaging, resourceParameters.PageNumber, resourceParameters.PageSize);
 
             return pagedList;
-            
+
         }
 
-        public Task<TotemEntry> FindByIdAsync(int id)
+        public override Task<TotemEntry> FindByIdAsync(int id)
         {
             return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -60,20 +60,6 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
             return _totemEntries.Include(x => x.Leiding).FirstOrDefaultAsync(x => x.Leiding.Id == leidingId);
         }
 
-        public Task AddAsync(TotemEntry totemEntry)
-        {
-            return _totemEntries.AddAsync(totemEntry);
-        }
-
-        public Task DeleteAsync(TotemEntry totemEntry)
-        {
-            return _totemEntries.AddAsync(totemEntry);
-        }
-
-        public Task SaveChangesAsync()
-        {
-            return _dbContext.SaveChangesAsync();
-        }
 
         public IEnumerable<TotemEntry> GetDescendants(int totemEntryId)
         {

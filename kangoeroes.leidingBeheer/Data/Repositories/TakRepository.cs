@@ -14,11 +14,10 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
     {
 
         private readonly DbSet<Tak> _takken;
-        private readonly ApplicationDbContext _dbContext;
+
 
         public TakRepository(ApplicationDbContext dbContext): base(dbContext)
         {
-            _dbContext = dbContext;
             _takken = dbContext.Takken;
         }
 
