@@ -61,7 +61,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
 
     public async Task<BasicTotemEntryViewModel> AddEntryAsync(AddEntryExistingLeiding viewmodel)
     {
-      var leiding = _leidingRepository.FindById(viewmodel.LeidingId);
+      var leiding = await _leidingRepository.FindByIdAsync(viewmodel.LeidingId);
 
       if (leiding == null)
       {
