@@ -82,7 +82,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       Tak tak = null;
       if (viewmodel.TakId != 0)
       {
-          tak = _takRepository.FindById(viewmodel.TakId);
+          tak = await _takRepository.FindByIdAsync(viewmodel.TakId);
               if (tak == null)
               {
                 return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
@@ -128,7 +128,7 @@ namespace kangoeroes.leidingBeheer.Controllers
         return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
       }
 
-      var newTak = _takRepository.FindById(viewModel.NewTakId);
+      var newTak = await _takRepository.FindByIdAsync(viewModel.NewTakId);
       if (newTak == null)
       {
         return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden"));

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Responses;
@@ -60,9 +61,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// <returns>1 tak object</returns>
     //GET api/tak/{id}
     [HttpGet("{id}",Name = "GetTakById")]
-    public IActionResult GetTakById([FromRoute] int id)
+    public async Task<IActionResult> GetTakById([FromRoute] int id)
     {
-      var tak = _takRepository.FindById(id);
+      var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null)
       {
         return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
@@ -79,11 +80,11 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// <param name="viewmodel"></param>
     /// <returns></returns>
     [HttpPost] //POST /api/tak
-    public IActionResult AddTak([FromBody] AddTakViewModel viewmodel)
+    public async Task<IActionResult> AddTak([FromBody] AddTakViewModel viewmodel)
     {
       var tak = _mapper.Map<Tak>(viewmodel);
-      _takRepository.Add(tak);
-      _takRepository.SaveChanges();
+     await _takRepository.AddAsync(tak);
+     await _takRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicTakViewModel>(tak);
       return CreatedAtRoute("GetTakById",new {id = model.Id}, model);
     }
@@ -96,9 +97,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// <returns></returns>
     [HttpPut] //PUT /api/tak
     [Route("{id}")]
-    public IActionResult UpdateTak( [FromRoute] int id,[FromBody] AddTakViewModel viewmodel)
+    public async Task<IActionResult> UpdateTak( [FromRoute] int id,[FromBody] AddTakViewModel viewmodel)
     {
-      var tak = _takRepository.FindById(id);
+      var tak = await _takRepository.FindByIdAsync(id);
 
       if (tak == null)
       {
@@ -108,8 +109,8 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       tak = _mapper.Map(viewmodel, tak);
 
-      _takRepository.Update(tak);
-      _takRepository.SaveChanges();
+     // _takRepository.Update(tak);
+     await _takRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicTakViewModel>(tak);
       return Ok(model);
     }
@@ -121,9 +122,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// <returns></returns>
     [Route("{id}")] //DELETE /api/tak/id
     [HttpDelete]
-    public IActionResult DeleteTak([FromRoute] int id)
+    public async Task<IActionResult> DeleteTak([FromRoute] int id)
     {
-      var tak = _takRepository.FindById(id);
+      var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null)
       {
         return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
@@ -136,7 +137,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       }
 
       _takRepository.Delete(tak);
-      _takRepository.SaveChanges();
+     await _takRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicTakViewModel>(tak);
       return Ok(model);
     }
@@ -148,9 +149,9 @@ namespace kangoeroes.leidingBeheer.Controllers
     /// <returns></returns>
     [HttpGet]
     [Route("{id}/leiding")]
-    public IActionResult GetLeidingForTak([FromRoute] int id)
+    public async Task<IActionResult> GetLeidingForTak([FromRoute] int id)
     {
-      var tak = _takRepository.FindById(id);
+      var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null)
       {
         return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
