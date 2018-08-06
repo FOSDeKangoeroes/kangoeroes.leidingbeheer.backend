@@ -13,12 +13,13 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
     {
       _dbContext = dbContext;
     }
-     public  abstract PagedList<T> FindAll(ResourceParameters resourceParameters);
-     public abstract Task<T> FindByIdAsync(int id);
 
-   public Task AddAsync(T entity)
+    public abstract PagedList<T> FindAll(ResourceParameters resourceParameters);
+    public abstract Task<T> FindByIdAsync(int id);
+
+    public Task AddAsync(T entity)
     {
-    return  _dbContext.Set<T>().AddAsync(entity);
+      return _dbContext.Set<T>().AddAsync(entity);
     }
 
     public void Delete(T entity)
@@ -28,8 +29,7 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
 
     public Task SaveChangesAsync()
     {
-    return  _dbContext.SaveChangesAsync();
+      return _dbContext.SaveChangesAsync();
     }
-
   }
 }

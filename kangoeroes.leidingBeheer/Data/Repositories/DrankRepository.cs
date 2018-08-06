@@ -26,7 +26,7 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
     {
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
-      var result = _dranken.AsQueryable();
+      var result = GetAllWithAllIncluded();
 
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
