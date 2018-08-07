@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace kangoeroes.leidingBeheer.Controllers
 {
   [Route("/api/[controller]")]
-  [ApiValidationFilter]
+  [ModelStateIsValid]
   public abstract class BaseController: ControllerBase
   {
 
