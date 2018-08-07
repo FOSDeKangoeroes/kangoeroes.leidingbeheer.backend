@@ -3,6 +3,6 @@
     public class DrankType
     {
         public int Id { get; set; }
-        public int Naam { get; set; }
+        public string Naam { get; set; }
     }
 }
