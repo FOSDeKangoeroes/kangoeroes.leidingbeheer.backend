@@ -4,6 +4,8 @@ using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Services.Auth;
+using kangoeroes.leidingBeheer.Services.PoefServices;
+using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.Services.TotemServices;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -101,6 +103,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<ITotemService, TotemService>();
       services.AddTransient<IAdjectiefService, AdjectiefService>();
       services.AddTransient<ITotemEntryService, TotemEntryService>();
+      services.AddTransient<IDrankService, DrankService>();
 
     }
 

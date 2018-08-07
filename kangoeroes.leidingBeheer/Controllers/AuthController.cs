@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
-  [Route("/api/[controller]")]
-  public class AuthController : Controller
+
+  public class AuthController : BaseController
   {
     private IAuth0Service _auth0Service;
 

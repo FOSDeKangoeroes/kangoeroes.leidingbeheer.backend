@@ -11,9 +11,8 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
-  [Route("api/[controller]")]
   [ApiValidationFilter]
-  public class TotemController : ControllerBase
+  public class TotemController : BaseController
   {
     private readonly ITotemService _totemService;
     private readonly IMapper _mapper;

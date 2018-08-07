@@ -10,8 +10,7 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
-  [Route("api/[controller]")]
-  public class AdjectiefController : ControllerBase
+  public class AdjectiefController : BaseController
   {
 
     private readonly IAdjectiefService _adjectiefService;

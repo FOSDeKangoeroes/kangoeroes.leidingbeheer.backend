@@ -14,9 +14,8 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
-  [Route("/api/[controller]")]
   [ApiValidationFilter]
-  public class TakController : Controller
+  public class TakController : BaseController
   {
     private readonly ITakRepository _takRepository;
     private readonly IMapper _mapper;

@@ -4,10 +4,11 @@ using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Models.PoefViewModels;
+using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 
 namespace kangoeroes.leidingBeheer.Services.PoefServices
 {
-  public class DrankService
+  public class DrankService : IDrankService
   {
     private readonly IDrankRepository _drankRepository;
     private readonly IBaseRepository<DrankType> _drankTypeRepo;
@@ -74,6 +75,20 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       await _drankRepository.SaveChangesAsync();
 
       return drank;
+    }
+
+    public async Task DeleteDrank(int drankId)
+    {
+      var drankToDelete = await _drankRepository.FindByIdAsync(drankId);
+
+      if (drankToDelete == null)
+      {
+        throw  new EntityNotFoundException($"Drank met id {drankId} werd niet gevonden.");
+      }
+
+      _drankRepository.Delete(drankToDelete);
+      await _drankRepository.SaveChangesAsync();
+
     }
 
 

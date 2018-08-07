@@ -38,7 +38,4 @@
   <ItemGroup>
     <None Remove="Model\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\PoefServices\Interfaces" />
-  </ItemGroup>
 </Project>
