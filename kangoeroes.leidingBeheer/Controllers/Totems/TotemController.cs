@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
-  [ApiValidationFilter]
+
   public class TotemController : BaseController
   {
     private readonly ITotemService _totemService;

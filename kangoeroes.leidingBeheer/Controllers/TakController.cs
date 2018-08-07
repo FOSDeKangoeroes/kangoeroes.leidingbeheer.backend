@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
-  [ApiValidationFilter]
+
   public class TakController : BaseController
   {
     private readonly ITakRepository _takRepository;

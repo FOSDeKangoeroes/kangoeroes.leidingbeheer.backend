@@ -18,7 +18,6 @@ using RestSharp;
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
-  [ApiValidationFilter]
   //[Authorize(Roles = "financieel_verantwoordelijke")]
   public class LeidingController : BaseController
   {
