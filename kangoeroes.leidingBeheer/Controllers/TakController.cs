@@ -65,7 +65,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null)
       {
-        return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
+        return NotFound($"Tak met id {id} werd niet gevonden");
       }
 
       var model = _mapper.Map<BasicTakViewModel>(tak);
@@ -102,7 +102,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (tak == null)
       {
-        return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
+        return NotFound($"Tak met id {id} werd niet gevonden");
       }
 
 
@@ -126,13 +126,13 @@ namespace kangoeroes.leidingBeheer.Controllers
       var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null)
       {
-        return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
+        return NotFound($"Tak met id {id} werd niet gevonden");
       }
 
       if (tak.Leiding.Count > 0)
       {
         ModelState.AddModelError("LeidingAanwezig", "De tak bevat nog leiding.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
       _takRepository.Delete(tak);
@@ -153,7 +153,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null)
       {
-        return NotFound(new ApiResponse(404, $"Tak met id {id} werd niet gevonden"));
+        return NotFound($"Tak met id {id} werd niet gevonden");
       }
 
       var model = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(tak.Leiding);

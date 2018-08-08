@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using kangoeroes.leidingBeheer.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -12,7 +13,8 @@ namespace kangoeroes.leidingBeheer.Filters
     {
       if (!context.ModelState.IsValid)
       {
-        context.Result = new BadRequestObjectResult(context.ModelState.Values.SelectMany(v => v.Errors).Select(v => v.ErrorMessage + " " + v.Exception?.Message));
+        var errorList = ModelStateFormatter.FormatErrors(context.ModelState);
+        context.Result = new BadRequestObjectResult(errorList);
       }
       base.OnActionExecuting(context);
     }

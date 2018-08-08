@@ -68,7 +68,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (leiding == null)
       {
-        return NotFound(new ApiResponse(404, $"Leiding met id {id} werd niet gevonden"));
+        return NotFound($"Leiding met id {id} werd niet gevonden");
       }
 
       return Ok(model);
@@ -83,7 +83,7 @@ namespace kangoeroes.leidingBeheer.Controllers
           tak = await _takRepository.FindByIdAsync(viewmodel.TakId);
               if (tak == null)
               {
-                return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden"));
+                return NotFound($"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden");
               }
       }
 
@@ -104,7 +104,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (leiding == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {id} werd niet gevonden"));
+        return NotFound($"Opgegeven leiding met id {id} werd niet gevonden");
       }
 
       leiding = _mapper.Map(viewmodel, leiding);
@@ -123,13 +123,13 @@ namespace kangoeroes.leidingBeheer.Controllers
       var leiding = await _leidingRepository.FindByIdAsync(leidingId);
       if (leiding == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
       }
 
       var newTak = await _takRepository.FindByIdAsync(viewModel.NewTakId);
       if (newTak == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden"));
+        return NotFound($"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden");
       }
 
 
@@ -149,14 +149,14 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (leiding == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
       }
 
       if (leiding.Email == null)
       {
         ModelState.AddModelError("NoEmail",
           "De gebruiker heeft geen emailadres. Kan geen gebruiker maken zonder email");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
 
@@ -171,7 +171,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       catch (ApiException ex)
       {
         ModelState.AddModelError("auth0Exception", ex.Message);
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
     }
 
@@ -183,21 +183,21 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (leiding == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
       }
 
       if (leiding.Email == null)
       {
         ModelState.AddModelError("NoEmail",
           "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
       if (string.IsNullOrEmpty(leiding.Auth0Id))
       {
         ModelState.AddModelError("NoAccount",
           "Deze leiding heeft nog geen account. Maak eerst een account aan.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
       return Ok(auth0Service.GetAllRolesForUser(leiding.Auth0Id));
@@ -211,21 +211,21 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (leiding == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
       }
 
       if (leiding.Email == null)
       {
         ModelState.AddModelError("NoEmail",
           "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
       if (string.IsNullOrEmpty(leiding.Auth0Id))
       {
         ModelState.AddModelError("NoAccount",
           "Deze leiding heeft nog geen account. Maak eerst een account aan.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
       var success = auth0Service.AddRoleToUser(leiding.Auth0Id, roleId);
@@ -240,21 +240,21 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       if (leiding == null)
       {
-        return NotFound(new ApiResponse(404, $"Opgegeven leiding met id {leidingId} werd niet gevonden"));
+        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
       }
 
       if (leiding.Email == null)
       {
         ModelState.AddModelError("NoEmail",
           "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
       if (string.IsNullOrEmpty(leiding.Auth0Id))
       {
         ModelState.AddModelError("NoAccount",
           "Deze leiding heeft nog geen account. Maak eerst een account aan.");
-        return BadRequest(new ApiBadRequestResponse(ModelState));
+        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
       }
 
       var success = auth0Service.RemoveRoleFromUser(leiding.Auth0Id, roleId);
