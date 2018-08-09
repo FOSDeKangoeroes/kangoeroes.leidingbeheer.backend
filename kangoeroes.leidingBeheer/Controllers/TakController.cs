@@ -6,8 +6,8 @@ using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Filters;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.Leiding;
-using kangoeroes.leidingBeheer.Models.ViewModels.Tak;
+using kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding;
+using kangoeroes.leidingBeheer.ViewModels.ViewModels.Tak;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

@@ -3,8 +3,8 @@ using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.PoefViewModels;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.PoefServices
 {

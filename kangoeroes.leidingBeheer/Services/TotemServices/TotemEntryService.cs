@@ -7,9 +7,9 @@ using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.FamilyTree;
-using kangoeroes.leidingBeheer.Models.ViewModels.TotemEntry;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
+using kangoeroes.leidingBeheer.ViewModels.ViewModels.FamilyTree;
+using kangoeroes.leidingBeheer.ViewModels.ViewModels.TotemEntry;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices

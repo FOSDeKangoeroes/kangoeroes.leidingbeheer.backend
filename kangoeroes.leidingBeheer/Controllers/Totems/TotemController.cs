@@ -4,8 +4,8 @@ using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Filters;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.Totem;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
+using kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

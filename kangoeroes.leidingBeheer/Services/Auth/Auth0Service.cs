@@ -9,7 +9,7 @@ using Auth0.Core.Exceptions;
 using Auth0.ManagementApi;
 using Auth0.ManagementApi.Models;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.AuthViewModels;
+using kangoeroes.leidingBeheer.ViewModels.AuthViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;

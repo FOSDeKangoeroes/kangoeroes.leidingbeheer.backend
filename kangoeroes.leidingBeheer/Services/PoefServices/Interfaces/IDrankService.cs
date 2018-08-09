@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.PoefViewModels;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.PoefServices.Interfaces
 {

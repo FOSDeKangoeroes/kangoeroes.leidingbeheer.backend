@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using kangoeroes.leidingBeheer.Models.AuthViewModels;
+using kangoeroes.leidingBeheer.ViewModels.AuthViewModels;
 
 namespace kangoeroes.leidingBeheer.Helpers
 {

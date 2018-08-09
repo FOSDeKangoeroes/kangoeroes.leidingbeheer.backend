@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.Totem;
+using kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices.Interfaces
 {

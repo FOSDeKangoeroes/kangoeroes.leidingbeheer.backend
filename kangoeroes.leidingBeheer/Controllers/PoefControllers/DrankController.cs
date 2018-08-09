@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.PoefViewModels;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

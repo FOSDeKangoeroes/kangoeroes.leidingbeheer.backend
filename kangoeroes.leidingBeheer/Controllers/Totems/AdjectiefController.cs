@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.Adjectief;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
+using kangoeroes.leidingBeheer.ViewModels.ViewModels.Adjectief;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
