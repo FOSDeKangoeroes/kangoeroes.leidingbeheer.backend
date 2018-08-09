@@ -5,21 +5,18 @@ using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories
 {
-  public class DrankRepository: BaseRepository<Drank>, IDrankRepository
+  public class DrankRepository : BaseRepository<Drank>, IDrankRepository
   {
     private readonly DbSet<Drank> _dranken;
+
     public DrankRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
       _dranken = dbContext.Dranken;
-    }
-
-    private IQueryable<Drank> GetAllWithAllIncluded()
-    {
-      return _dranken.Include(x => x.Type);
     }
 
     public override PagedList<Drank> FindAll(ResourceParameters resourceParameters)
@@ -30,16 +27,10 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
 
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
-      {
         result = result.Where(x => x.Naam.ToLowerInvariant().Trim()
           .Contains(resourceParameters.Query.ToLowerInvariant().Trim()));
 
-      }
-
-      if (!string.IsNullOrWhiteSpace(sortString))
-      {
-        result = result.OrderBy(sortString);
-      }
+      if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
       var pagedList = PagedList<Drank>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
@@ -49,6 +40,11 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
     public override Task<Drank> FindByIdAsync(int id)
     {
       return _dranken.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    private IQueryable<Drank> GetAllWithAllIncluded()
+    {
+      return _dranken.Include(x => x.Type);
     }
   }
 }

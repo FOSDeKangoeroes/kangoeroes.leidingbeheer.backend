@@ -2,8 +2,7 @@
 
 namespace kangoeroes.leidingBeheer.Data.Repositories.Interfaces
 {
-  public interface IDrankRepository: IBaseRepository<Drank>
+  public interface IDrankRepository : IBaseRepository<Drank>
   {
-
   }
 }

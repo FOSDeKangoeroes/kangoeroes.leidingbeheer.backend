@@ -1,29 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace kangoeroes.leidingBeheer.Migrations
 {
-    public partial class ChangeDrankTypeNaamToString : Migration
+  public partial class ChangeDrankTypeNaamToString : Migration
+  {
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AlterColumn<string>(
-                name: "naam",
-                table: "poef.drankType",
-                type: "longtext",
-                nullable: false,
-                oldClrType: typeof(int));
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AlterColumn<int>(
-                name: "naam",
-                table: "poef.drankType",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "longtext");
-        }
+      migrationBuilder.AlterColumn<string>(
+        "naam",
+        "poef.drankType",
+        "longtext",
+        nullable: false,
+        oldClrType: typeof(int));
     }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+      migrationBuilder.AlterColumn<int>(
+        "naam",
+        "poef.drankType",
+        nullable: false,
+        oldClrType: typeof(string),
+        oldType: "longtext");
+    }
+  }
 }

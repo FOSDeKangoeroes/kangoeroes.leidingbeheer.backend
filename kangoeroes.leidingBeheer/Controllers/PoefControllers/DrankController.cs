@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
 {
-
   public class DrankController : BaseController
   {
     private readonly IDrankService _drankService;
@@ -31,7 +30,7 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
         totalCount = dranken.TotalCount,
         pageSize = dranken.PageSize,
         currentPage = dranken.CurrentPage,
-        totalPages = dranken.TotalPages,
+        totalPages = dranken.TotalPages
       };
 
       Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));

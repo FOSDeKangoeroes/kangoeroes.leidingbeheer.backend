@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.ViewModels.ViewModels.FamilyTree;
 using kangoeroes.leidingBeheer.ViewModels.ViewModels.TotemEntry;
 

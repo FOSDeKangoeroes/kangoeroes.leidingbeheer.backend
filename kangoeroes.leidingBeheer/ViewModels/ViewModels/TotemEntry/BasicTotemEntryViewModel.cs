@@ -22,12 +22,12 @@ namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.TotemEntry
     public BasicAdjectiefViewModel Adjectief { get; set; }
 
     public int VoorouderId { get; set; }
-    [JsonProperty("voorouderTotem")]
-    public string VoorouderTotemNaam { get; set; }
-    [JsonProperty("voorouderAdjectief")]
-    public string VoorouderAdjectiefNaam { get; set; }
+
+    [JsonProperty("voorouderTotem")] public string VoorouderTotemNaam { get; set; }
+
+    [JsonProperty("voorouderAdjectief")] public string VoorouderAdjectiefNaam { get; set; }
+
     public DateTime ReuseDateTotem { get; set; }
     public DateTime ReuseDateAdjectief { get; set; }
-
   }
 }

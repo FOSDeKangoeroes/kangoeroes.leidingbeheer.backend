@@ -9,6 +9,5 @@ namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem
     public string Naam { get; set; }
 
     public DateTime CreatedOn { get; set; }
-
   }
 }

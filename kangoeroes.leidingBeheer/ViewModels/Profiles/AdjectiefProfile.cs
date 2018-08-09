@@ -4,7 +4,7 @@ using kangoeroes.leidingBeheer.ViewModels.ViewModels.Adjectief;
 
 namespace kangoeroes.leidingBeheer.ViewModels.Profiles
 {
-  public class AdjectiefProfile: Profile
+  public class AdjectiefProfile : Profile
   {
     public AdjectiefProfile()
     {

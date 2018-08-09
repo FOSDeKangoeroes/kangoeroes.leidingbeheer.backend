@@ -5,6 +5,13 @@ namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding
 {
   public class AddLeidingViewModel
   {
+    public AddLeidingViewModel(string naam, string voornaam, int takId)
+    {
+      Naam = naam;
+      Voornaam = voornaam;
+      TakId = takId;
+    }
+
     public string Auth0Id { get; set; }
 
     [Required(ErrorMessage = "{0} is verplicht.")]
@@ -25,15 +32,8 @@ namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding
     public DateTime DatumGestopt { get; set; }
 
     [Display(Name = "Tak")]
-   // [Required(ErrorMessage = "{0 is verplicht.}")]
-   // [Range(1,Int32.MaxValue,ErrorMessage = "{0} moet minstens {1} zijn.")]
+    // [Required(ErrorMessage = "{0 is verplicht.}")]
+    // [Range(1,Int32.MaxValue,ErrorMessage = "{0} moet minstens {1} zijn.")]
     public int TakId { get; set; }
-
-    public AddLeidingViewModel(string naam, string voornaam, int takId)
-    {
-      Naam = naam;
-      Voornaam = voornaam;
-      TakId = takId;
-    }
   }
 }

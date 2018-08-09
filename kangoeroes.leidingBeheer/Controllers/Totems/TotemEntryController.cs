@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
-using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.ViewModels.TotemEntry;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +12,8 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
   public class TotemEntryController : BaseController
   {
-    private readonly ITotemEntryService _totemEntryService;
     private readonly IMapper _mapper;
+    private readonly ITotemEntryService _totemEntryService;
 
     public TotemEntryController(ITotemEntryService totemEntryService, IMapper mapper)
     {
@@ -32,7 +31,7 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
         totalCount = totemEntries.TotalCount,
         pageSize = totemEntries.PageSize,
         currentPage = totemEntries.CurrentPage,
-        totalPages = totemEntries.TotalPages,
+        totalPages = totemEntries.TotalPages
       };
 
       var model = _mapper.Map<IEnumerable<BasicTotemEntryViewModel>>(totemEntries);

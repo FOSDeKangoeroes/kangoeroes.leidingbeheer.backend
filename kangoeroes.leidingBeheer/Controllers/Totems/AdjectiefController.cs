@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
-using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.ViewModels.Adjectief;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,6 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
   public class AdjectiefController : BaseController
   {
-
     private readonly IAdjectiefService _adjectiefService;
     private readonly IMapper _mapper;
 
@@ -33,17 +32,16 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
         totalCount = adjectieven.TotalCount,
         pageSize = adjectieven.PageSize,
         currentPage = adjectieven.CurrentPage,
-        totalPages = adjectieven.TotalPages,
-
+        totalPages = adjectieven.TotalPages
       };
 
       var model = _mapper.Map<IEnumerable<BasicAdjectiefViewModel>>(adjectieven);
 
-      Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
+      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
       return Ok(model);
     }
 
-    [HttpGet("{id}",Name = "GetAdjectiefById")]
+    [HttpGet("{id}", Name = "GetAdjectiefById")]
     public async Task<IActionResult> FindById([FromRoute] int id)
     {
       try
@@ -73,7 +71,8 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
     }
 
     [HttpPut("{adjectiefId}")]
-    public async Task<IActionResult> UpdateAdjectief([FromRoute] int adjectiefId ,[FromBody] UpdateAdjectiefViewModel viewModel)
+    public async Task<IActionResult> UpdateAdjectief([FromRoute] int adjectiefId,
+      [FromBody] UpdateAdjectiefViewModel viewModel)
     {
       try
       {

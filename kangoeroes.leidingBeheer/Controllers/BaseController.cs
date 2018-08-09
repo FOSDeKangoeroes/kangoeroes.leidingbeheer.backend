@@ -5,8 +5,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 {
   [Route("/api/[controller]")]
   [ModelStateIsValid]
-  public abstract class BaseController: ControllerBase
+  public abstract class BaseController : ControllerBase
   {
-
   }
 }

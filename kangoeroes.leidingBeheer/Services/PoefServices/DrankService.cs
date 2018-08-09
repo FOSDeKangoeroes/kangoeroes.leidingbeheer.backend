@@ -3,6 +3,7 @@ using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
 
@@ -29,10 +30,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
     {
       var drank = await _drankRepository.FindByIdAsync(drankId);
 
-      if (drank == null)
-      {
-        throw new EntityNotFoundException($"Drank met id {drankId} werd niet gevonden.");
-      }
+      if (drank == null) throw new EntityNotFoundException($"Drank met id {drankId} werd niet gevonden.");
 
       return drank;
     }
@@ -42,10 +40,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       //Zoeken naar type
       var type = await _drankTypeRepo.FindByIdAsync(viewModel.TypeId);
 
-      if (type == null)
-      {
-        throw  new EntityNotFoundException($"Dranktype met id {viewModel.TypeId} werd niet gevonden.");
-      }
+      if (type == null) throw new EntityNotFoundException($"Dranktype met id {viewModel.TypeId} werd niet gevonden.");
 
       var newDrank = new Drank
       {
@@ -64,10 +59,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
     {
       var drank = await _drankRepository.FindByIdAsync(drankId);
 
-      if (drank == null)
-      {
-        throw new EntityNotFoundException($"Drank met id {drankId} werd niet gevonden");
-      }
+      if (drank == null) throw new EntityNotFoundException($"Drank met id {drankId} werd niet gevonden");
 
       drank.Naam = viewModel.Naam;
       drank.InStock = viewModel.InStock;
@@ -81,18 +73,10 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
     {
       var drankToDelete = await _drankRepository.FindByIdAsync(drankId);
 
-      if (drankToDelete == null)
-      {
-        throw  new EntityNotFoundException($"Drank met id {drankId} werd niet gevonden.");
-      }
+      if (drankToDelete == null) throw new EntityNotFoundException($"Drank met id {drankId} werd niet gevonden.");
 
       _drankRepository.Delete(drankToDelete);
       await _drankRepository.SaveChangesAsync();
-
     }
-
-
-
-
   }
 }

@@ -1,10 +1,7 @@
-﻿using kangoeroes.core.Models;
-
-namespace kangoeroes.leidingBeheer.Helpers
+﻿namespace kangoeroes.leidingBeheer.Helpers.ResourceParameters
 {
   public class LeidingResourceParameters : ResourceParameters
   {
-
     public int Tak { get; set; } = 0;
   }
 }

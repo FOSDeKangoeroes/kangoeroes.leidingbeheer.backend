@@ -4,8 +4,8 @@ namespace kangoeroes.leidingBeheer.ViewModels.AuthViewModels
 {
   public class RoleViewModel
   {
-    [JsonProperty("_id")]
-    public string Id { get; set; }
+    [JsonProperty("_id")] public string Id { get; set; }
+
     public string Name { get; set; }
 
     public override bool Equals(object obj)

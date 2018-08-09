@@ -3,18 +3,14 @@ using System.Threading.Tasks;
 using Auth0.Core.Exceptions;
 using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Filters;
 using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.Auth;
 using kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using RestSharp;
-
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
@@ -22,21 +18,20 @@ namespace kangoeroes.leidingBeheer.Controllers
   public class LeidingController : BaseController
   {
     private readonly ILeidingRepository _leidingRepository;
-    private readonly ITakRepository _takRepository;
     private readonly IMapper _mapper;
+    private readonly ITakRepository _takRepository;
 
 
-
-    public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper, IConfiguration configuration)
+    public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper,
+      IConfiguration configuration)
     {
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
       _mapper = mapper;
-
     }
 
     /// <summary>
-    /// Geeft alle leiding terug
+    ///   Geeft alle leiding terug
     /// </summary>
     /// <returns></returns>
     [HttpGet] //GET /api/leiding
@@ -49,7 +44,7 @@ namespace kangoeroes.leidingBeheer.Controllers
         totalCount = leiding.TotalCount,
         pageSize = leiding.PageSize,
         currentPage = leiding.CurrentPage,
-        totalPages = leiding.TotalPages,
+        totalPages = leiding.TotalPages
       };
 
       Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
@@ -66,10 +61,7 @@ namespace kangoeroes.leidingBeheer.Controllers
 
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
 
-      if (leiding == null)
-      {
-        return NotFound($"Leiding met id {id} werd niet gevonden");
-      }
+      if (leiding == null) return NotFound($"Leiding met id {id} werd niet gevonden");
 
       return Ok(model);
     }
@@ -80,18 +72,15 @@ namespace kangoeroes.leidingBeheer.Controllers
       Tak tak = null;
       if (viewmodel.TakId != 0)
       {
-          tak = await _takRepository.FindByIdAsync(viewmodel.TakId);
-              if (tak == null)
-              {
-                return NotFound($"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden");
-              }
+        tak = await _takRepository.FindByIdAsync(viewmodel.TakId);
+        if (tak == null) return NotFound($"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden");
       }
 
 
-      Leiding leiding = new Leiding();
+      var leiding = new Leiding();
       leiding = MapToLeiding(leiding, tak, viewmodel);
-      await  _leidingRepository.AddAsync(leiding);
-      await  _leidingRepository.SaveChangesAsync();
+      await _leidingRepository.AddAsync(leiding);
+      await _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
       return CreatedAtRoute(leiding.Id, model);
     }
@@ -102,16 +91,13 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       var leiding = await _leidingRepository.FindByIdAsync(id);
 
-      if (leiding == null)
-      {
-        return NotFound($"Opgegeven leiding met id {id} werd niet gevonden");
-      }
+      if (leiding == null) return NotFound($"Opgegeven leiding met id {id} werd niet gevonden");
 
       leiding = _mapper.Map(viewmodel, leiding);
       leiding.DatumGestopt = viewmodel.DatumGestopt.ToLocalTime();
       leiding.LeidingSinds = viewmodel.LeidingSinds.ToLocalTime();
-    // await _leidingRepository.UpdateAsync(leiding);
-      await   _leidingRepository.SaveChangesAsync();
+      // await _leidingRepository.UpdateAsync(leiding);
+      await _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
       return Ok(model);
     }
@@ -121,21 +107,15 @@ namespace kangoeroes.leidingBeheer.Controllers
     public async Task<IActionResult> ChangeTak([FromRoute] int leidingId, [FromBody] ChangeTakViewModel viewModel)
     {
       var leiding = await _leidingRepository.FindByIdAsync(leidingId);
-      if (leiding == null)
-      {
-        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-      }
+      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
 
       var newTak = await _takRepository.FindByIdAsync(viewModel.NewTakId);
-      if (newTak == null)
-      {
-        return NotFound($"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden");
-      }
+      if (newTak == null) return NotFound($"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden");
 
 
       leiding.Tak = newTak;
-    //  _leidingRepository.Update(leiding);
-      await  _leidingRepository.SaveChangesAsync();
+      //  _leidingRepository.Update(leiding);
+      await _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeidingViewModel>(leiding);
 
       return Ok(model);
@@ -147,10 +127,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
-      if (leiding == null)
-      {
-        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-      }
+      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
 
       if (leiding.Email == null)
       {
@@ -164,7 +141,7 @@ namespace kangoeroes.leidingBeheer.Controllers
       {
         var userModel = await auth0Service.MakeNewUserFor(leiding.Email);
         leiding.Auth0Id = userModel.UserId;
-        await  _leidingRepository.SaveChangesAsync();
+        await _leidingRepository.SaveChangesAsync();
         var model = _mapper.Map<BasicLeidingViewModel>(leiding);
         return CreatedAtRoute("GetLeidingById", new {id = model.Id}, model);
       }
@@ -176,15 +153,13 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpGet("{leidingId}/roles")]
-    public async Task<IActionResult> GetRolesForUser([FromRoute] int leidingId, [FromServices] Auth0Service auth0Service)
+    public async Task<IActionResult> GetRolesForUser([FromRoute] int leidingId,
+      [FromServices] Auth0Service auth0Service)
     {
       var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
 
-      if (leiding == null)
-      {
-        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-      }
+      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
 
       if (leiding.Email == null)
       {
@@ -204,15 +179,13 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpPatch("{leidingId}/roles/{roleId}")]
-    public async Task<IActionResult> AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
+    public async Task<IActionResult> AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId,
+      [FromServices] Auth0Service auth0Service)
     {
       var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
 
-      if (leiding == null)
-      {
-        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-      }
+      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
 
       if (leiding.Email == null)
       {
@@ -234,14 +207,12 @@ namespace kangoeroes.leidingBeheer.Controllers
     }
 
     [HttpDelete("{leidingId}/roles/{roleId}")]
-    public async Task<IActionResult> RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId, [FromServices] Auth0Service auth0Service)
+    public async Task<IActionResult> RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId,
+      [FromServices] Auth0Service auth0Service)
     {
       var leiding = await _leidingRepository.FindByIdAsync(leidingId);
 
-      if (leiding == null)
-      {
-        return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-      }
+      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
 
       if (leiding.Email == null)
       {
@@ -266,10 +237,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       leiding.Auth0Id = viewModel.Auth0Id;
       leiding.DatumGestopt = viewModel.DatumGestopt.ToLocalTime();
-      if (viewModel.Email != null && viewModel.Email.Trim() != "")
-      {
-        leiding.Email = viewModel.Email;
-      }
+      if (viewModel.Email != null && viewModel.Email.Trim() != "") leiding.Email = viewModel.Email;
 
       leiding.LeidingSinds = viewModel.LeidingSinds.ToLocalTime();
       leiding.Naam = viewModel.Naam;

@@ -4,7 +4,7 @@ using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
 
 namespace kangoeroes.leidingBeheer.ViewModels.Profiles
 {
-  public class PoefProfile: Profile
+  public class PoefProfile : Profile
   {
     public PoefProfile()
     {

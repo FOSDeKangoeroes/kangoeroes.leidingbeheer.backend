@@ -5,7 +5,6 @@ namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding
 {
   public class UpdateLeidingViewModel
   {
-
     public string Auth0Id { get; set; }
 
     [Required(ErrorMessage = "{0} is verplicht.")]
@@ -24,9 +23,5 @@ namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding
 
     [DataType(DataType.Date, ErrorMessage = "{0 moet een datum zijn.}")]
     public DateTime DatumGestopt { get; set; }
-
-
-
-
   }
 }

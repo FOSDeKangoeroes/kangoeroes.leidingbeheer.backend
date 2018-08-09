@@ -4,7 +4,7 @@ using kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding;
 
 namespace kangoeroes.leidingBeheer.ViewModels.Profiles
 {
-  public class LeidingProfile: Profile
+  public class LeidingProfile : Profile
   {
     public LeidingProfile()
     {

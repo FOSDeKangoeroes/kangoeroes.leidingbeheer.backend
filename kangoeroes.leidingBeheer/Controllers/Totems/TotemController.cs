@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
-using kangoeroes.leidingBeheer.Filters;
-using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem;
 using Microsoft.AspNetCore.Mvc;
@@ -11,37 +10,32 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.Controllers.Totems
 {
-
   public class TotemController : BaseController
   {
-    private readonly ITotemService _totemService;
     private readonly IMapper _mapper;
+    private readonly ITotemService _totemService;
 
     public TotemController(ITotemService totemService, IMapper mapper)
     {
       _totemService = totemService;
       _mapper = mapper;
-
     }
 
     [HttpGet]
     public IActionResult GetAll([FromQuery] ResourceParameters resourceParameters)
     {
-
       var result = _totemService.FindAll(resourceParameters);
       var paginationMetaData = new
       {
         totalCount = result.TotalCount,
         pageSize = result.PageSize,
         currentPage = result.CurrentPage,
-        totalPages = result.TotalPages,
-
+        totalPages = result.TotalPages
       };
 
 
-
       var model = _mapper.Map<IEnumerable<BasicTotemViewModel>>(result);
-      Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(paginationMetaData));
+      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
       return Ok(model);
     }
 
@@ -57,9 +51,6 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
       {
         return NotFound(ex.Message);
       }
-
-
-
     }
 
     [HttpPost]
@@ -98,7 +89,5 @@ namespace kangoeroes.leidingBeheer.Controllers.Totems
         return BadRequest(e.Message);
       }
     }
-
-
   }
 }

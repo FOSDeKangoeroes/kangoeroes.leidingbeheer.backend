@@ -4,7 +4,7 @@ using kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem;
 
 namespace kangoeroes.leidingBeheer.ViewModels.Profiles
 {
-  public class TotemProfile: Profile
+  public class TotemProfile : Profile
   {
     public TotemProfile()
     {
