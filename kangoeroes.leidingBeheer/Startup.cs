@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using AutoMapper;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories;
@@ -21,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace kangoeroes.leidingBeheer
 {
@@ -72,6 +76,16 @@ namespace kangoeroes.leidingBeheer
       services.AddAuthorization();
 
       services.AddOptions();
+
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new Info { Title = "Kangoeroes API - V1", Version = "v1" });
+
+        // Endpoint informatie ophalen uit XML-documentatie
+        var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        c.IncludeXmlComments(xmlPath);
+      });
       RegisterDependencyInjection(services);
     }
 
@@ -143,6 +157,15 @@ namespace kangoeroes.leidingBeheer
       app.UseStaticFiles();
 
       app.UseAuthentication();
+
+      // Swagger middleware toevoegen om JSON endpoint te exposen
+      app.UseSwagger();
+
+      // Swagger middleware om UI endpoint te exposen
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1");
+      });
 
       app.UseMvcWithDefaultRoute();
     }
