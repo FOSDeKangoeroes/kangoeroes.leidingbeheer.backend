@@ -3,6 +3,7 @@ using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;

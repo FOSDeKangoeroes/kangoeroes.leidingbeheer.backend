@@ -3,12 +3,12 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Data.Context;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories
+namespace kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories
 {
   public class AdjectiefRepository : BaseRepository<Adjectief>, IAdjectiefRepository
   {

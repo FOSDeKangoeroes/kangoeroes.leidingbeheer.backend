@@ -2,6 +2,7 @@
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;

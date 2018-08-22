@@ -3,12 +3,12 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Context;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories
+namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories
 {
   public class DrankRepository : BaseRepository<Drank>, IDrankRepository
   {
