@@ -111,6 +111,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<IAdjectiefRepository, AdjectiefRepository>();
       services.AddTransient<ITotemEntryRepository, TotemEntryRepository>();
       services.AddTransient<IDrankRepository, DrankRepository>();
+      services.AddTransient<IDrankTypeRepository, DrankTypeRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
       services.AddTransient<IAuth0Service, Auth0Service>();
@@ -118,6 +119,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<IAdjectiefService, AdjectiefService>();
       services.AddTransient<ITotemEntryService, TotemEntryService>();
       services.AddTransient<IDrankService, DrankService>();
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

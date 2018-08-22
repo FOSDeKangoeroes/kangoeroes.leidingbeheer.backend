@@ -4,9 +4,10 @@ using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces
 {
   /// <summary>
-  /// Repository interface die het contract definieert rond het lezen en schrijven van alle data rond dranken
+  /// Repository interface verantwoordelijk voor het definieren van het contract voor het lezen en schrijven van alle data rond dranktypes.
   /// </summary>
-  public interface IDrankRepository : IBaseRepository<Drank>
+  public interface IDrankTypeRepository: IBaseRepository<DrankType>
   {
+
   }
 }

@@ -8,7 +8,7 @@ using kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.Controllers.Totems
+namespace kangoeroes.leidingBeheer.Controllers.TotemControllers
 {
   public class TotemController : BaseController
   {

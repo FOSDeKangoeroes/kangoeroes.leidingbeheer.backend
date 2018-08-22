@@ -13,11 +13,12 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
   public class DrankService : IDrankService
   {
     private readonly IDrankRepository _drankRepository;
-    private readonly IBaseRepository<DrankType> _drankTypeRepo;
+    private readonly IDrankTypeRepository _drankTypeRepo;
 
-    public DrankService(IDrankRepository drankRepository)
+    public DrankService(IDrankRepository drankRepository, IDrankTypeRepository drankTypeRepository)
     {
       _drankRepository = drankRepository;
+      _drankTypeRepo = drankTypeRepository;
     }
 
     public PagedList<Drank> GetAll(ResourceParameters resourceParameters)
