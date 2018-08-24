@@ -42,6 +42,11 @@ namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories
       return _dranken.FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public Task<int> CountDrankenForDrankType(int drankTypeId)
+    {
+      return GetAllWithAllIncluded().CountAsync(x => x.Type.Id == drankTypeId);
+    }
+
     private IQueryable<Drank> GetAllWithAllIncluded()
     {
       return _dranken.Include(x => x.Type);

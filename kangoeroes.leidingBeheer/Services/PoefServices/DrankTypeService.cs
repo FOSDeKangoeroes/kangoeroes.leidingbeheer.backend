@@ -15,14 +15,16 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
   public class DrankTypeService
   {
     private readonly IDrankTypeRepository _drankTypeRepository;
+    private readonly IDrankRepository _drankRepository;
 
     /// <summary>
     /// Maakt een nieuwe instantie aan van de service
     /// </summary>
     /// <param name="drankTypeRepository">Geïnjecteerde repository om types te lezen en schrijven naar de databank</param>
-    public DrankTypeService(IDrankTypeRepository drankTypeRepository)
+    public DrankTypeService(IDrankTypeRepository drankTypeRepository, IDrankRepository drankRepository)
     {
       _drankTypeRepository = drankTypeRepository;
+      _drankRepository = drankRepository;
     }
 
     /// <summary>
@@ -94,6 +96,29 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       await _drankTypeRepository.SaveChangesAsync();
 
       return drankType;
+    }
+
+    public async Task DeleteDrankType(int drankTypeId)
+    {
+      var drankToDelete = await _drankTypeRepository.FindByIdAsync(drankTypeId);
+
+      if (drankToDelete == null)
+      {
+        throw new EntityNotFoundException($"Type met id {drankTypeId} werd niet gevonden.");
+      }
+
+      //Bepalen of een type nog dranken onder zich heeft.
+      var nrOfdrinksForType = await _drankRepository.CountDrankenForDrankType(drankTypeId);
+
+      //We verwijderen geen type waaraan nog dranken gekoppeld zijn.
+      if (nrOfdrinksForType > 0)
+      {
+        throw new InvalidOperationException($"Het type heeft nog dranken aan zich toegekend.");
+      }
+
+      _drankTypeRepository.Delete(drankToDelete);
+      await _drankTypeRepository.SaveChangesAsync();
+
     }
 
 
