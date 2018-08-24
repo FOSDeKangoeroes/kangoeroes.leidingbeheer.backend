@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.leidingBeheer.ViewModels.ViewModels.Tak;
+using kangoeroes.leidingBeheer.ViewModels.TakViewModels;
 
 namespace kangoeroes.leidingBeheer.ViewModels.Profiles
 {

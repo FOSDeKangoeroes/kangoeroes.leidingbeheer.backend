@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem
+namespace kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels
 {
-  public class BasicTotemViewModel
+  public class BasicAdjectiefViewModel
   {
     public int Id { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Adjectief
+namespace kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels
 {
-  public class AddAdjectiefViewModel
+  public class UpdateAdjectiefViewModel
   {
     [Required(AllowEmptyStrings = false)] public string Naam { get; set; }
   }

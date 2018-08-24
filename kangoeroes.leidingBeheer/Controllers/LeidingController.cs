@@ -7,7 +7,7 @@ using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.Auth;
-using kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding;
+using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;

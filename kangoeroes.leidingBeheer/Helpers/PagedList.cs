@@ -24,6 +24,13 @@ namespace kangoeroes.leidingBeheer.Helpers
 
     public bool HasNext => CurrentPage < TotalPages;
 
+    /// <summary>
+    /// Factory method voor het creeeren van een gepagineerde lijst uit een IQueryable.
+    /// </summary>
+    /// <param name="source">IQueryable van reeds gefilterde data</param>
+    /// <param name="pageNumber">Pagina waarop de data moet starten</param>
+    /// <param name="pageSize">Aantal entiteiten dat moet teruggegeven worden</param>
+    /// <returns></returns>
     public static PagedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
     {
       var count = source.Count();

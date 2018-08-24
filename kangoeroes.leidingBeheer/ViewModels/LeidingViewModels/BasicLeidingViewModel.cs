@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding
+namespace kangoeroes.leidingBeheer.ViewModels.LeidingViewModels
 {
   public class BasicLeidingViewModel
   {

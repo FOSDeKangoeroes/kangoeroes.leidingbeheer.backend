@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels
+﻿namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
 {
   public class UpdateDrankViewModel
   {

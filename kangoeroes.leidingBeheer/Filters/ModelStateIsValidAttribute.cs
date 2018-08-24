@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace kangoeroes.leidingBeheer.Filters
 {
-  //Filter that checks every request for a valid modelState.
-  //If the modelState is not valid, the controller method is not executed and a bad request (400) is returned.
+  /// <summary>
+  /// Filter that checks every request for a valid modelState.
+  ///If the modelState is not valid, the controller method is not executed and a bad request (400) is returned.
+  /// </summary>
   public class ModelStateIsValidAttribute : ActionFilterAttribute
   {
     public override void OnActionExecuting(ActionExecutingContext context)

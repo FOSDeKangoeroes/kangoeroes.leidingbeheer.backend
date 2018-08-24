@@ -11,7 +11,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
   {
     #region DbSets
 
-     public DbSet<Tak> Takken { get; set; }
+        public DbSet<Tak> Takken { get; set; }
         public DbSet<Leiding> Leiding { get; set; }
         public DbSet<Totem> Totems { get; set; }
         public DbSet<Adjectief> Adjectieven { get; set; }

@@ -7,6 +7,7 @@ using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank;
 
 namespace kangoeroes.leidingBeheer.Services.PoefServices
 {

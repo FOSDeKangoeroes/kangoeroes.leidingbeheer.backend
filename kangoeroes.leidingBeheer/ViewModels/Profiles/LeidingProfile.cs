@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.leidingBeheer.ViewModels.ViewModels.Leiding;
+using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
 
 namespace kangoeroes.leidingBeheer.ViewModels.Profiles
 {

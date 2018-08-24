@@ -10,3 +10,5 @@ REST api voor het beheren van leiding.
 - Leiding wijzigen
 - Account aanmaken voor leiding
 - Rollen wijzigen van leiding
+
+- Totemdieren aanmaken en wijzigen

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.TotemEntry
+namespace kangoeroes.leidingBeheer.ViewModels.TotemEntryViewModels
 {
   public class AddEntryExistingLeiding
   {

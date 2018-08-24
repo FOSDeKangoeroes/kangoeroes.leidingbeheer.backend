@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem
+namespace kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels
 {
-  public class AddTotemViewModel
+  public class AddAdjectiefViewModel
   {
     [Required(AllowEmptyStrings = false)] public string Naam { get; set; }
   }

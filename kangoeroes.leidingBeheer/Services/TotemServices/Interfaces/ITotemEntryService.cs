@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.ViewModels.ViewModels.FamilyTree;
-using kangoeroes.leidingBeheer.ViewModels.ViewModels.TotemEntry;
+using kangoeroes.leidingBeheer.ViewModels.FamilyTreeViewModels;
+using kangoeroes.leidingBeheer.ViewModels.TotemEntryViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices.Interfaces
 {

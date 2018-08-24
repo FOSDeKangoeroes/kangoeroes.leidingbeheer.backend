@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.FamilyTree
+﻿namespace kangoeroes.leidingBeheer.ViewModels.FamilyTreeViewModels
 {
   public class FamilyTreeViewModel
   {

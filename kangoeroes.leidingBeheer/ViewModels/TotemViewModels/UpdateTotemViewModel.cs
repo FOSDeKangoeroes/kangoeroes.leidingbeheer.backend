@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.ViewModels.Totem
+namespace kangoeroes.leidingBeheer.ViewModels.TotemViewModels
 {
   public class UpdateTotemViewModel
   {

@@ -2,7 +2,7 @@
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.ViewModels.ViewModels.Adjectief;
+using kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices.Interfaces
 {

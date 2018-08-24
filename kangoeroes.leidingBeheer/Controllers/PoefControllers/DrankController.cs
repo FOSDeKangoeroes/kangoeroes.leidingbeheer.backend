@@ -5,6 +5,7 @@ using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
