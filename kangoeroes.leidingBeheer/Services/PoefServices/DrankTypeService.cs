@@ -55,9 +55,23 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       return drankType;
     }
 
+    /// <summary>
+    /// Maakt een nieuw dranktype aan de hand van het gegeven model en slaat dit op in de database.
+    /// </summary>
+    /// <param name="viewModel">Model met gegevens voor het nieuwe type</param>
+    /// <returns>Awaitable van het nieuw aangemaakte type</returns>
     public async Task<DrankType> CreateDrankType(AddDrankTypeViewModel viewModel)
     {
-      throw new NotImplementedException();
+      var newType = new DrankType()
+      {
+        Naam = viewModel.Naam
+      };
+
+      await _drankTypeRepository.AddAsync(newType);
+      await _drankTypeRepository.SaveChangesAsync();
+
+      return newType;
+
     }
 
 
