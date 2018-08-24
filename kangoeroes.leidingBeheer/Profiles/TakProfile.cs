@@ -2,7 +2,7 @@
 using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.ViewModels.TakViewModels;
 
-namespace kangoeroes.leidingBeheer.ViewModels.Profiles
+namespace kangoeroes.leidingBeheer.Profiles
 {
   public class TakProfile : Profile
   {

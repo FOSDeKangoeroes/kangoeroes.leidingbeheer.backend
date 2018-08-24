@@ -2,7 +2,7 @@
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels;
 
-namespace kangoeroes.leidingBeheer.ViewModels.Profiles
+namespace kangoeroes.leidingBeheer.Profiles
 {
   public class AdjectiefProfile : Profile
   {

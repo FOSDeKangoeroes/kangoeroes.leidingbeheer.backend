@@ -2,7 +2,7 @@
 using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
 
-namespace kangoeroes.leidingBeheer.ViewModels.Profiles
+namespace kangoeroes.leidingBeheer.Profiles
 {
   public class LeidingProfile : Profile
   {

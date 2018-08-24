@@ -2,7 +2,7 @@
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.ViewModels.TotemEntryViewModels;
 
-namespace kangoeroes.leidingBeheer.ViewModels.Profiles
+namespace kangoeroes.leidingBeheer.Profiles
 {
   public class TotemEntryProfile : Profile
   {
