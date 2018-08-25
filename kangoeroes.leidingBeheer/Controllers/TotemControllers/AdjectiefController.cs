@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,13 @@ namespace kangoeroes.leidingBeheer.Controllers.TotemControllers
   {
     private readonly IAdjectiefService _adjectiefService;
     private readonly IMapper _mapper;
+    private readonly IPaginationMetaDataService _paginationMetaDataService;
 
-    public AdjectiefController(IAdjectiefService adjectiefService, IMapper mapper)
+    public AdjectiefController(IAdjectiefService adjectiefService, IMapper mapper, IPaginationMetaDataService paginationMetaDataService)
     {
       _adjectiefService = adjectiefService;
       _mapper = mapper;
+      _paginationMetaDataService = paginationMetaDataService;
     }
 
     // GET
@@ -27,17 +30,11 @@ namespace kangoeroes.leidingBeheer.Controllers.TotemControllers
     {
       var adjectieven = _adjectiefService.FindAll(resourceParameters);
 
-      var paginationMetaData = new
-      {
-        totalCount = adjectieven.TotalCount,
-        pageSize = adjectieven.PageSize,
-        currentPage = adjectieven.CurrentPage,
-        totalPages = adjectieven.TotalPages
-      };
+      _paginationMetaDataService.AddMetaDataToResponse(Response, adjectieven);
 
       var model = _mapper.Map<IEnumerable<BasicAdjectiefViewModel>>(adjectieven);
 
-      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
+
       return Ok(model);
     }
 

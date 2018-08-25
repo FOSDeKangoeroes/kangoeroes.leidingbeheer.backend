@@ -6,6 +6,7 @@ using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.Services.Auth;
 using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +21,20 @@ namespace kangoeroes.leidingBeheer.Controllers
     private readonly ILeidingRepository _leidingRepository;
     private readonly IMapper _mapper;
     private readonly ITakRepository _takRepository;
+    private readonly IPaginationMetaDataService _paginationMetaDataService;
 
 
-    public LeidingController(ILeidingRepository leidingRepository, ITakRepository takRepository, IMapper mapper,
-      IConfiguration configuration)
+    public LeidingController(
+      ILeidingRepository leidingRepository,
+      ITakRepository takRepository,
+      IMapper mapper,
+      IConfiguration configuration,
+      IPaginationMetaDataService paginationMetaDataService)
     {
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
       _mapper = mapper;
+      _paginationMetaDataService = paginationMetaDataService;
     }
 
     /// <summary>
@@ -39,15 +46,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       var leiding = _leidingRepository.FindAll(resourceParameters);
 
-      var paginationMetaData = new
-      {
-        totalCount = leiding.TotalCount,
-        pageSize = leiding.PageSize,
-        currentPage = leiding.CurrentPage,
-        totalPages = leiding.TotalPages
-      };
-
-      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
+      _paginationMetaDataService.AddMetaDataToResponse(Response, leiding);
 
       var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
       return Ok(viewModels);

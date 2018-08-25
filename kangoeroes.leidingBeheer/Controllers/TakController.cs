@@ -5,6 +5,7 @@ using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
 using kangoeroes.leidingBeheer.ViewModels.TakViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace kangoeroes.leidingBeheer.Controllers
   {
     private readonly IMapper _mapper;
     private readonly ITakRepository _takRepository;
+    private readonly IPaginationMetaDataService _paginationMetaDataService;
 
-    public TakController(ITakRepository takRepository, IMapper mapper)
+    public TakController(ITakRepository takRepository, IMapper mapper, IPaginationMetaDataService paginationMetaDataService)
     {
       _takRepository = takRepository;
       _mapper = mapper;
+      _paginationMetaDataService = paginationMetaDataService;
     }
 
     /// <summary>
@@ -32,16 +35,7 @@ namespace kangoeroes.leidingBeheer.Controllers
     {
       var takken = _takRepository.FindAll(resourceParameters);
 
-      var paginationMetaData = new
-      {
-        totalCount = takken.TotalCount,
-        pageSize = takken.PageSize,
-        currentPage = takken.CurrentPage,
-        totalPages = takken.TotalPages
-      };
-
-      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
-
+     _paginationMetaDataService.AddMetaDataToResponse(Response, takken);
 
       var model = _mapper.Map<IEnumerable<BasicTakViewModel>>(takken);
       return Ok(model);

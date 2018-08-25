@@ -1,4 +1,6 @@
-﻿using kangoeroes.leidingBeheer.Filters;
+﻿using AutoMapper;
+using kangoeroes.leidingBeheer.Filters;
+using kangoeroes.leidingBeheer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.leidingBeheer.Controllers
@@ -8,5 +10,6 @@ namespace kangoeroes.leidingBeheer.Controllers
   [Produces("application/json")]
   public abstract class BaseController : ControllerBase
   {
+
   }
 }

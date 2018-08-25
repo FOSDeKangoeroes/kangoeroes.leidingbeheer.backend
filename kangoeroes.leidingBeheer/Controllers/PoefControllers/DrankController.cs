@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank;
@@ -18,6 +19,7 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
   {
     private readonly IDrankService _drankService;
     private readonly IMapper _mapper;
+    private readonly IPaginationMetaDataService _paginationMetaDataService;
 
 
     /// <summary>
@@ -25,10 +27,12 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     /// </summary>
     /// <param name="drankService">Service verantwoordelijk voor het uitvoeren van businesslogice ivm dranken</param>
     /// <param name="mapper">Instantie van automapper om entiteiten teruggegeven door de service om te zetten naar viewmodels.</param>
-    public DrankController(IDrankService drankService, IMapper mapper)
+    /// <param name="paginationMetaDataService">Service voor het toevoegen van paginatie metadata aan de response headers</param>
+    public DrankController(IDrankService drankService, IMapper mapper, IPaginationMetaDataService paginationMetaDataService)
     {
       _drankService = drankService;
       _mapper = mapper;
+      _paginationMetaDataService = paginationMetaDataService;
     }
 
     /// <summary>
@@ -42,15 +46,7 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     {
       var dranken = _drankService.GetAll(resourceParameters);
 
-      var paginationMetaData = new
-      {
-        totalCount = dranken.TotalCount,
-        pageSize = dranken.PageSize,
-        currentPage = dranken.CurrentPage,
-        totalPages = dranken.TotalPages
-      };
-
-      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
+     _paginationMetaDataService.AddMetaDataToResponse(Response, dranken);
 
       var model = _mapper.Map<IEnumerable<BasicDrankViewModel>>(dranken);
       return Ok(model);

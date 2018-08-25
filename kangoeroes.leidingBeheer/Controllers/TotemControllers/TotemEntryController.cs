@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.TotemEntryViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,13 @@ namespace kangoeroes.leidingBeheer.Controllers.TotemControllers
   {
     private readonly IMapper _mapper;
     private readonly ITotemEntryService _totemEntryService;
+    private readonly IPaginationMetaDataService _paginationMetaDataService;
 
-    public TotemEntryController(ITotemEntryService totemEntryService, IMapper mapper)
+    public TotemEntryController(ITotemEntryService totemEntryService, IMapper mapper, IPaginationMetaDataService paginationMetaDataService)
     {
       _totemEntryService = totemEntryService;
       _mapper = mapper;
+      _paginationMetaDataService = paginationMetaDataService;
     }
 
     [HttpGet]
@@ -26,17 +29,10 @@ namespace kangoeroes.leidingBeheer.Controllers.TotemControllers
     {
       var totemEntries = _totemEntryService.FindAll(resourceParameters);
 
-      var paginationMetaData = new
-      {
-        totalCount = totemEntries.TotalCount,
-        pageSize = totemEntries.PageSize,
-        currentPage = totemEntries.CurrentPage,
-        totalPages = totemEntries.TotalPages
-      };
+      _paginationMetaDataService.AddMetaDataToResponse(Response, totemEntries);
 
       var model = _mapper.Map<IEnumerable<BasicTotemEntryViewModel>>(totemEntries);
 
-      Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
       return Ok(model);
     }
 
