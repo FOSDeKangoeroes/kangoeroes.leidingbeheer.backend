@@ -5,6 +5,7 @@ using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.DrankType;
 
 namespace kangoeroes.leidingBeheer.Services.PoefServices
@@ -12,7 +13,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
   /// <summary>
   /// Service voor het beheren van dranktypes
   /// </summary>
-  public class DrankTypeService
+  public class DrankTypeService : IDrankTypeService
   {
     private readonly IDrankTypeRepository _drankTypeRepository;
     private readonly IDrankRepository _drankRepository;
@@ -98,11 +99,18 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       return drankType;
     }
 
+    /// <summary>
+    /// Verwijdert een dranktype. Kan enkel uitgevoerd worden wanneer er geen dranken toegekend zijn aan het te verwijderen type
+    /// </summary>
+    /// <param name="drankTypeId">Unieke sleutel van het te verwijderen type</param>
+    /// <returns></returns>
+    /// <exception cref="EntityNotFoundException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
     public async Task DeleteDrankType(int drankTypeId)
     {
-      var drankToDelete = await _drankTypeRepository.FindByIdAsync(drankTypeId);
+      var drankTypeToDelete = await _drankTypeRepository.FindByIdAsync(drankTypeId);
 
-      if (drankToDelete == null)
+      if (drankTypeToDelete == null)
       {
         throw new EntityNotFoundException($"Type met id {drankTypeId} werd niet gevonden.");
       }
@@ -113,10 +121,10 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       //We verwijderen geen type waaraan nog dranken gekoppeld zijn.
       if (nrOfdrinksForType > 0)
       {
-        throw new InvalidOperationException($"Het type heeft nog dranken aan zich toegekend.");
+        throw new InvalidOperationException($"{drankTypeToDelete.Naam} heeft nog {nrOfdrinksForType} drank(en) aan zich toegekend. Verwijder deze eerst.");
       }
 
-      _drankTypeRepository.Delete(drankToDelete);
+      _drankTypeRepository.Delete(drankTypeToDelete);
       await _drankTypeRepository.SaveChangesAsync();
 
     }
