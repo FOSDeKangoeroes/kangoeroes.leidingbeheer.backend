@@ -102,5 +102,26 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
         return BadRequest(e.Message);
       }
     }
+
+    [HttpPut("{drankTypeId}")]
+    [ProducesResponseType(typeof(BasicDrankTypeViewModel), 200)]
+    [ProducesResponseType(typeof(string), 404)]
+    [ProducesResponseType(typeof(string), 400)]
+    public async Task<IActionResult> UpdateType([FromBody] UpdateDrankTypeViewModel viewModel, [FromRoute] int drankTypeId)
+    {
+      try
+      {
+        var updatedType = await _drankTypeService.UpdateDrankType(viewModel, drankTypeId);
+
+        var model = _mapper.Map<BasicDrankTypeViewModel>(updatedType);
+
+        return Ok(model);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+
+    }
   }
 }

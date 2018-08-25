@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Filters;
 using kangoeroes.leidingBeheer.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace kangoeroes.leidingBeheer.Controllers
   // Wordt hier expliciet aangegeven zodat dit correct wordt weergegeven in de Swagger documentatie
   [Produces("application/json")]
 
+  [ProducesResponseType(typeof(ApiServerErrorResponse), 500)] //In principe kunnen alle endpoints een 500 error teruggeven.
   public abstract class BaseController : ControllerBase
   {
   }
