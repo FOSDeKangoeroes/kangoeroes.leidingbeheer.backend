@@ -86,10 +86,11 @@ namespace kangoeroes.leidingBeheer
       {
         c.SwaggerDoc("v1", new Info { Title = "Kangoeroes API - V1", Version = "v1" });
 
+        //F
         // Endpoint informatie ophalen uit XML-documentatie
-        var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+       /* var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
         var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        c.IncludeXmlComments(xmlPath);
+        c.IncludeXmlComments(xmlPath);*/
       });
       RegisterDependencyInjection(services);
     }
