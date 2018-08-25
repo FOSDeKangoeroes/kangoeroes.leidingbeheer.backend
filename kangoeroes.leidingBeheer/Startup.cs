@@ -10,6 +10,7 @@ using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories;
 using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories;
 using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
+using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.Services.Auth;
 using kangoeroes.leidingBeheer.Services.PoefServices;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
@@ -119,6 +120,9 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<IAdjectiefService, AdjectiefService>();
       services.AddTransient<ITotemEntryService, TotemEntryService>();
       services.AddTransient<IDrankService, DrankService>();
+      services.AddTransient<IDrankTypeService, DrankTypeService>();
+
+      services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
 
     }
 
