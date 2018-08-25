@@ -103,6 +103,14 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       }
     }
 
+
+    /// <summary>
+    /// Endpoint voor het wijzigen van een type. Dit endpoint wijzigt alle velden naar de waarden gegeven in het model.
+    /// Een  optioneel veld in het viewmodel wordt dus leeggemaakt indien dit in het viewmodel leeg is.
+    /// </summary>
+    /// <param name="viewModel">Model met de nieuwe gegevens van het type</param>
+    /// <param name="drankTypeId">Unieke sleutel van het te wijzigen type</param>
+    /// <returns>Een model van het gewijzigde type</returns>
     [HttpPut("{drankTypeId}")]
     [ProducesResponseType(typeof(BasicDrankTypeViewModel), 200)]
     [ProducesResponseType(typeof(string), 404)]
@@ -122,6 +130,33 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
         return NotFound(e.Message);
       }
 
+    }
+
+    /// <summary>
+    /// Verwijdert een dranktype. Dit kan enkel uitgevoerd worden wanneer een type geen dranken meer aan zich toegekend heeft.
+    /// </summary>
+    /// <param name="drankTypeId">Unieke sleutel van het te verwijderen type.</param>
+    /// <returns>Een lege body wanneer het type succesvol verwijdert werd.</returns>
+    [HttpDelete]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(typeof(string), 404)]
+    [ProducesResponseType(typeof(string), 400)]
+    public async Task<IActionResult> DeleteType([FromRoute] int drankTypeId)
+    {
+      try
+      {
+        await _drankTypeService.DeleteDrankType(drankTypeId);
+
+        return Ok();
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+      catch (InvalidOperationException ex)
+      {
+        return BadRequest(ex.Message);
+      }
     }
   }
 }
