@@ -137,7 +137,7 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     /// </summary>
     /// <param name="drankTypeId">Unieke sleutel van het te verwijderen type.</param>
     /// <returns>Een lege body wanneer het type succesvol verwijdert werd.</returns>
-    [HttpDelete]
+    [HttpDelete("{drankTypeId}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(typeof(string), 404)]
     [ProducesResponseType(typeof(string), 400)]
