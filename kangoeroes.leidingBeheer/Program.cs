@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
+﻿using System.IO;
 using kangoeroes.leidingBeheer.Data.Context;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -14,18 +12,17 @@ namespace kangoeroes.leidingBeheer
     public static void Main(string[] args)
     {
       BuildWebHost(args).Run();
-
     }
 
     public static IWebHost BuildWebHost(string[] args)
     {
       var host = WebHost.CreateDefaultBuilder(args)
-                .UseKestrel()
-                .UseUrls("http://localhost:5000")
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
+        .UseKestrel()
+        .UseUrls("http://localhost:5000")
+        .UseContentRoot(Directory.GetCurrentDirectory())
+        .UseIISIntegration()
+        .UseStartup<Startup>()
+        .Build();
 
       using (var scope = host.Services.CreateScope())
       {
@@ -35,8 +32,5 @@ namespace kangoeroes.leidingBeheer
 
       return host;
     }
-
-
-
   }
 }

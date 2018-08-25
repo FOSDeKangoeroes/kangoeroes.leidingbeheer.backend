@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.Adjectief;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
+using kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices
 {
@@ -32,11 +33,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
     {
       var result = await _adjectiefRepository.FindByIdAsync(id);
 
-      if (result == null)
-      {
-        throw new EntityNotFoundException($"Adjectief met id {id} werd niet gevonden");
-
-      }
+      if (result == null) throw new EntityNotFoundException($"Adjectief met id {id} werd niet gevonden");
 
       return _mapper.Map<BasicAdjectiefViewModel>(result);
     }
@@ -45,10 +42,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
     {
       var exists = await _adjectiefRepository.FindByNaamAsync(viewModel.Naam) != null;
 
-      if (exists)
-      {
-        throw new EntityExistsException($"Adjectief \'{viewModel.Naam}\' bestaat al.");
-      }
+      if (exists) throw new EntityExistsException($"Adjectief \'{viewModel.Naam}\' bestaat al.");
 
       var newAdjectief = _mapper.Map<Adjectief>(viewModel);
 
@@ -64,13 +58,10 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
     {
       var adjectief = await _adjectiefRepository.FindByIdAsync(adjectiefId);
 
-      if (adjectief == null)
-      {
-        throw new EntityNotFoundException($"Adjectief met id {adjectiefId} werd niet gevonden");
-      }
+      if (adjectief == null) throw new EntityNotFoundException($"Adjectief met id {adjectiefId} werd niet gevonden");
 
       adjectief = _mapper.Map(viewmodel, adjectief);
-     await _adjectiefRepository.SaveChangesAsync();
+      await _adjectiefRepository.SaveChangesAsync();
 
       var model = _mapper.Map<BasicAdjectiefViewModel>(adjectief);
 

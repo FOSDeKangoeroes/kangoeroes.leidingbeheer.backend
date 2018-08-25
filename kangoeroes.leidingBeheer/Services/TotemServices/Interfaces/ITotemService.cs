@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.Totem;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.leidingBeheer.ViewModels.TotemViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices.Interfaces
 {

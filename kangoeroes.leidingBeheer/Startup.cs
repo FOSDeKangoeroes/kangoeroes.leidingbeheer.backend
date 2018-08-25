@@ -1,9 +1,19 @@
-﻿using AutoMapper;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using AutoMapper;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories;
+using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories;
+using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
+using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.Services.Auth;
+using kangoeroes.leidingBeheer.Services.PoefServices;
+using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.Services.TotemServices;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,13 +29,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace kangoeroes.leidingBeheer
 {
   public class Startup
   {
-    public IConfigurationRoot Configuration { get; }
-
     public Startup(IHostingEnvironment env)
     {
       var builder = new ConfigurationBuilder()
@@ -37,25 +46,25 @@ namespace kangoeroes.leidingBeheer
       Configuration = builder.Build();
     }
 
+    public IConfigurationRoot Configuration { get; }
+
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddCors();
       //Te gebruiken database configureren
-      services.AddDbContext<ApplicationDbContext>(options => {
-
+      services.AddDbContext<ApplicationDbContext>(options =>
+      {
         options.UseMySql(Configuration.GetConnectionString("Default"));
       });
       services.AddAutoMapper();
 
       //Mvc en bijhorende opties configureren
-      services.AddMvc().AddJsonOptions(options => {
-
+      services.AddMvc().AddJsonOptions(options =>
+      {
         //Loops in response worden genegeerd. Bijv: Leiding -> Tak -> Leiding -> Tak -> .. wordt Leiding -> Tak
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-
-
       });
 
       services.AddAuthentication(options =>
@@ -67,18 +76,26 @@ namespace kangoeroes.leidingBeheer
         {
           options.Authority = Configuration["Auth0:domain"];
           options.Audience = "admin.dekangoeroes.be";
-
         });
 
       services.AddAuthorization();
 
       services.AddOptions();
+
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new Info { Title = "Kangoeroes API - V1", Version = "v1" });
+
+        // Endpoint informatie ophalen uit XML-documentatie
+        var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        c.IncludeXmlComments(xmlPath);
+      });
       RegisterDependencyInjection(services);
     }
 
     private void RegisterDependencyInjection(IServiceCollection services)
     {
-
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
       services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
@@ -94,26 +111,29 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<ITotemRepository, TotemRepository>();
       services.AddTransient<IAdjectiefRepository, AdjectiefRepository>();
       services.AddTransient<ITotemEntryRepository, TotemEntryRepository>();
+      services.AddTransient<IDrankRepository, DrankRepository>();
+      services.AddTransient<IDrankTypeRepository, DrankTypeRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
-      services.AddTransient<IAuth0Service,Auth0Service>();
+      services.AddTransient<IAuth0Service, Auth0Service>();
       services.AddTransient<ITotemService, TotemService>();
       services.AddTransient<IAdjectiefService, AdjectiefService>();
       services.AddTransient<ITotemEntryService, TotemEntryService>();
+      services.AddTransient<IDrankService, DrankService>();
+      services.AddTransient<IDrankTypeService, DrankTypeService>();
+
+      services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
 
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
-      if (env.IsDevelopment()) {
-        app.UseDeveloperExceptionPage();
-
-      }
+      if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
       app.UseCors(builder =>
       {
-        builder.WithOrigins("http://staging.admin.dekangoeroes.be","http://staging.totems.dekangoeroes.be")
+        builder.WithOrigins("http://staging.admin.dekangoeroes.be", "http://staging.totems.dekangoeroes.be")
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials();
@@ -123,7 +143,7 @@ namespace kangoeroes.leidingBeheer
       {
         options.Run(async context =>
         {
-         context.Response.StatusCode = 500;
+          context.Response.StatusCode = 500;
           context.Response.ContentType = "application/json";
           var response = new ApiServerErrorResponse("Oops. Er ging iets fout");
           if (env.IsDevelopment())
@@ -147,6 +167,15 @@ namespace kangoeroes.leidingBeheer
       app.UseStaticFiles();
 
       app.UseAuthentication();
+
+      // Swagger middleware toevoegen om JSON endpoint te exposen
+      app.UseSwagger();
+
+      // Swagger middleware om UI endpoint te exposen
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1");
+      });
 
       app.UseMvcWithDefaultRoute();
     }

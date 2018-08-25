@@ -9,17 +9,19 @@ namespace kangoeroes.leidingBeheer.Data.Context
 {
   public class ApplicationDbContext : DbContext
   {
-    public DbSet<Tak> Takken { get; set; }
-    public DbSet<Leiding> Leiding { get; set; }
-    public DbSet<Totem> Totems { get; set; }
-    public DbSet<Adjectief> Adjectieven { get; set; }
-    public DbSet<TotemEntry> TotemEntries { get; set; }
-    public DbSet<DrankType> DrankTypes { get; set; }
-    public DbSet<Drank> Dranken { get; set; }
+    #region DbSets
 
-    /* public ApplicationDbContext()
-     {
-     }*/
+        public DbSet<Tak> Takken { get; set; }
+        public DbSet<Leiding> Leiding { get; set; }
+        public DbSet<Totem> Totems { get; set; }
+        public DbSet<Adjectief> Adjectieven { get; set; }
+        public DbSet<TotemEntry> TotemEntries { get; set; }
+        public DbSet<DrankType> DrankTypes { get; set; }
+        public DbSet<Drank> Dranken { get; set; }
+
+    #endregion
+
+
 
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
@@ -37,14 +39,19 @@ namespace kangoeroes.leidingBeheer.Data.Context
       modelBuilder.Entity<DrankType>(MapDrankType);
       modelBuilder.Entity<Drank>(MapDrank);
 
+      // Alle entiteiten omzetten van PascalCase naar camelCase.
       foreach (var entity in modelBuilder.Model.GetEntityTypes())
       {
         foreach (var property in entity.GetProperties())
         {
-          property.Relational().ColumnName = Char.ToLowerInvariant(property.Name[0]) + property.Name.Substring(1);
+          property.Relational().ColumnName = char.ToLowerInvariant(property.Name[0]) + property.Name.Substring(1);
         }
       }
     }
+
+
+    #region Mapping methods
+
 
     private static void MapTak(EntityTypeBuilder<Tak> builder)
     {
@@ -84,7 +91,10 @@ namespace kangoeroes.leidingBeheer.Data.Context
     private static void MapDrankType(EntityTypeBuilder<DrankType> builder)
     {
       builder.ToTable("poef.drankType");
+      builder.HasKey(x => x.Naam);
+      builder.HasKey(x => x.Id);
       builder.Property(x => x.Naam).IsRequired();
+
 
     }
 
@@ -94,5 +104,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
       builder.Property(x => x.Naam).IsRequired();
       builder.HasOne(x => x.Type);
     }
+
+    #endregion
   }
 }

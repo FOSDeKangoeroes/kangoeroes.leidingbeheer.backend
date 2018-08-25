@@ -2,7 +2,10 @@
 
 namespace kangoeroes.core.Models.Exceptions
 {
-    public class EntityExistsException: Exception
+    /// <summary>
+    ///     Representeert de fout wanneer een entiteit reeds bestaat.
+    /// </summary>
+    public class EntityExistsException : Exception
     {
         public EntityExistsException(string message) : base(message)
         {

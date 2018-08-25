@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Models.ViewModels.Totem;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
+using kangoeroes.leidingBeheer.ViewModels.TotemViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.TotemServices
 {
-  public class TotemService: ITotemService
+  public class TotemService : ITotemService
   {
-    private readonly ITotemRepository _totemRepository;
     private readonly IMapper _mapper;
+    private readonly ITotemRepository _totemRepository;
 
     public TotemService(ITotemRepository totemRepository, IMapper mapper)
     {
@@ -33,10 +33,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
     {
       var result = await _totemRepository.FindByIdAsync(id);
 
-      if (result == null)
-      {
-        throw new EntityNotFoundException($"Totem met id {id} werd niet gevonden");
-      }
+      if (result == null) throw new EntityNotFoundException($"Totem met id {id} werd niet gevonden");
 
       return _mapper.Map<BasicTotemViewModel>(result);
     }
@@ -46,10 +43,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
     {
       var exists = await _totemRepository.TotemExists(viewModel.Naam) != null;
 
-      if (exists)
-      {
-        throw new EntityExistsException($"Totem met naam {viewModel.Naam} bestaat al");
-      }
+      if (exists) throw new EntityExistsException($"Totem met naam {viewModel.Naam} bestaat al");
 
       //Trailing spaces verwijderen uit nieuwe totem
       viewModel.Naam = viewModel.Naam.Trim();
@@ -69,16 +63,12 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       var totem = await _totemRepository.FindByIdAsync(id);
 
 
-      if (totem == null)
-      {
-        throw new EntityNotFoundException($"Totem met id {id} werd niet gevonden");
-      }
+      if (totem == null) throw new EntityNotFoundException($"Totem met id {id} werd niet gevonden");
 
       totem.Naam = viewModel.Naam.Trim();
       await _totemRepository.SaveChangesAsync();
 
       return _mapper.Map<BasicTotemViewModel>(totem);
     }
-
   }
 }

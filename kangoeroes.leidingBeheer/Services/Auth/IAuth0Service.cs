@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Auth0.Core;
-using kangoeroes.leidingBeheer.Models.AuthViewModels;
-using Microsoft.AspNetCore.Mvc;
+using kangoeroes.leidingBeheer.ViewModels.AuthViewModels;
 
 namespace kangoeroes.leidingBeheer.Services.Auth
 {

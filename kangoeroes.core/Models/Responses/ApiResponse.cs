@@ -1,36 +1,18 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace kangoeroes.core.Models.Responses
 {
+  /// <summary>
+  ///     Standaard response waarmee een willekeurig bericht kan terugegeven worden
+  /// </summary>
   public class ApiResponse
-  {
-    public int StatusCode { get; }
-
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public string Message { get; }
-
-
-    public ApiResponse(int statusCode, string message = null)
     {
-      StatusCode = statusCode;
-      Message = message ?? GetDefaultMessageForStatusCode(statusCode);
-    }
+        public ApiResponse(string message = null)
+        {
+            Message = message;
+        }
 
-    private static string GetDefaultMessageForStatusCode(int statusCode)
-    {
-      switch (statusCode)
-      {
-          case 404:
-            return "Resource not found";
-            case 500:
-              return "An unhandled error occured";
-              default:
-                return null;
-      }
-      {
-
-      }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string Message { get; }
     }
-  }
 }
