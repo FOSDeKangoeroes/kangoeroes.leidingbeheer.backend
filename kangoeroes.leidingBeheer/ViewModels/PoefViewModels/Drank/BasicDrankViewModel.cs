@@ -1,4 +1,6 @@
-﻿namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
+﻿using Newtonsoft.Json;
+
+namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
 {
   public class BasicDrankViewModel
   {
@@ -7,5 +9,7 @@
     public bool InStock { get; set; }
     public int TypeId { get; set; }
     public string TypeNaam { get; set; }
+    [JsonProperty("prijs")]
+    public decimal CurrentPrijsWaarde { get; set; }
   }
 }

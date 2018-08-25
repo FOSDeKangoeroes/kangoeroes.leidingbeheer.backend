@@ -11,9 +11,10 @@ using System;
 namespace kangoeroes.leidingBeheer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180825143018_AddPrijs")]
+    partial class AddPrijs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +110,6 @@ namespace kangoeroes.leidingBeheer.Migrations
                         .HasColumnName("createdOn");
 
                     b.Property<int?>("DrankId")
-                        .IsRequired()
                         .HasColumnName("drankId");
 
                     b.Property<decimal>("Waarde")
@@ -226,10 +226,9 @@ namespace kangoeroes.leidingBeheer.Migrations
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Prijs", b =>
                 {
-                    b.HasOne("kangoeroes.core.Models.Poef.Drank", "Drank")
+                    b.HasOne("kangoeroes.core.Models.Poef.Drank")
                         .WithMany("Prijzen")
-                        .HasForeignKey("DrankId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DrankId");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Totems.TotemEntry", b =>

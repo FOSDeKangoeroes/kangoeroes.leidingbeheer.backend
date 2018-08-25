@@ -95,7 +95,33 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
         var drank = await _drankService.CreateDrank(viewModel);
         var model = _mapper.Map<BasicDrankViewModel>(drank);
 
-        return CreatedAtRoute("FindDrankById", model);
+        return CreatedAtRoute("FindDrankById",new {drankId = drank.Id}, model);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+    }
+
+    /// <summary>
+    /// Endpoint voor het wijzigen van een drank.  Dit endpoint wijzigt alle velden naar de waarden gegeven in het model.
+    /// Een  optioneel veld in het viewmodel wordt dus leeggemaakt indien dit in het viewmodel leeg is.
+    /// </summary>
+    /// <param name="viewModel"></param>
+    /// <param name="drankId"></param>
+    /// <returns></returns>
+    [HttpPut("{drankId}")]
+    [ProducesResponseType(typeof(BasicDrankViewModel), 200)]
+    [ProducesResponseType(typeof(string), 404)]
+    public async Task<IActionResult> UpdateDrank([FromBody] UpdateDrankViewModel viewModel, [FromRoute] int drankId)
+    {
+      try
+      {
+        var drank = await _drankService.UpdateDrank(drankId, viewModel);
+
+        var model = _mapper.Map<BasicDrankViewModel>(drank);
+
+        return Ok(model);
       }
       catch (EntityNotFoundException e)
       {

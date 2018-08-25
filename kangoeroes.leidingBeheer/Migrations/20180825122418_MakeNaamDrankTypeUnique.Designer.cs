@@ -11,9 +11,10 @@ using System;
 namespace kangoeroes.leidingBeheer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180825122418_MakeNaamDrankTypeUnique")]
+    partial class MakeNaamDrankTypeUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,29 +98,6 @@ namespace kangoeroes.leidingBeheer.Migrations
                     b.HasAlternateKey("Naam");
 
                     b.ToTable("poef.drankType");
-                });
-
-            modelBuilder.Entity("kangoeroes.core.Models.Poef.Prijs", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("createdOn");
-
-                    b.Property<int?>("DrankId")
-                        .IsRequired()
-                        .HasColumnName("drankId");
-
-                    b.Property<decimal>("Waarde")
-                        .HasColumnName("waarde");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DrankId");
-
-                    b.ToTable("poef.prijs");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Tak", b =>
@@ -222,14 +200,6 @@ namespace kangoeroes.leidingBeheer.Migrations
                     b.HasOne("kangoeroes.core.Models.Poef.DrankType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
-                });
-
-            modelBuilder.Entity("kangoeroes.core.Models.Poef.Prijs", b =>
-                {
-                    b.HasOne("kangoeroes.core.Models.Poef.Drank", "Drank")
-                        .WithMany("Prijzen")
-                        .HasForeignKey("DrankId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Totems.TotemEntry", b =>

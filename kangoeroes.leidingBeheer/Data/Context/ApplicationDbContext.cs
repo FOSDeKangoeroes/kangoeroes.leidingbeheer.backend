@@ -38,6 +38,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
       modelBuilder.Entity<TotemEntry>(MapTotemEntry);
       modelBuilder.Entity<DrankType>(MapDrankType);
       modelBuilder.Entity<Drank>(MapDrank);
+      modelBuilder.Entity<Prijs>(MapPrijs);
 
       // Alle entiteiten omzetten van PascalCase naar camelCase.
       foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -48,6 +49,8 @@ namespace kangoeroes.leidingBeheer.Data.Context
         }
       }
     }
+
+
 
 
     #region Mapping methods
@@ -103,6 +106,16 @@ namespace kangoeroes.leidingBeheer.Data.Context
       builder.ToTable("poef.drank");
       builder.Property(x => x.Naam).IsRequired();
       builder.HasOne(x => x.Type);
+      //builder.HasMany(x => x.Prijzen);
+    }
+
+    private void MapPrijs(EntityTypeBuilder<Prijs> builder)
+    {
+      builder.ToTable("poef.prijs");
+      builder.HasKey(x => x.Id);
+      builder.Property(x => x.CreatedOn).IsRequired();
+      builder.Property(x => x.Waarde).IsRequired();
+      builder.HasOne(x => x.Drank).WithMany(x => x.Prijzen).IsRequired();
     }
 
     #endregion

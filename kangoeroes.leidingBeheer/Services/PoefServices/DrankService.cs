@@ -45,12 +45,16 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
 
       if (type == null) throw new EntityNotFoundException($"Dranktype met id {viewModel.TypeId} werd niet gevonden.");
 
+      var prijs = Prijs.Create(viewModel.Prijs);
+
       var newDrank = new Drank
       {
         InStock = viewModel.InStock,
         Naam = viewModel.Naam,
         Type = type
       };
+
+      newDrank.TryAddNewPrijs(viewModel.Prijs);
 
       await _drankRepository.AddAsync(newDrank);
       await _drankRepository.SaveChangesAsync();
@@ -66,6 +70,8 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
 
       drank.Naam = viewModel.Naam;
       drank.InStock = viewModel.InStock;
+
+      drank.TryAddNewPrijs(viewModel.Prijs);
 
       await _drankRepository.SaveChangesAsync();
 
