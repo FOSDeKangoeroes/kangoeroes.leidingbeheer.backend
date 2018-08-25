@@ -57,6 +57,11 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     }
 
 
+    /// <summary>
+    /// Endpoint die een dranktype teruggeeft aan de hand van de gegeven unieke sleutel.
+    /// </summary>
+    /// <param name="drankTypeId">Unieke sleutel van het type.</param>
+    /// <returns>Een model van het gevonden dranktype. Indien er geen dranktype overeenkomt met de sleutel, wordt een 404 teruggegeven met een foutboodschap.</returns>
     [HttpGet("{drankTypeId}")]
     [ProducesResponseType(typeof(BasicDrankTypeViewModel), 200)]
     [ProducesResponseType(typeof(string), 404)]
