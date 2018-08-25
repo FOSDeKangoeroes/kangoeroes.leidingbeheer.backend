@@ -92,6 +92,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
         if (voorouder == null)
           throw new EntityNotFoundException($"Voorouder met id {viewmodel.VoorouderId} werd niet gevonden.");
 
+
         newEntry.Voorouder = voorouder;
       }
 
@@ -113,6 +114,11 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       var voorouder = await _totemEntryRepository.FindByIdAsync(voorouderId);
 
       if (voorouder == null) throw new EntityNotFoundException($"Voorouder met id {voorouderId} werd niet gevonden.");
+
+      if (totemEntry.Id == voorouder.Id)
+      {
+        throw new InvalidRelationException($"Getotemiseerde kan zichzelf niet als voorouder hebben.");
+      }
 
       totemEntry.Voorouder = voorouder;
       await _totemEntryRepository.SaveChangesAsync();
@@ -158,7 +164,7 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
       var entries = _totemEntryRepository.GetDescendants(entryId);
 
       if (entries == null)
-        throw new EntityNotFoundException($"Er werdern geen afstammelingen gevonden voor de totem met id {entryId}");
+        throw new EntityNotFoundException($"Er werden geen afstammelingen gevonden voor de totem met id {entryId}");
 
       return _mapper.Map<List<BasicTotemEntryViewModel>>(entries);
     }

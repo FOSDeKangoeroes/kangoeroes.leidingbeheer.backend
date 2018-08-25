@@ -1,4 +1,5 @@
-﻿using kangoeroes.core.Models.Poef;
+﻿using System.Threading.Tasks;
+using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
 
 namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces
@@ -8,6 +9,6 @@ namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces
   /// </summary>
   public interface IDrankTypeRepository: IBaseRepository<DrankType>
   {
-
+    Task<DrankType> FindTypeByNaam(string naam);
   }
 }

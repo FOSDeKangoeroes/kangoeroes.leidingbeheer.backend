@@ -22,6 +22,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
     #endregion
 
 
+
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
     }
@@ -90,7 +91,10 @@ namespace kangoeroes.leidingBeheer.Data.Context
     private static void MapDrankType(EntityTypeBuilder<DrankType> builder)
     {
       builder.ToTable("poef.drankType");
+      builder.HasKey(x => x.Naam);
+      builder.HasKey(x => x.Id);
       builder.Property(x => x.Naam).IsRequired();
+
 
     }
 

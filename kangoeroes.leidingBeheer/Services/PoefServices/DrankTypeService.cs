@@ -65,9 +65,16 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
     /// <returns>Awaitable van het nieuw aangemaakte type</returns>
     public async Task<DrankType> CreateDrankType(AddDrankTypeViewModel viewModel)
     {
+      var existingType = await _drankTypeRepository.FindTypeByNaam(viewModel.Naam.Trim().ToLowerInvariant());
+
+      if (existingType != null)
+      {
+        throw new EntityExistsException($"Er bestaat al een type met deze naam");
+      }
+
       var newType = new DrankType()
       {
-        Naam = viewModel.Naam
+        Naam = viewModel.Naam.Trim()
       };
 
       await _drankTypeRepository.AddAsync(newType);

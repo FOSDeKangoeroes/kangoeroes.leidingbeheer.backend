@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
+using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
@@ -26,13 +27,13 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     /// <param name="drankTypeService">Service om dranktypes te manipuleren.</param>
     /// <param name="mapper">Service verantwoordelijk om entiteiten te mappen naar viewmodels.</param>
     /// <param name="paginationMetaDataService">Service verantwoordelijk om paginatie data toe te voegen aan een response.</param>
-    public DrankTypeController(IDrankTypeService drankTypeService, IMapper mapper, IPaginationMetaDataService paginationMetaDataService)
+    public DrankTypeController(IDrankTypeService drankTypeService, IMapper mapper,
+      IPaginationMetaDataService paginationMetaDataService)
     {
       _drankTypeService = drankTypeService;
       _mapper = mapper;
       _paginationMetaDataService = paginationMetaDataService;
     }
-
 
 
     /// <summary>
@@ -51,7 +52,6 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       _paginationMetaDataService.AddMetaDataToResponse(Response, types);
 
       return Ok(model);
-
     }
 
 
@@ -60,7 +60,7 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     /// </summary>
     /// <param name="drankTypeId">Unieke sleutel van het type.</param>
     /// <returns>Een model van het gevonden dranktype. Indien er geen dranktype overeenkomt met de sleutel, wordt een 404 teruggegeven met een foutboodschap.</returns>
-    [HttpGet("{drankTypeId}")]
+    [HttpGet("{drankTypeId}", Name = "GetTypeById")]
     [ProducesResponseType(typeof(BasicDrankTypeViewModel), 200)]
     [ProducesResponseType(typeof(string), 404)]
     public async Task<IActionResult> GetTypeById([FromRoute] int drankTypeId)
@@ -76,6 +76,30 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       catch (EntityNotFoundException e)
       {
         return NotFound(e.Message);
+      }
+    }
+
+    /// <summary>
+    /// Endpoint voor het aanmaken van een nieuw dranktype
+    /// </summary>
+    /// <param name="viewModel">Viewmodel met data voor het aanmaken van een dranktype</param>
+    /// <returns>Model van het nieuw aangemaakte type</returns>
+    [HttpPost("")]
+    [ProducesResponseType(typeof(BasicDrankTypeViewModel), 201)]
+    [ProducesResponseType(typeof(string), 400)]
+    public async Task<IActionResult> CreateType([FromBody] AddDrankTypeViewModel viewModel)
+    {
+      try
+      {
+        var newType = await _drankTypeService.CreateDrankType(viewModel);
+
+        var model = _mapper.Map<BasicDrankTypeViewModel>(newType);
+
+        return CreatedAtRoute("GetTypeById", new {drankTypeId = newType.Id}, model);
+      }
+      catch (EntityExistsException e)
+      {
+        return BadRequest(e.Message);
       }
     }
   }

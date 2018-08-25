@@ -49,5 +49,10 @@ namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories
     {
       return _types.FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public Task<DrankType> FindTypeByNaam(string naam)
+    {
+      return _types.FirstOrDefaultAsync(x => x.Naam.ToLowerInvariant() == naam);
+    }
   }
 }
