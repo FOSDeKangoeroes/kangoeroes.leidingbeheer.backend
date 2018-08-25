@@ -22,10 +22,6 @@ namespace kangoeroes.leidingBeheer.Data.Context
     #endregion
 
 
-    /* public ApplicationDbContext()
-     {
-     }*/
-
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
     }

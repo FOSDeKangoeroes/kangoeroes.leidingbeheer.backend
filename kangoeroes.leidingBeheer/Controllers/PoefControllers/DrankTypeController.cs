@@ -52,8 +52,6 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
 
       return Ok(model);
 
-
-
     }
 
 
