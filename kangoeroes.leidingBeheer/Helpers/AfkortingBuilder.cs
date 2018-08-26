@@ -11,8 +11,8 @@ namespace kangoeroes.leidingBeheer.Helpers
     /// <summary>
     /// Bouwt een afkorting van 2 karakters in hoofdletters uit een gegeven string.
     /// Voorbeeld:
-    /// Thomas de Wulf wordt TD
-    /// Pol Janssens wordt PJ
+    /// Thomas de Wulf wordt TD,
+    /// Pol Janssens wordt PJ.
     /// </summary>
     /// <param name="value">Waarde die afgekort dient te worden</param>
     /// <returns>Afkorting van de waarde. Bestaat uit 2 karakters.</returns>
