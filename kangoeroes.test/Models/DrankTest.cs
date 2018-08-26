@@ -1,8 +1,7 @@
-﻿using System;
-using kangoeroes.core.Models.Poef;
+﻿using kangoeroes.core.Models.Poef;
 using Xunit;
 
-namespace kangoeroes.test.Domain
+namespace kangoeroes.test.Models
 {
     public class DrankTest
     {

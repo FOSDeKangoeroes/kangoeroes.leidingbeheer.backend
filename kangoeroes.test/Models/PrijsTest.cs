@@ -1,7 +1,7 @@
 ﻿using kangoeroes.core.Models.Poef;
 using Xunit;
 
-namespace kangoeroes.test.Domain
+namespace kangoeroes.test.Models
 {
     public class PrijsTest
     {
