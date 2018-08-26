@@ -107,9 +107,9 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     /// Endpoint voor het wijzigen van een drank.  Dit endpoint wijzigt alle velden naar de waarden gegeven in het model.
     /// Een  optioneel veld in het viewmodel wordt dus leeggemaakt indien dit in het viewmodel leeg is.
     /// </summary>
-    /// <param name="viewModel"></param>
-    /// <param name="drankId"></param>
-    /// <returns></returns>
+    /// <param name="viewModel">Model met de nieuwe gegevens van de drank.</param>
+    /// <param name="drankId">Unieke sleutel van de te wijzigen drank.</param>
+    /// <returns>Een model van de gewijzigde drank.</returns>
     [HttpPut("{drankId}")]
     [ProducesResponseType(typeof(BasicDrankViewModel), 200)]
     [ProducesResponseType(typeof(string), 404)]
