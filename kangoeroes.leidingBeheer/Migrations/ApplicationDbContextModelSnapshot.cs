@@ -77,6 +77,9 @@ namespace kangoeroes.leidingBeheer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Naam")
+                        .IsUnique();
+
                     b.HasIndex("TypeId");
 
                     b.ToTable("poef.drank");
@@ -94,7 +97,8 @@ namespace kangoeroes.leidingBeheer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Naam");
+                    b.HasIndex("Naam")
+                        .IsUnique();
 
                     b.ToTable("poef.drankType");
                 });

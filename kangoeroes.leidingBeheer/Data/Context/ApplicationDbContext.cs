@@ -28,6 +28,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
     {
     }
 
+    /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       base.OnModelCreating(modelBuilder);
@@ -96,7 +97,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
     private static void MapDrankType(EntityTypeBuilder<DrankType> builder)
     {
       builder.ToTable("poef.drankType");
-      builder.HasKey(x => x.Naam);
+      builder.HasIndex(x => x.Naam).IsUnique();
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Naam).IsRequired();
 
@@ -105,8 +106,11 @@ namespace kangoeroes.leidingBeheer.Data.Context
 
     private static void MapDrank(EntityTypeBuilder<Drank> builder)
     {
+
       builder.ToTable("poef.drank");
       builder.Property(x => x.Naam).IsRequired();
+      builder.HasKey(x => x.Id);
+      builder.HasIndex(x => x.Naam).IsUnique();
       builder.HasOne(x => x.Type).WithMany(x => x.Dranken);
       //builder.HasMany(x => x.Prijzen);
     }

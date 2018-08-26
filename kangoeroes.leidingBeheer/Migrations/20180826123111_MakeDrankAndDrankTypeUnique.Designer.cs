@@ -11,8 +11,8 @@ using System;
 namespace kangoeroes.leidingBeheer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180825143018_AddPrijs")]
-    partial class AddPrijs
+    [Migration("20180826123111_MakeDrankAndDrankTypeUnique")]
+    partial class MakeDrankAndDrankTypeUnique
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,9 @@ namespace kangoeroes.leidingBeheer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Naam")
+                        .IsUnique();
+
                     b.HasIndex("TypeId");
 
                     b.ToTable("poef.drank");
@@ -95,9 +98,62 @@ namespace kangoeroes.leidingBeheer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Naam");
+                    b.HasIndex("Naam")
+                        .IsUnique();
 
                     b.ToTable("poef.drankType");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Poef.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("createdOn");
+
+                    b.Property<int?>("OrderedById")
+                        .IsRequired()
+                        .HasColumnName("orderedById");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderedById");
+
+                    b.ToTable("poef.order");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Poef.Orderline", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<int?>("DrankId")
+                        .IsRequired()
+                        .HasColumnName("drankId");
+
+                    b.Property<int?>("OrderId")
+                        .IsRequired()
+                        .HasColumnName("orderId");
+
+                    b.Property<int?>("OrderedForId")
+                        .IsRequired()
+                        .HasColumnName("orderedForId");
+
+                    b.Property<decimal>("PricePaid")
+                        .HasColumnName("pricePaid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DrankId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("OrderedForId");
+
+                    b.ToTable("poef.orderline");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Prijs", b =>
@@ -110,6 +166,7 @@ namespace kangoeroes.leidingBeheer.Migrations
                         .HasColumnName("createdOn");
 
                     b.Property<int?>("DrankId")
+                        .IsRequired()
                         .HasColumnName("drankId");
 
                     b.Property<decimal>("Waarde")
@@ -220,15 +277,42 @@ namespace kangoeroes.leidingBeheer.Migrations
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Drank", b =>
                 {
                     b.HasOne("kangoeroes.core.Models.Poef.DrankType", "Type")
-                        .WithMany()
+                        .WithMany("Dranken")
                         .HasForeignKey("TypeId");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Poef.Order", b =>
+                {
+                    b.HasOne("kangoeroes.core.Models.Leiding", "OrderedBy")
+                        .WithMany("Orders")
+                        .HasForeignKey("OrderedById")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Poef.Orderline", b =>
+                {
+                    b.HasOne("kangoeroes.core.Models.Poef.Drank", "Drank")
+                        .WithMany("Orderlines")
+                        .HasForeignKey("DrankId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("kangoeroes.core.Models.Poef.Order", "Order")
+                        .WithMany("Orderlines")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("kangoeroes.core.Models.Leiding", "OrderedFor")
+                        .WithMany("Consumpties")
+                        .HasForeignKey("OrderedForId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Prijs", b =>
                 {
-                    b.HasOne("kangoeroes.core.Models.Poef.Drank")
+                    b.HasOne("kangoeroes.core.Models.Poef.Drank", "Drank")
                         .WithMany("Prijzen")
-                        .HasForeignKey("DrankId");
+                        .HasForeignKey("DrankId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Totems.TotemEntry", b =>
