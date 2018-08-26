@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using kangoeroes.leidingBeheer.Helpers;
+using Newtonsoft.Json;
 
 namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
 {
@@ -6,6 +7,7 @@ namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
   {
     public int Id { get; set; }
     public string Naam { get; set; }
+    public string Afkorting => AfkortingBuilder.BuildAfkorting(Naam);
     public bool InStock { get; set; }
     public int TypeId { get; set; }
     public string TypeNaam { get; set; }
