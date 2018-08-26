@@ -14,6 +14,7 @@ namespace kangoeroes.core.Models.Poef
         {
             
         }
+        
         /// <summary>
         /// Unieke sleutel 
         /// </summary>
