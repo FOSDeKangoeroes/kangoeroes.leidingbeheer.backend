@@ -112,7 +112,6 @@ namespace kangoeroes.leidingBeheer.Data.Context
       builder.HasKey(x => x.Id);
       builder.HasIndex(x => x.Naam).IsUnique();
       builder.HasOne(x => x.Type).WithMany(x => x.Dranken);
-      //builder.HasMany(x => x.Prijzen);
     }
 
     private void MapPrijs(EntityTypeBuilder<Prijs> builder)
