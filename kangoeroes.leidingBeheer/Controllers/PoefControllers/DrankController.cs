@@ -113,6 +113,7 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
     [HttpPut("{drankId}")]
     [ProducesResponseType(typeof(BasicDrankViewModel), 200)]
     [ProducesResponseType(typeof(string), 404)]
+    [ProducesResponseType(typeof(string), 400)]
     public async Task<IActionResult> UpdateDrank([FromBody] UpdateDrankViewModel viewModel, [FromRoute] int drankId)
     {
       try
