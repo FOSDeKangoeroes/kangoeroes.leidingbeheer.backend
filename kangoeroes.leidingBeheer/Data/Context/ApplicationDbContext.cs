@@ -18,6 +18,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
         public DbSet<TotemEntry> TotemEntries { get; set; }
         public DbSet<DrankType> DrankTypes { get; set; }
         public DbSet<Drank> Dranken { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
     #endregion
 
@@ -27,6 +28,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
     {
     }
 
+    /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       base.OnModelCreating(modelBuilder);
@@ -38,6 +40,9 @@ namespace kangoeroes.leidingBeheer.Data.Context
       modelBuilder.Entity<TotemEntry>(MapTotemEntry);
       modelBuilder.Entity<DrankType>(MapDrankType);
       modelBuilder.Entity<Drank>(MapDrank);
+      modelBuilder.Entity<Prijs>(MapPrijs);
+      modelBuilder.Entity<Order>(MapOrder);
+      modelBuilder.Entity<Orderline>(MapOrderline);
 
       // Alle entiteiten omzetten van PascalCase naar camelCase.
       foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -48,6 +53,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
         }
       }
     }
+
 
 
     #region Mapping methods
@@ -91,7 +97,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
     private static void MapDrankType(EntityTypeBuilder<DrankType> builder)
     {
       builder.ToTable("poef.drankType");
-      builder.HasKey(x => x.Naam);
+      builder.HasIndex(x => x.Naam).IsUnique();
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Naam).IsRequired();
 
@@ -100,10 +106,42 @@ namespace kangoeroes.leidingBeheer.Data.Context
 
     private static void MapDrank(EntityTypeBuilder<Drank> builder)
     {
+
       builder.ToTable("poef.drank");
       builder.Property(x => x.Naam).IsRequired();
-      builder.HasOne(x => x.Type);
+      builder.HasKey(x => x.Id);
+      builder.HasIndex(x => x.Naam).IsUnique();
+      builder.HasOne(x => x.Type).WithMany(x => x.Dranken);
     }
+
+    private void MapPrijs(EntityTypeBuilder<Prijs> builder)
+    {
+      builder.ToTable("poef.prijs");
+      builder.HasKey(x => x.Id);
+      builder.Property(x => x.CreatedOn).IsRequired();
+      builder.Property(x => x.Waarde).IsRequired();
+      builder.HasOne(x => x.Drank).WithMany(x => x.Prijzen).IsRequired();
+    }
+
+    private void MapOrder(EntityTypeBuilder<Order> builder)
+    {
+      builder.ToTable("poef.order");
+      builder.Property(x => x.CreatedOn).IsRequired();
+      builder.HasKey(x => x.Id);
+      builder.HasOne(x => x.OrderedBy).WithMany(x => x.Orders).IsRequired();
+      builder.HasMany(x => x.Orderlines).WithOne(x => x.Order).IsRequired();
+
+    }
+
+    private void MapOrderline(EntityTypeBuilder<Orderline> builder)
+    {
+      builder.ToTable("poef.orderline");
+      builder.HasKey(x => x.Id);
+      builder.HasOne(x => x.Drank).WithMany(x => x.Orderlines).IsRequired();
+      builder.HasOne(x => x.OrderedFor).WithMany(x => x.Consumpties).IsRequired();
+      builder.Property(x => x.PricePaid).IsRequired();
+    }
+
 
     #endregion
   }

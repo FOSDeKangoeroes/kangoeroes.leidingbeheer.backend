@@ -6,7 +6,6 @@ namespace kangoeroes.leidingBeheer.Services
   /// <summary>
   /// Service verantwoordelijk voor het toevoegen van paginatie metadata aan een response object.
   /// </summary>
-  /// <typeparam name="T">Type van de data</typeparam>
   public interface IPaginationMetaDataService
   {
     /// <summary>

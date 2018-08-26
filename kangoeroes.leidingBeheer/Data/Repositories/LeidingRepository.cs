@@ -32,8 +32,10 @@ namespace kangoeroes.leidingBeheer.Data.Repositories
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
-      var leidingParameters = resourceParameters as LeidingResourceParameters;
-      if (leidingParameters.Tak != 0) result = result.Where(x => x.Tak.Id == leidingParameters.Tak);
+      if (resourceParameters is LeidingResourceParameters leidingParameters && leidingParameters.Tak != 0)
+      {
+        result = result.Where(x => x.Tak.Id == leidingParameters.Tak);
+      }
 
       var pagedList = PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
