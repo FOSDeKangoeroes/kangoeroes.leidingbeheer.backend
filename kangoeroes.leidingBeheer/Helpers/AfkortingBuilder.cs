@@ -20,17 +20,18 @@ namespace kangoeroes.leidingBeheer.Helpers
     {
       var builder = new StringBuilder();
 
+      //Eerste letter van de gegeven waarde steeds opnemen in de afkorting.
       builder.Append(value[0]);
 
-      if (!value.Contains(" "))
+      // Als er een 2e woord is, eerste letter van het 2e woord opnemen in de afkorting
+      if (value.Contains(" "))
       {
-        return builder.ToString().ToUpperInvariant();
+        var indexOfSpace = value.IndexOf(" ", StringComparison.Ordinal);
+        var firstCharAfterSpace = value[indexOfSpace + 1];
+        builder.Append(firstCharAfterSpace);
       }
 
-      var indexOfSpace = value.IndexOf(" ", StringComparison.Ordinal);
-      var firstCharAfterSpace = value[indexOfSpace + 1];
-      builder.Append(firstCharAfterSpace);
-
+      //Opgebouwde afkorting volledig overzetten naar hoofdletters.
       return builder.ToString().ToUpperInvariant();
     }
   }
