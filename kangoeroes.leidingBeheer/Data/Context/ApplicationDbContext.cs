@@ -18,6 +18,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
         public DbSet<TotemEntry> TotemEntries { get; set; }
         public DbSet<DrankType> DrankTypes { get; set; }
         public DbSet<Drank> Dranken { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
     #endregion
 
@@ -39,6 +40,8 @@ namespace kangoeroes.leidingBeheer.Data.Context
       modelBuilder.Entity<DrankType>(MapDrankType);
       modelBuilder.Entity<Drank>(MapDrank);
       modelBuilder.Entity<Prijs>(MapPrijs);
+      modelBuilder.Entity<Order>(MapOrder);
+      modelBuilder.Entity<Orderline>(MapOrderline);
 
       // Alle entiteiten omzetten van PascalCase naar camelCase.
       foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -49,7 +52,6 @@ namespace kangoeroes.leidingBeheer.Data.Context
         }
       }
     }
-
 
 
 
@@ -117,6 +119,26 @@ namespace kangoeroes.leidingBeheer.Data.Context
       builder.Property(x => x.Waarde).IsRequired();
       builder.HasOne(x => x.Drank).WithMany(x => x.Prijzen).IsRequired();
     }
+
+    private void MapOrder(EntityTypeBuilder<Order> builder)
+    {
+      builder.ToTable("poef.order");
+      builder.Property(x => x.CreatedOn).IsRequired();
+      builder.HasKey(x => x.Id);
+      builder.HasOne(x => x.OrderedBy).WithMany(x => x.Orders).IsRequired();
+      builder.HasMany(x => x.Orderlines).WithOne(x => x.Order).IsRequired();
+
+    }
+
+    private void MapOrderline(EntityTypeBuilder<Orderline> builder)
+    {
+      builder.ToTable("poef.orderline");
+      builder.HasKey(x => x.Id);
+      builder.HasOne(x => x.Drank).WithMany(x => x.Orderlines).IsRequired();
+      builder.HasOne(x => x.OrderedFor).WithMany(x => x.Consumpties).IsRequired();
+      builder.Property(x => x.PricePaid).IsRequired();
+    }
+
 
     #endregion
   }

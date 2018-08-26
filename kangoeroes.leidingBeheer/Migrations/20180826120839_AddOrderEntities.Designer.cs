@@ -11,9 +11,10 @@ using System;
 namespace kangoeroes.leidingBeheer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180826120839_AddOrderEntities")]
+    partial class AddOrderEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +110,6 @@ namespace kangoeroes.leidingBeheer.Migrations
                         .HasColumnName("createdOn");
 
                     b.Property<int?>("OrderedById")
-                        .IsRequired()
                         .HasColumnName("orderedById");
 
                     b.HasKey("Id");
@@ -126,15 +126,12 @@ namespace kangoeroes.leidingBeheer.Migrations
                         .HasColumnName("id");
 
                     b.Property<int?>("DrankId")
-                        .IsRequired()
                         .HasColumnName("drankId");
 
                     b.Property<int?>("OrderId")
-                        .IsRequired()
                         .HasColumnName("orderId");
 
                     b.Property<int?>("OrderedForId")
-                        .IsRequired()
                         .HasColumnName("orderedForId");
 
                     b.Property<decimal>("PricePaid")
@@ -279,27 +276,23 @@ namespace kangoeroes.leidingBeheer.Migrations
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Order", b =>
                 {
                     b.HasOne("kangoeroes.core.Models.Leiding", "OrderedBy")
-                        .WithMany("Orders")
-                        .HasForeignKey("OrderedById")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("OrderedById");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Orderline", b =>
                 {
                     b.HasOne("kangoeroes.core.Models.Poef.Drank", "Drank")
-                        .WithMany("Orderlines")
-                        .HasForeignKey("DrankId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("DrankId");
 
                     b.HasOne("kangoeroes.core.Models.Poef.Order", "Order")
                         .WithMany("Orderlines")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("kangoeroes.core.Models.Leiding", "OrderedFor")
-                        .WithMany("Consumpties")
-                        .HasForeignKey("OrderedForId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("OrderedForId");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Prijs", b =>

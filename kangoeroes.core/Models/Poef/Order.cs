@@ -5,7 +5,10 @@ namespace kangoeroes.core.Models.Poef
 {
     public class Order
     {
-        public Order()
+        /// <summary>
+        /// Private constructor zodat er enkel een order kan aangemaakt worden adhv de factory method
+        /// </summary>
+        private Order()
         {
             Orderlines = new List<Orderline>();
         }
@@ -15,6 +18,15 @@ namespace kangoeroes.core.Models.Poef
         
         public DateTime CreatedOn { get; set; }
         
-        public List<Orderline> Orderlines { get; set; } 
+        public List<Orderline> Orderlines { get; set; }
+
+        public static Order Create(Leiding orderedBy, List<Orderline> lines)
+        {
+            return new Order()
+            {
+                OrderedBy = orderedBy,
+                CreatedOn = DateTime.Now.ToLocalTime()
+            };
+        }
     }
 }

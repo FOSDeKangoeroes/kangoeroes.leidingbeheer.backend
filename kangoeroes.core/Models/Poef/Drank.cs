@@ -56,6 +56,11 @@ namespace kangoeroes.core.Models.Poef
         {
             get { return Prijzen.OrderByDescending(x => x.CreatedOn).FirstOrDefault(); }
         }
+        
+        /// <summary>
+        /// Alle orderlijnen voor deze drank.
+        /// </summary>
+        public List<Orderline> Orderlines { get; set; }
 
         /// <summary>
         /// Probeer een nieuwe prijs toe te voegen indien de prijs verschillend is van de huidige prijs.
