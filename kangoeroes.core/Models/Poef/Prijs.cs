@@ -3,7 +3,7 @@
 namespace kangoeroes.core.Models.Poef
 {
     /// <summary>
-    /// Entiteit die een prjs weergeeft
+    /// Entiteit die een prijs weergeeft
     /// </summary>
     public class Prijs
     {

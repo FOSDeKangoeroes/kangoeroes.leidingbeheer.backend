@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kangoeroes.core", "kangoero
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kangoeroes.leidingBeheer", "kangoeroes.leidingBeheer\kangoeroes.leidingBeheer.csproj", "{0BCC9613-2CD2-4C1E-BBFA-CC63E3CB076B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kangoeroes.test", "kangoeroes.test\kangoeroes.test.csproj", "{5A0D60AE-6A1F-4F79-A4BC-33806A6A7FC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0BCC9613-2CD2-4C1E-BBFA-CC63E3CB076B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BCC9613-2CD2-4C1E-BBFA-CC63E3CB076B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BCC9613-2CD2-4C1E-BBFA-CC63E3CB076B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A0D60AE-6A1F-4F79-A4BC-33806A6A7FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A0D60AE-6A1F-4F79-A4BC-33806A6A7FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A0D60AE-6A1F-4F79-A4BC-33806A6A7FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A0D60AE-6A1F-4F79-A4BC-33806A6A7FC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

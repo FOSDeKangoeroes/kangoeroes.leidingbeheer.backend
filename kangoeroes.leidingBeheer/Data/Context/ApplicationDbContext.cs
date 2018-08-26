@@ -105,7 +105,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
     {
       builder.ToTable("poef.drank");
       builder.Property(x => x.Naam).IsRequired();
-      builder.HasOne(x => x.Type);
+      builder.HasOne(x => x.Type).WithMany(x => x.Dranken);
       //builder.HasMany(x => x.Prijzen);
     }
 
