@@ -1,4 +1,5 @@
 ﻿using System;
+using kangoeroes.leidingBeheer.Helpers;
 
 namespace kangoeroes.leidingBeheer.ViewModels.LeidingViewModels
 {
@@ -11,6 +12,8 @@ namespace kangoeroes.leidingBeheer.ViewModels.LeidingViewModels
     public string Naam { get; set; }
 
     public string Voornaam { get; set; }
+
+    public string Afkorting => AfkortingBuilder.BuildAfkorting($"{Voornaam} {Naam}");
 
     public string Email { get; set; }
 

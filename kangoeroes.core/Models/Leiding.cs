@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using kangoeroes.core.Models.Poef;
 
 namespace kangoeroes.core.Models
 {
@@ -49,6 +51,16 @@ namespace kangoeroes.core.Models
         ///     Tak waartoe de persoon behoort.
         /// </summary>
         public Tak Tak { get; set; }
+        
+        /// <summary>
+        /// Alle consumpties die de persoon ooit heeft gedronken
+        /// </summary>
+        public List<Orderline> Consumpties { get; set; }
+        
+        /// <summary>
+        /// Alle orders die de persoon heeft geplaatst
+        /// </summary>
+        public List<Order> Orders { get; set; }
 
         /// <summary>
         ///     Berekende property die aangeeft of een persoon leiding is geweest.

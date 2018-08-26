@@ -39,17 +39,17 @@ namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories
 
     public override Task<Drank> FindByIdAsync(int id)
     {
-      return _dranken.FirstOrDefaultAsync(x => x.Id == id);
+      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public Task<int> CountDrankenForDrankType(int drankTypeId)
     {
-      return GetAllWithAllIncluded().CountAsync(x => x.Type.Id == drankTypeId);
+      return _dranken.Include(x => x.Type).CountAsync(x => x.Type.Id == drankTypeId);
     }
 
     private IQueryable<Drank> GetAllWithAllIncluded()
     {
-      return _dranken.Include(x => x.Type);
+      return _dranken.Include(x => x.Type).Include(x => x.Prijzen);
     }
   }
 }
