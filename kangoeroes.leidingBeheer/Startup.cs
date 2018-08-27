@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using AutoMapper;
+using kangoeroes.core.Models.Poef;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories;
@@ -87,7 +88,7 @@ namespace kangoeroes.leidingBeheer
         c.SwaggerDoc("v1", new Info { Title = "Kangoeroes API - V1", Version = "v1" });
 
 
-        //F
+
         // Endpoint informatie ophalen uit XML-documentatie
        /* var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
         var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -116,6 +117,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<ITotemEntryRepository, TotemEntryRepository>();
       services.AddTransient<IDrankRepository, DrankRepository>();
       services.AddTransient<IDrankTypeRepository, DrankTypeRepository>();
+      services.AddTransient<IOrderRepository, OrderRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
       services.AddTransient<IAuth0Service, Auth0Service>();

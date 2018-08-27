@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace kangoeroes.core.Models.Poef
 {
+    /// <summary>
+    /// Entiteit die een bestelling voorstelt met x aantal consumpties.
+    /// </summary>
     public class Order
     {
         /// <summary>

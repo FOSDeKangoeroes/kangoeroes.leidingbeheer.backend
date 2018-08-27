@@ -12,7 +12,10 @@ namespace kangoeroes.leidingBeheer.Controllers
       _auth0Service = auth0Service;
     }
 
-    // GET
+    /// <summary>
+    /// Geeft alle rollen die beschikbaar zijn in de identityprovider terug
+    /// </summary>
+    /// <returns>Lijst van modellen van alle rollen</returns>
     [HttpGet("roles")]
     public IActionResult Roles()
     {
