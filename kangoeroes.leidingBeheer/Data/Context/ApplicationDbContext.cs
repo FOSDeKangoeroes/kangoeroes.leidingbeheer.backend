@@ -19,6 +19,7 @@ namespace kangoeroes.leidingBeheer.Data.Context
         public DbSet<DrankType> DrankTypes { get; set; }
         public DbSet<Drank> Dranken { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Orderline> Orderlines { get; set; }
 
     #endregion
 

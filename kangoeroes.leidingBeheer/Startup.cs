@@ -118,6 +118,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<IDrankRepository, DrankRepository>();
       services.AddTransient<IDrankTypeRepository, DrankTypeRepository>();
       services.AddTransient<IOrderRepository, OrderRepository>();
+      services.AddTransient<IOrderlineRepository, OrderlineRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
       services.AddTransient<IAuth0Service, Auth0Service>();
@@ -126,6 +127,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<ITotemEntryService, TotemEntryService>();
       services.AddTransient<IDrankService, DrankService>();
       services.AddTransient<IDrankTypeService, DrankTypeService>();
+      services.AddTransient<IOrderService, OrderService>();
 
       services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
 

@@ -23,7 +23,7 @@ namespace kangoeroes.core.Models.Poef
         
         public List<Orderline> Orderlines { get; set; }
 
-        public static Order Create(Leiding orderedBy, List<Orderline> lines)
+        public static Order Create(Leiding orderedBy)
         {
             return new Order()
             {
