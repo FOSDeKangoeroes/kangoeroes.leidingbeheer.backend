@@ -37,21 +37,27 @@
         /// Wordt hier opgeslaan zodat er niet steeds een query moet uitgevoerd worden via
         /// Drank -> Prijs om de actieve prijs tijdens de bestelling te zoeken.
         /// </summary>
-        public decimal PricePaid { get; set; }
+        public decimal DrinkPrice { get; set; }
+        
+        /// <summary>
+        /// Aantal consumpties voor de drank.
+        /// </summary>
+        public int Quantity { get; set; }
 
 
         /// <summary>
         /// Factory methode voor het creeren van een orderline met de nodige data.
         /// </summary>
         /// <returns></returns>
-        public static Orderline Create(Drank drank, Leiding orderedFor, Order order)
+        public static Orderline Create(Drank drank, Leiding orderedFor, Order order, int quantity)
         {
             var orderline = new Orderline()
             {
                 Drank = drank,
                 OrderedFor = orderedFor,
                 Order = order,
-                PricePaid = drank.CurrentPrijs.Waarde
+                Quantity = quantity,
+                DrinkPrice = drank.CurrentPrijs.Waarde
             };
 
             return orderline;

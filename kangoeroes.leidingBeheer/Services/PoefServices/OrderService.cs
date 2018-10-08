@@ -86,7 +86,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
           throw new EntityNotFoundException($"Persoon met id {lineModel.OrderedForId} werd niet gevonden.");
         }
 
-        var orderline = Orderline.Create(drank, orderedFor, newOrder);
+        var orderline = Orderline.Create(drank, orderedFor, newOrder, lineModel.Quantity);
 
       await  _orderlineRepository.AddAsync(orderline);
       }

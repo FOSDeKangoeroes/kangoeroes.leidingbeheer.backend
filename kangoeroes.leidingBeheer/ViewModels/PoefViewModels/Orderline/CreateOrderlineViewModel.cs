@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline
 {
@@ -9,6 +10,10 @@ namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline
 
     [Required]
     public int OrderedForId { get; set; }
+
+    [Required]
+    [Range(1, Int32.MaxValue, ErrorMessage = "Er moet minstens een hoeveelheid van {1} gegeven worden.")]
+    public int Quantity { get; set; }
 
   }
 }

@@ -140,7 +140,8 @@ namespace kangoeroes.leidingBeheer.Data.Context
       builder.HasKey(x => x.Id);
       builder.HasOne(x => x.Drank).WithMany(x => x.Orderlines).IsRequired();
       builder.HasOne(x => x.OrderedFor).WithMany(x => x.Consumpties).IsRequired();
-      builder.Property(x => x.PricePaid).IsRequired();
+      builder.Property(x => x.DrinkPrice).IsRequired();
+
     }
 
 

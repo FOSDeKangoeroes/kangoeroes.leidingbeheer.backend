@@ -8,6 +8,10 @@
 
     public string OrderedForNaam { get; set; }
 
-    public decimal PricePaid { get; set; }
+    public decimal DrinkPrice { get; set; }
+
+    public decimal PriceTotal => DrinkPrice * Quantity;
+
+    public int Quantity { get; set; }
   }
 }
