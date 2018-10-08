@@ -44,6 +44,12 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
 
     }
 
+    /// <summary>
+    /// Haalt een order met de gegeven sleutel op
+    /// </summary>
+    /// <param name="orderId">Unieke sleutel van het order</param>
+    /// <returns>De gevonden order</returns>
+    /// <exception cref="EntityNotFoundException">Wordt gegooid wanneer er voor de gegeven sleutel geen order werd gevonden.</exception>
     public async Task<Order> GetOrderById(int orderId)
     {
       var order = await _orderRepository.FindByIdAsync(orderId);
@@ -57,6 +63,12 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
 
     }
 
+    /// <summary>
+    /// Creert een order uit het gegeven viewmodel
+    /// </summary>
+    /// <param name="viewModel">Viewmodel met de nodige data voor het aanmaken van een nieuw order</param>
+    /// <returns>Nieuw aangemaakt order</returns>
+    /// <exception cref="EntityNotFoundException">Wordt gegooid wanneer een persoon in het order of in een orderline niet gevonden werd.</exception>
     public async Task<Order> CreateOrder(CreateOrderViewModel viewModel)
     {
       var orderedBy = await _leidingRepository.FindByIdAsync(viewModel.OrderedById);
@@ -94,6 +106,23 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       await _orderRepository.SaveChangesAsync();
 
       return newOrder;
+    }
+
+
+    public async Task<Order> UpdateOrder(UpdateOrderViewModel viewModel)
+    {
+      var order = await _orderRepository.FindByIdAsync(viewModel.OrderId);
+
+      if (order == null)
+      {
+        throw new EntityNotFoundException($"Order met id {viewModel.OrderId} werd niet gevonden.");
+      }
+
+
+
+      await _orderRepository.SaveChangesAsync();
+
+      return order;
     }
   }
 }
