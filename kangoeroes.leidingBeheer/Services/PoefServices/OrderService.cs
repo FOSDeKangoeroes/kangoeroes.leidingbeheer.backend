@@ -109,18 +109,30 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
     }
 
 
-    public async Task<Order> UpdateOrder(UpdateOrderViewModel viewModel)
+    public async Task<Order> UpdateOrder(UpdateOrderViewModel viewModel, int orderId)
     {
-      var order = await _orderRepository.FindByIdAsync(viewModel.OrderId);
+      var order = await _orderRepository.FindByIdAsync(orderId);
 
       if (order == null)
       {
-        throw new EntityNotFoundException($"Order met id {viewModel.OrderId} werd niet gevonden.");
+        throw new EntityNotFoundException($"Order met id {orderId} werd niet gevonden.");
       }
 
+      bool shouldUpdate = viewModel.OrderedById != order.OrderedBy.Id;
 
+      if (shouldUpdate)
+      {
+        var leiding = await _leidingRepository.FindByIdAsync(viewModel.OrderedById);
 
-      await _orderRepository.SaveChangesAsync();
+        if (leiding == null)
+        {
+          throw new EntityNotFoundException($"Persoon met id {viewModel.OrderedById} werd niet gevonden.");
+        }
+
+        order.OrderedBy = leiding;
+
+        await _orderRepository.SaveChangesAsync();
+      }
 
       return order;
     }
