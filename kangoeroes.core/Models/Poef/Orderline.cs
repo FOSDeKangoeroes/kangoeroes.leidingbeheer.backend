@@ -46,7 +46,7 @@
 
 
         /// <summary>
-        /// Factory methode voor het creeren van een orderline met de nodige data.
+        /// Factory methode voor het creeeren van een orderline met de nodige data.
         /// </summary>
         /// <returns></returns>
         public static Orderline Create(Drank drank, Leiding orderedFor, Order order, int quantity)

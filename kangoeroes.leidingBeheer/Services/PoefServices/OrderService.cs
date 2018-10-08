@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
@@ -8,6 +9,7 @@ using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
 
 namespace kangoeroes.leidingBeheer.Services.PoefServices
 {
@@ -135,6 +137,56 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       }
 
       return order;
+    }
+
+    public async Task<Orderline> UpdateOrderline(UpdateOrderlineViewModel viewModel, int orderId, int orderLineId)
+    {
+      var order = await _orderRepository.FindByIdAsync(orderId);
+
+      if (order == null)
+      {
+        throw new EntityNotFoundException($"Order met id {orderId} werd niet gevonden.");
+      }
+
+      var orderline = order.Orderlines.FirstOrDefault(x => x.Id == orderLineId);
+
+      if (orderline == null)
+      {
+        throw new EntityNotFoundException($"Orderline met id {orderLineId} werd niet gevonden in het order.");
+      }
+
+      var shouldUpdateDrank = viewModel.DrankId != orderline.Drank.Id;
+
+      if (shouldUpdateDrank)
+      {
+        var newDrank = await _drankRepository.FindByIdAsync(viewModel.DrankId);
+
+        if (newDrank == null)
+        {
+          throw new EntityNotFoundException($"Drank met id {viewModel.DrankId} werd niet gevonden;");
+
+        }
+
+        orderline.Drank = newDrank;
+      }
+
+      var shouldUpdateOrderedFor = orderline.OrderedFor.Id != viewModel.OrderedFor;
+
+      if (shouldUpdateOrderedFor)
+      {
+        var newPerson = await _leidingRepository.FindByIdAsync(viewModel.OrderedFor);
+
+        if (newPerson == null)
+        {
+          throw new EntityNotFoundException($"Persoon met id {viewModel.OrderedFor} werd niet gevonden.");
+        }
+
+        orderline.OrderedFor = newPerson;
+      }
+
+      await _orderlineRepository.SaveChangesAsync();
+
+      return orderline;
     }
   }
 }
