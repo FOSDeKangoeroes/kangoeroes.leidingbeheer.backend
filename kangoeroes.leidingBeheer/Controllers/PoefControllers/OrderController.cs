@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
 {
-
-  public class OrderController: BaseController
+  public class OrderController : BaseController
   {
-
     private readonly IOrderService _orderService;
     private readonly IMapper _mapper;
 
@@ -20,7 +19,6 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       _orderService = orderService;
       _mapper = mapper;
     }
-
 
 
     [HttpPost]
@@ -37,6 +35,21 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       {
         Console.WriteLine(e);
         throw;
+      }
+    }
+
+    [HttpPut("{orderId}")]
+    public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderViewModel viewModel, [FromRoute] int orderId)
+    {
+      try
+      {
+        var updatedOrder = await _orderService.UpdateOrder(viewModel, orderId);
+
+        return Ok(updatedOrder);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
       }
     }
   }
