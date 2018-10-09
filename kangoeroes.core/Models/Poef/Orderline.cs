@@ -5,6 +5,8 @@
     /// </summary>
     public class Orderline
     {
+        private Drank _drank;
+
         /// <summary>
         /// Private constructor zodat er niet rechtstreeks instanties van een ordeline kunnen gemaakt worden.
         /// </summary>
@@ -16,12 +18,20 @@
         /// Unieke sleutel van de lijn
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Gedronken consumptie
         /// </summary>
-        public Drank Drank { get; set; }
-        
+        public Drank Drank
+        {
+            get => _drank;
+            set
+            {
+                _drank = value;
+                DrinkPrice = value.CurrentPrijs.Waarde;
+            }
+        }
+
         /// <summary>
         /// Persoon die de consumptie gedronken heeft.
         /// </summary>
@@ -56,8 +66,7 @@
                 Drank = drank,
                 OrderedFor = orderedFor,
                 Order = order,
-                Quantity = quantity,
-                DrinkPrice = drank.CurrentPrijs.Waarde
+                Quantity = quantity
             };
 
             return orderline;

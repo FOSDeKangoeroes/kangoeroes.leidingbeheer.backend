@@ -3,6 +3,7 @@ using kangoeroes.core.Models.Poef;
 using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
 
 namespace kangoeroes.leidingBeheer.Services.PoefServices.Interfaces
 {
@@ -18,5 +19,6 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices.Interfaces
     Task<Order> GetOrderById(int orderId);
     Task<Order> CreateOrder(CreateOrderViewModel viewModel);
     Task<Order> UpdateOrder(UpdateOrderViewModel viewModel, int orderId);
+    Task<Orderline> UpdateOrderline(UpdateOrderlineViewModel viewModel, int orderId, int orderLineId);
   }
 }

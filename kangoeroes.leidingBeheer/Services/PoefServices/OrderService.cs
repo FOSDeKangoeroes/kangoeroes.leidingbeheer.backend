@@ -184,6 +184,8 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
         orderline.OrderedFor = newPerson;
       }
 
+      orderline.Quantity = viewModel.Quantity;
+
       await _orderlineRepository.SaveChangesAsync();
 
       return orderline;

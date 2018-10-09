@@ -4,6 +4,7 @@ using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
+using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
@@ -46,6 +47,22 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
         var updatedOrder = await _orderService.UpdateOrder(viewModel, orderId);
 
         return Ok(updatedOrder);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+    }
+
+    [HttpPut("{orderId}/orderline/{orderlineId}")]
+    public async Task<IActionResult> UpdateOrderline([FromBody] UpdateOrderlineViewModel viewModel, [FromRoute] int orderId, [FromRoute] int orderlineId )
+    {
+      try
+      {
+        var updatedOrderline = await _orderService.UpdateOrderline(viewModel, orderId, orderlineId);
+
+        return Ok(updatedOrderline);
+
       }
       catch (EntityNotFoundException e)
       {
