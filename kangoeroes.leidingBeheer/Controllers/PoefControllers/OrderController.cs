@@ -127,8 +127,5 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       }
     }
 
-
-
-   //order via id ophalen
   }
 }

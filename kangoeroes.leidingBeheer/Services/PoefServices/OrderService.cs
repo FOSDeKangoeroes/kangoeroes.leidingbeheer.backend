@@ -190,5 +190,40 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
 
       return orderline;
     }
+
+    public async Task<Order> DeleteOrder(int orderId)
+    {
+      var orderToDelete = await _orderRepository.FindByIdAsync(orderId);
+
+      if (orderToDelete == null)
+      {
+        throw new EntityNotFoundException($"Order met id {orderId} werd niet gevonden.");
+      }
+      
+      _orderRepository.Delete(orderToDelete);
+
+     await _orderRepository.SaveChangesAsync();
+
+      return orderToDelete;
+
+    }
+
+    public async Task<Orderline> DeleteOrderline(int orderId, int orderlineId)
+    {
+      var order = await _orderRepository.FindByIdAsync(orderId);
+
+      if (order == null)
+      {
+        throw new EntityNotFoundException($"Order met id {orderId} werd niet gevonden.");
+      }
+
+      var orderlineToDelete = order.Orderlines.FirstOrDefault(x => x.Id == orderlineId);
+      
+      _orderlineRepository.Delete(orderlineToDelete);
+
+      await _orderlineRepository.SaveChangesAsync();
+
+      return orderlineToDelete;
+    }
   }
 }
