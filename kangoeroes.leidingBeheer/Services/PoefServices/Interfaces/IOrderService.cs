@@ -20,5 +20,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices.Interfaces
     Task<Order> CreateOrder(CreateOrderViewModel viewModel);
     Task<Order> UpdateOrder(UpdateOrderViewModel viewModel, int orderId);
     Task<Orderline> UpdateOrderline(UpdateOrderlineViewModel viewModel, int orderId, int orderLineId);
+    Task<Order> DeleteOrder(int orderId);
+    Task<Orderline> DeleteOrderline(int orderId, int orderlineId);
   }
 }

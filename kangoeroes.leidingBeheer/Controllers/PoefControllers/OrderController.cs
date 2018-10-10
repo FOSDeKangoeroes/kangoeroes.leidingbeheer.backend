@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
+using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
 using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
@@ -21,6 +22,31 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       _mapper = mapper;
     }
 
+    [HttpGet]
+    public IActionResult GetAllOrders([FromQuery] OrderResourceParameters resourceParameters)
+    {
+      var orders = _orderService.GetAllOrders(resourceParameters);
+
+      return Ok(orders);
+    }
+
+    [HttpGet("{orderId}")]
+    public async Task<IActionResult> GetOrderById([FromRoute] int orderId)
+    {
+      try
+      {
+        var order = await _orderService.GetOrderById(orderId);
+
+        return Ok(order);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+
+    }
+
+
 
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderViewModel viewModel)
@@ -32,10 +58,9 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
         var model = _mapper.Map<BasicOrderViewModel>(newOrder);
         return Ok(model);
       }
-      catch (Exception e)
+      catch (EntityNotFoundException e)
       {
-        Console.WriteLine(e);
-        throw;
+        return NotFound(e.Message);
       }
     }
 
@@ -54,20 +79,56 @@ namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
       }
     }
 
-    [HttpPut("{orderId}/orderline/{orderlineId}")]
-    public async Task<IActionResult> UpdateOrderline([FromBody] UpdateOrderlineViewModel viewModel, [FromRoute] int orderId, [FromRoute] int orderlineId )
+    [HttpDelete("{orderId}")]
+    public async Task<IActionResult> DeleteOrder([FromRoute] int orderId)
     {
       try
       {
-        var updatedOrderline = await _orderService.UpdateOrderline(viewModel, orderId, orderlineId);
+        var orderToDelete = await _orderService.DeleteOrder(orderId);
 
-        return Ok(updatedOrderline);
-
+        return Ok(orderToDelete);
       }
       catch (EntityNotFoundException e)
       {
         return NotFound(e.Message);
       }
     }
+
+    [HttpPut("{orderId}/orderline/{orderlineId}")]
+    public async Task<IActionResult> UpdateOrderline(
+      [FromBody] UpdateOrderlineViewModel viewModel,
+      [FromRoute] int orderId,
+      [FromRoute] int orderlineId)
+    {
+      try
+      {
+        var updatedOrderline = await _orderService.UpdateOrderline(viewModel, orderId, orderlineId);
+
+        return Ok(updatedOrderline);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+    }
+
+    [HttpDelete("{orderId}/orderline/{orderlineId}")]
+    public async Task<IActionResult> DeleteOrderline(int orderId, int orderlineId)
+    {
+      try
+      {
+        var deletedOrderline = await _orderService.DeleteOrderline(orderId, orderlineId);
+
+        return Ok(deletedOrderline);
+      }
+      catch (EntityNotFoundException e)
+      {
+        return NotFound(e.Message);
+      }
+    }
+
+
+
+   //order via id ophalen
   }
 }
