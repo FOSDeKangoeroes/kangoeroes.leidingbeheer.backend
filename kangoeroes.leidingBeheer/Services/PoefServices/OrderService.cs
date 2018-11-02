@@ -199,7 +199,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       {
         throw new EntityNotFoundException($"Order met id {orderId} werd niet gevonden.");
       }
-      
+
       _orderRepository.Delete(orderToDelete);
 
      await _orderRepository.SaveChangesAsync();
@@ -218,7 +218,7 @@ namespace kangoeroes.leidingBeheer.Services.PoefServices
       }
 
       var orderlineToDelete = order.Orderlines.FirstOrDefault(x => x.Id == orderlineId);
-      
+
       _orderlineRepository.Delete(orderlineToDelete);
 
       await _orderlineRepository.SaveChangesAsync();

@@ -28,7 +28,7 @@
             set
             {
                 _drank = value;
-                DrinkPrice = value.CurrentPrijs.Waarde;
+                DrinkPrice = _drank.CurrentPrijs.Waarde;
             }
         }
 
