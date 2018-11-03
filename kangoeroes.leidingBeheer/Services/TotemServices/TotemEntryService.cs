@@ -146,12 +146,16 @@ namespace kangoeroes.leidingBeheer.Services.TotemServices
 
       entryToUpdate.Totem = totem;
       entryToUpdate.DatumGegeven = viewmodel.DatumGegeven.ToLocalTime();
-      var voorouder = await _totemEntryRepository.FindByIdAsync(viewmodel.VoorouderId);
+      if (viewmodel.VoorouderId != 0)
+      {
+        var voorouder = await _totemEntryRepository.FindByIdAsync(viewmodel.VoorouderId);
 
-      if (voorouder == null)
-        throw new EntityNotFoundException($"Voorouder met id {viewmodel.VoorouderId} werd niet gevonden.");
+              if (voorouder == null)
+                throw new EntityNotFoundException($"Voorouder met id {viewmodel.VoorouderId} werd niet gevonden.");
 
-      entryToUpdate.Voorouder = voorouder;
+              entryToUpdate.Voorouder = voorouder;
+      }
+
       await _totemEntryRepository.SaveChangesAsync();
 
       var model = _mapper.Map<BasicTotemEntryViewModel>(entryToUpdate);
