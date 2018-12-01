@@ -42,6 +42,6 @@ In de root folder van het project voer je volgend commando uit:
 docker-compose up
 ```
 
-De applicatie zal draaien op localhost:500
+De applicatie zal draaien op localhost:5000
 
 De database zal draaien op localhost:3306
