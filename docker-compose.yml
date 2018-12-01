@@ -1,0 +1,44 @@
+version: '3.0'
+
+services: 
+  db:
+    image: mariadb
+    container_name: ${MYSQL_HOST}
+    restart: always
+    env_file:
+      - .env
+    environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+            - ${MYSQL_PORT}:3306
+    
+    volumes:
+            - ./services/data/mariadb/mysql:/var/lib/mysql
+            - ./services/data/mariadb/initial-data:/docker-entrypoint-initdb.d:ro
+    restart: always
+
+  backend:
+    build: ./
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__Default=Server=${MYSQL_HOST};Database=${MYSQL_DATABASE};userid=${MYSQL_USER};Pwd=${MYSQL_PASSWORD};Port=${MYSQL_PORT};SslMode=none
+      - Auth0__domain=${Auth0__domain}
+      - Auth0__ni_client_id=${Auth0__ni_client_id}
+      - Auth0__audience=${Auth0__audience}
+      - Auth0__passwordLength=${Auth0__passwordLength}
+      - Auth0__standard_connection=${Auth0__standard_connection}
+      - Auth0__api_identifier=${Auth0__api_identifier}
+      - Auth0__authorization_url=${Auth0__authorization_url}
+      - Auth0__authorization_audience=${Auth0__authorization_audience}
+
+
+

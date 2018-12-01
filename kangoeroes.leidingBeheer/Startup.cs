@@ -42,7 +42,6 @@ namespace kangoeroes.leidingBeheer
         .SetBasePath(env.ContentRootPath)
         .AddJsonFile("appsettings.json", true, true)
         .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
-
       builder.AddEnvironmentVariables();
       Configuration = builder.Build();
     }

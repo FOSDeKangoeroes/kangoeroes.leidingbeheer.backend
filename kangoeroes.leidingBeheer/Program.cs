@@ -18,7 +18,7 @@ namespace kangoeroes.leidingBeheer
     {
       var host = WebHost.CreateDefaultBuilder(args)
         .UseKestrel()
-        .UseUrls("http://localhost:5000")
+        .UseUrls("http://+:5000")
         .UseContentRoot(Directory.GetCurrentDirectory())
         .UseIISIntegration()
         .UseStartup<Startup>()
