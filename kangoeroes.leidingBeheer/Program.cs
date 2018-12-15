@@ -1,11 +1,11 @@
 ﻿using System.IO;
-using kangoeroes.leidingBeheer.Data.Context;
+using kangoeroes.webUI.Data.Context;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace kangoeroes.leidingBeheer
+namespace kangoeroes.webUI
 {
   public class Program
   {

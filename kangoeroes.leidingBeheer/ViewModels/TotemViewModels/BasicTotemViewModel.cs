@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kangoeroes.leidingBeheer.ViewModels.TotemViewModels
+namespace kangoeroes.webUI.ViewModels.TotemViewModels
 {
   public class BasicTotemViewModel
   {

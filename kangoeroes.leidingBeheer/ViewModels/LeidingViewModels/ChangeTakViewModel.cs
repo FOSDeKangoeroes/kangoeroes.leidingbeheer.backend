@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.leidingBeheer.ViewModels.LeidingViewModels
+﻿namespace kangoeroes.webUI.ViewModels.LeidingViewModels
 {
   public class ChangeTakViewModel
   {

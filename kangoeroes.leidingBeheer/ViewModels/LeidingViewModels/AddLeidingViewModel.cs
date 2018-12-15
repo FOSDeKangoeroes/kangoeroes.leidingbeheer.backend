@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.LeidingViewModels
+namespace kangoeroes.webUI.ViewModels.LeidingViewModels
 {
   public class AddLeidingViewModel
   {

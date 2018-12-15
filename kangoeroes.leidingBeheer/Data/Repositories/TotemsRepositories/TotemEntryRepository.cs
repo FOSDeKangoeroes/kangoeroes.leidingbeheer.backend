@@ -3,13 +3,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.leidingBeheer.Data.Context;
-using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.webUI.Data.Context;
+using kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories
+namespace kangoeroes.webUI.Data.Repositories.TotemsRepositories
 {
   public class TotemEntryRepository : BaseRepository<TotemEntry>, ITotemEntryRepository
   {

@@ -5,7 +5,7 @@ using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace kangoeroes.leidingBeheer.Data.Context
+namespace kangoeroes.webUI.Data.Context
 {
   public class ApplicationDbContext : DbContext
   {

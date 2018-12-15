@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces
+namespace kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces
 {
   public interface IAdjectiefRepository : IBaseRepository<Adjectief>
   {

@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.leidingBeheer.ViewModels.TakViewModels
+﻿namespace kangoeroes.webUI.ViewModels.TakViewModels
 {
   public class BasicTakViewModel
   {

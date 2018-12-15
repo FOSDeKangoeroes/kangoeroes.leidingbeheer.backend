@@ -3,15 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services.PoefServices.Interfaces;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;
 
-namespace kangoeroes.leidingBeheer.Services.PoefServices
+namespace kangoeroes.webUI.Services.PoefServices
 {
   /// <summary>
   /// Service voor het beheren van orders.

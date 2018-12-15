@@ -2,15 +2,15 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services;
+using kangoeroes.webUI.ViewModels.LeidingViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 
-namespace kangoeroes.leidingBeheer.Controllers
+namespace kangoeroes.webUI.Controllers
 {
   //[Authorize(Roles = "financieel_verantwoordelijke")]
   public class LeidingController : BaseController

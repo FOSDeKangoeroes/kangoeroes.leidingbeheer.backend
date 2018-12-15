@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.Order
 {
   public class BasicOrderViewModel
   {

@@ -1,7 +1,7 @@
-﻿using kangoeroes.leidingBeheer.Helpers;
+﻿using kangoeroes.webUI.Helpers;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.Drank
 {
   public class BasicDrankViewModel
   {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kangoeroes.leidingBeheer.Helpers.ResourceParameters
+namespace kangoeroes.webUI.Helpers.ResourceParameters
 {
   /// <inheritdoc />
   public class OrderResourceParameters: ResourceParameters

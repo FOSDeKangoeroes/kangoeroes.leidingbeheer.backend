@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Responses;
-using kangoeroes.leidingBeheer.Filters;
-using kangoeroes.leidingBeheer.Services;
+using kangoeroes.webUI.Services;
+using kangoeroes.webUI.Filters;
 using Microsoft.AspNetCore.Mvc;
 
-namespace kangoeroes.leidingBeheer.Controllers
+namespace kangoeroes.webUI.Controllers
 {
   /// <summary>
   /// Basiscontroller waar alle controllers in dit project van erven. Gedaan om te vermijden dat alle annotaties hieronder per controller herhaald moeten worden.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.Orderline
 {
   public class CreateOrderlineViewModel
   {

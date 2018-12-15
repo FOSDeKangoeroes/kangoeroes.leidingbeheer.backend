@@ -1,6 +1,6 @@
-﻿using kangoeroes.leidingBeheer.Helpers;
+﻿using kangoeroes.webUI.Helpers;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.DrankType
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.DrankType
 {
   public class BasicDrankTypeViewModel
   {

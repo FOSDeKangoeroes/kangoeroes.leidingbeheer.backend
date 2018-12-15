@@ -2,15 +2,15 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank;
+using kangoeroes.webUI.ViewModels.PoefViewModels;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services;
+using kangoeroes.webUI.Services.PoefServices.Interfaces;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
+namespace kangoeroes.webUI.Controllers.PoefControllers
 {
   /// <summary>
   /// Controller met alle endpoints voor het beheren van dranken.

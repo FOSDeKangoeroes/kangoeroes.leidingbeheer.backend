@@ -1,9 +1,9 @@
 ﻿using System;
-using kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels;
-using kangoeroes.leidingBeheer.ViewModels.TotemViewModels;
+using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
+using kangoeroes.webUI.ViewModels.TotemViewModels;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.ViewModels.TotemEntryViewModels
+namespace kangoeroes.webUI.ViewModels.TotemEntryViewModels
 {
   public class BasicTotemEntryViewModel
   {

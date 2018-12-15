@@ -1,7 +1,7 @@
 ﻿using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces
+namespace kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces
 {
   /// <summary>
   /// Repository klasse die verantwoordelijk is voor het lezen en schrijven van orders van/naar de database.

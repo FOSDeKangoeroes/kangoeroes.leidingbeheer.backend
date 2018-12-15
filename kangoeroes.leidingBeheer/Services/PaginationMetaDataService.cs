@@ -1,8 +1,8 @@
-﻿using kangoeroes.leidingBeheer.Helpers;
+﻿using kangoeroes.webUI.Helpers;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.Services
+namespace kangoeroes.webUI.Services
 {
   /// <inheritdoc />
   public class PaginationMetaDataService: IPaginationMetaDataService

@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank;
+using kangoeroes.webUI.ViewModels.PoefViewModels;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
 
-namespace kangoeroes.leidingBeheer.Services.PoefServices.Interfaces
+namespace kangoeroes.webUI.Services.PoefServices.Interfaces
 {
   public interface IDrankService
   {

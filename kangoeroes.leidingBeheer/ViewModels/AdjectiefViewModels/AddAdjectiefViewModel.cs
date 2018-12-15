@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels
+namespace kangoeroes.webUI.ViewModels.AdjectiefViewModels
 {
   public class AddAdjectiefViewModel
   {

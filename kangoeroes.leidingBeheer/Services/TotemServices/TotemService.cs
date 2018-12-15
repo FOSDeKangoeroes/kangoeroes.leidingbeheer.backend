@@ -2,14 +2,14 @@
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
-using kangoeroes.leidingBeheer.ViewModels.TotemViewModels;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services.TotemServices.Interfaces;
+using kangoeroes.webUI.ViewModels.TotemViewModels;
 
-namespace kangoeroes.leidingBeheer.Services.TotemServices
+namespace kangoeroes.webUI.Services.TotemServices
 {
   public class TotemService : ITotemService
   {

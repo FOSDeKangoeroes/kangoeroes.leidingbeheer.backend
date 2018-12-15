@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace kangoeroes.leidingBeheer.Helpers
+namespace kangoeroes.webUI.Helpers
 {
   public class ModelStateFormatter
   {

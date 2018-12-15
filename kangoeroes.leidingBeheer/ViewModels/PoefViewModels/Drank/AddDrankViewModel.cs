@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using kangoeroes.core.Models.Poef;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.Drank
 {
   public class AddDrankViewModel
   {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace kangoeroes.leidingBeheer.Migrations
+namespace kangoeroes.webUI.Migrations
 {
     public partial class AddQuantityToOrderline : Migration
     {

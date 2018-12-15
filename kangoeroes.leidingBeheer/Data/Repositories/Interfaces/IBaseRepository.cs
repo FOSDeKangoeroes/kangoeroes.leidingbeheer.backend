@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories.Interfaces
+namespace kangoeroes.webUI.Data.Repositories.Interfaces
 {
   public interface IBaseRepository<T> where T : class
   {

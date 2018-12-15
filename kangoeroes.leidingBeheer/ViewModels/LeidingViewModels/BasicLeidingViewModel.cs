@@ -1,7 +1,7 @@
 ﻿using System;
-using kangoeroes.leidingBeheer.Helpers;
+using kangoeroes.webUI.Helpers;
 
-namespace kangoeroes.leidingBeheer.ViewModels.LeidingViewModels
+namespace kangoeroes.webUI.ViewModels.LeidingViewModels
 {
   public class BasicLeidingViewModel
   {

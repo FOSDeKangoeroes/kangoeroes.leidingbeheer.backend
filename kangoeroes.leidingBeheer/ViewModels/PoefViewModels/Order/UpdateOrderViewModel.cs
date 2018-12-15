@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.Order
 {
   /// <summary>
   /// Model die de data bevat die nodig is om een order te wijzigen.

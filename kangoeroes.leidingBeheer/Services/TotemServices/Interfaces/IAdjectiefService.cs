@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
 
-namespace kangoeroes.leidingBeheer.Services.TotemServices.Interfaces
+namespace kangoeroes.webUI.Services.TotemServices.Interfaces
 {
   public interface IAdjectiefService
   {

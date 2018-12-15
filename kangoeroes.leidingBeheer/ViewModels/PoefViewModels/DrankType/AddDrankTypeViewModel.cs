@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.DrankType
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.DrankType
 {
   /// <summary>
   /// Representatie van data nodig om een nieuw dranktype aan te maken.

@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Responses;
-using kangoeroes.leidingBeheer.Data.Context;
-using kangoeroes.leidingBeheer.Data.Repositories;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories;
-using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
-using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories;
-using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
-using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.Services.PoefServices;
-using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
-using kangoeroes.leidingBeheer.Services.TotemServices;
-using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
+using kangoeroes.webUI.Data.Context;
+using kangoeroes.webUI.Data.Repositories;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Data.Repositories.PoefRepositories;
+using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
+using kangoeroes.webUI.Data.Repositories.TotemsRepositories;
+using kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces;
+using kangoeroes.webUI.Services;
+using kangoeroes.webUI.Services.PoefServices;
+using kangoeroes.webUI.Services.PoefServices.Interfaces;
+using kangoeroes.webUI.Services.TotemServices;
+using kangoeroes.webUI.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -27,7 +27,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace kangoeroes.leidingBeheer
+namespace kangoeroes.webUI
 {
   public class Startup
   {

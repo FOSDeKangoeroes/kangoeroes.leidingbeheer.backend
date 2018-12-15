@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.TakViewModels
+namespace kangoeroes.webUI.ViewModels.TakViewModels
 {
   public class AddTakViewModel
   {

@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.leidingBeheer.ViewModels.AuthViewModels
+﻿namespace kangoeroes.webUI.ViewModels.AuthViewModels
 {
   public class UserRolesViewModel
   {

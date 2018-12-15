@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using kangoeroes.leidingBeheer.ViewModels.AuthViewModels;
+using kangoeroes.webUI.ViewModels.AuthViewModels;
 
-namespace kangoeroes.leidingBeheer.Helpers
+namespace kangoeroes.webUI.Helpers
 {
   public class RoleComparer : IEqualityComparer<RoleViewModel>
   {

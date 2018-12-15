@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.DrankType;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
+using kangoeroes.webUI.ViewModels.PoefViewModels.DrankType;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;
 
-namespace kangoeroes.leidingBeheer.Profiles
+namespace kangoeroes.webUI.Profiles
 {
   public class PoefProfile : Profile
   {

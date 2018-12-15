@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.Services.TotemServices.Interfaces;
-using kangoeroes.leidingBeheer.ViewModels.TotemViewModels;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services;
+using kangoeroes.webUI.Services.TotemServices.Interfaces;
+using kangoeroes.webUI.ViewModels.TotemViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.Controllers.TotemControllers
+namespace kangoeroes.webUI.Controllers.TotemControllers
 {
   public class TotemController : BaseController
   {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.leidingBeheer.ViewModels.TakViewModels;
+using kangoeroes.webUI.ViewModels.TakViewModels;
 
-namespace kangoeroes.leidingBeheer.Profiles
+namespace kangoeroes.webUI.Profiles
 {
   public class TakProfile : Profile
   {

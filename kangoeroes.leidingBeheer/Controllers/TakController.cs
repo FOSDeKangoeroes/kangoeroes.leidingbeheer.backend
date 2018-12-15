@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
-using kangoeroes.leidingBeheer.ViewModels.TakViewModels;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services;
+using kangoeroes.webUI.ViewModels.LeidingViewModels;
+using kangoeroes.webUI.ViewModels.TakViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace kangoeroes.leidingBeheer.Controllers
+namespace kangoeroes.webUI.Controllers
 {
   public class TakController : BaseController
   {

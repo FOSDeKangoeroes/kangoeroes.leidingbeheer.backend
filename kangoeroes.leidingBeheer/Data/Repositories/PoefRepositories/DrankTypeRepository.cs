@@ -2,13 +2,13 @@
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.Data.Context;
-using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.webUI.Data.Context;
+using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories
+namespace kangoeroes.webUI.Data.Repositories.PoefRepositories
 {
   /// <inheritdoc cref="IDrankTypeRepository" />
   public class DrankTypeRepository: BaseRepository<DrankType>, IDrankTypeRepository

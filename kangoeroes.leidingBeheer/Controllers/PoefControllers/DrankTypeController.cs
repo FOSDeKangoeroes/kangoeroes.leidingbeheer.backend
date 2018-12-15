@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.DrankType;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services;
+using kangoeroes.webUI.Services.PoefServices.Interfaces;
+using kangoeroes.webUI.ViewModels.PoefViewModels.DrankType;
 using Microsoft.AspNetCore.Mvc;
 
-namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
+namespace kangoeroes.webUI.Controllers.PoefControllers
 {
   /// <summary>
   /// Controller voor de endpoints die te maken hebben met dranktypes

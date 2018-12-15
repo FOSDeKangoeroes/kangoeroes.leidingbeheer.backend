@@ -1,15 +1,15 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
+using kangoeroes.webUI.ViewModels.PoefViewModels;
+using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services.PoefServices.Interfaces;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
 
-namespace kangoeroes.leidingBeheer.Services.PoefServices
+namespace kangoeroes.webUI.Services.PoefServices
 {
   public class DrankService : IDrankService
   {

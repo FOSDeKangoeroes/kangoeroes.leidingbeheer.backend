@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;
 
-namespace kangoeroes.leidingBeheer.Services.PoefServices.Interfaces
+namespace kangoeroes.webUI.Services.PoefServices.Interfaces
 {
   public interface IOrderService
   {

@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.leidingBeheer.Helpers.ResourceParameters
+﻿namespace kangoeroes.webUI.Helpers.ResourceParameters
 {
   /// <summary>
   /// Standaard parameters die bij elke GET request die een lijst teruggeeft kunnen meegegeven worden.

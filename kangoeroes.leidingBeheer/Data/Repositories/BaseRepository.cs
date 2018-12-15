@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using kangoeroes.leidingBeheer.Data.Context;
-using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
+using kangoeroes.webUI.Data.Context;
+using kangoeroes.webUI.Data.Repositories.Interfaces;
+using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Helpers.ResourceParameters;
 
-namespace kangoeroes.leidingBeheer.Data.Repositories
+namespace kangoeroes.webUI.Data.Repositories
 {
   public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
   {

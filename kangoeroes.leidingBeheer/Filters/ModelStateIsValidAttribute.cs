@@ -1,8 +1,8 @@
-﻿using kangoeroes.leidingBeheer.Helpers;
+﻿using kangoeroes.webUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace kangoeroes.leidingBeheer.Filters
+namespace kangoeroes.webUI.Filters
 {
   /// <summary>
   /// Filter that checks every request for a valid modelState.

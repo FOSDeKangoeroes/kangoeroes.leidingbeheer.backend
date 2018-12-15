@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace kangoeroes.leidingBeheer.Helpers
+namespace kangoeroes.webUI.Helpers
 {
   /// <summary>
   /// Utility klasse om een afkorting op te bouwen

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels;
+using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
 
-namespace kangoeroes.leidingBeheer.Profiles
+namespace kangoeroes.webUI.Profiles
 {
   public class AdjectiefProfile : Profile
   {

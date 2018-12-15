@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Drank
+namespace kangoeroes.webUI.ViewModels.PoefViewModels.Drank
 {
   public class UpdateDrankViewModel
   {

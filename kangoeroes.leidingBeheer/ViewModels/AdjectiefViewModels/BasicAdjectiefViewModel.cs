@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kangoeroes.leidingBeheer.ViewModels.AdjectiefViewModels
+namespace kangoeroes.webUI.ViewModels.AdjectiefViewModels
 {
   public class BasicAdjectiefViewModel
   {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.leidingBeheer.ViewModels.TotemEntryViewModels;
+using kangoeroes.webUI.ViewModels.TotemEntryViewModels;
 
-namespace kangoeroes.leidingBeheer.Profiles
+namespace kangoeroes.webUI.Profiles
 {
   public class TotemEntryProfile : Profile
   {

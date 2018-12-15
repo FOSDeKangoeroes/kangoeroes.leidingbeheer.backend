@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Models.Exceptions;
-using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
-using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Order;
-using kangoeroes.leidingBeheer.ViewModels.PoefViewModels.Orderline;
+using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.webUI.Services.PoefServices.Interfaces;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
+using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;
 using Microsoft.AspNetCore.Mvc;
 
-namespace kangoeroes.leidingBeheer.Controllers.PoefControllers
+namespace kangoeroes.webUI.Controllers.PoefControllers
 {
   public class OrderController : BaseController
   {
