@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Auth0.Core.Exceptions;
 using AutoMapper;
 using kangoeroes.core.Models;
 using kangoeroes.leidingBeheer.Data.Repositories.Interfaces;
-using kangoeroes.leidingBeheer.Helpers;
 using kangoeroes.leidingBeheer.Helpers.ResourceParameters;
 using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.Services.Auth;
 using kangoeroes.leidingBeheer.ViewModels.LeidingViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+
 
 namespace kangoeroes.leidingBeheer.Controllers
 {
@@ -120,121 +117,9 @@ namespace kangoeroes.leidingBeheer.Controllers
       return Ok(model);
     }
 
-    [Route("{leidingId}/user")]
-    [HttpPost]
-    public async Task<IActionResult> CreateUser([FromRoute] int leidingId, [FromServices] IAuth0Service auth0Service)
-    {
-      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
-
-      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-
-      if (leiding.Email == null)
-      {
-        ModelState.AddModelError("NoEmail",
-          "De gebruiker heeft geen emailadres. Kan geen gebruiker maken zonder email");
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-
-
-      try
-      {
-        var userModel = await auth0Service.MakeNewUserFor(leiding.Email);
-        leiding.Auth0Id = userModel.UserId;
-        await _leidingRepository.SaveChangesAsync();
-        var model = _mapper.Map<BasicLeidingViewModel>(leiding);
-        return CreatedAtRoute("GetLeidingById", new {id = model.Id}, model);
-      }
-      catch (ApiException ex)
-      {
-        ModelState.AddModelError("auth0Exception", ex.Message);
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-    }
-
-    [HttpGet("{leidingId}/roles")]
-    public async Task<IActionResult> GetRolesForUser([FromRoute] int leidingId,
-      [FromServices] Auth0Service auth0Service)
-    {
-      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
-
-
-      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-
-      if (leiding.Email == null)
-      {
-        ModelState.AddModelError("NoEmail",
-          "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-
-      if (string.IsNullOrEmpty(leiding.Auth0Id))
-      {
-        ModelState.AddModelError("NoAccount",
-          "Deze leiding heeft nog geen account. Maak eerst een account aan.");
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-
-      return Ok(auth0Service.GetAllRolesForUser(leiding.Auth0Id));
-    }
-
-    [HttpPatch("{leidingId}/roles/{roleId}")]
-    public async Task<IActionResult> AddRoleToUser([FromRoute] int leidingId, [FromRoute] string roleId,
-      [FromServices] Auth0Service auth0Service)
-    {
-      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
-
-
-      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-
-      if (leiding.Email == null)
-      {
-        ModelState.AddModelError("NoEmail",
-          "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-
-      if (string.IsNullOrEmpty(leiding.Auth0Id))
-      {
-        ModelState.AddModelError("NoAccount",
-          "Deze leiding heeft nog geen account. Maak eerst een account aan.");
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-
-      var success = auth0Service.AddRoleToUser(leiding.Auth0Id, roleId);
-
-      return Ok(success);
-    }
-
-    [HttpDelete("{leidingId}/roles/{roleId}")]
-    public async Task<IActionResult> RemoveRoleFromUser([FromRoute] int leidingId, [FromRoute] string roleId,
-      [FromServices] Auth0Service auth0Service)
-    {
-      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
-
-      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-
-      if (leiding.Email == null)
-      {
-        ModelState.AddModelError("NoEmail",
-          "Deze leiding heeft geen emailadres. Deze gebruiker kan geen account hebben.");
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-
-      if (string.IsNullOrEmpty(leiding.Auth0Id))
-      {
-        ModelState.AddModelError("NoAccount",
-          "Deze leiding heeft nog geen account. Maak eerst een account aan.");
-        return BadRequest(ModelStateFormatter.FormatErrors(ModelState));
-      }
-
-      var success = auth0Service.RemoveRoleFromUser(leiding.Auth0Id, roleId);
-
-      return Ok(success);
-    }
-
     private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)
     {
-      leiding.Auth0Id = viewModel.Auth0Id;
+
       leiding.DatumGestopt = viewModel.DatumGestopt.ToLocalTime();
       if (viewModel.Email != null && viewModel.Email.Trim() != "") leiding.Email = viewModel.Email;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using AutoMapper;
-using kangoeroes.core.Models.Poef;
+﻿using AutoMapper;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.leidingBeheer.Data.Context;
 using kangoeroes.leidingBeheer.Data.Repositories;
@@ -12,7 +8,6 @@ using kangoeroes.leidingBeheer.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories;
 using kangoeroes.leidingBeheer.Data.Repositories.TotemsRepositories.Interfaces;
 using kangoeroes.leidingBeheer.Services;
-using kangoeroes.leidingBeheer.Services.Auth;
 using kangoeroes.leidingBeheer.Services.PoefServices;
 using kangoeroes.leidingBeheer.Services.PoefServices.Interfaces;
 using kangoeroes.leidingBeheer.Services.TotemServices;
@@ -120,7 +115,7 @@ namespace kangoeroes.leidingBeheer
       services.AddTransient<IOrderlineRepository, OrderlineRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
-      services.AddTransient<IAuth0Service, Auth0Service>();
+
       services.AddTransient<ITotemService, TotemService>();
       services.AddTransient<IAdjectiefService, AdjectiefService>();
       services.AddTransient<ITotemEntryService, TotemEntryService>();

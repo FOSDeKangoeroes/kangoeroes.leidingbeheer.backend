@@ -17,11 +17,6 @@ namespace kangoeroes.core.Models
         public int Id { get; set; }
 
         /// <summary>
-        ///     Unieke sleutel van het gebruikersaccount waaraan de entiteit gekoppeld is.
-        /// </summary>
-        public string Auth0Id { get; set; }
-
-        /// <summary>
         ///     Familienaam van de persoon.
         /// </summary>
         public string Naam { get; set; }
