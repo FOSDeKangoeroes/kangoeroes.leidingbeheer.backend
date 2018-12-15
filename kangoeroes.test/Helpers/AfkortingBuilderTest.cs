@@ -1,4 +1,5 @@
-﻿using kangoeroes.webUI.Helpers;
+﻿
+using kangoeroes.webUI.Helpers;
 using Xunit;
 
 namespace kangoeroes.test.Helpers
