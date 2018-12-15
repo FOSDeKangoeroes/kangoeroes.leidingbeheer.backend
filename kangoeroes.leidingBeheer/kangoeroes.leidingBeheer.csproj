@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <AssemblyName>kangoeroes.webUI</AssemblyName>
+    <RootNamespace>kangoeroes.webUI</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DocumentationFile>bin\Debug\netcoreapp2.0\kangoeroes.leidingBeheer.xml</DocumentationFile>
