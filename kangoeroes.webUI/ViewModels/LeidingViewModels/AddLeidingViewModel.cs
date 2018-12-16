@@ -12,8 +12,6 @@ namespace kangoeroes.webUI.ViewModels.LeidingViewModels
       TakId = takId;
     }
 
-    public string Auth0Id { get; set; }
-
     [Required(ErrorMessage = "{0} is verplicht.")]
     [StringLength(255, MinimumLength = 1, ErrorMessage = "{0} moet minstens {2} karakter(s) lang zijn.")]
     public string Naam { get; set; }

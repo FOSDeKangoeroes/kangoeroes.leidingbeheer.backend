@@ -7,8 +7,6 @@ namespace kangoeroes.webUI.ViewModels.LeidingViewModels
   {
     public int Id { get; set; }
 
-    public string Auth0Id { get; set; }
-
     public string Naam { get; set; }
 
     public string Voornaam { get; set; }
