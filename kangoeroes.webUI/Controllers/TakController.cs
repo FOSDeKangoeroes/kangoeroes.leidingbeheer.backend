@@ -94,7 +94,8 @@ namespace kangoeroes.webUI.Controllers
       if (tak == null) return NotFound($"Tak met id {id} werd niet gevonden");
 
 
-      tak = _mapper.Map(viewmodel, tak);
+      tak.Naam = viewmodel.Naam;
+      tak.Volgorde = viewmodel.Volgorde;
 
       // _takRepository.Update(tak);
       await _takRepository.SaveChangesAsync();
