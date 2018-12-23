@@ -68,7 +68,11 @@ namespace kangoeroes.webUI.Controllers
     [HttpPost] //POST /api/tak
     public async Task<IActionResult> AddTak([FromBody] AddTakViewModel viewmodel)
     {
-      var tak = _mapper.Map<Tak>(viewmodel);
+      var tak = new Tak
+      {
+        Naam = viewmodel.Naam,
+        Volgorde = viewmodel.Volgorde
+      };
       await _takRepository.AddAsync(tak);
       await _takRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicTakViewModel>(tak);

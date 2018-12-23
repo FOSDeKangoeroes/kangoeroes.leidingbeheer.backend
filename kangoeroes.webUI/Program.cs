@@ -22,6 +22,7 @@ namespace kangoeroes.webUI
         .UseContentRoot(Directory.GetCurrentDirectory())
         .UseIISIntegration()
         .UseStartup<Startup>()
+        .UseSentry("https://b8009bde08914312bd405a9f464f9376@sentry.io/1337041")
         .Build();
 
       using (var scope = host.Services.CreateScope())
