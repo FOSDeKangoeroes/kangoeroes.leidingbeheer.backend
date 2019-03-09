@@ -42,7 +42,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
     /// <returns></returns>
     [HttpGet("")]
     [ProducesResponseType(typeof(IEnumerable<BasicDrankViewModel>), 200)]
-    public IActionResult GetAll([FromQuery] ResourceParameters resourceParameters)
+    public IActionResult GetAll([FromQuery] DrankResourceParameters resourceParameters)
     {
       var dranken = _drankService.GetAll(resourceParameters);
 

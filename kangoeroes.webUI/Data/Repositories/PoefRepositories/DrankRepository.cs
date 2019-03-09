@@ -32,6 +32,12 @@ namespace kangoeroes.webUI.Data.Repositories.PoefRepositories
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
+      if (resourceParameters is DrankResourceParameters drankResourceParameters && drankResourceParameters.DrankType != 0)
+      {
+        result = result.Where(x => x.Type.Id == drankResourceParameters.DrankType);
+      }
+
+
       var pagedList = PagedList<Drank>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
       return pagedList;
