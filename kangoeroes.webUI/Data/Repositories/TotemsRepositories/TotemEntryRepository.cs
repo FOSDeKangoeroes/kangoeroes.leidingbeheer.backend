@@ -27,8 +27,23 @@ namespace kangoeroes.webUI.Data.Repositories.TotemsRepositories
       var collectionBeforePaging = GetAllWithAllIncluded();
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
-        collectionBeforePaging = collectionBeforePaging.Where(x => x.Totem.Naam.ToLowerInvariant().Trim()
-          .Contains(resourceParameters.Query.ToLowerInvariant().Trim()));
+      {
+        var fullQuery = resourceParameters.Query.ToLowerInvariant().Trim();
+
+        var searchTerms = fullQuery.Split(' ');
+
+        foreach (var query in searchTerms)
+        {
+          collectionBeforePaging = collectionBeforePaging.Where(x =>
+            x.Totem.Naam.ToLowerInvariant().Contains(query)
+            || x.Adjectief.Naam.ToLowerInvariant().Contains(query)
+            || x.Leiding.Voornaam.ToLowerInvariant().Contains(query)
+            || x.Leiding.Naam.ToLowerInvariant().Contains(query));
+        }
+
+      }
+
+
 
       if (!string.IsNullOrWhiteSpace(sortString)) collectionBeforePaging = collectionBeforePaging.OrderBy(sortString);
 
