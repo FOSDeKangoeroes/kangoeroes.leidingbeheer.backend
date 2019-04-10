@@ -1,5 +1,6 @@
 ﻿using System;
 using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
+using kangoeroes.webUI.ViewModels.LeidingViewModels;
 using kangoeroes.webUI.ViewModels.TotemViewModels;
 using Newtonsoft.Json;
 
@@ -16,6 +17,7 @@ namespace kangoeroes.webUI.ViewModels.TotemEntryViewModels
 
     public string LeidingVoornaam { get; set; }
 
+    public BasicLeidingViewModel Leiding { get; set; }
 
     public BasicTotemViewModel Totem { get; set; }
 
