@@ -54,5 +54,6 @@ namespace kangoeroes.webUI.Data.Repositories.PoefRepositories
     {
       return _types.FirstOrDefaultAsync(x => x.Naam.ToLowerInvariant() == naam);
     }
+
   }
 }

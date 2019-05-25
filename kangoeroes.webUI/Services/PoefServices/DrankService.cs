@@ -78,5 +78,20 @@ namespace kangoeroes.webUI.Services.PoefServices
       _drankRepository.Delete(drankToDelete);
       await _drankRepository.SaveChangesAsync();
     }
+
+        public async Task<PagedList<Drank>> GetDrankenForType(int drankTypeId, ResourceParameters resourceParameters)
+        {
+            var type = await _drankTypeRepo.FindByIdAsync(drankTypeId);
+
+            if(type == null) {
+              throw new EntityNotFoundException($"Type met id {drankTypeId} werd niet gevonden.");
+            }
+
+            var result = _drankRepository.GetDrankenForDrankType(drankTypeId, resourceParameters);
+
+            return result;
+     }
   }
+
+ 
 }

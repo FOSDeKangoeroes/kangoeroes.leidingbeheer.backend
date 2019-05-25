@@ -10,52 +10,77 @@ using Microsoft.EntityFrameworkCore;
 
 namespace kangoeroes.webUI.Data.Repositories.PoefRepositories
 {
-  public class DrankRepository : BaseRepository<Drank>, IDrankRepository
-  {
-    private readonly DbSet<Drank> _dranken;
-
-    public DrankRepository(ApplicationDbContext dbContext) : base(dbContext)
+    public class DrankRepository : BaseRepository<Drank>, IDrankRepository
     {
-      _dranken = dbContext.Dranken;
+        private readonly DbSet<Drank> _dranken;
+
+        public DrankRepository(ApplicationDbContext dbContext) : base(dbContext)
+        {
+            _dranken = dbContext.Dranken;
+        }
+
+        public override PagedList<Drank> FindAll(ResourceParameters resourceParameters)
+        {
+
+            var result = GetAllWithAllIncluded();
+
+            result = FilterDrinks(result, resourceParameters.Query);
+
+            result = SortDrinks(result, resourceParameters.SortBy, resourceParameters.SortOrder);
+
+            var pagedList = PagedList<Drank>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+
+            return pagedList;
+        }
+
+        public override Task<Drank> FindByIdAsync(int id)
+        {
+            return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public Task<int> CountDrankenForDrankType(int drankTypeId)
+        {
+            return _dranken.Include(x => x.Type).CountAsync(x => x.Type.Id == drankTypeId);
+        }
+
+        public PagedList<Drank> GetDrankenForDrankType(int drankTypeId, ResourceParameters resourceParameters)
+        {
+            var result = GetAllWithAllIncluded().Where(x => x.Type.Id == drankTypeId);
+
+            result = FilterDrinks(result, resourceParameters.Query);
+
+            result = SortDrinks(result, resourceParameters.SortBy, resourceParameters.SortOrder);
+
+            var pagedList = PagedList<Drank>.Create(result,resourceParameters.PageNumber, resourceParameters.PageSize);
+
+            return pagedList;
+        }
+
+        private IQueryable<Drank> FilterDrinks(IQueryable<Drank> dranken, string query)
+        {
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                dranken = dranken.Where(x => x.Naam.ToLowerInvariant().Trim()
+                    .Contains(query.ToLowerInvariant().Trim()));
+            }
+            return dranken;
+        }
+
+        private IQueryable<Drank> SortDrinks(IQueryable<Drank> dranken, string sortBy, string sortOrder)
+        {
+
+            var sortString = sortBy + " " + sortOrder;
+
+            if (!string.IsNullOrWhiteSpace(sortString))
+            {
+                return dranken.OrderBy(sortString);
+            }
+            return dranken;
+        }
+
+        private IQueryable<Drank> GetAllWithAllIncluded()
+        {
+            return _dranken.Include(x => x.Type).Include(x => x.Prijzen);
+        }
     }
-
-    public override PagedList<Drank> FindAll(ResourceParameters resourceParameters)
-    {
-      var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
-
-      var result = GetAllWithAllIncluded();
-
-
-      if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
-        result = result.Where(x => x.Naam.ToLowerInvariant().Trim()
-          .Contains(resourceParameters.Query.ToLowerInvariant().Trim()));
-
-      if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
-
-      if (resourceParameters is DrankResourceParameters drankResourceParameters && drankResourceParameters.DrankType != 0)
-      {
-        result = result.Where(x => x.Type.Id == drankResourceParameters.DrankType);
-      }
-
-
-      var pagedList = PagedList<Drank>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
-
-      return pagedList;
-    }
-
-    public override Task<Drank> FindByIdAsync(int id)
-    {
-      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
-    }
-
-    public Task<int> CountDrankenForDrankType(int drankTypeId)
-    {
-      return _dranken.Include(x => x.Type).CountAsync(x => x.Type.Id == drankTypeId);
-    }
-
-    private IQueryable<Drank> GetAllWithAllIncluded()
-    {
-      return _dranken.Include(x => x.Type).Include(x => x.Prijzen);
-    }
-  }
 }
