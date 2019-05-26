@@ -39,8 +39,10 @@ Wanneer de database container voor de eerste keer wordt aangemaakt, worden .sh, 
 In de root folder van het project voer je volgend commando uit:
 
 ``` shell
-docker-compose up
+sudo docker-compose up
 ```
+
+De eerste keer zal de backend falen om te starten. Dit omdat de database nog opgezet wordt. Nogmaals opstarten should fix it.
 
 De applicatie zal draaien op localhost:5000
 
