@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Data.Repositories.Interfaces;
 using kangoeroes.webUI.Helpers;
@@ -18,5 +19,7 @@ namespace kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces
         /// <returns>Een integer die aangeeft hoeveel dranken een dranktype bevat.</returns>
         Task<int> CountDrankenForDrankType(int drankTypeId);
         PagedList<Drank> GetDrankenForDrankType(int drankTypeId, ResourceParameters resourceParameters);
+
+        Task<IEnumerable<Prijs>> GetPricesForDrank(int drankId);
     }
 }

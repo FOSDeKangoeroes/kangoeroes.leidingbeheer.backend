@@ -19,6 +19,8 @@ services:
             - ./services/data/mariadb/mysql:/var/lib/mysql
             - ./services/data/mariadb/initial-data:/docker-entrypoint-initdb.d:ro
     restart: always
+    command:
+      mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
 
   backend:
     build: ./

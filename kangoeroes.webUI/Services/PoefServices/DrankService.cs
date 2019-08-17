@@ -8,6 +8,7 @@ using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
+using System.Collections.Generic;
 
 namespace kangoeroes.webUI.Services.PoefServices
 {
@@ -91,7 +92,12 @@ namespace kangoeroes.webUI.Services.PoefServices
 
             return result;
      }
-  }
+
+        public async Task<IEnumerable<Prijs>> GetPricesForDrank(int drankId)
+        {
+            return await _drankRepository.GetPricesForDrank(drankId);
+        }
+    }
 
  
 }

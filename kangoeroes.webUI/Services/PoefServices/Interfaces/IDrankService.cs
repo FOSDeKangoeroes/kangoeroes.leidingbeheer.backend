@@ -4,6 +4,7 @@ using kangoeroes.webUI.ViewModels.PoefViewModels;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
+using System.Collections.Generic;
 
 namespace kangoeroes.webUI.Services.PoefServices.Interfaces
 {
@@ -15,5 +16,7 @@ namespace kangoeroes.webUI.Services.PoefServices.Interfaces
         Task<Drank> UpdateDrank(int drankId, UpdateDrankViewModel viewModel);
         Task DeleteDrank(int drankId);
         Task<PagedList<Drank>> GetDrankenForType(int drankTypeId, ResourceParameters resourceParameters);
+
+        Task<IEnumerable<Prijs>> GetPricesForDrank(int drankId);
     }
 }

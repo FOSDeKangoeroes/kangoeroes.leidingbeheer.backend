@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
@@ -81,6 +82,19 @@ namespace kangoeroes.webUI.Data.Repositories.PoefRepositories
         private IQueryable<Drank> GetAllWithAllIncluded()
         {
             return _dranken.Include(x => x.Type).Include(x => x.Prijzen);
+        }
+
+        public async Task<IEnumerable<Prijs>> GetPricesForDrank(int drankId)
+        {
+           // var drink = await _dranken.Include(x => x.Prijzen).FirstOrDefaultAsync(x => x.Id == drankId);
+
+           var prices = from drinks in _dranken
+                        where drinks.Id == drankId
+                        select drinks.Prijzen;
+
+            var single = await prices.SingleAsync();
+
+            return single;
         }
     }
 }
