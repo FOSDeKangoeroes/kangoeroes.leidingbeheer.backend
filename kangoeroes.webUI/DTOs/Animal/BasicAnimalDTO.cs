@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace kangoeroes.webUI.DTOs.TotemViewModels
+namespace kangoeroes.webUI.DTOs.Animal
 {
-  public class BasicTotemViewModel
+  public class BasicAnimalDTO
   {
     public int Id { get; set; }
 

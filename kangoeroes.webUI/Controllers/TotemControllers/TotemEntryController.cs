@@ -32,7 +32,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
 
       _paginationMetaDataService.AddMetaDataToResponse(Response, totemEntries);
 
-      var model = _mapper.Map<IEnumerable<BasicTotemEntryViewModel>>(totemEntries);
+      var model = _mapper.Map<IEnumerable<BasicTotemEntryDTO>>(totemEntries);
 
       return Ok(model);
     }
@@ -53,7 +53,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
 
 
     [HttpPost]
-    public async Task<IActionResult> AddEntry([FromBody] AddEntryExistingLeiding viewmodel)
+    public async Task<IActionResult> AddEntry([FromBody] CreateTotemEntryDTO viewmodel)
     {
       try
       {
@@ -87,11 +87,11 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
 
     [HttpPut("{totemEntryId}")]
     public async Task<IActionResult> UpdateEntry([FromRoute] int totemEntryId,
-      [FromBody] UpdateTotemEntryViewModel viewModel)
+      [FromBody] UpdateTotemEntryDTO dto)
     {
       try
       {
-        var model = await _totemEntryService.UpdateEntry(totemEntryId, viewModel);
+        var model = await _totemEntryService.UpdateEntry(totemEntryId, dto);
         return Ok(model);
       }
       catch (EntityNotFoundException e)

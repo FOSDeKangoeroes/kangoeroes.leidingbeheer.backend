@@ -1,12 +1,12 @@
 ﻿using System;
 using kangoeroes.webUI.DTOs.Adjective;
+using kangoeroes.webUI.DTOs.Animal;
 using kangoeroes.webUI.DTOs.Leader;
-using kangoeroes.webUI.DTOs.TotemViewModels;
 using Newtonsoft.Json;
 
 namespace kangoeroes.webUI.DTOs.TotemEntry
 {
-  public class BasicTotemEntryViewModel
+  public class BasicTotemEntryDTO
   {
     public int Id { get; set; }
 
@@ -19,7 +19,7 @@ namespace kangoeroes.webUI.DTOs.TotemEntry
 
     public BasicLeaderDTO Leiding { get; set; }
 
-    public BasicTotemViewModel Totem { get; set; }
+    public BasicAnimalDTO Totem { get; set; }
 
     public BasicAdjectiveDTO Adjectief { get; set; }
 

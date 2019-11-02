@@ -44,18 +44,18 @@ namespace kangoeroes.webUI.Services.TotemServices
       return entries;
     }
 
-    public async Task<BasicTotemEntryViewModel> FindByIdAsync(int id)
+    public async Task<BasicTotemEntryDTO> FindByIdAsync(int id)
     {
       var entry = await _totemEntryRepository.FindByIdAsync(id);
 
       if (entry == null) throw new EntityNotFoundException($"Getotemiseerde met id {id} bestaat niet.");
 
-      var viewmodel = _mapper.Map<BasicTotemEntryViewModel>(entry);
+      var viewmodel = _mapper.Map<BasicTotemEntryDTO>(entry);
 
       return viewmodel;
     }
 
-    public async Task<BasicTotemEntryViewModel> AddEntryAsync(AddEntryExistingLeiding viewmodel)
+    public async Task<BasicTotemEntryDTO> AddEntryAsync(CreateTotemEntryDTO viewmodel)
     {
       var leiding = await _leidingRepository.FindByIdAsync(viewmodel.LeidingId);
 
@@ -99,12 +99,12 @@ namespace kangoeroes.webUI.Services.TotemServices
       await _totemEntryRepository.AddAsync(newEntry);
       await _totemEntryRepository.SaveChangesAsync();
 
-      var model = _mapper.Map<BasicTotemEntryViewModel>(newEntry);
+      var model = _mapper.Map<BasicTotemEntryDTO>(newEntry);
 
       return model;
     }
 
-    public async Task<BasicTotemEntryViewModel> AddVoorOuderAsync(int leidingId, int voorouderId)
+    public async Task<BasicTotemEntryDTO> AddVoorOuderAsync(int leidingId, int voorouderId)
     {
       var totemEntry = await _totemEntryRepository.FindByIdAsync(leidingId);
 
@@ -123,12 +123,12 @@ namespace kangoeroes.webUI.Services.TotemServices
       totemEntry.Voorouder = voorouder;
       await _totemEntryRepository.SaveChangesAsync();
 
-      var model = _mapper.Map<BasicTotemEntryViewModel>(totemEntry);
+      var model = _mapper.Map<BasicTotemEntryDTO>(totemEntry);
 
       return model;
     }
 
-    public async Task<BasicTotemEntryViewModel> UpdateEntry(int entryId, UpdateTotemEntryViewModel viewmodel)
+    public async Task<BasicTotemEntryDTO> UpdateEntry(int entryId, UpdateTotemEntryDTO viewmodel)
     {
       var entryToUpdate = await _totemEntryRepository.FindByIdAsync(entryId);
 
@@ -158,19 +158,19 @@ namespace kangoeroes.webUI.Services.TotemServices
 
       await _totemEntryRepository.SaveChangesAsync();
 
-      var model = _mapper.Map<BasicTotemEntryViewModel>(entryToUpdate);
+      var model = _mapper.Map<BasicTotemEntryDTO>(entryToUpdate);
 
       return model;
     }
 
-    public List<BasicTotemEntryViewModel> GetDescendants(int entryId)
+    public List<BasicTotemEntryDTO> GetDescendants(int entryId)
     {
       var entries = _totemEntryRepository.GetDescendants(entryId);
 
       if (entries == null)
         throw new EntityNotFoundException($"Er werden geen afstammelingen gevonden voor de totem met id {entryId}");
 
-      return _mapper.Map<List<BasicTotemEntryViewModel>>(entries);
+      return _mapper.Map<List<BasicTotemEntryDTO>>(entries);
     }
 
     public List<FamilyTreeDTO> GetFamilyTree()

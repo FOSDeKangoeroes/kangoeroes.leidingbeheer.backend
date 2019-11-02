@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
-using kangoeroes.webUI.DTOs.TotemViewModels;
+using kangoeroes.webUI.DTOs.Animal;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;
@@ -32,7 +32,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
 
       _paginationMetaDataService.AddMetaDataToResponse(Response, result);
 
-      var model = _mapper.Map<IEnumerable<BasicTotemViewModel>>(result);
+      var model = _mapper.Map<IEnumerable<BasicAnimalDTO>>(result);
 
       return Ok(model);
     }
@@ -52,7 +52,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddTotem([FromBody] AddTotemViewModel viewModel)
+    public async Task<IActionResult> AddTotem([FromBody] AddAnimalDTO viewModel)
     {
       try
       {
@@ -70,7 +70,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTotem([FromBody] UpdateTotemViewModel viewModel, [FromRoute] int id)
+    public async Task<IActionResult> UpdateTotem([FromBody] UpdateAnimalDTO viewModel, [FromRoute] int id)
     {
       try
       {

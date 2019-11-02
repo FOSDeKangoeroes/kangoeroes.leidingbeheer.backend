@@ -8,7 +8,7 @@ namespace kangoeroes.webUI.Profiles
   {
     public TotemEntryProfile()
     {
-      CreateMap<TotemEntry, BasicTotemEntryViewModel>();
+      CreateMap<TotemEntry, BasicTotemEntryDTO>();
     }
   }
 }

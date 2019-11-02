@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.webUI.DTOs.TotemViewModels
+namespace kangoeroes.webUI.DTOs.Animal
 {
-  public class UpdateTotemViewModel
+  public class UpdateAnimalDTO
   {
     [Required(AllowEmptyStrings = true)] public string Naam { get; set; }
   }

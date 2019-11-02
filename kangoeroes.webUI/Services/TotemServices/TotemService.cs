@@ -5,7 +5,7 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.DTOs.TotemViewModels;
+using kangoeroes.webUI.DTOs.Animal;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;
 
@@ -29,17 +29,17 @@ namespace kangoeroes.webUI.Services.TotemServices
       return result;
     }
 
-    public async Task<BasicTotemViewModel> FindByIdAsync(int id)
+    public async Task<BasicAnimalDTO> FindByIdAsync(int id)
     {
       var result = await _totemRepository.FindByIdAsync(id);
 
       if (result == null) throw new EntityNotFoundException($"Totem met id {id} werd niet gevonden");
 
-      return _mapper.Map<BasicTotemViewModel>(result);
+      return _mapper.Map<BasicAnimalDTO>(result);
     }
 
 
-    public async Task<BasicTotemViewModel> AddTotemAsync(AddTotemViewModel viewModel)
+    public async Task<BasicAnimalDTO> AddTotemAsync(AddAnimalDTO viewModel)
     {
       var exists = await _totemRepository.TotemExists(viewModel.Naam) != null;
 
@@ -53,12 +53,12 @@ namespace kangoeroes.webUI.Services.TotemServices
       await _totemRepository.AddAsync(newTotem);
       await _totemRepository.SaveChangesAsync();
 
-      var model = _mapper.Map<BasicTotemViewModel>(newTotem);
+      var model = _mapper.Map<BasicAnimalDTO>(newTotem);
 
       return model;
     }
 
-    public async Task<BasicTotemViewModel> UpdateTotemAsync(UpdateTotemViewModel viewModel, int id)
+    public async Task<BasicAnimalDTO> UpdateTotemAsync(UpdateAnimalDTO viewModel, int id)
     {
       var totem = await _totemRepository.FindByIdAsync(id);
 
@@ -68,7 +68,7 @@ namespace kangoeroes.webUI.Services.TotemServices
       totem.Naam = viewModel.Naam.Trim();
       await _totemRepository.SaveChangesAsync();
 
-      return _mapper.Map<BasicTotemViewModel>(totem);
+      return _mapper.Map<BasicAnimalDTO>(totem);
     }
   }
 }

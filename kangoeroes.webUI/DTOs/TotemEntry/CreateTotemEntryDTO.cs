@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace kangoeroes.webUI.DTOs.TotemEntry
 {
-  public class AddEntryExistingLeiding
+  public class CreateTotemEntryDTO
   {
     [Required] public int LeidingId { get; set; }
 

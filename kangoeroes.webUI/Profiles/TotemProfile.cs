@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.DTOs.TotemViewModels;
+using kangoeroes.webUI.DTOs.Animal;
 
 namespace kangoeroes.webUI.Profiles
 {
@@ -8,8 +8,8 @@ namespace kangoeroes.webUI.Profiles
   {
     public TotemProfile()
     {
-      CreateMap<Totem, BasicTotemViewModel>();
-      CreateMap<AddTotemViewModel, Totem>();
+      CreateMap<Totem, BasicAnimalDTO>();
+      CreateMap<AddAnimalDTO, Totem>();
     }
   }
 }

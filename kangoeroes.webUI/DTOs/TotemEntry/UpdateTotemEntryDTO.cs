@@ -2,7 +2,7 @@
 
 namespace kangoeroes.webUI.DTOs.TotemEntry
 {
-  public class UpdateTotemEntryViewModel
+  public class UpdateTotemEntryDTO
   {
     public int AdjectiefId { get; set; }
     public int TotemId { get; set; }

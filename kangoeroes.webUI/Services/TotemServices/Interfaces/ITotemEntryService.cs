@@ -12,11 +12,11 @@ namespace kangoeroes.webUI.Services.TotemServices.Interfaces
   public interface ITotemEntryService
   {
     PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters);
-    Task<BasicTotemEntryViewModel> FindByIdAsync(int id);
-    Task<BasicTotemEntryViewModel> AddEntryAsync(AddEntryExistingLeiding viewmodel);
-    Task<BasicTotemEntryViewModel> AddVoorOuderAsync(int leidingId, int voorouderId);
-    Task<BasicTotemEntryViewModel> UpdateEntry(int entryId, UpdateTotemEntryViewModel viewmodel);
-    List<BasicTotemEntryViewModel> GetDescendants(int entryId);
+    Task<BasicTotemEntryDTO> FindByIdAsync(int id);
+    Task<BasicTotemEntryDTO> AddEntryAsync(CreateTotemEntryDTO viewmodel);
+    Task<BasicTotemEntryDTO> AddVoorOuderAsync(int leidingId, int voorouderId);
+    Task<BasicTotemEntryDTO> UpdateEntry(int entryId, UpdateTotemEntryDTO viewmodel);
+    List<BasicTotemEntryDTO> GetDescendants(int entryId);
     List<FamilyTreeDTO> GetFamilyTree();
   }
 }
