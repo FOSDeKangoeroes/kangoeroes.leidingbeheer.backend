@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
-using kangoeroes.webUI.DTOs.PoefViewModels.Order;
-using kangoeroes.webUI.DTOs.PoefViewModels.Orderline;
+using kangoeroes.webUI.DTOs.Tab.Order;
+using kangoeroes.webUI.DTOs.Tab.Orderline;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

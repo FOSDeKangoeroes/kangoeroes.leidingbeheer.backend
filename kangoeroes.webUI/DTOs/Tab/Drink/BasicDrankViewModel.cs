@@ -1,7 +1,7 @@
 ﻿using kangoeroes.webUI.Helpers;
 using Newtonsoft.Json;
 
-namespace kangoeroes.webUI.DTOs.PoefViewModels.Drank
+namespace kangoeroes.webUI.DTOs.Tab.Drink
 {
   public class BasicDrankViewModel
   {

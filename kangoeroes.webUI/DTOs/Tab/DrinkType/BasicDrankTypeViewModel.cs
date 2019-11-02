@@ -1,6 +1,6 @@
 ﻿using kangoeroes.webUI.Helpers;
 
-namespace kangoeroes.webUI.DTOs.PoefViewModels.DrankType
+namespace kangoeroes.webUI.DTOs.Tab.DrinkType
 {
   public class BasicDrankTypeViewModel
   {

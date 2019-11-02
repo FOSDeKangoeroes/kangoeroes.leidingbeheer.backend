@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.webUI.DTOs.PoefViewModels.Orderline
+﻿namespace kangoeroes.webUI.DTOs.Tab.Orderline
 {
   public class BasicOrderlineViewModel
   {

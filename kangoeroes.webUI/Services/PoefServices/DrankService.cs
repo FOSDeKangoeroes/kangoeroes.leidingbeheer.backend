@@ -6,7 +6,7 @@ using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
-using kangoeroes.webUI.DTOs.PoefViewModels.Drank;
+using kangoeroes.webUI.DTOs.Tab.Drink;
 
 namespace kangoeroes.webUI.Services.PoefServices
 {

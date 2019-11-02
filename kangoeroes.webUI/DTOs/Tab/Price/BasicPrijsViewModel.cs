@@ -1,6 +1,6 @@
 using System;
 
-namespace kangoeroes.webUI.DTOs.PoefViewModels.Prijs
+namespace kangoeroes.webUI.DTOs.Tab.Price
 {
     public class BasicPrijsViewModel
     {

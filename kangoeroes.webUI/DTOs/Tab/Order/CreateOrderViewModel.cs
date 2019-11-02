@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using kangoeroes.webUI.DTOs.PoefViewModels.Orderline;
+using kangoeroes.webUI.DTOs.Tab.Orderline;
 
-namespace kangoeroes.webUI.DTOs.PoefViewModels.Order
+namespace kangoeroes.webUI.DTOs.Tab.Order
 {
   public class CreateOrderViewModel
   {
