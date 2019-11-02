@@ -46,5 +46,26 @@ namespace kangoeroes.core.Services
 
             return _mapper.Map<BasicLeaderDTO>(leader);
         }
+
+        public async Task<BasicLeaderDTO> UpdateLeader(int leaderId, UpdateLeaderDTO dto)
+        {
+            var leader = await _leidingRepository.FindByIdAsync(leaderId);
+
+            if (leader == null)
+            {
+                throw new EntityNotFoundException($"Leiding met id {leaderId} werd niet gevonden.");
+            }
+
+            leader.Email = dto.Email;
+            leader.Naam = dto.Naam.Trim();
+            leader.Voornaam = dto.Voornaam.Trim();
+            leader.LeidingSinds = dto.LeidingSinds.ToLocalTime();
+            leader.DatumGestopt = dto.DatumGestopt.ToLocalTime();
+            await  _leidingRepository.SaveChangesAsync();
+
+            var model = _mapper.Map<BasicLeaderDTO>(leader);
+
+            return model;
+        }
     }
 }

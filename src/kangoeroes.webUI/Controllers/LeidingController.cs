@@ -78,18 +78,10 @@ namespace kangoeroes.webUI.Controllers
 
     [HttpPut] //PUT api/leiding
     [Route("{id}")]
-    public async Task<IActionResult> UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeaderDTO viewmodel)
+    public async Task<IActionResult> UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeaderDTO dto)
     {
-      var leiding = await _leidingRepository.FindByIdAsync(id);
-
-      if (leiding == null) return NotFound($"Opgegeven leiding met id {id} werd niet gevonden");
-
-      leiding = _mapper.Map(viewmodel, leiding);
-      leiding.DatumGestopt = viewmodel.DatumGestopt.ToLocalTime();
-      leiding.LeidingSinds = viewmodel.LeidingSinds.ToLocalTime();
-      await _leidingRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicLeaderDTO>(leiding);
-      return Ok(model);
+      var updatedLeader = _leaderService.UpdateLeader(id, dto);
+      return Ok(updatedLeader);
     }
 
     [Route("{leidingId}/tak")]

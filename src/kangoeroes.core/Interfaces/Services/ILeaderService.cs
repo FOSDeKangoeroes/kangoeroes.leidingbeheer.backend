@@ -6,5 +6,6 @@ namespace kangoeroes.core.Interfaces.Services
     public interface ILeaderService
     {
         Task<BasicLeaderDTO> CreateLeader(CreateLeaderDTO dto);
+        Task<BasicLeaderDTO> UpdateLeader(int leaderId, UpdateLeaderDTO dto);
     }
 }
