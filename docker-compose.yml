@@ -23,7 +23,7 @@ services:
       mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
 
   backend:
-    build: ./
+    build: ./src
     depends_on:
       - db
     ports:
