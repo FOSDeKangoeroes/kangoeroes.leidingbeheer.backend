@@ -146,7 +146,7 @@ namespace kangoeroes.webUI
         {
           context.Response.StatusCode = 500;
           context.Response.ContentType = "application/json";
-          var response = new ApiServerErrorResponse("Oops. Er ging iets fout");
+          var response = new ApiServerErrorResponse("Er heeft zich een onverwachte fout voorgedaan. Probeer het later opnieuw.");
           if (env.IsDevelopment())
           {
             var ex = context.Features.Get<IExceptionHandlerFeature>();
