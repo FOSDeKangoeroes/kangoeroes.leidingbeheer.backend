@@ -38,64 +38,40 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     [HttpGet("{id}", Name = "GetEntryById")]
     public async Task<IActionResult> FindById([FromRoute] int id)
     {
-      try
-      {
+
         var entry = await _totemEntryService.FindByIdAsync(id);
         return Ok(entry);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
 
     [HttpPost]
     public async Task<IActionResult> AddEntry([FromBody] CreateTotemEntryDTO viewmodel)
     {
-      try
-      {
+
         var newEntry = await _totemEntryService.AddEntryAsync(viewmodel);
 
         return CreatedAtRoute("GetEntryById", new {id = newEntry.Id}, newEntry);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
-      catch (EntityExistsException e)
-      {
-        return BadRequest(e.Message);
-      }
+
     }
 
     [HttpPost("{totemEntryId}/parent/{voorouderEntryId}")]
     public async Task<IActionResult> AddVoorouder(int totemEntryId, int voorouderEntryId)
     {
-      try
-      {
+
         var model = await _totemEntryService.AddVoorOuderAsync(totemEntryId, voorouderEntryId);
         return Ok(model);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
     [HttpPut("{totemEntryId}")]
     public async Task<IActionResult> UpdateEntry([FromRoute] int totemEntryId,
       [FromBody] UpdateTotemEntryDTO dto)
     {
-      try
-      {
+
         var model = await _totemEntryService.UpdateEntry(totemEntryId, dto);
         return Ok(model);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
     [HttpGet("{totemEntryId}/descendants")]

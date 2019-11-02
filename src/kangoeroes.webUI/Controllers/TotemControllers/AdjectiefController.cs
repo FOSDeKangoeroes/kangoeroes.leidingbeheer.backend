@@ -42,46 +42,31 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     [HttpGet("{id}", Name = "GetAdjectiefById")]
     public async Task<IActionResult> FindById([FromRoute] int id)
     {
-      try
-      {
+
         var adjectief = await _adjectiefService.FindByIdAsync(id);
         return Ok(adjectief);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
     [HttpPost]
     public async Task<IActionResult> AddAdjectief([FromBody] CreateAdjectiveDTO viewModel)
     {
-      try
-      {
+
         var newAdjectief = await _adjectiefService.AddAdjectief(viewModel);
 
         return CreatedAtRoute("GetAdjectiefById", new {id = newAdjectief.Id}, newAdjectief);
-      }
-      catch (EntityExistsException e)
-      {
-        return BadRequest(e.Message);
-      }
+
     }
 
     [HttpPut("{adjectiefId}")]
     public async Task<IActionResult> UpdateAdjectief([FromRoute] int adjectiefId,
       [FromBody] UpdateAdjectiveDTO viewModel)
     {
-      try
-      {
+
         var updatedAdjectief = await _adjectiefService.UpdateAdjectief(adjectiefId, viewModel);
 
         return Ok(updatedAdjectief);
-      }
-      catch (EntityNotFoundException ex)
-      {
-        return NotFound(ex.Message);
-      }
+
     }
   }
 }

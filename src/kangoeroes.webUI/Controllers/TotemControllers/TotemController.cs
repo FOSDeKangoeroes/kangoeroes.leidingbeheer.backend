@@ -50,38 +50,20 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     [HttpPost]
     public async Task<IActionResult> AddTotem([FromBody] AddAnimalDTO viewModel)
     {
-      try
-      {
+
         var newTotem = await _totemService.AddTotemAsync(viewModel);
         return CreatedAtRoute("GetTotemById", new {id = newTotem.Id}, newTotem);
-      }
-      catch (EntityExistsException ex)
-      {
-        return BadRequest(ex.Message);
-      }
-      catch (EntityNotFoundException ex)
-      {
-        return NotFound(ex.Message);
-      }
+
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTotem([FromBody] UpdateAnimalDTO viewModel, [FromRoute] int id)
     {
-      try
-      {
+
         var updatedTotem = await _totemService.UpdateTotemAsync(viewModel, id);
 
         return Ok(updatedTotem);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
-      catch (EntityExistsException e)
-      {
-        return BadRequest(e.Message);
-      }
+
     }
   }
 }

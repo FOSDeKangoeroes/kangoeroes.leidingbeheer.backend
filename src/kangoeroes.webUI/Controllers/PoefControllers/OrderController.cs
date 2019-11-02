@@ -33,16 +33,9 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
     [HttpGet("{orderId}")]
     public async Task<IActionResult> GetOrderById([FromRoute] int orderId)
     {
-      try
-      {
-        var order = await _orderService.GetOrderById(orderId);
+      var order = await _orderService.GetOrderById(orderId);
 
         return Ok(order);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
 
     }
 
@@ -51,47 +44,32 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO dto)
     {
-      try
-      {
+
         var newOrder = await _orderService.CreateOrder(dto);
 
         var model = _mapper.Map<BasicOrderDTO>(newOrder);
         return Ok(model);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
     [HttpPut("{orderId}")]
     public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderDTO dto, [FromRoute] int orderId)
     {
-      try
-      {
+
         var updatedOrder = await _orderService.UpdateOrder(dto, orderId);
 
         return Ok(updatedOrder);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
     [HttpDelete("{orderId}")]
     public async Task<IActionResult> DeleteOrder([FromRoute] int orderId)
     {
-      try
-      {
+
         var orderToDelete = await _orderService.DeleteOrder(orderId);
 
         return Ok(orderToDelete);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
     [HttpPut("{orderId}/orderline/{orderlineId}")]
@@ -100,31 +78,21 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
       [FromRoute] int orderId,
       [FromRoute] int orderlineId)
     {
-      try
-      {
+
         var updatedOrderline = await _orderService.UpdateOrderline(dto, orderId, orderlineId);
 
         return Ok(updatedOrderline);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
     [HttpDelete("{orderId}/orderline/{orderlineId}")]
     public async Task<IActionResult> DeleteOrderline(int orderId, int orderlineId)
     {
-      try
-      {
+
         var deletedOrderline = await _orderService.DeleteOrderline(orderId, orderlineId);
 
         return Ok(deletedOrderline);
-      }
-      catch (EntityNotFoundException e)
-      {
-        return NotFound(e.Message);
-      }
+
     }
 
   }

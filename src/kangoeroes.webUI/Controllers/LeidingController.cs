@@ -93,7 +93,6 @@ namespace kangoeroes.webUI.Controllers
       leiding = _mapper.Map(viewmodel, leiding);
       leiding.DatumGestopt = viewmodel.DatumGestopt.ToLocalTime();
       leiding.LeidingSinds = viewmodel.LeidingSinds.ToLocalTime();
-      // await _leidingRepository.UpdateAsync(leiding);
       await _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeaderDTO>(leiding);
       return Ok(model);
@@ -111,7 +110,6 @@ namespace kangoeroes.webUI.Controllers
 
 
       leiding.Tak = newTak;
-      //  _leidingRepository.Update(leiding);
       await _leidingRepository.SaveChangesAsync();
       var model = _mapper.Map<BasicLeaderDTO>(leiding);
 
