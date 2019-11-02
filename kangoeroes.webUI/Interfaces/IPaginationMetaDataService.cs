@@ -2,7 +2,7 @@
 using kangoeroes.webUI.Helpers;
 using Microsoft.AspNetCore.Http;
 
-namespace kangoeroes.webUI.Services
+namespace kangoeroes.webUI.Interfaces
 {
   /// <summary>
   /// Service verantwoordelijk voor het toevoegen van paginatie metadata aan een response object.
