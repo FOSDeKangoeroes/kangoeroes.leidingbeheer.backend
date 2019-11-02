@@ -5,9 +5,8 @@ using kangoeroes.core.DTOs.TotemEntry;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.Helpers;
 
-namespace kangoeroes.webUI.Services.TotemServices.Interfaces
+namespace kangoeroes.core.Interfaces.Services
 {
   public interface ITotemEntryService
   {

@@ -1,14 +1,14 @@
-﻿using System.Threading.Tasks;
-using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Services.PoefServices.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using kangoeroes.core.DTOs.Tab.Drink;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
+using kangoeroes.core.Interfaces.Services;
+using kangoeroes.core.Models.Poef;
 
-namespace kangoeroes.webUI.Services.PoefServices
+namespace kangoeroes.core.Services
 {
   public class DrankService : IDrankService
   {

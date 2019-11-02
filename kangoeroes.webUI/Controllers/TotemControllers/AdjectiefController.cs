@@ -4,9 +4,9 @@ using AutoMapper;
 using kangoeroes.core.DTOs.Adjective;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces.Services;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
-using kangoeroes.webUI.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

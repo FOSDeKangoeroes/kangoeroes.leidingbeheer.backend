@@ -5,7 +5,7 @@ using kangoeroes.core.DTOs.Tab.Order;
 using kangoeroes.core.DTOs.Tab.Orderline;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
-using kangoeroes.webUI.Services.PoefServices.Interfaces;
+using kangoeroes.core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.webUI.Controllers.PoefControllers

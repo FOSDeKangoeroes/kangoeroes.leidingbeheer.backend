@@ -4,8 +4,8 @@ using AutoMapper;
 using kangoeroes.core.DTOs.TotemEntry;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces.Services;
 using kangoeroes.webUI.Interfaces;
-using kangoeroes.webUI.Services.TotemServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.webUI.Controllers.TotemControllers

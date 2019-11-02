@@ -8,11 +8,10 @@ using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
+using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.core.DTOs.TotemEntry;
-using kangoeroes.webUI.Services.TotemServices.Interfaces;
 
-namespace kangoeroes.webUI.Services.TotemServices
+namespace kangoeroes.core.Services
 {
   public class TotemEntryService : ITotemEntryService
   {

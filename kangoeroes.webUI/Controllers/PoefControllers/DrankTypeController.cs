@@ -6,10 +6,10 @@ using kangoeroes.core.DTOs.Tab.Drink;
 using kangoeroes.core.DTOs.Tab.DrinkType;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
-using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.webUI.Controllers.PoefControllers

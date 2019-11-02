@@ -5,11 +5,10 @@ using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
+using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.Services.PoefServices.Interfaces;
 
-namespace kangoeroes.webUI.Services.PoefServices
+namespace kangoeroes.core.Services
 {
   /// <summary>
   /// Service voor het beheren van dranktypes

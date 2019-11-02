@@ -4,9 +4,8 @@ using kangoeroes.core.DTOs.Tab.Orderline;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Helpers;
 
-namespace kangoeroes.webUI.Services.PoefServices.Interfaces
+namespace kangoeroes.core.Interfaces.Services
 {
   public interface IOrderService
   {

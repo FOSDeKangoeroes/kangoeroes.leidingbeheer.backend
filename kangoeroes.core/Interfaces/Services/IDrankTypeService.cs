@@ -5,9 +5,8 @@ using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Helpers;
 
-namespace kangoeroes.webUI.Services.PoefServices.Interfaces
+namespace kangoeroes.core.Interfaces.Services
 {
   public interface IDrankTypeService
   {
