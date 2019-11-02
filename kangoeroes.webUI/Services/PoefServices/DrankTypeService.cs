@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using kangoeroes.core.Models.Exceptions;
+using kangoeroes.core.Exceptions;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.webUI.Helpers;

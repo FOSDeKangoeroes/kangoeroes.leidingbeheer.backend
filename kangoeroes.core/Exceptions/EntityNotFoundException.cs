@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kangoeroes.core.Models.Exceptions
+namespace kangoeroes.core.Exceptions
 {
     /// <summary>
     ///     Representeert de fout wanneer een gevraagde entiteit niet gevonden werd.

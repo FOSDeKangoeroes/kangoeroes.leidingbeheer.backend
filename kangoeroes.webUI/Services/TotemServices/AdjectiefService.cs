@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using kangoeroes.core.Models.Exceptions;
+using kangoeroes.core.Exceptions;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.webUI.Data.Repositories.Interfaces;
 using kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces;

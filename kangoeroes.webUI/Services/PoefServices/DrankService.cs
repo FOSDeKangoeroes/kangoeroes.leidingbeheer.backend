@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using kangoeroes.core.Models.Exceptions;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Data.Repositories.Interfaces;
 using kangoeroes.webUI.ViewModels.PoefViewModels;
@@ -9,6 +8,7 @@ using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
 using System.Collections.Generic;
+using kangoeroes.core.Exceptions;
 
 namespace kangoeroes.webUI.Services.PoefServices
 {

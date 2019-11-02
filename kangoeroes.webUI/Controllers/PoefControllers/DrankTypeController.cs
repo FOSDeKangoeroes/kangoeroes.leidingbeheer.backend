@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using kangoeroes.core.Models.Exceptions;
+using kangoeroes.core.Exceptions;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.Services;

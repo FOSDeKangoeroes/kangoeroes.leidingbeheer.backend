@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kangoeroes.core.Models.Exceptions
+namespace kangoeroes.core.Exceptions
 {
     /// <summary>
     /// Exception om aan te geven dat een relatie niet geldig is.
