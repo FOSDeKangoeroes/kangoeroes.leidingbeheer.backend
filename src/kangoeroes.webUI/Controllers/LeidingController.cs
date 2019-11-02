@@ -88,18 +88,8 @@ namespace kangoeroes.webUI.Controllers
     [HttpPut]
     public async Task<IActionResult> ChangeTak([FromRoute] int leidingId, [FromBody] UpdateSectionDTO viewModel)
     {
-      var leiding = await _leidingRepository.FindByIdAsync(leidingId);
-      if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
-
-      var newTak = await _takRepository.FindByIdAsync(viewModel.NewSectionId);
-      if (newTak == null) return NotFound($"Opgegeven tak met id {viewModel.NewSectionId} werd niet gevonden");
-
-
-      leiding.Tak = newTak;
-      await _leidingRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicLeaderDTO>(leiding);
-
-      return Ok(model);
+      var updatedLeader = await _leaderService.ChangeSectionOfLeader(leidingId, viewModel);
+      return Ok(updatedLeader);
     }
 
   }
