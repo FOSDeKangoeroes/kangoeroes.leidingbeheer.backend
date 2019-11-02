@@ -12,7 +12,7 @@ namespace kangoeroes.webUI.Profiles
   {
     public PoefProfile()
     {
-      CreateMap<Drank, BasicDrankViewModel>();
+      CreateMap<Drank, BasicDrinkDTO>();
       CreateMap<DrankType, BasicDrankTypeViewModel>();
       CreateMap<Order, BasicOrderViewModel>();
       CreateMap<Orderline, BasicOrderlineViewModel>();

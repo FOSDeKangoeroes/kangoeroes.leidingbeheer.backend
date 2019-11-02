@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.webUI.DTOs.Tab.Drink
 {
-  public class BasicDrankViewModel
+  public class BasicDrinkDTO
   {
     public int Id { get; set; }
     public string Naam { get; set; }

@@ -11,8 +11,8 @@ namespace kangoeroes.webUI.Services.PoefServices.Interfaces
     {
         PagedList<Drank> GetAll(ResourceParameters resourceParameters);
         Task<Drank> GetDrankById(int drankId);
-        Task<Drank> CreateDrank(AddDrankViewModel viewModel);
-        Task<Drank> UpdateDrank(int drankId, UpdateDrankViewModel viewModel);
+        Task<Drank> CreateDrank(CreateDrinkDTO viewModel);
+        Task<Drank> UpdateDrank(int drankId, UpdateDrinkDTO viewModel);
         Task DeleteDrank(int drankId);
         Task<PagedList<Drank>> GetDrankenForType(int drankTypeId, ResourceParameters resourceParameters);
 

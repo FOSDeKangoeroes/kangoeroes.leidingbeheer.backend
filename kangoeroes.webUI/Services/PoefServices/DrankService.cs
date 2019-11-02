@@ -37,7 +37,7 @@ namespace kangoeroes.webUI.Services.PoefServices
       return drank;
     }
 
-    public async Task<Drank> CreateDrank(AddDrankViewModel viewModel)
+    public async Task<Drank> CreateDrank(CreateDrinkDTO viewModel)
     {
       //Zoeken naar type
       var type = await _drankTypeRepo.FindByIdAsync(viewModel.TypeId);
@@ -52,7 +52,7 @@ namespace kangoeroes.webUI.Services.PoefServices
       return newDrank;
     }
 
-    public async Task<Drank> UpdateDrank(int drankId, UpdateDrankViewModel viewModel)
+    public async Task<Drank> UpdateDrank(int drankId, UpdateDrinkDTO viewModel)
     {
       var drank = await _drankRepository.FindByIdAsync(drankId);
 

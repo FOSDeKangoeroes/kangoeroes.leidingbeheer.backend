@@ -42,14 +42,14 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// <param name="resourceParameters"> Query parameters voor het pagineren en filteren van dranken</param>
         /// <returns></returns>
         [HttpGet("")]
-        [ProducesResponseType(typeof(IEnumerable<BasicDrankViewModel>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<BasicDrinkDTO>), 200)]
         public IActionResult GetAll([FromQuery] ResourceParameters resourceParameters)
         {
             var dranken = _drankService.GetAll(resourceParameters);
 
             _paginationMetaDataService.AddMetaDataToResponse(Response, dranken);
 
-            var model = _mapper.Map<IEnumerable<BasicDrankViewModel>>(dranken);
+            var model = _mapper.Map<IEnumerable<BasicDrinkDTO>>(dranken);
             return Ok(model);
         }
 
@@ -57,10 +57,10 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// Endpoint voor het ophalen van een specifieke drank aan de hand van de unieke sleutel.
         /// </summary>
         /// <param name="drankId">Unieke sleutel van de gevraagde drank.</param>
-        /// <returns> OK (200) - BasicDrankViewModel van de gevraagde drank.</returns>
+        /// <returns> OK (200) - BasicDrinkDTO van de gevraagde drank.</returns>
         /// <returns>Not Found (404) - Foutboodschap, drank werd niet gevonden.</returns>
         [HttpGet("{drankId}", Name = "FindDrankById")]
-        [ProducesResponseType(typeof(BasicDrankViewModel), 200)]
+        [ProducesResponseType(typeof(BasicDrinkDTO), 200)]
         [ProducesResponseType(typeof(string[]), 400)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> FindByIdAsync([FromRoute] int drankId)
@@ -68,7 +68,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
             try
             {
                 var drank = await _drankService.GetDrankById(drankId);
-                var model = _mapper.Map<BasicDrankViewModel>(drank);
+                var model = _mapper.Map<BasicDrinkDTO>(drank);
 
                 return Ok(model);
             }
@@ -86,15 +86,15 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// <returns>Not Found (404) - Opgegeven type voor de drank werd niet gevonden</returns>
         /// <returns>Bad Request (400) - Data opgegeven voldoet niet aan de validatie eisen.</returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(BasicDrankViewModel), 201)]
+        [ProducesResponseType(typeof(BasicDrinkDTO), 201)]
         [ProducesResponseType(typeof(IEnumerable<string>), 400)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IActionResult> CreateDrank([FromBody] AddDrankViewModel viewModel)
+        public async Task<IActionResult> CreateDrank([FromBody] CreateDrinkDTO viewModel)
         {
             try
             {
                 var drank = await _drankService.CreateDrank(viewModel);
-                var model = _mapper.Map<BasicDrankViewModel>(drank);
+                var model = _mapper.Map<BasicDrinkDTO>(drank);
 
                 return CreatedAtRoute("FindDrankById", new { drankId = drank.Id }, model);
             }
@@ -112,16 +112,16 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// <param name="drankId">Unieke sleutel van de te wijzigen drank.</param>
         /// <returns>Een model van de gewijzigde drank.</returns>
         [HttpPut("{drankId}")]
-        [ProducesResponseType(typeof(BasicDrankViewModel), 200)]
+        [ProducesResponseType(typeof(BasicDrinkDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<IActionResult> UpdateDrank([FromBody] UpdateDrankViewModel viewModel, [FromRoute] int drankId)
+        public async Task<IActionResult> UpdateDrank([FromBody] UpdateDrinkDTO viewModel, [FromRoute] int drankId)
         {
             try
             {
                 var drank = await _drankService.UpdateDrank(drankId, viewModel);
 
-                var model = _mapper.Map<BasicDrankViewModel>(drank);
+                var model = _mapper.Map<BasicDrinkDTO>(drank);
 
                 return Ok(model);
             }
@@ -137,7 +137,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// <param name="drankId">Unieke sleutel van de drank waarvoor de prijzen gevraagd zijn.</param>
         /// <returns>Lijst van alle prijzen die de drank heeft (gehad)</returns>
         [HttpGet("{drankId}/price")]
-        [ProducesResponseType(typeof(BasicDrankViewModel), 200)]
+        [ProducesResponseType(typeof(BasicDrinkDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<IActionResult> GetPrices([FromRoute] int drankId)

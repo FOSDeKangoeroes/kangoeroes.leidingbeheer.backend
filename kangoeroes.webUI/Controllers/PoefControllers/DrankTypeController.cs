@@ -174,7 +174,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
             {
                 var dranken = await _drankService.GetDrankenForType(drankTypeId, resourceParameters);
 
-                var model = _mapper.Map<IEnumerable<BasicDrankViewModel>>(dranken);
+                var model = _mapper.Map<IEnumerable<BasicDrinkDTO>>(dranken);
 
                 _paginationMetaDataService.AddMetaDataToResponse(Response, dranken);
 

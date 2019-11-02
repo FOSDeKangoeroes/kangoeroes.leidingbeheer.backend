@@ -2,15 +2,13 @@
 
 namespace kangoeroes.webUI.DTOs.Tab.Drink
 {
-  public class AddDrankViewModel
+  public class UpdateDrinkDTO
   {
-    [Required(AllowEmptyStrings = false)]
+    [Required]
     public string Naam { get; set; }
+
     public bool InStock { get; set; }
     [Required]
-    public int TypeId { get; set; }
-    [Required]
     public decimal Prijs { get; set; }
-
   }
 }
