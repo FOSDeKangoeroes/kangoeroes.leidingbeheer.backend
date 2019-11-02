@@ -128,7 +128,7 @@ namespace kangoeroes.core.Services
       //We verwijderen geen type waaraan nog dranken gekoppeld zijn.
       if (nrOfdrinksForType > 0)
       {
-        throw new InvalidOperationException($"{drankTypeToDelete.Naam} heeft nog {nrOfdrinksForType} drank(en) aan zich toegekend. Verwijder deze eerst.");
+        throw new DrinkTypeHasDrinksAttachedException($"{drankTypeToDelete.Naam} heeft nog {nrOfdrinksForType} drank(en) aan zich toegekend. Verwijder deze eerst.");
       }
 
       _drankTypeRepository.Delete(drankTypeToDelete);
