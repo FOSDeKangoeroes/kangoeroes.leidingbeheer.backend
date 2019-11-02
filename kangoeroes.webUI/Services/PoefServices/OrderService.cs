@@ -6,10 +6,10 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Poef;
+using kangoeroes.webUI.DTOs.PoefViewModels.Order;
+using kangoeroes.webUI.DTOs.PoefViewModels.Orderline;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
-using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
-using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;
 
 namespace kangoeroes.webUI.Services.PoefServices
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
+using kangoeroes.webUI.DTOs.Adjective;
 
 namespace kangoeroes.webUI.Profiles
 {
@@ -8,9 +8,9 @@ namespace kangoeroes.webUI.Profiles
   {
     public AdjectiefProfile()
     {
-      CreateMap<Adjectief, BasicAdjectiefViewModel>();
-      CreateMap<AddAdjectiefViewModel, Adjectief>();
-      CreateMap<UpdateAdjectiefViewModel, Adjectief>();
+      CreateMap<Adjectief, BasicAdjectiveDTO>();
+      CreateMap<CreateAdjectiveDTO, Adjectief>();
+      CreateMap<UpdateAdjectiveDTO, Adjectief>();
     }
   }
 }

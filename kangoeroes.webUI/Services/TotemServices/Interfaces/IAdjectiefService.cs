@@ -2,16 +2,16 @@
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.webUI.DTOs.Adjective;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
 
 namespace kangoeroes.webUI.Services.TotemServices.Interfaces
 {
   public interface IAdjectiefService
   {
     PagedList<Adjectief> FindAll(ResourceParameters resourceParameters);
-    Task<BasicAdjectiefViewModel> FindByIdAsync(int id);
-    Task<BasicAdjectiefViewModel> AddAdjectief(AddAdjectiefViewModel viewModel);
-    Task<BasicAdjectiefViewModel> UpdateAdjectief(int adjectiefId, UpdateAdjectiefViewModel viewmodel);
+    Task<BasicAdjectiveDTO> FindByIdAsync(int id);
+    Task<BasicAdjectiveDTO> AddAdjectief(CreateAdjectiveDTO viewModel);
+    Task<BasicAdjectiveDTO> UpdateAdjectief(int adjectiefId, UpdateAdjectiveDTO viewmodel);
   }
 }

@@ -5,11 +5,11 @@ using AutoMapper;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Poef;
+using kangoeroes.webUI.DTOs.PoefViewModels.Drank;
+using kangoeroes.webUI.DTOs.PoefViewModels.DrankType;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
-using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
-using kangoeroes.webUI.ViewModels.PoefViewModels.DrankType;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.webUI.Controllers.PoefControllers

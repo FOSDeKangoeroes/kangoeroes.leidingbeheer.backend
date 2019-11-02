@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.webUI.DTOs.Adjective;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;
-using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -33,7 +33,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
 
       _paginationMetaDataService.AddMetaDataToResponse(Response, adjectieven);
 
-      var model = _mapper.Map<IEnumerable<BasicAdjectiefViewModel>>(adjectieven);
+      var model = _mapper.Map<IEnumerable<BasicAdjectiveDTO>>(adjectieven);
 
 
       return Ok(model);
@@ -54,7 +54,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAdjectief([FromBody] AddAdjectiefViewModel viewModel)
+    public async Task<IActionResult> AddAdjectief([FromBody] CreateAdjectiveDTO viewModel)
     {
       try
       {
@@ -70,7 +70,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
 
     [HttpPut("{adjectiefId}")]
     public async Task<IActionResult> UpdateAdjectief([FromRoute] int adjectiefId,
-      [FromBody] UpdateAdjectiefViewModel viewModel)
+      [FromBody] UpdateAdjectiveDTO viewModel)
     {
       try
       {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.ViewModels.TotemViewModels;
+using kangoeroes.webUI.DTOs.TotemViewModels;
 
 namespace kangoeroes.webUI.Profiles
 {

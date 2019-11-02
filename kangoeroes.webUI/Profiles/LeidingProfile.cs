@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.webUI.ViewModels.LeidingViewModels;
+using kangoeroes.webUI.DTOs.Leader;
 
 namespace kangoeroes.webUI.Profiles
 {
@@ -8,8 +8,8 @@ namespace kangoeroes.webUI.Profiles
   {
     public LeidingProfile()
     {
-      CreateMap<Leiding, BasicLeidingViewModel>();
-      CreateMap<UpdateLeidingViewModel, Leiding>();
+      CreateMap<Leiding, BasicLeaderDTO>();
+      CreateMap<UpdateLeaderDTO, Leiding>();
     }
   }
 }

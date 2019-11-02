@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.webUI.DTOs.FamilyTree;
+using kangoeroes.webUI.DTOs.TotemEntryViewModels;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.ViewModels.FamilyTreeViewModels;
-using kangoeroes.webUI.ViewModels.TotemEntryViewModels;
 
 namespace kangoeroes.webUI.Services.TotemServices.Interfaces
 {
@@ -17,6 +17,6 @@ namespace kangoeroes.webUI.Services.TotemServices.Interfaces
     Task<BasicTotemEntryViewModel> AddVoorOuderAsync(int leidingId, int voorouderId);
     Task<BasicTotemEntryViewModel> UpdateEntry(int entryId, UpdateTotemEntryViewModel viewmodel);
     List<BasicTotemEntryViewModel> GetDescendants(int entryId);
-    List<FamilyTreeViewModel> GetFamilyTree();
+    List<FamilyTreeDTO> GetFamilyTree();
   }
 }

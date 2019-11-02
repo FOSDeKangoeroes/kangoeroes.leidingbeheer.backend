@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.webUI.DTOs.TotemEntryViewModels;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;
-using kangoeroes.webUI.ViewModels.TotemEntryViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.webUI.DTOs.PoefViewModels.Drank;
+using kangoeroes.webUI.DTOs.PoefViewModels.Prijs;
 using kangoeroes.webUI.Interfaces;
-using kangoeroes.webUI.ViewModels.PoefViewModels;
+using kangoeroes.webUI.DTOs.PoefViewModels;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
-using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using kangoeroes.webUI.ViewModels.PoefViewModels.Prijs;
 
 namespace kangoeroes.webUI.Controllers.PoefControllers
 {

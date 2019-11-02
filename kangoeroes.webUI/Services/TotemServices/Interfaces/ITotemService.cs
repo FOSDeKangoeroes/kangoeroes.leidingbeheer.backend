@@ -2,8 +2,8 @@
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.webUI.DTOs.TotemViewModels;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.ViewModels.TotemViewModels;
 
 namespace kangoeroes.webUI.Services.TotemServices.Interfaces
 {

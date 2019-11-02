@@ -4,11 +4,11 @@ using AutoMapper;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models;
+using kangoeroes.webUI.DTOs.Leader;
+using kangoeroes.webUI.DTOs.TakViewModels;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
-using kangoeroes.webUI.ViewModels.LeidingViewModels;
-using kangoeroes.webUI.ViewModels.TakViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -140,7 +140,7 @@ namespace kangoeroes.webUI.Controllers
       var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null) return NotFound($"Tak met id {id} werd niet gevonden");
 
-      var model = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(tak.Leiding);
+      var model = _mapper.Map<IEnumerable<BasicLeaderDTO>>(tak.Leiding);
 
       return Ok(model);
     }

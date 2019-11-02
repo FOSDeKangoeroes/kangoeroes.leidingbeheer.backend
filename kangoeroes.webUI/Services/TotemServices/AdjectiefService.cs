@@ -5,9 +5,9 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.webUI.DTOs.Adjective;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;
-using kangoeroes.webUI.ViewModels.AdjectiefViewModels;
 
 namespace kangoeroes.webUI.Services.TotemServices
 {
@@ -29,16 +29,16 @@ namespace kangoeroes.webUI.Services.TotemServices
       return result;
     }
 
-    public async Task<BasicAdjectiefViewModel> FindByIdAsync(int id)
+    public async Task<BasicAdjectiveDTO> FindByIdAsync(int id)
     {
       var result = await _adjectiefRepository.FindByIdAsync(id);
 
       if (result == null) throw new EntityNotFoundException($"Adjectief met id {id} werd niet gevonden");
 
-      return _mapper.Map<BasicAdjectiefViewModel>(result);
+      return _mapper.Map<BasicAdjectiveDTO>(result);
     }
 
-    public async Task<BasicAdjectiefViewModel> AddAdjectief(AddAdjectiefViewModel viewModel)
+    public async Task<BasicAdjectiveDTO> AddAdjectief(CreateAdjectiveDTO viewModel)
     {
       var exists = await _adjectiefRepository.FindByNaamAsync(viewModel.Naam) != null;
 
@@ -49,12 +49,12 @@ namespace kangoeroes.webUI.Services.TotemServices
       await _adjectiefRepository.AddAsync(newAdjectief);
       await _adjectiefRepository.SaveChangesAsync();
 
-      var model = _mapper.Map<BasicAdjectiefViewModel>(newAdjectief);
+      var model = _mapper.Map<BasicAdjectiveDTO>(newAdjectief);
 
       return model;
     }
 
-    public async Task<BasicAdjectiefViewModel> UpdateAdjectief(int adjectiefId, UpdateAdjectiefViewModel viewmodel)
+    public async Task<BasicAdjectiveDTO> UpdateAdjectief(int adjectiefId, UpdateAdjectiveDTO viewmodel)
     {
       var adjectief = await _adjectiefRepository.FindByIdAsync(adjectiefId);
 
@@ -63,7 +63,7 @@ namespace kangoeroes.webUI.Services.TotemServices
       adjectief = _mapper.Map(viewmodel, adjectief);
       await _adjectiefRepository.SaveChangesAsync();
 
-      var model = _mapper.Map<BasicAdjectiefViewModel>(adjectief);
+      var model = _mapper.Map<BasicAdjectiveDTO>(adjectief);
 
       return model;
     }

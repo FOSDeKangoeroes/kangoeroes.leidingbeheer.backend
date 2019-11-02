@@ -5,9 +5,9 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Poef;
+using kangoeroes.webUI.DTOs.PoefViewModels.DrankType;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
-using kangoeroes.webUI.ViewModels.PoefViewModels.DrankType;
 
 namespace kangoeroes.webUI.Services.PoefServices
 {

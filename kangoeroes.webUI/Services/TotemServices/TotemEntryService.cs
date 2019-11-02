@@ -7,10 +7,10 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.webUI.DTOs.FamilyTree;
+using kangoeroes.webUI.DTOs.TotemEntryViewModels;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;
-using kangoeroes.webUI.ViewModels.FamilyTreeViewModels;
-using kangoeroes.webUI.ViewModels.TotemEntryViewModels;
 
 namespace kangoeroes.webUI.Services.TotemServices
 {
@@ -173,9 +173,9 @@ namespace kangoeroes.webUI.Services.TotemServices
       return _mapper.Map<List<BasicTotemEntryViewModel>>(entries);
     }
 
-    public List<FamilyTreeViewModel> GetFamilyTree()
+    public List<FamilyTreeDTO> GetFamilyTree()
     {
-      var tree = _totemEntryRepository.GetFamilyTree().Select(x => new FamilyTreeViewModel
+      var tree = _totemEntryRepository.GetFamilyTree().Select(x => new FamilyTreeDTO
       {
         Key = x.Id,
         Name = $"{x.Adjectief.Naam} {x.Totem.Naam}",

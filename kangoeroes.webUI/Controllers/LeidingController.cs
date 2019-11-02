@@ -4,9 +4,9 @@ using AutoMapper;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models;
+using kangoeroes.webUI.DTOs.Leader;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
-using kangoeroes.webUI.ViewModels.LeidingViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -46,7 +46,7 @@ namespace kangoeroes.webUI.Controllers
 
       _paginationMetaDataService.AddMetaDataToResponse(Response, leiding);
 
-      var viewModels = _mapper.Map<IEnumerable<BasicLeidingViewModel>>(leiding);
+      var viewModels = _mapper.Map<IEnumerable<BasicLeaderDTO>>(leiding);
       return Ok(viewModels);
     }
 
@@ -56,7 +56,7 @@ namespace kangoeroes.webUI.Controllers
     {
       var leiding = await _leidingRepository.FindByIdAsync(id);
 
-      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+      var model = _mapper.Map<BasicLeaderDTO>(leiding);
 
       if (leiding == null) return NotFound($"Leiding met id {id} werd niet gevonden");
 
@@ -64,7 +64,7 @@ namespace kangoeroes.webUI.Controllers
     }
 
     [HttpPost] //POST api/leiding
-    public async Task<IActionResult> AddLeiding([FromBody] AddLeidingViewModel viewmodel)
+    public async Task<IActionResult> AddLeiding([FromBody] CreateLeaderDTO viewmodel)
     {
       Tak tak = null;
       if (viewmodel.TakId != 0)
@@ -78,13 +78,13 @@ namespace kangoeroes.webUI.Controllers
       leiding = MapToLeiding(leiding, tak, viewmodel);
       await _leidingRepository.AddAsync(leiding);
       await _leidingRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+      var model = _mapper.Map<BasicLeaderDTO>(leiding);
       return CreatedAtRoute(leiding.Id, model);
     }
 
     [HttpPut] //PUT api/leiding
     [Route("{id}")]
-    public async Task<IActionResult> UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeidingViewModel viewmodel)
+    public async Task<IActionResult> UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeaderDTO viewmodel)
     {
       var leiding = await _leidingRepository.FindByIdAsync(id);
 
@@ -95,30 +95,30 @@ namespace kangoeroes.webUI.Controllers
       leiding.LeidingSinds = viewmodel.LeidingSinds.ToLocalTime();
       // await _leidingRepository.UpdateAsync(leiding);
       await _leidingRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+      var model = _mapper.Map<BasicLeaderDTO>(leiding);
       return Ok(model);
     }
 
     [Route("{leidingId}/tak")]
     [HttpPut]
-    public async Task<IActionResult> ChangeTak([FromRoute] int leidingId, [FromBody] ChangeTakViewModel viewModel)
+    public async Task<IActionResult> ChangeTak([FromRoute] int leidingId, [FromBody] UpdateSectionDTO viewModel)
     {
       var leiding = await _leidingRepository.FindByIdAsync(leidingId);
       if (leiding == null) return NotFound($"Opgegeven leiding met id {leidingId} werd niet gevonden");
 
-      var newTak = await _takRepository.FindByIdAsync(viewModel.NewTakId);
-      if (newTak == null) return NotFound($"Opgegeven tak met id {viewModel.NewTakId} werd niet gevonden");
+      var newTak = await _takRepository.FindByIdAsync(viewModel.NewSectionId);
+      if (newTak == null) return NotFound($"Opgegeven tak met id {viewModel.NewSectionId} werd niet gevonden");
 
 
       leiding.Tak = newTak;
       //  _leidingRepository.Update(leiding);
       await _leidingRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicLeidingViewModel>(leiding);
+      var model = _mapper.Map<BasicLeaderDTO>(leiding);
 
       return Ok(model);
     }
 
-    private static Leiding MapToLeiding(Leiding leiding, Tak tak, AddLeidingViewModel viewModel)
+    private static Leiding MapToLeiding(Leiding leiding, Tak tak, CreateLeaderDTO viewModel)
     {
 
       leiding.DatumGestopt = viewModel.DatumGestopt.ToLocalTime();

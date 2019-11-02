@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.webUI.ViewModels.TakViewModels;
+using kangoeroes.webUI.DTOs.TakViewModels;
 
 namespace kangoeroes.webUI.Profiles
 {
