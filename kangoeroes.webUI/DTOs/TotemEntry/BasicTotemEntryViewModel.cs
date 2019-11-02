@@ -4,7 +4,7 @@ using kangoeroes.webUI.DTOs.Leader;
 using kangoeroes.webUI.DTOs.TotemViewModels;
 using Newtonsoft.Json;
 
-namespace kangoeroes.webUI.DTOs.TotemEntryViewModels
+namespace kangoeroes.webUI.DTOs.TotemEntry
 {
   public class BasicTotemEntryViewModel
   {

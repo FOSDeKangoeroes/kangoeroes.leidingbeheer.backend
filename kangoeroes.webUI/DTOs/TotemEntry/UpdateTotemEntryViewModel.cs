@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kangoeroes.webUI.DTOs.TotemEntryViewModels
+namespace kangoeroes.webUI.DTOs.TotemEntry
 {
   public class UpdateTotemEntryViewModel
   {

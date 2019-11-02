@@ -1,6 +1,6 @@
-﻿namespace kangoeroes.webUI.DTOs.TakViewModels
+﻿namespace kangoeroes.webUI.DTOs.Section
 {
-  public class BasicTakViewModel
+  public class BasicSectionDTO
   {
     public int Id { get; set; }
 

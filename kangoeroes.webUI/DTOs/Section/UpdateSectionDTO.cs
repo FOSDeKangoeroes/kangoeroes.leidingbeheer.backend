@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace kangoeroes.webUI.DTOs.TakViewModels
+namespace kangoeroes.webUI.DTOs.Section
 {
-  public class AddTakViewModel
+  public class UpdateSectionDTO
   {
-    public AddTakViewModel(string naam, int volgorde)
-    {
-      Naam = naam;
-      Volgorde = volgorde;
-    }
+    public int Id { get; set; }
 
     [Required(ErrorMessage = "Naam is verplicht.")]
     [StringLength(20, MinimumLength = 1, ErrorMessage = "Lengte van {0} moet tussen {2} en {1} liggen")]

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using kangoeroes.core.Models;
-using kangoeroes.webUI.DTOs.TakViewModels;
+using kangoeroes.webUI.DTOs.Section;
 
 namespace kangoeroes.webUI.Profiles
 {
@@ -8,9 +8,9 @@ namespace kangoeroes.webUI.Profiles
   {
     public TakProfile()
     {
-      CreateMap<AddTakViewModel, Tak>();
-      CreateMap<UpdateTakViewModel, Tak>();
-      CreateMap<Tak, BasicTakViewModel>();
+      CreateMap<CreateSectionDTO, Tak>();
+      CreateMap<UpdateSectionDTO, Tak>();
+      CreateMap<Tak, BasicSectionDTO>();
     }
   }
 }

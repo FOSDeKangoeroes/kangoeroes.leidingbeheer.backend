@@ -5,7 +5,7 @@ using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models;
 using kangoeroes.webUI.DTOs.Leader;
-using kangoeroes.webUI.DTOs.TakViewModels;
+using kangoeroes.webUI.DTOs.Section;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
@@ -38,7 +38,7 @@ namespace kangoeroes.webUI.Controllers
 
      _paginationMetaDataService.AddMetaDataToResponse(Response, takken);
 
-      var model = _mapper.Map<IEnumerable<BasicTakViewModel>>(takken);
+      var model = _mapper.Map<IEnumerable<BasicSectionDTO>>(takken);
       return Ok(model);
     }
 
@@ -55,7 +55,7 @@ namespace kangoeroes.webUI.Controllers
       var tak = await _takRepository.FindByIdAsync(id);
       if (tak == null) return NotFound($"Tak met id {id} werd niet gevonden");
 
-      var model = _mapper.Map<BasicTakViewModel>(tak);
+      var model = _mapper.Map<BasicSectionDTO>(tak);
 
       return Ok(model);
     }
@@ -67,7 +67,7 @@ namespace kangoeroes.webUI.Controllers
     /// <param name="viewmodel"></param>
     /// <returns></returns>
     [HttpPost] //POST /api/tak
-    public async Task<IActionResult> AddTak([FromBody] AddTakViewModel viewmodel)
+    public async Task<IActionResult> AddTak([FromBody] CreateSectionDTO viewmodel)
     {
       var tak = new Tak
       {
@@ -76,7 +76,7 @@ namespace kangoeroes.webUI.Controllers
       };
       await _takRepository.AddAsync(tak);
       await _takRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicTakViewModel>(tak);
+      var model = _mapper.Map<BasicSectionDTO>(tak);
       return CreatedAtRoute("GetTakById", new {id = model.Id}, model);
     }
 
@@ -88,7 +88,7 @@ namespace kangoeroes.webUI.Controllers
     /// <returns></returns>
     [HttpPut] //PUT /api/tak
     [Route("{id}")]
-    public async Task<IActionResult> UpdateTak([FromRoute] int id, [FromBody] AddTakViewModel viewmodel)
+    public async Task<IActionResult> UpdateTak([FromRoute] int id, [FromBody] CreateSectionDTO viewmodel)
     {
       var tak = await _takRepository.FindByIdAsync(id);
 
@@ -100,7 +100,7 @@ namespace kangoeroes.webUI.Controllers
 
       // _takRepository.Update(tak);
       await _takRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicTakViewModel>(tak);
+      var model = _mapper.Map<BasicSectionDTO>(tak);
       return Ok(model);
     }
 
@@ -124,7 +124,7 @@ namespace kangoeroes.webUI.Controllers
 
       _takRepository.Delete(tak);
       await _takRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicTakViewModel>(tak);
+      var model = _mapper.Map<BasicSectionDTO>(tak);
       return Ok(model);
     }
 

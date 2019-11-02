@@ -4,7 +4,7 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.webUI.DTOs.FamilyTree;
-using kangoeroes.webUI.DTOs.TotemEntryViewModels;
+using kangoeroes.webUI.DTOs.TotemEntry;
 using kangoeroes.webUI.Helpers;
 
 namespace kangoeroes.webUI.Services.TotemServices.Interfaces
