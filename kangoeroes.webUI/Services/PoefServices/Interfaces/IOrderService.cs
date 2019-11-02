@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
+using kangoeroes.core.Helpers;
+using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;
 

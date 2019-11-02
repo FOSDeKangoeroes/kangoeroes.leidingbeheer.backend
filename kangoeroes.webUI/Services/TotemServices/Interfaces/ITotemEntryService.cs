@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using kangoeroes.core.Helpers;
+using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.ViewModels.FamilyTreeViewModels;
 using kangoeroes.webUI.ViewModels.TotemEntryViewModels;
 

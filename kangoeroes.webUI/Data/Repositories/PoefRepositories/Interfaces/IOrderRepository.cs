@@ -1,5 +1,5 @@
-﻿using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Data.Repositories.Interfaces;
+﻿using kangoeroes.core.Interfaces;
+using kangoeroes.core.Models.Poef;
 
 namespace kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces
 {

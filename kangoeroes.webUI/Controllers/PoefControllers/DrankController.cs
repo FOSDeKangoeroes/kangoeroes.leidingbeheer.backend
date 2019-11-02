@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Exceptions;
+using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.webUI.ViewModels.PoefViewModels;
-using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;

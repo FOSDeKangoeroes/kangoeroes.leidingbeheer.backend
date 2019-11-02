@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Data.Repositories.Interfaces;
 
 namespace kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces
 {

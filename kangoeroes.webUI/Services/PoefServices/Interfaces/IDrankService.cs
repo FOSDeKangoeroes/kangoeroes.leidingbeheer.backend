@@ -2,9 +2,10 @@
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.ViewModels.PoefViewModels;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
 using System.Collections.Generic;
+using kangoeroes.core.Helpers;
+using kangoeroes.core.Helpers.ResourceParameters;
 
 namespace kangoeroes.webUI.Services.PoefServices.Interfaces
 {

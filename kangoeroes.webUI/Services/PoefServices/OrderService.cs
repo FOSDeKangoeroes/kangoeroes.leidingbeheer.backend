@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using kangoeroes.core.Exceptions;
+using kangoeroes.core.Helpers;
+using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Data.Repositories.Interfaces;
 using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;

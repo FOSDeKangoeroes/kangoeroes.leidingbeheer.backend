@@ -1,4 +1,4 @@
-﻿namespace kangoeroes.webUI.Helpers.ResourceParameters
+﻿namespace kangoeroes.core.Helpers.ResourceParameters
 {
   /// <inheritdoc />
   public class LeidingResourceParameters : ResourceParameters

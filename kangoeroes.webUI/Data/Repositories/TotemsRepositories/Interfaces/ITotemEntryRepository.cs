@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.Data.Repositories.Interfaces;
 
 namespace kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces
 {

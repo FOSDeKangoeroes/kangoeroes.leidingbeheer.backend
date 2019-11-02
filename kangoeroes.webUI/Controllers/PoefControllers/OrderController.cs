@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Exceptions;
-using kangoeroes.webUI.Helpers.ResourceParameters;
+using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Order;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Orderline;

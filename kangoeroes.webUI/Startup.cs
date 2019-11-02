@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models.Responses;
 using kangoeroes.webUI.Data.Context;
 using kangoeroes.webUI.Data.Repositories;
-using kangoeroes.webUI.Data.Repositories.Interfaces;
 using kangoeroes.webUI.Data.Repositories.PoefRepositories;
 using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.webUI.Data.Repositories.TotemsRepositories;

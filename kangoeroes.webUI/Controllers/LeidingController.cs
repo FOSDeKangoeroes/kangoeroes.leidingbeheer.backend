@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models;
-using kangoeroes.webUI.Data.Repositories.Interfaces;
-using kangoeroes.webUI.Helpers.ResourceParameters;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.ViewModels.LeidingViewModels;
 using Microsoft.AspNetCore.Mvc;

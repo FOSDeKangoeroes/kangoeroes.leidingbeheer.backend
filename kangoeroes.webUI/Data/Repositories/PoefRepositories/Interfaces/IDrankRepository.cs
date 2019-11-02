@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using kangoeroes.core.Helpers;
+using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Data.Repositories.Interfaces;
 using kangoeroes.webUI.Helpers;
-using kangoeroes.webUI.Helpers.ResourceParameters;
 
 namespace kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces
 {
