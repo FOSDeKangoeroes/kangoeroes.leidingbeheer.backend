@@ -139,7 +139,7 @@ namespace kangoeroes.webUI.Services.PoefServices
       return order;
     }
 
-    public async Task<Orderline> UpdateOrderline(UpdateOrderlineViewModel viewModel, int orderId, int orderLineId)
+    public async Task<Orderline> UpdateOrderline(UpdateOrderlineDTO dto, int orderId, int orderLineId)
     {
       var order = await _orderRepository.FindByIdAsync(orderId);
 
@@ -155,36 +155,36 @@ namespace kangoeroes.webUI.Services.PoefServices
         throw new EntityNotFoundException($"Orderline met id {orderLineId} werd niet gevonden in het order.");
       }
 
-      var shouldUpdateDrank = viewModel.DrankId != orderline.Drank.Id;
+      var shouldUpdateDrank = dto.DrankId != orderline.Drank.Id;
 
       if (shouldUpdateDrank)
       {
-        var newDrank = await _drankRepository.FindByIdAsync(viewModel.DrankId);
+        var newDrank = await _drankRepository.FindByIdAsync(dto.DrankId);
 
         if (newDrank == null)
         {
-          throw new EntityNotFoundException($"Drank met id {viewModel.DrankId} werd niet gevonden;");
+          throw new EntityNotFoundException($"Drank met id {dto.DrankId} werd niet gevonden;");
 
         }
 
         orderline.Drank = newDrank;
       }
 
-      var shouldUpdateOrderedFor = orderline.OrderedFor.Id != viewModel.OrderedFor;
+      var shouldUpdateOrderedFor = orderline.OrderedFor.Id != dto.OrderedFor;
 
       if (shouldUpdateOrderedFor)
       {
-        var newPerson = await _leidingRepository.FindByIdAsync(viewModel.OrderedFor);
+        var newPerson = await _leidingRepository.FindByIdAsync(dto.OrderedFor);
 
         if (newPerson == null)
         {
-          throw new EntityNotFoundException($"Persoon met id {viewModel.OrderedFor} werd niet gevonden.");
+          throw new EntityNotFoundException($"Persoon met id {dto.OrderedFor} werd niet gevonden.");
         }
 
         orderline.OrderedFor = newPerson;
       }
 
-      orderline.Quantity = viewModel.Quantity;
+      orderline.Quantity = dto.Quantity;
 
       await _orderlineRepository.SaveChangesAsync();
 

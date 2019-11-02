@@ -1,6 +1,6 @@
 ﻿namespace kangoeroes.webUI.DTOs.Tab.Orderline
 {
-  public class BasicOrderlineViewModel
+  public class BasicOrderlineDTO
   {
     public int Id { get; set; }
 

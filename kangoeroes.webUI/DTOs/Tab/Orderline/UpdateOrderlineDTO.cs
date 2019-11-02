@@ -1,6 +1,6 @@
 namespace kangoeroes.webUI.DTOs.Tab.Orderline
 {
-  public class UpdateOrderlineViewModel
+  public class UpdateOrderlineDTO
   {
 
     public int DrankId { get; set; }

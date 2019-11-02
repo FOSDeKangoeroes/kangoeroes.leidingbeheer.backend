@@ -2,7 +2,7 @@ using System;
 
 namespace kangoeroes.webUI.DTOs.Tab.Price
 {
-    public class BasicPrijsViewModel
+    public class BasicPriceDTO
     {
 
         public int Id { get; set; }

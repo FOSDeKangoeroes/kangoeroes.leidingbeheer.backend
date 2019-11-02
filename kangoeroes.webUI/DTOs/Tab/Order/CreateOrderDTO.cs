@@ -10,6 +10,6 @@ namespace kangoeroes.webUI.DTOs.Tab.Order
     public int OrderedById { get; set; }
 
     [Required]
-    public List<CreateOrderlineViewModel> Orderlines { get; set; }
+    public List<CreateOrderlineDTO> Orderlines { get; set; }
   }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace kangoeroes.webUI.DTOs.Tab.Orderline
 {
-  public class CreateOrderlineViewModel
+  public class CreateOrderlineDTO
   {
     [Required]
     public int DrankId { get; set; }

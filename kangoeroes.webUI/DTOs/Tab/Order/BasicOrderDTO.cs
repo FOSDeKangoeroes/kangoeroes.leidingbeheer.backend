@@ -12,6 +12,6 @@ namespace kangoeroes.webUI.DTOs.Tab.Order
 
     public decimal OrderPrice => Orderlines.Sum(x => x.PriceTotal);
 
-    public List<BasicOrderlineViewModel> Orderlines { get; set; }
+    public List<BasicOrderlineDTO> Orderlines { get; set; }
   }
 }

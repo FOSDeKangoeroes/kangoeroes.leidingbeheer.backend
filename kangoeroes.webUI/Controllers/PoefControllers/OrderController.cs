@@ -96,13 +96,13 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
 
     [HttpPut("{orderId}/orderline/{orderlineId}")]
     public async Task<IActionResult> UpdateOrderline(
-      [FromBody] UpdateOrderlineViewModel viewModel,
+      [FromBody] UpdateOrderlineDTO dto,
       [FromRoute] int orderId,
       [FromRoute] int orderlineId)
     {
       try
       {
-        var updatedOrderline = await _orderService.UpdateOrderline(viewModel, orderId, orderlineId);
+        var updatedOrderline = await _orderService.UpdateOrderline(dto, orderId, orderlineId);
 
         return Ok(updatedOrderline);
       }

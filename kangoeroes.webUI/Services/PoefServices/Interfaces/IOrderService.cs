@@ -20,7 +20,7 @@ namespace kangoeroes.webUI.Services.PoefServices.Interfaces
     Task<Order> GetOrderById(int orderId);
     Task<Order> CreateOrder(CreateOrderDTO dto);
     Task<Order> UpdateOrder(UpdateOrderDTO dto, int orderId);
-    Task<Orderline> UpdateOrderline(UpdateOrderlineViewModel viewModel, int orderId, int orderLineId);
+    Task<Orderline> UpdateOrderline(UpdateOrderlineDTO dto, int orderId, int orderLineId);
     Task<Order> DeleteOrder(int orderId);
     Task<Orderline> DeleteOrderline(int orderId, int orderlineId);
   }

@@ -144,7 +144,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         {
             var prices = await _drankService.GetPricesForDrank(drankId);
 
-            var model = _mapper.Map<IEnumerable<BasicPrijsViewModel>>(prices);
+            var model = _mapper.Map<IEnumerable<BasicPriceDTO>>(prices);
             return Ok(model);
         }
     }

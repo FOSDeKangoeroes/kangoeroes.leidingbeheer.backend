@@ -15,8 +15,8 @@ namespace kangoeroes.webUI.Profiles
       CreateMap<Drank, BasicDrinkDTO>();
       CreateMap<DrankType, BasicDrinkTypeDTO>();
       CreateMap<Order, BasicOrderDTO>();
-      CreateMap<Orderline, BasicOrderlineViewModel>();
-      CreateMap<Prijs, BasicPrijsViewModel>();
+      CreateMap<Orderline, BasicOrderlineDTO>();
+      CreateMap<Prijs, BasicPriceDTO>();
     }
   }
 }
