@@ -77,15 +77,13 @@ namespace kangoeroes.webUI
 
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new Info { Title = "Kangoeroes API - V1", Version = "v1" });
-
+        c.SwaggerDoc("v1", new Info {Title = "Kangoeroes API - V1", Version = "v1"});
 
 
         // Endpoint informatie ophalen uit XML-documentatie
-       /* var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
-        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        c.IncludeXmlComments(xmlPath);*/
-
+        /* var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+         var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+         c.IncludeXmlComments(xmlPath);*/
       });
       RegisterDependencyInjection(services);
     }
@@ -120,9 +118,9 @@ namespace kangoeroes.webUI
       services.AddTransient<IDrankService, DrankService>();
       services.AddTransient<IDrankTypeService, DrankTypeService>();
       services.AddTransient<IOrderService, OrderService>();
+      services.AddTransient<ILeaderService, LeaderService>();
 
       services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
-
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -139,27 +137,6 @@ namespace kangoeroes.webUI
       });
 
       app.UseMiddleware<ApplicationErrorHandlerMiddleware>();
-    /*  app.UseExceptionHandler(options =>
-      {
-        options.Run(async context =>
-        {
-
-          context.Response.StatusCode = 500;
-          context.Response.ContentType = "application/json";
-          var response = new ApiServerErrorResponse("Er heeft zich een onverwachte fout voorgedaan. Probeer het later opnieuw.");
-          if (env.IsDevelopment())
-          {
-            var ex = context.Features.Get<IExceptionHandlerFeature>();
-            if (ex != null)
-            {
-              response.DetailedMessage = ex.Error.Message;
-              response.StackTrace = ex.Error.StackTrace;
-            }
-
-            await context.Response.WriteAsync(JsonConvert.SerializeObject(response)).ConfigureAwait(false);
-          }
-        });
-      });*/
 
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
@@ -173,10 +150,7 @@ namespace kangoeroes.webUI
       app.UseSwagger();
 
       // Swagger middleware om UI endpoint te exposen
-      app.UseSwaggerUI(c =>
-      {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1");
-      });
+      app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1"); });
 
       app.UseMvcWithDefaultRoute();
     }

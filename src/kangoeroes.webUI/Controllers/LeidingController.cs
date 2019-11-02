@@ -4,6 +4,7 @@ using AutoMapper;
 using kangoeroes.core.DTOs.Leader;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
+using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
@@ -20,6 +21,7 @@ namespace kangoeroes.webUI.Controllers
     private readonly IMapper _mapper;
     private readonly ITakRepository _takRepository;
     private readonly IPaginationMetaDataService _paginationMetaDataService;
+    private readonly ILeaderService _leaderService;
 
 
     public LeidingController(
@@ -27,12 +29,14 @@ namespace kangoeroes.webUI.Controllers
       ITakRepository takRepository,
       IMapper mapper,
       IConfiguration configuration,
-      IPaginationMetaDataService paginationMetaDataService)
+      IPaginationMetaDataService paginationMetaDataService,
+      ILeaderService leaderService)
     {
       _leidingRepository = leidingRepository;
       _takRepository = takRepository;
       _mapper = mapper;
       _paginationMetaDataService = paginationMetaDataService;
+      _leaderService = leaderService;
     }
 
     /// <summary>
@@ -64,22 +68,12 @@ namespace kangoeroes.webUI.Controllers
     }
 
     [HttpPost] //POST api/leiding
-    public async Task<IActionResult> AddLeiding([FromBody] CreateLeaderDTO viewmodel)
+    public async Task<IActionResult> AddLeiding([FromBody] CreateLeaderDTO dto)
     {
-      Tak tak = null;
-      if (viewmodel.TakId != 0)
-      {
-        tak = await _takRepository.FindByIdAsync(viewmodel.TakId);
-        if (tak == null) return NotFound($"Opgegeven tak met id {viewmodel.TakId} werd niet gevonden");
-      }
 
+      var newLeaderDTO = await _leaderService.CreateLeader(dto);
+      return CreatedAtRoute(newLeaderDTO.Id, newLeaderDTO);
 
-      var leiding = new Leiding();
-      leiding = MapToLeiding(leiding, tak, viewmodel);
-      await _leidingRepository.AddAsync(leiding);
-      await _leidingRepository.SaveChangesAsync();
-      var model = _mapper.Map<BasicLeaderDTO>(leiding);
-      return CreatedAtRoute(leiding.Id, model);
     }
 
     [HttpPut] //PUT api/leiding
@@ -116,18 +110,5 @@ namespace kangoeroes.webUI.Controllers
       return Ok(model);
     }
 
-    private static Leiding MapToLeiding(Leiding leiding, Tak tak, CreateLeaderDTO viewModel)
-    {
-
-      leiding.DatumGestopt = viewModel.DatumGestopt.ToLocalTime();
-      if (viewModel.Email != null && viewModel.Email.Trim() != "") leiding.Email = viewModel.Email;
-
-      leiding.LeidingSinds = viewModel.LeidingSinds.ToLocalTime();
-      leiding.Naam = viewModel.Naam;
-      leiding.Voornaam = viewModel.Voornaam;
-      leiding.Tak = tak;
-
-      return leiding;
-    }
   }
 }
