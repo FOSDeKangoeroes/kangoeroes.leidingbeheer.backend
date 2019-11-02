@@ -5,6 +5,7 @@ using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models;
 using kangoeroes.webUI.Helpers;
+using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.ViewModels.LeidingViewModels;
 using kangoeroes.webUI.ViewModels.TakViewModels;
