@@ -28,8 +28,6 @@ cp env.example .env
 
 De gegevens voor de database moeten niet gewijzigd worden, deze worden gebruikt bij het aanmaken van de MySQL container.
 
-Voor de Auth0 variabelen dien je contact op te nemen met een persoon die over de gegevens beschikt.
-
 ### 3. Initiële data
 
 Wanneer de database container voor de eerste keer wordt aangemaakt, worden .sh, .sql en .sql.gz bestanden in de map `services/data/mariadb/initial-data` in alfabetische volgorde uitgevoerd. De applicatie voert bij het opstarten steeds de nodige migraties uit.
