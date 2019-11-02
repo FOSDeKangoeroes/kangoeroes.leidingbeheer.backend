@@ -29,17 +29,17 @@ namespace kangoeroes.webUI.Services.PoefServices.Interfaces
     /// <summary>
     /// Maakt een nieuw dranktype aan de hand van het gegeven model en slaat dit op in de database.
     /// </summary>
-    /// <param name="viewModel">Model met gegevens voor het nieuwe type</param>
+    /// <param name="dto">Model met gegevens voor het nieuwe type</param>
     /// <returns>Awaitable van het nieuw aangemaakte type</returns>
-    Task<DrankType> CreateDrankType(AddDrankTypeViewModel viewModel);
+    Task<DrankType> CreateDrankType(CreateDrinkTypeDTO dto);
 
     /// <summary>
     /// Wijzigt velden van een bestaand dranktype naar de waarden gegeven in het model.
     /// </summary>
-    /// <param name="viewModel">Model met nieuwe waarden voor het type</param>
+    /// <param name="dto">Model met nieuwe waarden voor het type</param>
     /// <param name="drankTypeId">Unieke sleutel van het te wijzigen type</param>
     /// <returns></returns>
-    Task<DrankType> UpdateDrankType(UpdateDrankTypeViewModel viewModel, int drankTypeId);
+    Task<DrankType> UpdateDrankType(UpdateDrinkTypeDTO dto, int drankTypeId);
 
     /// <summary>
     /// Verwijdert een dranktype. Kan enkel uitgevoerd worden wanneer er geen dranken toegekend zijn aan het te verwijderen type

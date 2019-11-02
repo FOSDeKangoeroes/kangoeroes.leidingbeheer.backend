@@ -4,7 +4,7 @@ using kangoeroes.webUI.DTOs.Tab.Orderline;
 
 namespace kangoeroes.webUI.DTOs.Tab.Order
 {
-  public class BasicOrderViewModel
+  public class BasicOrderDTO
   {
     public int Id { get; set; }
 

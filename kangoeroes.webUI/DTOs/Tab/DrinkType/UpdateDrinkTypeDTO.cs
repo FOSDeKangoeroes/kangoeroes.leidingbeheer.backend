@@ -5,7 +5,7 @@ namespace kangoeroes.webUI.DTOs.Tab.DrinkType
   /// <summary>
   /// Representatie van data nodig om een nieuw dranktype aan te maken.
   /// </summary>
-  public class AddDrankTypeViewModel
+  public class UpdateDrinkTypeDTO
   {
     /// <summary>
     /// Naam van het toe te voegen type

@@ -62,11 +62,11 @@ namespace kangoeroes.webUI.Services.PoefServices
     /// <summary>
     /// Maakt een nieuw dranktype aan de hand van het gegeven model en slaat dit op in de database.
     /// </summary>
-    /// <param name="viewModel">Model met gegevens voor het nieuwe type</param>
+    /// <param name="dto">Model met gegevens voor het nieuwe type</param>
     /// <returns>Awaitable van het nieuw aangemaakte type</returns>
-    public async Task<DrankType> CreateDrankType(AddDrankTypeViewModel viewModel)
+    public async Task<DrankType> CreateDrankType(CreateDrinkTypeDTO dto)
     {
-      var existingType = await _drankTypeRepository.FindTypeByNaam(viewModel.Naam.Trim().ToLowerInvariant());
+      var existingType = await _drankTypeRepository.FindTypeByNaam(dto.Naam.Trim().ToLowerInvariant());
 
       if (existingType != null)
       {
@@ -75,7 +75,7 @@ namespace kangoeroes.webUI.Services.PoefServices
 
       var newType = new DrankType()
       {
-        Naam = viewModel.Naam.Trim()
+        Naam = dto.Naam.Trim()
       };
 
       await _drankTypeRepository.AddAsync(newType);
@@ -88,10 +88,10 @@ namespace kangoeroes.webUI.Services.PoefServices
     /// <summary>
     /// Wijzigt velden van een bestaand dranktype naar de waarden gegeven in het model.
     /// </summary>
-    /// <param name="viewModel">Model met nieuwe waarden voor het type</param>
+    /// <param name="dto">Model met nieuwe waarden voor het type</param>
     /// <param name="drankTypeId">Unieke sleutel van het te wijzigen type</param>
     /// <returns></returns>
-    public async Task<DrankType> UpdateDrankType(UpdateDrankTypeViewModel viewModel, int drankTypeId)
+    public async Task<DrankType> UpdateDrankType(UpdateDrinkTypeDTO dto, int drankTypeId)
     {
       var drankType = await _drankTypeRepository.FindByIdAsync(drankTypeId);
 
@@ -100,7 +100,7 @@ namespace kangoeroes.webUI.Services.PoefServices
         throw new EntityNotFoundException($"Type met id {drankTypeId} werd niet gevonden.");
       }
 
-      drankType.Naam = viewModel.Naam;
+      drankType.Naam = dto.Naam;
 
       await _drankTypeRepository.SaveChangesAsync();
 

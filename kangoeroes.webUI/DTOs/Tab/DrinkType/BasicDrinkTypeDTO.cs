@@ -2,7 +2,7 @@
 
 namespace kangoeroes.webUI.DTOs.Tab.DrinkType
 {
-  public class BasicDrankTypeViewModel
+  public class BasicDrinkTypeDTO
   {
     public int Id { get; set; }
 

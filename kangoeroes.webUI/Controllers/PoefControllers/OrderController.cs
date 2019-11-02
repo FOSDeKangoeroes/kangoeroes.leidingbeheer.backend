@@ -49,13 +49,13 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
 
 
     [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderViewModel viewModel)
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO dto)
     {
       try
       {
-        var newOrder = await _orderService.CreateOrder(viewModel);
+        var newOrder = await _orderService.CreateOrder(dto);
 
-        var model = _mapper.Map<BasicOrderViewModel>(newOrder);
+        var model = _mapper.Map<BasicOrderDTO>(newOrder);
         return Ok(model);
       }
       catch (EntityNotFoundException e)
@@ -65,11 +65,11 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
     }
 
     [HttpPut("{orderId}")]
-    public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderViewModel viewModel, [FromRoute] int orderId)
+    public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderDTO dto, [FromRoute] int orderId)
     {
       try
       {
-        var updatedOrder = await _orderService.UpdateOrder(viewModel, orderId);
+        var updatedOrder = await _orderService.UpdateOrder(dto, orderId);
 
         return Ok(updatedOrder);
       }

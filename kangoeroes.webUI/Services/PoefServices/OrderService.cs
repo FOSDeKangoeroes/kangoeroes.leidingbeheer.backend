@@ -68,23 +68,23 @@ namespace kangoeroes.webUI.Services.PoefServices
     /// <summary>
     /// Creert een order uit het gegeven viewmodel
     /// </summary>
-    /// <param name="viewModel">Viewmodel met de nodige data voor het aanmaken van een nieuw order</param>
+    /// <param name="dto">Viewmodel met de nodige data voor het aanmaken van een nieuw order</param>
     /// <returns>Nieuw aangemaakt order</returns>
     /// <exception cref="EntityNotFoundException">Wordt gegooid wanneer een persoon in het order of in een orderline niet gevonden werd.</exception>
-    public async Task<Order> CreateOrder(CreateOrderViewModel viewModel)
+    public async Task<Order> CreateOrder(CreateOrderDTO dto)
     {
-      var orderedBy = await _leidingRepository.FindByIdAsync(viewModel.OrderedById);
+      var orderedBy = await _leidingRepository.FindByIdAsync(dto.OrderedById);
 
       if (orderedBy == null)
       {
-        throw new EntityNotFoundException($"Besteller met id {viewModel.OrderedById} werd niet gevonden.");
+        throw new EntityNotFoundException($"Besteller met id {dto.OrderedById} werd niet gevonden.");
       }
 
       var newOrder = Order.Create(orderedBy);
 
       await  _orderRepository.AddAsync(newOrder);
 
-      foreach (var lineModel in viewModel.Orderlines)
+      foreach (var lineModel in dto.Orderlines)
       {
         var drank = await _drankRepository.FindByIdAsync(lineModel.DrankId);
 
@@ -111,7 +111,7 @@ namespace kangoeroes.webUI.Services.PoefServices
     }
 
 
-    public async Task<Order> UpdateOrder(UpdateOrderViewModel viewModel, int orderId)
+    public async Task<Order> UpdateOrder(UpdateOrderDTO dto, int orderId)
     {
       var order = await _orderRepository.FindByIdAsync(orderId);
 
@@ -120,15 +120,15 @@ namespace kangoeroes.webUI.Services.PoefServices
         throw new EntityNotFoundException($"Order met id {orderId} werd niet gevonden.");
       }
 
-      bool shouldUpdate = viewModel.OrderedById != order.OrderedBy.Id;
+      bool shouldUpdate = dto.OrderedById != order.OrderedBy.Id;
 
       if (shouldUpdate)
       {
-        var leiding = await _leidingRepository.FindByIdAsync(viewModel.OrderedById);
+        var leiding = await _leidingRepository.FindByIdAsync(dto.OrderedById);
 
         if (leiding == null)
         {
-          throw new EntityNotFoundException($"Persoon met id {viewModel.OrderedById} werd niet gevonden.");
+          throw new EntityNotFoundException($"Persoon met id {dto.OrderedById} werd niet gevonden.");
         }
 
         order.OrderedBy = leiding;

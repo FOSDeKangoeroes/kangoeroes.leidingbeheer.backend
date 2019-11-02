@@ -50,12 +50,12 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// <param name="resourceParameters">Parameters voor het pagineren, filteren en sorteren van de data.</param>
         /// <returns>Een gepagineerde lijst van modellen die alle dranktypes voorstellen.</returns>
         [HttpGet("")]
-        [ProducesResponseType(typeof(IEnumerable<BasicDrankTypeViewModel>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<BasicDrinkTypeDTO>), 200)]
         public IActionResult GetAllTypes([FromQuery] ResourceParameters resourceParameters)
         {
             var types = _drankTypeService.GetAll(resourceParameters);
 
-            var model = _mapper.Map<IEnumerable<BasicDrankTypeViewModel>>(types);
+            var model = _mapper.Map<IEnumerable<BasicDrinkTypeDTO>>(types);
 
             _paginationMetaDataService.AddMetaDataToResponse(Response, types);
 
@@ -69,7 +69,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// <param name="drankTypeId">Unieke sleutel van het type.</param>
         /// <returns>Een model van het gevonden dranktype. Indien er geen dranktype overeenkomt met de sleutel, wordt een 404 teruggegeven met een foutboodschap.</returns>
         [HttpGet("{drankTypeId}", Name = "GetTypeById")]
-        [ProducesResponseType(typeof(BasicDrankTypeViewModel), 200)]
+        [ProducesResponseType(typeof(BasicDrinkTypeDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> GetTypeById([FromRoute] int drankTypeId)
         {
@@ -77,7 +77,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
             {
                 var drankType = await _drankTypeService.GetDrankTypeById(drankTypeId);
 
-                var model = _mapper.Map<BasicDrankTypeViewModel>(drankType);
+                var model = _mapper.Map<BasicDrinkTypeDTO>(drankType);
 
                 return Ok(model);
             }
@@ -90,18 +90,18 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// <summary>
         /// Endpoint voor het aanmaken van een nieuw dranktype
         /// </summary>
-        /// <param name="viewModel">Viewmodel met data voor het aanmaken van een dranktype</param>
+        /// <param name="dto">Viewmodel met data voor het aanmaken van een dranktype</param>
         /// <returns>Model van het nieuw aangemaakte type</returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(BasicDrankTypeViewModel), 201)]
+        [ProducesResponseType(typeof(BasicDrinkTypeDTO), 201)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<IActionResult> CreateType([FromBody] AddDrankTypeViewModel viewModel)
+        public async Task<IActionResult> CreateType([FromBody] CreateDrinkTypeDTO dto)
         {
             try
             {
-                var newType = await _drankTypeService.CreateDrankType(viewModel);
+                var newType = await _drankTypeService.CreateDrankType(dto);
 
-                var model = _mapper.Map<BasicDrankTypeViewModel>(newType);
+                var model = _mapper.Map<BasicDrinkTypeDTO>(newType);
 
                 return CreatedAtRoute("GetTypeById", new { drankTypeId = newType.Id }, model);
             }
@@ -116,20 +116,20 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
         /// Endpoint voor het wijzigen van een type. Dit endpoint wijzigt alle velden naar de waarden gegeven in het model.
         /// Een  optioneel veld in het viewmodel wordt dus leeggemaakt indien dit in het viewmodel leeg is.
         /// </summary>
-        /// <param name="viewModel">Model met de nieuwe gegevens van het type</param>
+        /// <param name="dto">Model met de nieuwe gegevens van het type</param>
         /// <param name="drankTypeId">Unieke sleutel van het te wijzigen type</param>
         /// <returns>Een model van het gewijzigde type</returns>
         [HttpPut("{drankTypeId}")]
-        [ProducesResponseType(typeof(BasicDrankTypeViewModel), 200)]
+        [ProducesResponseType(typeof(BasicDrinkTypeDTO), 200)]
         [ProducesResponseType(typeof(string), 404)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<IActionResult> UpdateType([FromBody] UpdateDrankTypeViewModel viewModel, [FromRoute] int drankTypeId)
+        public async Task<IActionResult> UpdateType([FromBody] UpdateDrinkTypeDTO dto, [FromRoute] int drankTypeId)
         {
             try
             {
-                var updatedType = await _drankTypeService.UpdateDrankType(viewModel, drankTypeId);
+                var updatedType = await _drankTypeService.UpdateDrankType(dto, drankTypeId);
 
-                var model = _mapper.Map<BasicDrankTypeViewModel>(updatedType);
+                var model = _mapper.Map<BasicDrinkTypeDTO>(updatedType);
 
                 return Ok(model);
             }
