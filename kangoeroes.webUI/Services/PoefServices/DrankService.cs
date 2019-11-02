@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.ViewModels.PoefViewModels;
-using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using kangoeroes.webUI.ViewModels.PoefViewModels.Drank;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces.Repositories;
 
 namespace kangoeroes.webUI.Services.PoefServices
 {
@@ -99,5 +99,5 @@ namespace kangoeroes.webUI.Services.PoefServices
         }
     }
 
- 
+
 }

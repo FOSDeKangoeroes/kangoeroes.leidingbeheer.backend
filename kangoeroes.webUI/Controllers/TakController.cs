@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.Helpers.ResourceParameters;
-using kangoeroes.core.Interfaces;
+using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models;
 using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Interfaces;

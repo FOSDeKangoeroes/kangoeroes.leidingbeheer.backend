@@ -40,7 +40,6 @@
     <None Remove="Model\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\Repositories\Interfaces" />
     <Folder Include="Migrations" />
   </ItemGroup>
    <ItemGroup>

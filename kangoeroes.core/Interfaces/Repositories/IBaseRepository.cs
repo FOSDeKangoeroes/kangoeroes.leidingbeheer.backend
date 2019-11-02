@@ -2,7 +2,7 @@
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 
-namespace kangoeroes.core.Interfaces
+namespace kangoeroes.core.Interfaces.Repositories
 {
   public interface IBaseRepository<T> where T : class
   {

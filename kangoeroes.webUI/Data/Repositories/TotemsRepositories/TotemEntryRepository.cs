@@ -4,9 +4,9 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Totems;
 using kangoeroes.webUI.Data.Context;
-using kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces;
 using kangoeroes.webUI.Helpers;
 using Microsoft.EntityFrameworkCore;
 

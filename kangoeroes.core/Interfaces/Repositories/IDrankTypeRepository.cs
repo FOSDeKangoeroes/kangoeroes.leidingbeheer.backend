@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models.Poef;
 
-namespace kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces
+namespace kangoeroes.core.Interfaces.Repositories
 {
   /// <summary>
   /// Repository interface verantwoordelijk voor het definieren van het contract voor het lezen en schrijven van alle data rond dranktypes.

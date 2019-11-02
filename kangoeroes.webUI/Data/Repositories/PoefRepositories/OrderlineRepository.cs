@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
+using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Data.Context;
-using kangoeroes.webUI.Data.Repositories.PoefRepositories.Interfaces;
 using kangoeroes.webUI.Helpers;
 using Microsoft.EntityFrameworkCore;
 

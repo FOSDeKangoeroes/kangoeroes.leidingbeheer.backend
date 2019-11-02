@@ -1,6 +1,6 @@
 using kangoeroes.core.Models;
 
-namespace kangoeroes.core.Interfaces
+namespace kangoeroes.core.Interfaces.Repositories
 {
   public interface ITakRepository : IBaseRepository<Tak>
   {

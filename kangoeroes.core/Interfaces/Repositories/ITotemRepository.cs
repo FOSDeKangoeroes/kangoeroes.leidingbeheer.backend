@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using kangoeroes.core.Interfaces;
 using kangoeroes.core.Models.Totems;
 
-namespace kangoeroes.webUI.Data.Repositories.TotemsRepositories.Interfaces
+namespace kangoeroes.core.Interfaces.Repositories
 {
   public interface ITotemRepository : IBaseRepository<Totem>
   {
