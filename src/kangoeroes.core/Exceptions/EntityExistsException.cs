@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Net;
 
 namespace kangoeroes.core.Exceptions
 {
     /// <summary>
     ///     Representeert de fout wanneer een entiteit reeds bestaat.
     /// </summary>
-    public class EntityExistsException : Exception
+    public class EntityExistsException : HttpStatusCodeException
     {
-        public EntityExistsException(string message) : base(message)
+        public EntityExistsException(string message) : base(HttpStatusCode.BadRequest,message)
         {
         }
     }

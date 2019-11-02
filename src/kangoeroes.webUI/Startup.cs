@@ -8,6 +8,7 @@ using kangoeroes.infrastructure.Repositories;
 using kangoeroes.infrastructure.Repositories.PoefRepositories;
 using kangoeroes.infrastructure.Repositories.TotemsRepositories;
 using kangoeroes.webUI.Interfaces;
+using kangoeroes.webUI.Middleware;
 using kangoeroes.webUI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -137,10 +138,12 @@ namespace kangoeroes.webUI
           .AllowCredentials();
       });
 
-      app.UseExceptionHandler(options =>
+      app.UseMiddleware<ApplicationErrorHandlerMiddleware>();
+    /*  app.UseExceptionHandler(options =>
       {
         options.Run(async context =>
         {
+
           context.Response.StatusCode = 500;
           context.Response.ContentType = "application/json";
           var response = new ApiServerErrorResponse("Er heeft zich een onverwachte fout voorgedaan. Probeer het later opnieuw.");
@@ -156,7 +159,7 @@ namespace kangoeroes.webUI
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response)).ConfigureAwait(false);
           }
         });
-      });
+      });*/
 
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();

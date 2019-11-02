@@ -40,15 +40,11 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     [HttpGet("{id}", Name = "GetTotemById")]
     public async Task<IActionResult> FindById([FromRoute] int id)
     {
-      try
-      {
+
         var totem = await _totemService.FindByIdAsync(id);
         return Ok(totem);
-      }
-      catch (EntityNotFoundException ex)
-      {
-        return NotFound(ex.Message);
-      }
+
+
     }
 
     [HttpPost]
