@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using kangoeroes.core.DTOs.FamilyTree;
+using kangoeroes.core.DTOs.TotemEntry;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.DTOs.FamilyTree;
-using kangoeroes.webUI.DTOs.TotemEntry;
-using kangoeroes.webUI.Helpers;
+using kangoeroes.core.DTOs.TotemEntry;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;
 
 namespace kangoeroes.webUI.Services.TotemServices
@@ -54,6 +54,8 @@ namespace kangoeroes.webUI.Services.TotemServices
 
       return viewmodel;
     }
+
+
 
     public async Task<BasicTotemEntryDTO> AddEntryAsync(CreateTotemEntryDTO viewmodel)
     {

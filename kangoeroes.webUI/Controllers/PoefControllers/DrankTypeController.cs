@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using kangoeroes.core.DTOs.Tab.Drink;
+using kangoeroes.core.DTOs.Tab.DrinkType;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.DTOs.Tab.Drink;
-using kangoeroes.webUI.DTOs.Tab.DrinkType;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;

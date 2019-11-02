@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using kangoeroes.core.DTOs.Tab.Drink;
+using kangoeroes.core.DTOs.Tab.Price;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.webUI.Interfaces;
-using kangoeroes.webUI.DTOs.Tab.Drink;
-using kangoeroes.webUI.DTOs.Tab.Price;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.PoefServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;

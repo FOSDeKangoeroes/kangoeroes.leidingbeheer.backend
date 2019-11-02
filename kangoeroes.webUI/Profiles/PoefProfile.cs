@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using kangoeroes.core.DTOs.Tab.Drink;
+using kangoeroes.core.DTOs.Tab.DrinkType;
+using kangoeroes.core.DTOs.Tab.Order;
+using kangoeroes.core.DTOs.Tab.Orderline;
+using kangoeroes.core.DTOs.Tab.Price;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.DTOs.Tab.Drink;
-using kangoeroes.webUI.DTOs.Tab.DrinkType;
-using kangoeroes.webUI.DTOs.Tab.Order;
-using kangoeroes.webUI.DTOs.Tab.Orderline;
-using kangoeroes.webUI.DTOs.Tab.Price;
 
 namespace kangoeroes.webUI.Profiles
 {

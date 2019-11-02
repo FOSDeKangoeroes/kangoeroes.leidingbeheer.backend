@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
+using kangoeroes.core.DTOs.Adjective;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.DTOs.Adjective;
 using kangoeroes.webUI.Helpers;
 
 namespace kangoeroes.webUI.Services.TotemServices.Interfaces

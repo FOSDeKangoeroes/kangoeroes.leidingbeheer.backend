@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using kangoeroes.core.DTOs.Animal;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
-using kangoeroes.webUI.DTOs.Animal;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
 using kangoeroes.webUI.Services.TotemServices.Interfaces;

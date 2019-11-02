@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using kangoeroes.core.DTOs.Animal;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.DTOs.Animal;
 
 namespace kangoeroes.webUI.Profiles
 {

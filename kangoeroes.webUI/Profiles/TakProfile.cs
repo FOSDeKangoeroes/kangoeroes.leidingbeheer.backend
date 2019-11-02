@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using kangoeroes.core.DTOs.Section;
 using kangoeroes.core.Models;
-using kangoeroes.webUI.DTOs.Section;
 
 namespace kangoeroes.webUI.Profiles
 {

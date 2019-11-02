@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
+using kangoeroes.core.DTOs.Tab.Order;
+using kangoeroes.core.DTOs.Tab.Orderline;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.DTOs.Tab.Order;
-using kangoeroes.webUI.DTOs.Tab.Orderline;
 using kangoeroes.webUI.Helpers;
 
 namespace kangoeroes.webUI.Services.PoefServices.Interfaces

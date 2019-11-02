@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using kangoeroes.core.Models.Poef;
 using System.Collections.Generic;
+using kangoeroes.core.DTOs.Tab.Drink;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
-using kangoeroes.webUI.DTOs.Tab.Drink;
 
 namespace kangoeroes.webUI.Services.PoefServices.Interfaces
 {
