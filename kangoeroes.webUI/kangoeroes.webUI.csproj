@@ -29,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\kangoeroes.core\kangoeroes.core.csproj" />
+    <ProjectReference Include="..\kangoeroes.infrastructure\kangoeroes.infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Model\**" />
@@ -38,9 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Model\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations" />
   </ItemGroup>
    <ItemGroup>
     <None Include="appsettings.*.json">

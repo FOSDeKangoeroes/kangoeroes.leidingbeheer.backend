@@ -1,11 +1,10 @@
-﻿using System;
-using kangoeroes.core.Models;
+﻿using kangoeroes.core.Models;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace kangoeroes.webUI.Data.Context
+namespace kangoeroes.infrastructure
 {
   public class ApplicationDbContext : DbContext
   {

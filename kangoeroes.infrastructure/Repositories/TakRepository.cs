@@ -5,11 +5,9 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models;
-using kangoeroes.webUI.Data.Context;
-using kangoeroes.webUI.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.webUI.Data.Repositories
+namespace kangoeroes.infrastructure.Repositories
 {
   public class TakRepository : BaseRepository<Tak>, ITakRepository
   {

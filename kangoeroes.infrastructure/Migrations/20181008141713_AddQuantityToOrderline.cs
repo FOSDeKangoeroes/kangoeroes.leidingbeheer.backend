@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace kangoeroes.webUI.Migrations
+namespace kangoeroes.infrastructure.Migrations
 {
     public partial class AddQuantityToOrderline : Migration
     {

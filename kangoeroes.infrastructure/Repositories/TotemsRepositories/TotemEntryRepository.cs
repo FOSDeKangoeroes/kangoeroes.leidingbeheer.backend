@@ -6,11 +6,9 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Totems;
-using kangoeroes.webUI.Data.Context;
-using kangoeroes.webUI.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.webUI.Data.Repositories.TotemsRepositories
+namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 {
   public class TotemEntryRepository : BaseRepository<TotemEntry>, ITotemEntryRepository
   {

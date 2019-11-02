@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace kangoeroes.webUI.Migrations
+namespace kangoeroes.infrastructure.Migrations
 {
     public partial class InitialMigration : Migration
     {

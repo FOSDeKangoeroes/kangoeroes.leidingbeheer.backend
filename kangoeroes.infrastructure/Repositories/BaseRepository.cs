@@ -2,10 +2,8 @@
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
-using kangoeroes.webUI.Data.Context;
-using kangoeroes.webUI.Helpers;
 
-namespace kangoeroes.webUI.Data.Repositories
+namespace kangoeroes.infrastructure.Repositories
 {
   public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
   {

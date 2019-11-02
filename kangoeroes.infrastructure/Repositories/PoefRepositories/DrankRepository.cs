@@ -6,11 +6,9 @@ using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.webUI.Data.Context;
-using kangoeroes.webUI.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.webUI.Data.Repositories.PoefRepositories
+namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 {
     public class DrankRepository : BaseRepository<Drank>, IDrankRepository
     {
