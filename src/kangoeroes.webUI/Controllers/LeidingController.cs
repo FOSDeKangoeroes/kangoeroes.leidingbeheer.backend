@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.DTOs.Leader;
@@ -90,6 +91,13 @@ namespace kangoeroes.webUI.Controllers
     {
       var updatedLeader = await _leaderService.ChangeSectionOfLeader(leidingId, viewModel);
       return Ok(updatedLeader);
+    }
+
+    [Route("{leidingId}/transaction")]
+    [HttpGet]
+    public async Task<IActionResult> GetTransactions()
+    {
+      throw new NotImplementedException();
     }
 
   }
