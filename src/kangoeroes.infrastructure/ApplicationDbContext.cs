@@ -1,4 +1,5 @@
 ﻿using kangoeroes.core.Models;
+using kangoeroes.core.Models.Accounting;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,10 @@ namespace kangoeroes.infrastructure
         public DbSet<Drank> Dranken { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Orderline> Orderlines { get; set; }
+        
+        public DbSet<TabAccount> TabAccounts { get; set; }
+        
+        public DbSet<DebtAccount> DebtAccounts { get; set; }
 
     #endregion
 
@@ -43,6 +48,8 @@ namespace kangoeroes.infrastructure
       modelBuilder.Entity<Prijs>(MapPrijs);
       modelBuilder.Entity<Order>(MapOrder);
       modelBuilder.Entity<Orderline>(MapOrderline);
+      modelBuilder.Entity<Account>(MapAccount);
+      modelBuilder.Entity<Transaction>(MapTransaction);
 
       // Alle entiteiten omzetten van PascalCase naar camelCase.
       foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -141,6 +148,24 @@ namespace kangoeroes.infrastructure
       builder.HasOne(x => x.OrderedFor).WithMany(x => x.Consumpties).IsRequired();
       builder.Property(x => x.DrinkPrice).IsRequired();
 
+    }
+
+    private void MapAccount(EntityTypeBuilder<Account> builder)
+    {
+      builder.ToTable("account");
+
+      builder.HasDiscriminator<string>("accountType")
+        .HasValue<DebtAccount>("account_debt")
+        .HasValue<TabAccount>("account_tab");
+    }
+
+    private void MapTransaction(EntityTypeBuilder<Transaction> builder)
+    {
+      builder.ToTable("transaction");
+
+      builder.HasDiscriminator<string>("transactionType")
+        .HasValue<DebtTransaction>("transaction_debt")
+        .HasValue<TabTransaction>("transaction_tab");
     }
 
 
