@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using kangoeroes.core.Models.Accounting;
 using kangoeroes.core.Models.Poef;
 
 namespace kangoeroes.core.Models
@@ -57,10 +56,6 @@ namespace kangoeroes.core.Models
         /// Alle orders die de persoon heeft geplaatst
         /// </summary>
         public List<Order> Orders { get; set; }
-        
-        public Account TabAccount { get; set; }
-        
-        public Account DebtAccount { get; set; }
 
         /// <summary>
         ///     Berekende property die aangeeft of een persoon leiding is geweest.

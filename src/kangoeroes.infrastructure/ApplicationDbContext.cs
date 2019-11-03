@@ -1,5 +1,4 @@
 ﻿using kangoeroes.core.Models;
-using kangoeroes.core.Models.Accounting;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +19,6 @@ namespace kangoeroes.infrastructure
         public DbSet<Drank> Dranken { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Orderline> Orderlines { get; set; }
-        
-        public DbSet<DebtAccount> DebtAccounts { get; set; }
-        
-        public DbSet<TabAccount> TabAccounts { get; set; }
 
     #endregion
 
@@ -48,7 +43,6 @@ namespace kangoeroes.infrastructure
       modelBuilder.Entity<Prijs>(MapPrijs);
       modelBuilder.Entity<Order>(MapOrder);
       modelBuilder.Entity<Orderline>(MapOrderline);
-      modelBuilder.Entity<Account>(MapAccount);
 
       // Alle entiteiten omzetten van PascalCase naar camelCase.
       foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -149,15 +143,7 @@ namespace kangoeroes.infrastructure
 
     }
 
-    private void MapAccount(EntityTypeBuilder<Account> builder)
-    {
-      builder.ToTable("account");
-      builder.HasDiscriminator<string>("account_type")
-        .HasValue<TabAccount>("account_tab")
-        .HasValue<DebtAccount>("account_debt");
-      
-    }
-    
+
     #endregion
   }
 }
