@@ -5,6 +5,7 @@ using kangoeroes.core.Exceptions;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models;
+using kangoeroes.core.Models.Accounting;
 
 namespace kangoeroes.core.Services
 {
@@ -23,6 +24,7 @@ namespace kangoeroes.core.Services
 
         public async Task<BasicLeaderDTO> CreateLeader(CreateLeaderDTO dto)
         {
+            //Check if a section is provided for the leader
             Tak tak = null;
             if (dto.TakId != 0)
             {
@@ -33,12 +35,16 @@ namespace kangoeroes.core.Services
                 }
             }
 
+            
+            //Map the dto to the leader entity. TODO: This smells fishy. I don't like new()
             var leader = new Leiding
             {
                 Naam = dto.Naam.Trim(),
                 Voornaam = dto.Voornaam.Trim(),
                 LeidingSinds = dto.LeidingSinds.ToLocalTime(),
-                Tak = tak
+                Tak = tak,
+                DebtAccount =  new DebtAccount(),
+                TabAccount = new TabAccount()
             };
 
             await _leidingRepository.AddAsync(leader);
