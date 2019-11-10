@@ -9,5 +9,7 @@ namespace kangoeroes.core.Models.Accounting
         public decimal Balance { get; set; }
         
         public DateTime LastUpdated { get; set; }
+        
+        
     }
 }

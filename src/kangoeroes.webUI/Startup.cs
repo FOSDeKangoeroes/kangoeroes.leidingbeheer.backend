@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Responses;
@@ -22,8 +22,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace kangoeroes.webUI
 {
@@ -51,10 +52,10 @@ namespace kangoeroes.webUI
       {
         options.UseMySql(Configuration.GetConnectionString("Default"));
       });
-      services.AddAutoMapper();
+      services.AddAutoMapper(typeof(Startup));
 
       //Mvc en bijhorende opties configureren
-      services.AddMvc().AddJsonOptions(options =>
+      services.AddControllers().AddNewtonsoftJson(options =>
       {
         //Loops in response worden genegeerd. Bijv: Leiding -> Tak -> Leiding -> Tak -> .. wordt Leiding -> Tak
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -62,13 +63,14 @@ namespace kangoeroes.webUI
 
       services.AddAuthentication(options =>
         {
+          
           options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
           options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
         .AddJwtBearer(options =>
         {
-          options.Authority = Configuration["Auth0:domain"];
-          options.Audience = "admin.dekangoeroes.be";
+          options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
+          options.Audience = Configuration["Auth0:Audience"];
         });
 
       services.AddAuthorization();
@@ -77,7 +79,7 @@ namespace kangoeroes.webUI
 
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new Info {Title = "Kangoeroes API - V1", Version = "v1"});
+        c.SwaggerDoc("v1", new OpenApiInfo() {Title = "Kangoeroes API - V1", Version = "v1"});
 
 
         // Endpoint informatie ophalen uit XML-documentatie
@@ -136,15 +138,14 @@ namespace kangoeroes.webUI
           .AllowCredentials();
       });
 
-      app.UseMiddleware<ApplicationErrorHandlerMiddleware>();
-
-      loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-      loggerFactory.AddDebug();
+      //app.UseMiddleware<ApplicationErrorHandlerMiddleware>();
 
       app.UseDefaultFiles();
       app.UseStaticFiles();
 
       app.UseAuthentication();
+
+      app.UseRouting();
 
       // Swagger middleware toevoegen om JSON endpoint te exposen
       app.UseSwagger();
@@ -152,7 +153,7 @@ namespace kangoeroes.webUI
       // Swagger middleware om UI endpoint te exposen
       app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1"); });
 
-      app.UseMvcWithDefaultRoute();
+      app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
   }
 }

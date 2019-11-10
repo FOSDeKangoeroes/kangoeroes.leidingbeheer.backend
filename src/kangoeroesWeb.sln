@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.0.0
-MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kangoeroes.core", "kangoeroes.core\kangoeroes.core.csproj", "{B6CF951E-8394-4844-BD77-7868AE57E326}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kangoeroes.core", "kangoeroes.core\kangoeroes.core.csproj", "{B6CF951E-8394-4844-BD77-7868AE57E326}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kangoeroes.test", "kangoeroes.test\kangoeroes.test.csproj", "{5A0D60AE-6A1F-4F79-A4BC-33806A6A7FC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kangoeroes.test", "kangoeroes.test\kangoeroes.test.csproj", "{5A0D60AE-6A1F-4F79-A4BC-33806A6A7FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kangoeroes.webUI", "kangoeroes.webUI\kangoeroes.webUI.csproj", "{C200195D-B8F6-4806-8A1C-284330A33321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kangoeroes.webUI", "kangoeroes.webUI\kangoeroes.webUI.csproj", "{C200195D-B8F6-4806-8A1C-284330A33321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kangoeroes.infrastructure", "kangoeroes.infrastructure\kangoeroes.infrastructure.csproj", "{015958DE-FCBA-4824-A37B-C3D8C14700D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kangoeroes.infrastructure", "kangoeroes.infrastructure\kangoeroes.infrastructure.csproj", "{015958DE-FCBA-4824-A37B-C3D8C14700D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCFB9985-F463-4DE7-8F0E-CAFBCCEBDCF7}
 	EndGlobalSection
 EndGlobal
