@@ -28,12 +28,12 @@ namespace kangoeroes.infrastructure.Repositories
     /// <returns></returns>
     public abstract Task<T> FindByIdAsync(int id);
 
-    public Task AddAsync(T entity)
-    {
-      return _dbContext.Set<T>().AddAsync(entity);
-    }
+        public Task AddAsync(T entity)
+        {
+            return _dbContext.Set<T>().AddAsync(entity).AsTask();
+        }
 
-    public void Delete(T entity)
+        public void Delete(T entity)
     {
       _dbContext.Set<T>().Remove(entity);
     }

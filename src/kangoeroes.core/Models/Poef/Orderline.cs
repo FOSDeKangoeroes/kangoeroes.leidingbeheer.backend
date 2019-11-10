@@ -1,4 +1,6 @@
-﻿namespace kangoeroes.core.Models.Poef
+﻿using System;
+
+namespace kangoeroes.core.Models.Poef
 {
     /// <summary>
     /// Stelt een onderdeel van een bestelling voor. Een lijn van een bestelling stelt 1 gedronken consumptie voor.
@@ -61,6 +63,10 @@
         /// <returns></returns>
         public static Orderline Create(Drank drank, Leiding orderedFor, Order order, int quantity)
         {
+            if(quantity <= 0)
+            {
+                throw new ArgumentOutOfRangeException($"Er moet minstens een aantal van 1 zijn voor {drank.Naam}");
+            }
             var orderline = new Orderline()
             {
                 Drank = drank,

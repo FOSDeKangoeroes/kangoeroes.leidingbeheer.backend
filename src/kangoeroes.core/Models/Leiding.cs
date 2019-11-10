@@ -58,9 +58,9 @@ namespace kangoeroes.core.Models
         /// </summary>
         public List<Order> Orders { get; set; }
         
-        public DebtAccount DebtAccount { get; set; }
+        public Account DebtAccount { get; set; }
         
-        public TabAccount TabAccount { get; set; }
+        public Account TabAccount { get; set; }
 
         /// <summary>
         ///     Berekende property die aangeeft of een persoon leiding is geweest.

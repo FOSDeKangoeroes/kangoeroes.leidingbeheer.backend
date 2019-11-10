@@ -4,6 +4,7 @@ using kangoeroes.core.Models.Poef;
 using kangoeroes.core.Models.Totems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace kangoeroes.infrastructure
 {
@@ -21,9 +22,8 @@ namespace kangoeroes.infrastructure
         public DbSet<Order> Orders { get; set; }
         public DbSet<Orderline> Orderlines { get; set; }
         
-        public DbSet<TabAccount> TabAccounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         
-        public DbSet<DebtAccount> DebtAccounts { get; set; }
 
     #endregion
 
@@ -56,7 +56,7 @@ namespace kangoeroes.infrastructure
       {
         foreach (var property in entity.GetProperties())
         {
-          property.Relational().ColumnName = char.ToLowerInvariant(property.Name[0]) + property.Name.Substring(1);
+          property.SetColumnName(char.ToLowerInvariant(property.Name[0]) + property.Name.Substring(1));
         }
       }
     }
@@ -77,6 +77,8 @@ namespace kangoeroes.infrastructure
       builder.ToTable("leiding");
       builder.Property(x => x.Naam).IsRequired();
       builder.Property(x => x.Voornaam).IsRequired();
+            builder.HasOne(x => x.DebtAccount).WithOne(x => x.Owner);
+            builder.HasOne(x => x.TabAccount).WithOne(x => x.Owner);
     }
 
     private static void MapTotem(EntityTypeBuilder<Totem> builder)
@@ -152,20 +154,20 @@ namespace kangoeroes.infrastructure
 
     private void MapAccount(EntityTypeBuilder<Account> builder)
     {
-      builder.ToTable("account");
+            builder.ToTable("account")
+                      .Property(e => e.AccountType)
+                      .HasConversion(v => v.ToString(), v => (AccountType)Enum.Parse(typeof(AccountType), v));
+            builder.Property(e => e.Transactions).HasField("_transactions")
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
+                
 
-      builder.HasDiscriminator<string>("accountType")
-        .HasValue<DebtAccount>("account_debt")
-        .HasValue<TabAccount>("account_tab");
+
     }
 
     private void MapTransaction(EntityTypeBuilder<Transaction> builder)
     {
       builder.ToTable("transaction");
 
-      builder.HasDiscriminator<string>("transactionType")
-        .HasValue<DebtTransaction>("transaction_debt")
-        .HasValue<TabTransaction>("transaction_tab");
     }
 
 

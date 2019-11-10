@@ -43,8 +43,8 @@ namespace kangoeroes.core.Services
                 Voornaam = dto.Voornaam.Trim(),
                 LeidingSinds = dto.LeidingSinds.ToLocalTime(),
                 Tak = tak,
-                DebtAccount =  new DebtAccount(),
-                TabAccount = new TabAccount()
+                DebtAccount =  new Account(AccountType.Debt),
+                TabAccount = new Account(AccountType.Tab)
             };
 
             await _leidingRepository.AddAsync(leader);
