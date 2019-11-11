@@ -22,7 +22,7 @@ namespace kangoeroes.core.Models.Accounting
 
         public DateTime LastUpdated { get; set; }
 
-        private HashSet<Transaction> _transactions;
+        private readonly List<Transaction> _transactions;
 
         public IEnumerable<Transaction> Transactions => _transactions.ToList();
 
