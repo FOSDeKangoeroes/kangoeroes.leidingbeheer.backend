@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using kangoeroes.infrastructure;
 
 namespace kangoeroes.infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191111101146_ChangeAccountingRelationsAgain")]
+    partial class ChangeAccountingRelationsAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace kangoeroes.infrastructure.Migrations
 
                     b.Property<decimal>("Balance")
                         .HasColumnName("balance")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnName("lastUpdated")
@@ -61,7 +63,7 @@ namespace kangoeroes.infrastructure.Migrations
 
                     b.Property<decimal>("Amount")
                         .HasColumnName("amount")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnName("date")
@@ -207,7 +209,7 @@ namespace kangoeroes.infrastructure.Migrations
 
                     b.Property<decimal>("DrinkPrice")
                         .HasColumnName("drinkPrice")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int>("OrderId")
                         .HasColumnName("orderId")
@@ -249,7 +251,7 @@ namespace kangoeroes.infrastructure.Migrations
 
                     b.Property<decimal>("Waarde")
                         .HasColumnName("waarde")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 

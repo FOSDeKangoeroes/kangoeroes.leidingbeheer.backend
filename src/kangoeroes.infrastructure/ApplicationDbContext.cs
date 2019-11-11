@@ -73,12 +73,7 @@ namespace kangoeroes.infrastructure
             builder.ToTable("leiding");
             builder.Property(x => x.Naam).IsRequired();
             builder.Property(x => x.Voornaam).IsRequired();
-            builder.HasOne(x => x.DebtAccount)
-                .WithOne()
-                .HasForeignKey<Leiding>(k => k.DebtAccountId);
-            builder.HasOne(x => x.TabAccount)
-                .WithOne()
-                .HasForeignKey<Leiding>(k => k.TabAccountId);
+            builder.HasMany(x => x.Accounts).WithOne(x => x.Owner);
         }
 
         private static void MapTotem(EntityTypeBuilder<Totem> builder)
@@ -126,6 +121,7 @@ namespace kangoeroes.infrastructure
             builder.Property(x => x.CreatedOn).IsRequired();
             builder.Property(x => x.Waarde).IsRequired();
             builder.HasOne(x => x.Drank).WithMany(x => x.Prijzen).IsRequired();
+            builder.Property(x => x.Waarde).HasColumnType("decimal(5,2)");
         }
 
         private void MapOrder(EntityTypeBuilder<Order> builder)
@@ -144,6 +140,7 @@ namespace kangoeroes.infrastructure
             builder.HasOne(x => x.Drank).WithMany(x => x.Orderlines).IsRequired();
             builder.HasOne(x => x.OrderedFor).WithMany(x => x.Consumpties).IsRequired();
             builder.Property(x => x.DrinkPrice).IsRequired();
+            builder.Property(x => x.DrinkPrice).HasColumnType("decimal(5,2)");
         }
 
         private void MapAccount(EntityTypeBuilder<Account> builder)
@@ -153,11 +150,14 @@ namespace kangoeroes.infrastructure
                 .HasConversion(v => v.ToString(), v => (AccountType) Enum.Parse(typeof(AccountType), v));
             builder.Metadata.FindNavigation(nameof(Account.Transactions))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Property(x => x.Balance).HasColumnType("decimal(5,2)");
         }
 
         private void MapTransaction(EntityTypeBuilder<Transaction> builder)
         {
             builder.ToTable("transaction");
+            builder.Property(x => x.Amount).HasColumnType("decimal(5,2)");
         }
 
         #endregion

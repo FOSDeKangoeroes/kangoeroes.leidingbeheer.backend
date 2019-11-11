@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.DTOs.Leader;
 using kangoeroes.core.Exceptions;
@@ -43,9 +44,11 @@ namespace kangoeroes.core.Services
                 Voornaam = dto.Voornaam.Trim(),
                 LeidingSinds = dto.LeidingSinds.ToLocalTime(),
                 Tak = tak,
-                DebtAccount =  new Account(AccountType.Debt),
-                TabAccount = new Account(AccountType.Tab)
+                Accounts = new List<Account>(2)
             };
+            
+            leader.Accounts.Add(new Account(AccountType.Debt));
+            leader.Accounts.Add(new Account(AccountType.Tab));
 
             await _leidingRepository.AddAsync(leader);
             await _leidingRepository.SaveChangesAsync();

@@ -5,6 +5,7 @@ using kangoeroes.core.Models.Responses;
 using kangoeroes.core.Services;
 using kangoeroes.infrastructure;
 using kangoeroes.infrastructure.Repositories;
+using kangoeroes.infrastructure.Repositories.Accounting;
 using kangoeroes.infrastructure.Repositories.PoefRepositories;
 using kangoeroes.infrastructure.Repositories.TotemsRepositories;
 using kangoeroes.webUI.Interfaces;
@@ -63,7 +64,7 @@ namespace kangoeroes.webUI
 
       services.AddAuthentication(options =>
         {
-          
+
           options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
           options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
@@ -111,6 +112,7 @@ namespace kangoeroes.webUI
       services.AddTransient<IDrankTypeRepository, DrankTypeRepository>();
       services.AddTransient<IOrderRepository, OrderRepository>();
       services.AddTransient<IOrderlineRepository, OrderlineRepository>();
+      services.AddTransient<IAccountRepository, AccountRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
 

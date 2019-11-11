@@ -51,7 +51,7 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
     public Task<DrankType> FindTypeByNaam(string naam)
     {
-      return _types.FirstOrDefaultAsync(x => x.Naam.ToLowerInvariant() == naam);
+      return _types.FirstOrDefaultAsync(x => EF.Functions.Like(x.Naam, naam));
     }
 
   }

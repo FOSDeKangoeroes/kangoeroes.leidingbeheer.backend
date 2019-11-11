@@ -21,19 +21,20 @@ namespace kangoeroes.core.Services
         private readonly ILeidingRepository _leidingRepository;
         private readonly IDrankRepository _drankRepository;
         private readonly IOrderlineRepository _orderlineRepository;
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly IAccountRepository _accountRepository;
+
 
         /// <summary>
         /// Maakt een nieuwe instantie van de OrderService klasse
         /// </summary>
         /// <param name="orderRepository">Geïnjecteerde repository om data uit de databank te lezen en schrijven.</param>
-        public OrderService(IOrderRepository orderRepository, ILeidingRepository leidingRepository, IDrankRepository drankRepository, IOrderlineRepository orderlineRepository, ITransactionRepository transactionRepository)
+        public OrderService(IOrderRepository orderRepository, ILeidingRepository leidingRepository, IDrankRepository drankRepository, IOrderlineRepository orderlineRepository, IAccountRepository accountRepository)
         {
             _orderRepository = orderRepository;
             _leidingRepository = leidingRepository;
             _drankRepository = drankRepository;
             _orderlineRepository = orderlineRepository;
-            _transactionRepository = transactionRepository;
+            _accountRepository = accountRepository;
         }
 
         /// <summary>
@@ -109,6 +110,14 @@ namespace kangoeroes.core.Services
                 amount = -amount;
                 var transaction = new Transaction(amount, $"Consumptie #{orderline.Id}");
                 //Account zoeken adhv account type en de orderedFor.
+                var account = await _accountRepository.FindAccountAsync(orderedFor.Id, AccountType.Tab);
+
+                if (account == null)
+                {
+                    throw new EntityNotFoundException($"Er werd geen poefaccount gevonden voor {orderedFor.Voornaam}.");
+                }
+                
+                account.AddTransaction(transaction);
             }
 
             await _orderRepository.SaveChangesAsync();
