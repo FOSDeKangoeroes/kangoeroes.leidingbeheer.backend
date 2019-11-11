@@ -44,6 +44,7 @@ namespace kangoeroes.core.Services
                 Voornaam = dto.Voornaam.Trim(),
                 LeidingSinds = dto.LeidingSinds.ToLocalTime(),
                 Tak = tak,
+                Email = dto.Email.Trim().ToLower(),
                 Accounts = new List<Account>(2)
             };
             

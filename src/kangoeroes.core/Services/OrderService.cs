@@ -106,10 +106,12 @@ namespace kangoeroes.core.Services
 
 
                 await _orderlineRepository.AddAsync(orderline);
+                
+                //Create a transaction for the submitted order
                 var amount = orderline.DrinkPrice * orderline.Quantity;
                 amount = -amount;
-                var transaction = new Transaction(amount, $"Consumptie #{orderline.Id}");
-                //Account zoeken adhv account type en de orderedFor.
+                var transaction = new Transaction(amount, $"{orderline.Quantity}x {orderline.Drank.Naam}");
+                
                 var account = await _accountRepository.FindAccountAsync(orderedFor.Id, AccountType.Tab);
 
                 if (account == null)
