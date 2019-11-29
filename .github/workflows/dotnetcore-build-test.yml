@@ -1,9 +1,10 @@
-name: Deploy to staging
+name: Build and test
 
 on:
   pull_request:
     branches:
       - staging
+      - production
 
 
 jobs:
