@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using kangoeroes.infrastructure;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +17,7 @@ namespace kangoeroes.webUI
     public static IWebHost BuildWebHost(string[] args)
     {
       var host = WebHost.CreateDefaultBuilder(args)
-        .UseKestrel()
+       // .UseKestrel()
         .UseUrls("http://+:5000")
         .UseContentRoot(Directory.GetCurrentDirectory())
         .UseIISIntegration()
