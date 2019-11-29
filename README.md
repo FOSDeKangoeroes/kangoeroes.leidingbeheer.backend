@@ -1,38 +1,47 @@
-# kangoeroes.backend [![Build Status](https://travis-ci.org/FOSDeKangoeroes/kangoeroes.backend.svg?branch=master)](https://travis-ci.org/FOSDeKangoeroes/kangoeroes.backend)
-Backend voor leidingbeheer, poef, schulden en totems
+# Backend Kangoeroeplatform
 
-# Structuur
+Dit is de backend voor het volledige Kangoeroeplatform: totems, poef en schulden.
+De backend bestaat uit een REST-api, geschreven in .NET Core 2.0
 
-## kangoeroes.core
+## How to run
 
-Class library die alle domein logica bevat en alle herbruikbare klassen over de verschillende api's heen. Wordt opgenomen in andere projecten als reference
+### 0. Prerequisites
 
-## kangoeroes.leidingbeheer
+- Docker
+- Docker compose (zit inbegrepen bij Docker)
 
-REST-api voor het beheren van leiding en takken
+### 1. Download
 
-# How to run
+Dit commando gaat er van uit dat je een SSH key hebt toegevoegd (met voldoende rechten) aan je GitHub account. Niet aanwezig? Google is your friend.
 
-## Prerequisites
+``` git
+git clone git@github.com:FOSDeKangoeroes/kangoeroes.backend.git
+```
 
-- .NET Core 2.0 (https://www.microsoft.com/net/learn/get-started/windows)
-- MySQL databank
+### 2. Environment variabelen
 
-## Database
-Alle api's maken gebruik van 1 MySQL databank. Deze kan je aanmaken door `createSchema.sql` uit te voeren op een MySQL databank.
+Alle omgevingsvariabelen dienen zich in de root van het project, in een .env bestand te bevinden.
 
-De naam van de databank kan vrij gekozen worden.
-Noteer zeker volgende zaken, deze moeten aangevuld worden in de `appsettings.json` van alle api projecten. (Zie hieronder)
+``` shell
+cp env.example .env
+```
 
-- Server (meestal `localhost`)
-- Database naam
-- Poort
-- Gebruiker
-- Wachtwoord
+De gegevens voor de database moeten niet gewijzigd worden, deze worden gebruikt bij het aanmaken van de MySQL container.
 
-## Api (eender welke)
+### 3. Initiële data
 
-Om de api te kunnen starten moet er een appsettings.development.json file aanwezig zijn. Deze bevat waarden om de authenticatie werkzaam te krijgen. Ook de database connectie string moet hier ingevuld worden.
-Deze json file moet aangevraagd worden.
+Wanneer de database container voor de eerste keer wordt aangemaakt, worden .sh, .sql en .sql.gz bestanden in de map `services/data/mariadb/initial-data` in alfabetische volgorde uitgevoerd. De applicatie voert bij het opstarten steeds de nodige migraties uit.
 
-In de map van het project voer je `dotnet run` uit. 
+### 4. Docker starten
+
+In de root folder van het project voer je volgend commando uit:
+
+``` shell
+sudo docker-compose up
+```
+
+De eerste keer zal de backend falen om te starten. Dit omdat de database nog opgezet wordt. Nogmaals opstarten should fix it.
+
+De applicatie zal draaien op localhost:5000
+
+De database zal draaien op localhost:3306

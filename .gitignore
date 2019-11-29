@@ -67,3 +67,9 @@ yarn-error.log
 
 # rollup-test output
 /modules/rollup-test/dist/
+
+#Environment
+.env
+
+# Database files
+/services/data/mariadb/mysql/

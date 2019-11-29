@@ -1,0 +1,39 @@
+version: '3.0'
+
+services: 
+  db:
+    image: mariadb
+    container_name: ${MYSQL_HOST}
+    restart: always
+    env_file:
+      - .env
+    environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+            - ${MYSQL_PORT}:3306
+    
+    volumes:
+            - ./services/data/mariadb/mysql:/var/lib/mysql
+            - ./services/data/mariadb/initial-data:/docker-entrypoint-initdb.d:ro
+    restart: always
+    command:
+      mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
+
+  backend:
+    build: ./src
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__Default=Server=${MYSQL_HOST};Database=${MYSQL_DATABASE};userid=${MYSQL_USER};Pwd=${MYSQL_PASSWORD};Port=${MYSQL_PORT};SslMode=none
+
+
+
+
