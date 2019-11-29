@@ -22,7 +22,7 @@ jobs:
       run: dotnet build src/kangoeroesWeb.sln --configuration Release
     - name: dotnet publish
       run: |
-        dotnet publish -c Release -o dotnetcorewebapp 
+        dotnet publish src/kangoeroesWeb.sln -c Release -o dotnetcorewebapp 
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v1
       with: 
