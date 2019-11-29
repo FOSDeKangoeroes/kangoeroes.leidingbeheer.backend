@@ -1,0 +1,27 @@
+name: Deploy to staging
+
+on:
+  pull_request:
+    branches:
+      - staging
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+    
+    # dotnet build and publish
+    - name: Build with dotnet
+      run: dotnet build src/kangoeroesWeb.sln --configuration Release
+    - name: Test with dotnet
+      run: dotnet test src/kangoeroes.test/kangoeroes.test.csproj
+
+
