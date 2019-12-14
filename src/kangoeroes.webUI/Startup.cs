@@ -134,7 +134,7 @@ namespace kangoeroes.webUI
 
       app.UseCors(builder =>
       {
-        builder.WithOrigins("http://staging.admin.dekangoeroes.be", "http://staging.totems.dekangoeroes.be")
+        builder.WithOrigins("http://staging.admin.dekangoeroes.be", "http://staging.totems.dekangoeroes.be","https://totems-staging.azurewebsites.net/")
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials();
