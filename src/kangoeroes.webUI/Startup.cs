@@ -47,6 +47,7 @@ namespace kangoeroes.webUI
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
+      Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
       services.AddCors();
       //Te gebruiken database configureren
       services.AddDbContext<ApplicationDbContext>(options =>
@@ -67,6 +68,7 @@ namespace kangoeroes.webUI
 
           options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
           options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        
         })
         .AddJwtBearer(options =>
         {

@@ -34,10 +34,10 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
         foreach (var query in searchTerms)
         {
           collectionBeforePaging = collectionBeforePaging.Where(x =>
-            x.Totem.Naam.ToLowerInvariant().Contains(query)
-            || x.Adjectief.Naam.ToLowerInvariant().Contains(query)
-            || x.Leiding.Voornaam.ToLowerInvariant().Contains(query)
-            || x.Leiding.Naam.ToLowerInvariant().Contains(query));
+            x.Totem.Naam.Contains(query)
+            || x.Adjectief.Naam.Contains(query)
+            || x.Leiding.Voornaam.Contains(query)
+            || x.Leiding.Naam.Contains(query));
         }
 
       }
