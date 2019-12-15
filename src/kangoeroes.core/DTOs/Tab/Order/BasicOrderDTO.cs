@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using kangoeroes.core.DTOs.Tab.Orderline;
 
@@ -11,6 +12,8 @@ namespace kangoeroes.core.DTOs.Tab.Order
         public string OrderedByNaam { get; set; }
 
         public decimal OrderPrice { get; set; }
+        
+        public DateTime CreatedOn { get; set; }
 
     }
 }
