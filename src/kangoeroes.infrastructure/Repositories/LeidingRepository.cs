@@ -49,7 +49,7 @@ namespace kangoeroes.infrastructure.Repositories
     //Helper method to get all leiding with all dependencies already included
     private IQueryable<Leiding> GetAllWithAllIncluded()
     {
-      return _leiding.Include(x => x.Tak);
+      return _leiding.Include(x => x.Tak).Include(x => x.Accounts);
     }
   }
 }

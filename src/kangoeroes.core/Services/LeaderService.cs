@@ -36,7 +36,7 @@ namespace kangoeroes.core.Services
                 }
             }
 
-            
+
             //Map the dto to the leader entity. TODO: This smells fishy. I don't like new()
             var leader = new Leiding
             {
@@ -47,9 +47,14 @@ namespace kangoeroes.core.Services
                 Email = dto.Email.Trim().ToLower(),
                 Accounts = new List<Account>(2)
             };
-            
-            leader.Accounts.Add(new Account(AccountType.Debt));
-            leader.Accounts.Add(new Account(AccountType.Tab));
+
+            //Only create accounts if needed. E.g.: leaders created through the totemdatabase probably shouldn't have an account at first.
+            if (dto.CreateAccounts)
+            {
+                leader.Accounts.Add(new Account(AccountType.Debt));
+                leader.Accounts.Add(new Account(AccountType.Tab));
+            }
+
 
             await _leidingRepository.AddAsync(leader);
             await _leidingRepository.SaveChangesAsync();
@@ -71,7 +76,7 @@ namespace kangoeroes.core.Services
             leader.Voornaam = dto.Voornaam.Trim();
             leader.LeidingSinds = dto.LeidingSinds.ToLocalTime();
             leader.DatumGestopt = dto.DatumGestopt.ToLocalTime();
-            await  _leidingRepository.SaveChangesAsync();
+            await _leidingRepository.SaveChangesAsync();
 
             var model = _mapper.Map<BasicLeaderDTO>(leader);
 
@@ -101,6 +106,25 @@ namespace kangoeroes.core.Services
             var model = _mapper.Map<BasicLeaderDTO>(leader);
 
             return model;
+        }
+
+        public async Task CreateAccountForLeader(int leaderId, decimal debtStartBalance, decimal tabStartBalance)
+        {
+            var leader = await _leidingRepository.FindByIdAsync(leaderId);
+
+            var debtAccount = new Account(AccountType.Debt)
+            {
+                Balance = debtStartBalance
+            };
+            var tabAccount = new Account(AccountType.Tab)
+            {
+                Balance = tabStartBalance
+            };
+
+            leader.Accounts.Add(debtAccount);
+            leader.Accounts.Add(tabAccount);
+
+           await _leidingRepository.SaveChangesAsync();
         }
     }
 }

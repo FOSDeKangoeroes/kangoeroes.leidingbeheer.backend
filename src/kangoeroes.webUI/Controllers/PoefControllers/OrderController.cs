@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.DTOs.Tab.Order;
@@ -27,7 +28,9 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
     {
       var orders = _orderService.GetAllOrders(resourceParameters);
 
-      return Ok(orders);
+      var mapping = _mapper.Map<IEnumerable<BasicOrderDTO>>(orders);
+
+      return Ok(mapping);
     }
 
     [HttpGet("{orderId}")]

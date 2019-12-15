@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
@@ -65,10 +66,8 @@ namespace kangoeroes.webUI
 
       services.AddAuthentication(options =>
         {
-
           options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
           options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        
         })
         .AddJwtBearer(options =>
         {
@@ -136,13 +135,24 @@ namespace kangoeroes.webUI
 
       app.UseCors(builder =>
       {
-        builder.WithOrigins("http://staging.admin.dekangoeroes.be", "http://staging.totems.dekangoeroes.be","https://totems-staging.azurewebsites.net/")
+        if (env.IsDevelopment())
+        {
+          builder.WithOrigins("http://localhost:4200", "http://localhost:4300")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithExposedHeaders("X-Pagination");
+        }
+
+        builder.WithOrigins("http://staging.admin.dekangoeroes.be", "http://staging.totems.dekangoeroes.be",
+            "https://totems-staging.azurewebsites.net/")
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials();
+
       });
 
-      //app.UseMiddleware<ApplicationErrorHandlerMiddleware>();
+      app.UseMiddleware<ApplicationErrorHandlerMiddleware>();
 
       app.UseDefaultFiles();
       app.UseStaticFiles();
