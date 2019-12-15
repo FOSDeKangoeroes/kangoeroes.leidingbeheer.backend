@@ -124,6 +124,7 @@ namespace kangoeroes.webUI
       services.AddTransient<IDrankTypeService, DrankTypeService>();
       services.AddTransient<IOrderService, OrderService>();
       services.AddTransient<ILeaderService, LeaderService>();
+      services.AddTransient<IOrderlineService, OrderlineService>();
 
       services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
     }

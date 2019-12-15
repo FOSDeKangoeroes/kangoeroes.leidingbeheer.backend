@@ -28,7 +28,7 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
     /// <inheritdoc />
     public override PagedList<Order> FindAll(ResourceParameters resourceParameters)
     {
-      var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
+      var sortString = resourceParameters.GetFullSortString();
 
       var result = GetAllWithAllIncluded();
 

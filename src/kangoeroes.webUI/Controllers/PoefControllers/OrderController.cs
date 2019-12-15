@@ -7,6 +7,7 @@ using kangoeroes.core.DTOs.Tab.Orderline;
 using kangoeroes.core.Exceptions;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Services;
+using kangoeroes.webUI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.webUI.Controllers.PoefControllers
@@ -15,12 +16,14 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
   {
     private readonly IOrderService _orderService;
     private readonly IMapper _mapper;
+    private readonly IPaginationMetaDataService _paginationMetaDataService;
 
 
-    public OrderController(IOrderService orderService, IMapper mapper)
+    public OrderController(IOrderService orderService, IMapper mapper, IPaginationMetaDataService paginationMetaDataService)
     {
       _orderService = orderService;
       _mapper = mapper;
+      _paginationMetaDataService = paginationMetaDataService;
     }
 
     [HttpGet]
@@ -29,6 +32,8 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
       var orders = _orderService.GetAllOrders(resourceParameters);
 
       var mapping = _mapper.Map<IEnumerable<BasicOrderDTO>>(orders);
+
+      _paginationMetaDataService.AddMetaDataToResponse(Response,orders);
 
       return Ok(mapping);
     }
