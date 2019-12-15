@@ -100,5 +100,14 @@ namespace kangoeroes.webUI.Controllers
       throw new NotImplementedException();
     }
 
+    [Route("{leaderId}/account")]
+    [HttpPost]
+    public async Task<IActionResult> CreateAccounts([FromRoute] int leaderId, [FromBody] CreateAccountsDTO dto) {
+
+      await _leaderService.CreateAccountForLeader(leaderId, dto.DebtStartBalance, dto.TabStartBalance);
+
+      return Ok();
+    }
+
   }
 }

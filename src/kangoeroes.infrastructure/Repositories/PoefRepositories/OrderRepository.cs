@@ -36,12 +36,12 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
       if (orderParameters.Start.Year != 1)
       {
-        result = result.Where(x => x.CreatedOn >= orderParameters.Start);
+        result = result.Where(x => x.CreatedOn.Date >= orderParameters.Start);
       }
 
       if (orderParameters.End.Year != 1)
       {
-        result = result.Where(x => x.CreatedOn <= orderParameters.End);
+        result = result.Where(x => x.CreatedOn.Date <= orderParameters.End);
       }
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
