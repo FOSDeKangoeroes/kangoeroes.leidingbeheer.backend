@@ -3,6 +3,7 @@ using AutoMapper;
 using kangoeroes.core.DTOs.Tab.Orderline;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Services;
+using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,15 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
       _paginationMetaDataService.AddMetaDataToResponse(Response, result);
 
       return Ok(mapped);
+    }
+
+    [HttpGet]
+    [Route("summary")]
+    public ActionResult<IEnumerable<PersonOrderlineSummary>> GetOrderlineSummary([FromQuery] OrderlineResourceParameters parameters)
+    {
+      var result = _orderlineService.GetOrderlineSummary(parameters);
+
+      return Ok(result);
     }
   }
 }

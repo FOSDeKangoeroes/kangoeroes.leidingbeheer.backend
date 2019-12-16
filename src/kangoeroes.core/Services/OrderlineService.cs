@@ -1,4 +1,5 @@
-﻿using kangoeroes.core.Helpers;
+﻿using System.Collections.Generic;
+using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
@@ -16,6 +17,11 @@ namespace kangoeroes.core.Services
         public PagedList<Orderline> GetAllOrderlines(OrderlineResourceParameters parameters)
         {
             return _orderlineRepository.FindAll(parameters);
+        }
+
+        public IEnumerable<PersonOrderlineSummary> GetOrderlineSummary(OrderlineResourceParameters parameters)
+        {
+            return _orderlineRepository.GetPersonSummary(parameters);
         }
     }
 }

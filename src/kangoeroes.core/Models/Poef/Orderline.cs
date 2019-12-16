@@ -39,6 +39,7 @@ namespace kangoeroes.core.Models.Poef
         /// </summary>
         public Leiding OrderedFor { get; set; }
         
+        public int OrderedForId { get; set; }
         /// <summary>
         /// Bestelling waartoe de lijn behoort
         /// </summary>
