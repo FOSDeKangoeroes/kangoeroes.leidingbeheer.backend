@@ -11,6 +11,6 @@ namespace kangoeroes.core.Interfaces.Services
         IEnumerable<Period> GetAllPeriods();
         Period CreatePeriod(CreatePeriodDTO dto);
         Period UpdatePeriod(UpdatePeriodDTO dto);
-        void DeletePeriod(Guid periodId);
+        void DeletePeriod(int periodId);
     }
 }

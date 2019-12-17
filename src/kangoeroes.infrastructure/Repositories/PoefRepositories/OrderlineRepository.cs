@@ -71,6 +71,7 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
         private IQueryable<Orderline> FilterOrderlinesByDates(DateTime start, DateTime end,
             IQueryable<Orderline> result)
         {
+            var test = nameof(Order.CreatedOn);
             if (start.Year != 1)
             {
                 result = result.Where(x => x.Order.CreatedOn.Date >= start);
@@ -83,5 +84,6 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
             return result;
         }
+        
     }
 }

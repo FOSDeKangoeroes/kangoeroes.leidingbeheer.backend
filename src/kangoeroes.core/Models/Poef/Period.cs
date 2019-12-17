@@ -12,7 +12,7 @@ namespace kangoeroes.core.Models.Poef
         /// <summary>
         /// Unique identifier of the period.
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         
         /// <summary>
         /// User friendly name for the period. E.g.: September - October 2019
