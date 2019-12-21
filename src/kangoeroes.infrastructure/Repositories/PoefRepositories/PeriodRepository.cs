@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
@@ -19,7 +21,16 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
         public override PagedList<Period> FindAll(ResourceParameters resourceParameters)
         {
-            throw new System.NotImplementedException();
+            var sortString = resourceParameters.GetFullSortString();
+
+            var result = _periods.Where(x => x.Name.Contains(resourceParameters.Query));
+
+            result = result.OrderBy(sortString);
+
+            var pagedList =
+                PagedList<Period>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+
+            return pagedList;
         }
 
         public override Task<Period> FindByIdAsync(int id)
