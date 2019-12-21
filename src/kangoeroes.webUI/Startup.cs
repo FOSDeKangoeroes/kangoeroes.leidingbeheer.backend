@@ -114,6 +114,7 @@ namespace kangoeroes.webUI
       services.AddTransient<IOrderRepository, OrderRepository>();
       services.AddTransient<IOrderlineRepository, OrderlineRepository>();
       services.AddTransient<IAccountRepository, AccountRepository>();
+      services.AddTransient<IPeriodRepository, PeriodRepository>();
 
       services.AddSingleton<IConfiguration>(Configuration);
 
@@ -125,6 +126,7 @@ namespace kangoeroes.webUI
       services.AddTransient<IOrderService, OrderService>();
       services.AddTransient<ILeaderService, LeaderService>();
       services.AddTransient<IOrderlineService, OrderlineService>();
+      services.AddTransient<IPeriodService, PeriodService>();
 
       services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
     }

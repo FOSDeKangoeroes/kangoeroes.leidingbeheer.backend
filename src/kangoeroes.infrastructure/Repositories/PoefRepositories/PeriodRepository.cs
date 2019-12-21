@@ -25,8 +25,11 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
             var result = _periods.Where(x => x.Name.Contains(resourceParameters.Query));
 
-            result = result.OrderBy(sortString);
-
+            if (!string.IsNullOrWhiteSpace(sortString))
+            {
+                     result = result.OrderBy(sortString);
+            }
+            
             var pagedList =
                 PagedList<Period>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 

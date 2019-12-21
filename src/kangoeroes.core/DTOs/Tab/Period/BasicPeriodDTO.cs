@@ -4,7 +4,7 @@ namespace kangoeroes.core.DTOs.Tab.Period
 {
     public class BasicPeriodDTO
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         
         public string Name { get; set; }
         

@@ -12,6 +12,8 @@ namespace kangoeroes.core.Interfaces.Services
     {
         PagedList<Period> GetAllPeriods(ResourceParameters resourceParameters);
         Task<Period> CreatePeriod(CreatePeriodDTO dto);
+
+        Task<Period> FindPeriodById(int periodId);
         Task<Period> UpdatePeriod(int periodId, UpdatePeriodDTO dto);
         Task DeletePeriod(int periodId);
     }

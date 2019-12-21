@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using kangoeroes.core.DTOs.Tab.Period;
 using kangoeroes.core.Exceptions;
@@ -26,6 +27,10 @@ namespace kangoeroes.core.Services
 
         public async Task<Period> CreatePeriod(CreatePeriodDTO dto)
         {
+            if (dto.End < dto.Start)
+            {
+                throw new HttpStatusCodeException(HttpStatusCode.BadRequest, $"Einddatum moet na de startdatum liggen.");
+            }
             var newPeriod = new Period
             {
                 Name = dto.Name.Trim(),
@@ -37,6 +42,17 @@ namespace kangoeroes.core.Services
             await _periodRepository.SaveChangesAsync();
 
             return newPeriod;
+        }
+
+        public async Task<Period> FindPeriodById(int periodId)
+        {
+            var period = await _periodRepository.FindByIdAsync(periodId);
+            if (period == null)
+            {
+                throw new EntityNotFoundException($"Periode met ID {periodId} werd niet gevonden.");
+            }
+
+            return period;
         }
 
         public async Task<Period> UpdatePeriod(int periodId, UpdatePeriodDTO dto)
