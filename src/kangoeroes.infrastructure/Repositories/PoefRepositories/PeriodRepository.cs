@@ -22,8 +22,13 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
         public override PagedList<Period> FindAll(ResourceParameters resourceParameters)
         {
             var sortString = resourceParameters.GetFullSortString();
+            IQueryable<Period> result = _periods;
 
-            var result = _periods.Where(x => x.Name.Contains(resourceParameters.Query));
+            if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
+            {
+                   result = _periods.Where(x => x.Name.Contains(resourceParameters.Query));
+            }
+          
 
             if (!string.IsNullOrWhiteSpace(sortString))
             {
