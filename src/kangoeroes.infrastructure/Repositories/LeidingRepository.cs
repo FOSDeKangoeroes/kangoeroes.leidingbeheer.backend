@@ -26,8 +26,8 @@ namespace kangoeroes.infrastructure.Repositories
 
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
-        result = result.Where(x => (x.Voornaam + " " + x.Naam).Contains(resourceParameters.Query) |
-                                   x.Email.Contains(resourceParameters.Query));
+        result = result.Where(x => (x.Voornaam.ToLower() + " " + x.Naam.ToLower()).Contains(resourceParameters.Query.ToLower()) ||
+                                   x.Email.ToLower().Contains(resourceParameters.Query));
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 

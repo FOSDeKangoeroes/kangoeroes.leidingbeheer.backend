@@ -28,8 +28,8 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
-        result = result.Where(x => x.Naam.ToLowerInvariant().Trim()
-          .Contains(resourceParameters.Query.ToLowerInvariant().Trim()));
+        result = result.Where(x => x.Naam.ToLower()
+          .Contains(resourceParameters.Query.ToLower()));
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 

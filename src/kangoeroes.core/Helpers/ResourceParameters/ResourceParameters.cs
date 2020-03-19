@@ -36,5 +36,7 @@
     /// String om te zoeken in de elementen. Matching criteria hangt af van de repository implementatie.
     /// </summary>
     public string Query { get; set; } = "";
+
+    public string GetFullSortString() => SortBy + " " + SortOrder;
   }
 }

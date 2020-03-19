@@ -23,6 +23,7 @@ namespace kangoeroes.infrastructure
         public DbSet<Orderline> Orderlines { get; set; }
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Period> Periods { get; set; }
 
         #endregion
 
