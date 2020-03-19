@@ -1,7 +1,7 @@
 # Backend Kangoeroeplatform
 
 Dit is de backend voor het volledige Kangoeroeplatform: totems, poef en schulden.
-De backend bestaat uit een REST-api, geschreven in .NET Core 2.0
+De backend bestaat uit een REST-api, geschreven in .NET Core 3.0
 
 ## How to run
 
