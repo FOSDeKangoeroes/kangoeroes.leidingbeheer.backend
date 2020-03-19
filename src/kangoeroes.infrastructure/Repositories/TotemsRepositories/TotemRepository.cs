@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using kangoeroes.core.Helpers;
@@ -25,7 +26,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
-        result = result.Where(x => x.Naam.Contains(resourceParameters.Query));
+        result = result.Where(x => x.Naam.ToLower().Contains(resourceParameters.Query.ToLower()));
 
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
@@ -42,12 +43,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
     public Task<Totem> FindByNaamAsync(string naam)
     {
-      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Naam == naam);
-    }
-
-    public Task<Totem> TotemExists(string naam)
-    {
-      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Matches(naam));
+      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => String.Equals(x.Naam, naam, StringComparison.CurrentCultureIgnoreCase));
     }
 
     private IQueryable<Totem> GetAllWithAllIncluded()

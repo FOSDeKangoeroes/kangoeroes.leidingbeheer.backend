@@ -36,6 +36,12 @@ namespace kangoeroes.webUI.Middleware
       }
     }
 
+    /// <summary>
+    /// Handles exceptions of our own custom types. These allow for a status code to be provided.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="exception"></param>
+    /// <returns></returns>
     private Task HandleExceptionAsync(HttpContext context, HttpStatusCodeException exception)
     {
       var code = HttpStatusCode.InternalServerError;
@@ -47,6 +53,12 @@ namespace kangoeroes.webUI.Middleware
       return context.Response.WriteAsync(result);
     }
 
+    /// <summary>
+    /// Handles all exceptions thrown not by us. These are all unexpected exceptions.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="e"></param>
+    /// <returns></returns>
     private Task HandleExceptionAsync(HttpContext context, Exception e)
     {
       context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;

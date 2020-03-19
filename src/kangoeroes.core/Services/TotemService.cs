@@ -40,7 +40,7 @@ namespace kangoeroes.core.Services
 
     public async Task<BasicAnimalDTO> AddTotemAsync(AddAnimalDTO viewModel)
     {
-      var exists = await _totemRepository.TotemExists(viewModel.Naam) != null;
+      var exists = await _totemRepository.FindByNaamAsync(viewModel.Naam) != null;
 
       if (exists) throw new EntityExistsException($"Totem met naam {viewModel.Naam} bestaat al");
 
