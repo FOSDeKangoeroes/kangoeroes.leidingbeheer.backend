@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.DTOs.Adjective;
@@ -7,11 +8,13 @@ using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace kangoeroes.webUI.Controllers.TotemControllers
 {
+  [Authorize(Roles = "opperhoofd" )]
   public class AdjectiefController : BaseController
   {
     private readonly IAdjectiefService _adjectiefService;
@@ -29,6 +32,7 @@ namespace kangoeroes.webUI.Controllers.TotemControllers
     [HttpGet]
     public IActionResult GetAll([FromQuery] ResourceParameters resourceParameters)
     {
+
       var adjectieven = _adjectiefService.FindAll(resourceParameters);
 
       _paginationMetaDataService.AddMetaDataToResponse(Response, adjectieven);

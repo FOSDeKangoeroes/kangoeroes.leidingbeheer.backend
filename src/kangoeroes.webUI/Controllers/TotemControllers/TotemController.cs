@@ -7,11 +7,13 @@ using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace kangoeroes.webUI.Controllers.TotemControllers
 {
+  [Authorize(Roles = "opperhoofd" )]
   public class TotemController : BaseController
   {
     private readonly IMapper _mapper;
