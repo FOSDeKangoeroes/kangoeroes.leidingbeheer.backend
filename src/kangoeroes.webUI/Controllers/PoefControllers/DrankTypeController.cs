@@ -10,6 +10,7 @@ using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.webUI.Controllers.PoefControllers
@@ -17,6 +18,7 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
   /// <summary>
   /// Controller voor de endpoints die te maken hebben met dranktypes
   /// </summary>
+  [Authorize(Roles = "financieel_verantwoordelijke" )]
   public class DrankTypeController : BaseController
   {
     private readonly IDrankTypeService _drankTypeService;

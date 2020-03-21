@@ -72,6 +72,10 @@ namespace kangoeroes.webUI
         {
           options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
           options.Audience = Configuration["Auth0:Audience"];
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+            RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+          };
         });
 
       services.AddAuthorization();
@@ -151,7 +155,6 @@ namespace kangoeroes.webUI
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials();
-
       });
 
       app.UseMiddleware<ApplicationErrorHandlerMiddleware>();
@@ -161,8 +164,9 @@ namespace kangoeroes.webUI
 
       app.UseAuthentication();
 
-      app.UseRouting();
 
+      app.UseRouting();
+      app.UseAuthorization();
       // Swagger middleware toevoegen om JSON endpoint te exposen
       app.UseSwagger();
 
