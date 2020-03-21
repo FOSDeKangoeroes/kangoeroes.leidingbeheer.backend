@@ -82,7 +82,7 @@ namespace kangoeroes.webUI.Controllers
     [Route("{id}")]
     public async Task<IActionResult> UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeaderDTO dto)
     {
-      var updatedLeader = _leaderService.UpdateLeader(id, dto);
+      var updatedLeader = await _leaderService.UpdateLeader(id, dto);
       return Ok(updatedLeader);
     }
 
