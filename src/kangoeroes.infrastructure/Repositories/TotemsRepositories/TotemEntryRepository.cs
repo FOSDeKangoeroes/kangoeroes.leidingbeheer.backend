@@ -25,9 +25,6 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
     public override PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters)
     {
       
-      
-      //var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
-
       IQueryable<TotemEntry> collectionBeforePaging = GetAllWithAllIncluded().AsNoTracking();
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
@@ -66,6 +63,9 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
         return PagedList<TotemEntry>.Create(newCollection, resourceParameters.PageNumber, resourceParameters.PageSize);
      
       }
+      
+      
+      //We want to sort on a database, property, back to normal.
       if (!string.IsNullOrWhiteSpace(resourceParameters.GetFullSortString()))
       {
         collectionBeforePaging = collectionBeforePaging.OrderBy(resourceParameters.GetFullSortString());
