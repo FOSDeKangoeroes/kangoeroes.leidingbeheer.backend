@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Reflection;
 using System.Threading.Tasks;
 using kangoeroes.core.Helpers;
 using kangoeroes.core.Helpers.ResourceParameters;
@@ -21,9 +24,8 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
     public override PagedList<TotemEntry> FindAll(ResourceParameters resourceParameters)
     {
-      var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
-
-      var collectionBeforePaging = GetAllWithAllIncluded();
+      
+      IQueryable<TotemEntry> collectionBeforePaging = GetAllWithAllIncluded().AsNoTracking();
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
       {
@@ -42,14 +44,34 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
       }
 
-
-
-      if (!string.IsNullOrWhiteSpace(sortString)) collectionBeforePaging = collectionBeforePaging.OrderBy(sortString);
-
-      var pagedList = PagedList<TotemEntry>.Create(collectionBeforePaging, resourceParameters.PageNumber,
-        resourceParameters.PageSize);
-
-      return pagedList;
+      //These values are calculated properties and can't be translated to SQL, we have to override our dynamic sorting. This feels very hacky though :D
+      if (resourceParameters.SortBy == "reuseDateTotem" || resourceParameters.SortBy == "reuseDateAdjectief")
+      {
+       
+        var property = typeof(TotemEntry).GetProperty(resourceParameters.SortBy, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+        
+        var newCollection = collectionBeforePaging.AsEnumerable<TotemEntry>();
+        
+        switch (resourceParameters.SortOrder)
+        {
+          case "asc": newCollection = newCollection.AsEnumerable().OrderBy(x => property.GetValue(x));
+            break;
+          case "desc": newCollection = newCollection.AsEnumerable().OrderByDescending(x => property.GetValue(x));
+            break;
+        }
+        
+        return PagedList<TotemEntry>.Create(newCollection, resourceParameters.PageNumber, resourceParameters.PageSize);
+     
+      }
+      
+      
+      //We want to sort on a database, property, back to normal.
+      if (!string.IsNullOrWhiteSpace(resourceParameters.GetFullSortString()))
+      {
+        collectionBeforePaging = collectionBeforePaging.OrderBy(resourceParameters.GetFullSortString());
+      }
+      return PagedList<TotemEntry>.Create(collectionBeforePaging, resourceParameters.PageNumber, resourceParameters.PageSize);
+      
     }
 
     public override Task<TotemEntry> FindByIdAsync(int id)

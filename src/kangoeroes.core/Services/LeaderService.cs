@@ -71,7 +71,7 @@ namespace kangoeroes.core.Services
                 throw new EntityNotFoundException($"Leiding met id {leaderId} werd niet gevonden.");
             }
 
-            leader.Email = dto.Email.Trim().ToLower();
+            leader.Email = dto.Email?.Trim().ToLower();
             leader.Naam = dto.Naam.Trim();
             leader.Voornaam = dto.Voornaam.Trim();
             leader.LeidingSinds = dto.LeidingSinds.ToLocalTime();

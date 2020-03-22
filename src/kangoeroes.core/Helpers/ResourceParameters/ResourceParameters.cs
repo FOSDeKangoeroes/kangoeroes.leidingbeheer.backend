@@ -5,7 +5,7 @@
   /// </summary>
   public class ResourceParameters
   {
-    private const int MaxPageSize = 100;
+    private const int MaxPageSize = 250;
     private int _pageSize = 25;
 
     /// <summary>

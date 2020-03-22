@@ -5,10 +5,12 @@ using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Poef;
 using kangoeroes.webUI.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kangoeroes.webUI.Controllers.PoefControllers
 {
+  [Authorize(Roles = "financieel_verantwoordelijke" )]
   public class OrderlineController: BaseController
   {
     private readonly IOrderlineService _orderlineService;

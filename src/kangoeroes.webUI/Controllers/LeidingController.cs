@@ -9,13 +9,14 @@ using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 
 namespace kangoeroes.webUI.Controllers
 {
-  //[Authorize(Roles = "financieel_verantwoordelijke")]
+  [Authorize(Roles = "financieel_verantwoordelijke, opperhoofd" )]
   public class LeidingController : BaseController
   {
     private readonly ILeidingRepository _leidingRepository;
@@ -81,7 +82,7 @@ namespace kangoeroes.webUI.Controllers
     [Route("{id}")]
     public async Task<IActionResult> UpdateLeiding([FromRoute] int id, [FromBody] UpdateLeaderDTO dto)
     {
-      var updatedLeader = _leaderService.UpdateLeader(id, dto);
+      var updatedLeader = await _leaderService.UpdateLeader(id, dto);
       return Ok(updatedLeader);
     }
 
