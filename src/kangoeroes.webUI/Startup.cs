@@ -1,4 +1,5 @@
 using System;
+using System.Security.Claims;
 using AutoMapper;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
@@ -8,10 +9,13 @@ using kangoeroes.infrastructure.Repositories;
 using kangoeroes.infrastructure.Repositories.Accounting;
 using kangoeroes.infrastructure.Repositories.PoefRepositories;
 using kangoeroes.infrastructure.Repositories.TotemsRepositories;
+using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Middleware;
 using kangoeroes.webUI.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -72,13 +76,18 @@ namespace kangoeroes.webUI
         {
           options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
           options.Audience = Configuration["Auth0:Audience"];
-          options.TokenValidationParameters = new TokenValidationParameters
-          {
-            RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-          };
         });
 
-      services.AddAuthorization();
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("ResourceOwner",
+          policy =>
+          {
+            policy.RequireAuthenticatedUser();
+            policy.Requirements.Add(new ResourceOwnerRequirement());
+          })
+          ;
+      });
 
       services.AddOptions();
 
@@ -97,7 +106,9 @@ namespace kangoeroes.webUI
 
     private void RegisterDependencyInjection(IServiceCollection services)
     {
+      services.AddHttpContextAccessor();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+      services.AddSingleton<IAuthorizationHandler, ResourceOwnerHandler>();
 
       services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
       {
@@ -143,7 +154,7 @@ namespace kangoeroes.webUI
       {
         if (env.IsDevelopment())
         {
-          builder.WithOrigins("http://localhost:4200", "http://localhost:4300")
+          builder.WithOrigins("http://localhost:4200", "http://localhost:4300", "http://localhost:4400")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()
