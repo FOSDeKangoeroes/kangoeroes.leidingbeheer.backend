@@ -57,7 +57,6 @@ namespace kangoeroes.webUI.Controllers
       return Ok(viewModels);
     }
 
-    [Authorize(Policy = "ResourceOwner")]
     [HttpGet("{id}", Name = "GetLeidingById")] //GET /api/leiding/id
     // [Authorize(Roles = "financieel_verantwoordelijke")]
     public async Task<IActionResult> GetById([FromRoute] int id)
