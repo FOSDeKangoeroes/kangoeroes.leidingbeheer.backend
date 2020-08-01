@@ -9,5 +9,7 @@
     public int Volgorde { get; set; }
 
     public int LeidingCount { get; set; }
+    
+    public bool TabIsAllowed { get; set; }
   }
 }
