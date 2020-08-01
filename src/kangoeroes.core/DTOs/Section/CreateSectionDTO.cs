@@ -17,5 +17,8 @@ namespace kangoeroes.core.DTOs.Section
     [Required(ErrorMessage = "Volgorde is verplicht.")]
     [Range(1, int.MaxValue, ErrorMessage = "{0} moet groter of gelijk aan {1} zijn")]
     public int Volgorde { get; set; }
+
+    [Required(ErrorMessage = "TabIsAllowed is verplicht.")]
+    public bool TabIsAllowed { get; set; }
   }
 }

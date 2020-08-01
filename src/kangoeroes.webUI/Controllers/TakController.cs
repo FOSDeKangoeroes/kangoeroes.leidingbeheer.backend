@@ -74,7 +74,8 @@ namespace kangoeroes.webUI.Controllers
       var tak = new Tak
       {
         Naam = viewmodel.Naam,
-        Volgorde = viewmodel.Volgorde
+        Volgorde = viewmodel.Volgorde,
+        TabIsAllowed = viewmodel.TabIsAllowed
       };
       await _takRepository.AddAsync(tak);
       await _takRepository.SaveChangesAsync();
@@ -99,6 +100,7 @@ namespace kangoeroes.webUI.Controllers
 
       tak.Naam = viewmodel.Naam;
       tak.Volgorde = viewmodel.Volgorde;
+      tak.TabIsAllowed = viewmodel.TabIsAllowed;
 
       // _takRepository.Update(tak);
       await _takRepository.SaveChangesAsync();

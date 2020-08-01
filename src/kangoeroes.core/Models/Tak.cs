@@ -30,6 +30,11 @@ namespace kangoeroes.core.Models
         ///     een hoog nummer.
         /// </summary>
         public int Volgorde { get; set; }
+        
+        /// <summary>
+        /// Indicates whether people in this section have the ability to use the tab system or not.
+        /// </summary>
+        public bool TabIsAllowed { get; set; }
 
         /// <summary>
         ///     Alle leiding die zich in de tak bevindt.
