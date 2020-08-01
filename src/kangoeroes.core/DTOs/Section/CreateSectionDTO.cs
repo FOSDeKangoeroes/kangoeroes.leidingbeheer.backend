@@ -19,6 +19,6 @@ namespace kangoeroes.core.DTOs.Section
     public int Volgorde { get; set; }
 
     [Required(ErrorMessage = "TabIsAllowed is verplicht.")]
-    public bool TabIsAllowed { get; set; }
+    public bool TabIsAllowed { get; set; } = true;
   }
 }
