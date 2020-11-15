@@ -26,6 +26,11 @@ namespace kangoeroes.infrastructure.Repositories
 
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
+      if (resourceParameters is TakResourceParameters takResourceParameters && takResourceParameters.TabIsAllowed)
+      {
+        result = result.Where(x => x.TabIsAllowed == true);
+      }
+
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
         result = result.Where(x => x.Naam.Contains(resourceParameters.Query));
 

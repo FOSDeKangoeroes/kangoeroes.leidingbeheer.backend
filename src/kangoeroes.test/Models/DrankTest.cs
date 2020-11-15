@@ -55,7 +55,7 @@ namespace kangoeroes.test.Models
             _drank.TryAddNewPrijs(newPrijs);
             
             Assert.Equal(newPrijs, _drank.CurrentPrijs.Waarde);
-            Assert.Equal(1, _drank.Prijzen.Count);
+            Assert.Single(_drank.Prijzen);
         }
 
         [Fact]

@@ -8,14 +8,14 @@ using kangoeroes.infrastructure.Repositories;
 using kangoeroes.infrastructure.Repositories.Accounting;
 using kangoeroes.infrastructure.Repositories.PoefRepositories;
 using kangoeroes.infrastructure.Repositories.TotemsRepositories;
+using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Middleware;
 using kangoeroes.webUI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -23,7 +23,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
@@ -31,7 +30,7 @@ namespace kangoeroes.webUI
 {
   public class Startup
   {
-    public Startup(IHostingEnvironment env)
+    public Startup(IWebHostEnvironment env)
     {
       var builder = new ConfigurationBuilder()
         .SetBasePath(env.ContentRootPath)
@@ -52,7 +51,7 @@ namespace kangoeroes.webUI
       //Te gebruiken database configureren
       services.AddDbContext<ApplicationDbContext>(options =>
       {
-        options.UseMySql(Configuration.GetConnectionString("Default"));
+        options.UseSqlServer(Configuration.GetConnectionString("Default"));
       });
       services.AddAutoMapper(typeof(Startup));
 
@@ -72,13 +71,18 @@ namespace kangoeroes.webUI
         {
           options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
           options.Audience = Configuration["Auth0:Audience"];
-          options.TokenValidationParameters = new TokenValidationParameters
-          {
-            RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-          };
         });
 
-      services.AddAuthorization();
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("ResourceOwner",
+          policy =>
+          {
+            policy.RequireAuthenticatedUser();
+            policy.Requirements.Add(new ResourceOwnerRequirement());
+          })
+          ;
+      });
 
       services.AddOptions();
 
@@ -97,7 +101,9 @@ namespace kangoeroes.webUI
 
     private void RegisterDependencyInjection(IServiceCollection services)
     {
+      services.AddHttpContextAccessor();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+      services.AddSingleton<IAuthorizationHandler, ResourceOwnerHandler>();
 
       services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
       {
@@ -143,7 +149,7 @@ namespace kangoeroes.webUI
       {
         if (env.IsDevelopment())
         {
-          builder.WithOrigins("http://localhost:4200", "http://localhost:4300")
+          builder.WithOrigins("http://localhost:4200", "http://localhost:4300", "http://localhost:4400")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()
@@ -171,7 +177,11 @@ namespace kangoeroes.webUI
       app.UseSwagger();
 
       // Swagger middleware om UI endpoint te exposen
-      app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1"); });
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1");
+        c.RoutePrefix = String.Empty;
+      });
 
       app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }

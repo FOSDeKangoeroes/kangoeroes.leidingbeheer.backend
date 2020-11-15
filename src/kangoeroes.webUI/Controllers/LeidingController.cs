@@ -16,7 +16,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace kangoeroes.webUI.Controllers
 {
-  [Authorize(Roles = "financieel_verantwoordelijke, opperhoofd" )]
+ // [Authorize(Roles = "financieel_verantwoordelijke, opperhoofd" )]
+ //[Authorize(Policy = "ResourceOwner")]
   public class LeidingController : BaseController
   {
     private readonly ILeidingRepository _leidingRepository;

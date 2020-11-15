@@ -131,7 +131,7 @@ namespace kangoeroes.infrastructure
             builder.Property(x => x.CreatedOn).IsRequired();
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.OrderedBy).WithMany(x => x.Orders).IsRequired();
-            builder.HasMany(x => x.Orderlines).WithOne(x => x.Order).IsRequired();
+            builder.HasMany(x => x.Orderlines).WithOne(x => x.Order).IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
 
         private void MapOrderline(EntityTypeBuilder<Orderline> builder)

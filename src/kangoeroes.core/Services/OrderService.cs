@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using kangoeroes.core.DTOs.Tab.Order;
 using kangoeroes.core.DTOs.Tab.Orderline;
@@ -100,6 +101,13 @@ namespace kangoeroes.core.Services
                 if (orderedFor == null)
                 {
                     throw new EntityNotFoundException($"Persoon met id {lineModel.OrderedForId} werd niet gevonden.");
+                }
+
+                var personCanOrder = orderedFor.Tak.TabIsAllowed;
+
+                if (!personCanOrder)
+                {
+                    throw new InvalidOperationException($"Leden van {orderedFor.Tak.Naam} kunnen geen gebruik maken van de Poef.");
                 }
 
                 var orderline = Orderline.Create(drank, orderedFor, newOrder, lineModel.Quantity);
