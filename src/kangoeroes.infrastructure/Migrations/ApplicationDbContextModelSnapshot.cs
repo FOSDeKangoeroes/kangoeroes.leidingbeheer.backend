@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using kangoeroes.infrastructure;
 
@@ -14,32 +15,33 @@ namespace kangoeroes.infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .UseIdentityColumns()
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("kangoeroes.core.Models.Accounting.Account", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
 
                     b.Property<string>("AccountType")
                         .IsRequired()
-                        .HasColumnName("accountType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("accountType");
 
                     b.Property<decimal>("Balance")
-                        .HasColumnName("balance")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("balance");
 
                     b.Property<DateTime>("LastUpdated")
-                        .HasColumnName("lastUpdated")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("lastUpdated");
 
                     b.Property<int>("OwnerId")
-                        .HasColumnName("ownerId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ownerId");
 
                     b.HasKey("Id");
 
@@ -52,24 +54,24 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
 
                     b.Property<Guid?>("AccountId")
-                        .HasColumnName("accountId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("accountId");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnName("amount")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("amount");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnName("date")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("date");
 
                     b.Property<string>("Description")
-                        .HasColumnName("description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
 
                     b.HasKey("Id");
 
@@ -82,34 +84,35 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("DatumGestopt")
-                        .HasColumnName("datumGestopt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("datumGestopt");
 
                     b.Property<string>("Email")
-                        .HasColumnName("email")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("email");
 
                     b.Property<DateTime>("LeidingSinds")
-                        .HasColumnName("leidingSinds")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("leidingSinds");
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnName("naam")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("naam");
 
                     b.Property<int?>("TakId")
-                        .HasColumnName("takId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("takId");
 
                     b.Property<string>("Voornaam")
                         .IsRequired()
-                        .HasColumnName("voornaam")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("voornaam");
 
                     b.HasKey("Id");
 
@@ -122,25 +125,26 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnName("imageUrl")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("imageUrl");
 
                     b.Property<bool>("InStock")
-                        .HasColumnName("inStock")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit")
+                        .HasColumnName("inStock");
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnName("naam")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("naam");
 
                     b.Property<int?>("TypeId")
-                        .HasColumnName("typeId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("typeId");
 
                     b.HasKey("Id");
 
@@ -156,13 +160,14 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnName("naam")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("naam");
 
                     b.HasKey("Id");
 
@@ -176,16 +181,17 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("createdOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("createdOn");
 
                     b.Property<int>("OrderedById")
-                        .HasColumnName("orderedById")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("orderedById");
 
                     b.HasKey("Id");
 
@@ -198,28 +204,29 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<int>("DrankId")
-                        .HasColumnName("drankId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("drankId");
 
                     b.Property<decimal>("DrinkPrice")
-                        .HasColumnName("drinkPrice")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("drinkPrice");
 
                     b.Property<int>("OrderId")
-                        .HasColumnName("orderId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("orderId");
 
                     b.Property<int>("OrderedForId")
-                        .HasColumnName("orderedForId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("orderedForId");
 
                     b.Property<int>("Quantity")
-                        .HasColumnName("quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("quantity");
 
                     b.HasKey("Id");
 
@@ -236,20 +243,21 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("End")
-                        .HasColumnName("end")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("end");
 
                     b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
 
                     b.Property<DateTime>("Start")
-                        .HasColumnName("start")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("start");
 
                     b.HasKey("Id");
 
@@ -260,20 +268,21 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("createdOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("createdOn");
 
                     b.Property<int>("DrankId")
-                        .HasColumnName("drankId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("drankId");
 
                     b.Property<decimal>("Waarde")
-                        .HasColumnName("waarde")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("waarde");
 
                     b.HasKey("Id");
 
@@ -286,21 +295,22 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnName("naam")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("naam");
 
                     b.Property<bool>("TabIsAllowed")
-                        .HasColumnName("tabIsAllowed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit")
+                        .HasColumnName("tabIsAllowed");
 
                     b.Property<int>("Volgorde")
-                        .HasColumnName("volgorde")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("volgorde");
 
                     b.HasKey("Id");
 
@@ -311,17 +321,18 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("createdOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("createdOn");
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnName("naam")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("naam");
 
                     b.HasKey("Id");
 
@@ -332,17 +343,18 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("createdOn")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("createdOn");
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnName("naam")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("naam");
 
                     b.HasKey("Id");
 
@@ -353,28 +365,29 @@ namespace kangoeroes.infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("id")
-                        .HasColumnType("int");
+                        .UseIdentityColumn();
 
                     b.Property<int?>("AdjectiefId")
-                        .HasColumnName("adjectiefId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("adjectiefId");
 
                     b.Property<DateTime>("DatumGegeven")
-                        .HasColumnName("datumGegeven")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("datumGegeven");
 
                     b.Property<int?>("LeidingId")
-                        .HasColumnName("leidingId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("leidingId");
 
                     b.Property<int?>("TotemId")
-                        .HasColumnName("totemId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("totemId");
 
                     b.Property<int?>("VoorouderId")
-                        .HasColumnName("voorouderId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("voorouderId");
 
                     b.HasKey("Id");
 
@@ -396,6 +409,8 @@ namespace kangoeroes.infrastructure.Migrations
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Accounting.Transaction", b =>
@@ -410,6 +425,8 @@ namespace kangoeroes.infrastructure.Migrations
                     b.HasOne("kangoeroes.core.Models.Tak", "Tak")
                         .WithMany("Leiding")
                         .HasForeignKey("TakId");
+
+                    b.Navigation("Tak");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Drank", b =>
@@ -417,6 +434,8 @@ namespace kangoeroes.infrastructure.Migrations
                     b.HasOne("kangoeroes.core.Models.Poef.DrankType", "Type")
                         .WithMany("Dranken")
                         .HasForeignKey("TypeId");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Order", b =>
@@ -426,6 +445,8 @@ namespace kangoeroes.infrastructure.Migrations
                         .HasForeignKey("OrderedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("OrderedBy");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Orderline", b =>
@@ -439,7 +460,7 @@ namespace kangoeroes.infrastructure.Migrations
                     b.HasOne("kangoeroes.core.Models.Poef.Order", "Order")
                         .WithMany("Orderlines")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("kangoeroes.core.Models.Leiding", "OrderedFor")
@@ -447,6 +468,12 @@ namespace kangoeroes.infrastructure.Migrations
                         .HasForeignKey("OrderedForId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Drank");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("OrderedFor");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Poef.Prijs", b =>
@@ -456,6 +483,8 @@ namespace kangoeroes.infrastructure.Migrations
                         .HasForeignKey("DrankId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Drank");
                 });
 
             modelBuilder.Entity("kangoeroes.core.Models.Totems.TotemEntry", b =>
@@ -475,6 +504,55 @@ namespace kangoeroes.infrastructure.Migrations
                     b.HasOne("kangoeroes.core.Models.Totems.TotemEntry", "Voorouder")
                         .WithMany("Afstammelingen")
                         .HasForeignKey("VoorouderId");
+
+                    b.Navigation("Adjectief");
+
+                    b.Navigation("Leiding");
+
+                    b.Navigation("Totem");
+
+                    b.Navigation("Voorouder");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Accounting.Account", b =>
+                {
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Leiding", b =>
+                {
+                    b.Navigation("Accounts");
+
+                    b.Navigation("Consumpties");
+
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Poef.Drank", b =>
+                {
+                    b.Navigation("Orderlines");
+
+                    b.Navigation("Prijzen");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Poef.DrankType", b =>
+                {
+                    b.Navigation("Dranken");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Poef.Order", b =>
+                {
+                    b.Navigation("Orderlines");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Tak", b =>
+                {
+                    b.Navigation("Leiding");
+                });
+
+            modelBuilder.Entity("kangoeroes.core.Models.Totems.TotemEntry", b =>
+                {
+                    b.Navigation("Afstammelingen");
                 });
 #pragma warning restore 612, 618
         }
