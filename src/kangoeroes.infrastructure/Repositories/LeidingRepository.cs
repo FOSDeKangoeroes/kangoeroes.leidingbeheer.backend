@@ -22,7 +22,7 @@ namespace kangoeroes.infrastructure.Repositories
     {
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
-      var result = GetAllWithAllIncluded();
+      var result = GetAllWithAllIncluded().AsNoTracking();
 
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))

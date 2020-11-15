@@ -24,7 +24,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
     {
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
-      var result = _adjectieven.AsQueryable();
+      var result = _adjectieven.AsQueryable().AsNoTracking();
 
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))

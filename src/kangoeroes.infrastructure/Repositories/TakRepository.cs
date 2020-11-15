@@ -22,7 +22,7 @@ namespace kangoeroes.infrastructure.Repositories
 
     public override PagedList<Tak> FindAll(ResourceParameters resourceParameters)
     {
-      var result = GetAllWithAllIncluded();
+      var result = GetAllWithAllIncluded().AsNoTracking();
 
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
