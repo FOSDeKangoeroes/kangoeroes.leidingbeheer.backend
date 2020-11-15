@@ -1,5 +1,4 @@
 using System;
-using System.Security.Claims;
 using AutoMapper;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
@@ -13,13 +12,10 @@ using kangoeroes.webUI.Helpers;
 using kangoeroes.webUI.Interfaces;
 using kangoeroes.webUI.Middleware;
 using kangoeroes.webUI.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -27,7 +23,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
@@ -35,7 +30,7 @@ namespace kangoeroes.webUI
 {
   public class Startup
   {
-    public Startup(IHostingEnvironment env)
+    public Startup(IWebHostEnvironment env)
     {
       var builder = new ConfigurationBuilder()
         .SetBasePath(env.ContentRootPath)
@@ -56,7 +51,7 @@ namespace kangoeroes.webUI
       //Te gebruiken database configureren
       services.AddDbContext<ApplicationDbContext>(options =>
       {
-        options.UseMySql(Configuration.GetConnectionString("Default"));
+        options.UseSqlServer(Configuration.GetConnectionString("Default"));
       });
       services.AddAutoMapper(typeof(Startup));
 
@@ -182,7 +177,11 @@ namespace kangoeroes.webUI
       app.UseSwagger();
 
       // Swagger middleware om UI endpoint te exposen
-      app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1"); });
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kangoeroes API - V1");
+        c.RoutePrefix = String.Empty;
+      });
 
       app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
