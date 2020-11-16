@@ -23,19 +23,27 @@ namespace kangoeroes.core.Services
         private readonly IDrankRepository _drankRepository;
         private readonly IOrderlineRepository _orderlineRepository;
         private readonly IAccountRepository _accountRepository;
+        private IAccountService _accountService;
 
 
         /// <summary>
         /// Maakt een nieuwe instantie van de OrderService klasse
         /// </summary>
         /// <param name="orderRepository">Geïnjecteerde repository om data uit de databank te lezen en schrijven.</param>
-        public OrderService(IOrderRepository orderRepository, ILeidingRepository leidingRepository, IDrankRepository drankRepository, IOrderlineRepository orderlineRepository, IAccountRepository accountRepository)
+        public OrderService(
+            IOrderRepository orderRepository,
+            ILeidingRepository leidingRepository,
+            IDrankRepository drankRepository,
+            IOrderlineRepository orderlineRepository,
+            IAccountRepository accountRepository,
+            IAccountService accountService)
         {
             _orderRepository = orderRepository;
             _leidingRepository = leidingRepository;
             _drankRepository = drankRepository;
             _orderlineRepository = orderlineRepository;
             _accountRepository = accountRepository;
+            _accountService = accountService;
         }
 
         /// <summary>
@@ -124,7 +132,7 @@ namespace kangoeroes.core.Services
 
                 if (account == null)
                 {
-                    throw new EntityNotFoundException($"Er werd geen poefaccount gevonden voor {orderedFor.Voornaam}.");
+                    account = await _accountService.CreateAccountAsync(orderedFor.Id);
                 }
                 
                 account.AddTransaction(transaction);
@@ -251,4 +259,5 @@ namespace kangoeroes.core.Services
             return orderlineToDelete;
         }
     }
+    
 }

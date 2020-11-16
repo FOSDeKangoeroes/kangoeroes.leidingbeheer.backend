@@ -136,6 +136,7 @@ namespace kangoeroes.webUI
       services.AddTransient<ILeaderService, LeaderService>();
       services.AddTransient<IOrderlineService, OrderlineService>();
       services.AddTransient<IPeriodService, PeriodService>();
+      services.AddTransient<IAccountService, AccountService>();
 
       services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
     }

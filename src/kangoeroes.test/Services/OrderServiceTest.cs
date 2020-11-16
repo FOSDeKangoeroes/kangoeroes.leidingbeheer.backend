@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using kangoeroes.core.DTOs.Tab.Order;
 using kangoeroes.core.DTOs.Tab.Orderline;
 using kangoeroes.core.Interfaces.Repositories;
+using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Accounting;
 using kangoeroes.core.Models.Poef;
@@ -67,7 +68,9 @@ namespace kangoeroes.test.Services
             accountRepo.Setup(x => x.FindAccountAsync(It.IsAny<int>(), AccountType.Tab))
                 .Returns(Task.FromResult<Account>(account));
             
-            var service = new OrderService(orderRepository.Object,leidingRepo.Object, drankRepo.Object,orderlineRepo.Object,accountRepo.Object);
+            var accountService = new Mock<IAccountService>();
+            
+            var service = new OrderService(orderRepository.Object,leidingRepo.Object, drankRepo.Object,orderlineRepo.Object,accountRepo.Object, accountService.Object);
 
 var orderlines = new List<CreateOrderlineDTO>();
 orderlines.Add(item: new CreateOrderlineDTO
