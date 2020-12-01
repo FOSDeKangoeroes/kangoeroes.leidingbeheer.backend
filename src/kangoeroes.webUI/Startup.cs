@@ -75,11 +75,11 @@ namespace kangoeroes.webUI
 
       services.AddAuthorization(options =>
       {
-        options.AddPolicy("ResourceOwner",
+        options.AddPolicy("IsLeader",
           policy =>
           {
             policy.RequireAuthenticatedUser();
-            policy.Requirements.Add(new ResourceOwnerRequirement());
+            policy.Requirements.Add(new IsLeaderRequirement());
           })
           ;
       });
@@ -103,7 +103,7 @@ namespace kangoeroes.webUI
     {
       services.AddHttpContextAccessor();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-      services.AddSingleton<IAuthorizationHandler, ResourceOwnerHandler>();
+      services.AddTransient<IAuthorizationHandler, IsLeaderHandler>();
 
       services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
       {

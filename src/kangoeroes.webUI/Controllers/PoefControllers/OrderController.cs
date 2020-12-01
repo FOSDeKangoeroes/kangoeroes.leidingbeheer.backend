@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.DTOs.Tab.Order;
@@ -55,7 +56,9 @@ namespace kangoeroes.webUI.Controllers.PoefControllers
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO dto)
     {
 
-        var newOrder = await _orderService.CreateOrder(dto);
+      var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+        var newOrder = await _orderService.CreateOrder(dto, userEmail);
 
         var model = _mapper.Map<BasicOrderDTO>(newOrder);
         return Ok(model);

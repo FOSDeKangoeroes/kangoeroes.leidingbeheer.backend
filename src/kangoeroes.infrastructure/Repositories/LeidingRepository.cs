@@ -58,6 +58,11 @@ namespace kangoeroes.infrastructure.Repositories
       return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public Task<Leiding> FindByEmailAsync(string userEmail)
+    {
+      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Email == userEmail);
+    }
+
     //Helper method to get all leiding with all dependencies already included
     private IQueryable<Leiding> GetAllWithAllIncluded()
     {

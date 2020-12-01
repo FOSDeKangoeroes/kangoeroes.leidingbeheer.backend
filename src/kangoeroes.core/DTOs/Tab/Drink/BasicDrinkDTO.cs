@@ -13,5 +13,6 @@ namespace kangoeroes.core.DTOs.Tab.Drink
     public string TypeNaam { get; set; }
     [JsonProperty("prijs")]
     public decimal CurrentPrijsWaarde { get; set; }
+    public string ImageUrl { get; set; }
   }
 }

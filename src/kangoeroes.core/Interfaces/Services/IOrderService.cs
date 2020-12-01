@@ -17,7 +17,7 @@ namespace kangoeroes.core.Interfaces.Services
     PagedList<Order> GetAllOrders(OrderResourceParameters resourceParameters);
 
     Task<Order> GetOrderById(int orderId);
-    Task<Order> CreateOrder(CreateOrderDTO dto);
+    Task<Order> CreateOrder(CreateOrderDTO dto, string userEmail);
     Task<Order> UpdateOrder(UpdateOrderDTO dto, int orderId);
     Task<Orderline> UpdateOrderline(UpdateOrderlineDTO dto, int orderId, int orderLineId);
     Task<Order> DeleteOrder(int orderId);

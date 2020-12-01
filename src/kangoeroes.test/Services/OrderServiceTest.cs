@@ -59,6 +59,7 @@ namespace kangoeroes.test.Services
             
             var orderRepository = new Mock<IOrderRepository>();
             var leidingRepo = new Mock<ILeidingRepository>();
+            leidingRepo.Setup(x => x.FindByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult<Leiding>(person));
             leidingRepo.Setup(x => x.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Leiding>(person));
             var drankRepo = new Mock<IDrankRepository>();
             drankRepo.Setup(x => x.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Drank>(_defaultDrank));
@@ -82,12 +83,11 @@ orderlines.Add(item: new CreateOrderlineDTO
 
             var orderDto = new CreateOrderDTO()
             {
-                OrderedById = 10,
                 Orderlines = orderlines
             };
 
 
-            await Assert.ThrowsAsync<InvalidOperationException>(() => service.CreateOrder(orderDto));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => service.CreateOrder(orderDto, String.Empty));
         }
     }
 }

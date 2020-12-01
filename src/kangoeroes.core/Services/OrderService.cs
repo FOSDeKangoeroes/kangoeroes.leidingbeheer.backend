@@ -82,13 +82,13 @@ namespace kangoeroes.core.Services
         /// <param name="dto">Viewmodel met de nodige data voor het aanmaken van een nieuw order</param>
         /// <returns>Nieuw aangemaakt order</returns>
         /// <exception cref="EntityNotFoundException">Wordt gegooid wanneer een persoon in het order of in een orderline niet gevonden werd.</exception>
-        public async Task<Order> CreateOrder(CreateOrderDTO dto)
+        public async Task<Order> CreateOrder(CreateOrderDTO dto, string userEmail)
         {
-            var orderedBy = await _leidingRepository.FindByIdAsync(dto.OrderedById);
+            var orderedBy = await _leidingRepository.FindByEmailAsync(userEmail);
 
             if (orderedBy == null)
             {
-                throw new EntityNotFoundException($"Besteller met id {dto.OrderedById} werd niet gevonden.");
+                throw new EntityNotFoundException($"Besteller '{userEmail}' werd niet gevonden.");
             }
 
             var newOrder = Order.Create(orderedBy);

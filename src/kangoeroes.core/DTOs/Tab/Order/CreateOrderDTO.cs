@@ -7,9 +7,6 @@ namespace kangoeroes.core.DTOs.Tab.Order
   public class CreateOrderDTO
   {
     [Required]
-    public int OrderedById { get; set; }
-
-    [Required]
     public List<CreateOrderlineDTO> Orderlines { get; set; }
   }
 }
