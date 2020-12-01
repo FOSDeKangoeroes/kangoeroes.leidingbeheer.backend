@@ -28,7 +28,7 @@ namespace kangoeroes.infrastructure.Repositories
 
       if (resourceParameters is TakResourceParameters takResourceParameters && takResourceParameters.TabIsAllowed)
       {
-        result = result.Where(x => x.TabIsAllowed == true);
+        result = result.Where(x => x.TabIsAllowed);
       }
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
