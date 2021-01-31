@@ -51,7 +51,11 @@ namespace kangoeroes.webUI
       //Te gebruiken database configureren
       services.AddDbContext<ApplicationDbContext>(options =>
       {
-        options.UseSqlServer(Configuration.GetConnectionString("Default"));
+        options
+          .UseSqlServer(Configuration.GetConnectionString("Default"), options =>
+          {
+            options.EnableRetryOnFailure(5);
+          });
       });
       services.AddAutoMapper(typeof(Startup));
 
@@ -75,11 +79,11 @@ namespace kangoeroes.webUI
 
       services.AddAuthorization(options =>
       {
-        options.AddPolicy("ResourceOwner",
+        options.AddPolicy("IsLeader",
           policy =>
           {
             policy.RequireAuthenticatedUser();
-            policy.Requirements.Add(new ResourceOwnerRequirement());
+            policy.Requirements.Add(new IsLeaderRequirement());
           })
           ;
       });
@@ -103,7 +107,7 @@ namespace kangoeroes.webUI
     {
       services.AddHttpContextAccessor();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-      services.AddSingleton<IAuthorizationHandler, ResourceOwnerHandler>();
+      services.AddTransient<IAuthorizationHandler, IsLeaderHandler>();
 
       services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
       {
@@ -136,6 +140,7 @@ namespace kangoeroes.webUI
       services.AddTransient<ILeaderService, LeaderService>();
       services.AddTransient<IOrderlineService, OrderlineService>();
       services.AddTransient<IPeriodService, PeriodService>();
+      services.AddTransient<IAccountService, AccountService>();
 
       services.AddTransient<IPaginationMetaDataService, PaginationMetaDataService>();
     }

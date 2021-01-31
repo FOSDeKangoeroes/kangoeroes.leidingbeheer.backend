@@ -23,5 +23,13 @@ namespace kangoeroes.infrastructure.Repositories.Accounting
         {
             return await _accounts.Where(x => x.OwnerId == leidingId && x.AccountType == type).FirstOrDefaultAsync();
         }
+
+        public async Task<Account> CreateAccountAsync(Account newAccount)
+        {
+            await _accounts.AddAsync(newAccount);
+            await _dbContext.SaveChangesAsync();
+
+            return newAccount;
+        }
     }
 }

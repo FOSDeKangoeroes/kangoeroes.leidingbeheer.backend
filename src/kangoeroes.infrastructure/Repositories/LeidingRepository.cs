@@ -22,7 +22,7 @@ namespace kangoeroes.infrastructure.Repositories
     {
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
-      var result = GetAllWithAllIncluded();
+      var result = GetAllWithAllIncluded().AsNoTracking();
 
 
       if (!string.IsNullOrWhiteSpace(resourceParameters.Query))
@@ -31,10 +31,22 @@ namespace kangoeroes.infrastructure.Repositories
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
-      if (resourceParameters is LeidingResourceParameters leidingParameters && leidingParameters.Tak != 0)
+      if (resourceParameters is LeidingResourceParameters leidingParameters)
       {
-        result = result.Where(x => x.Tak.Id == leidingParameters.Tak);
+
+        if (leidingParameters.Tak != 0)
+        {
+           result = result.Where(x => x.Tak.Id == leidingParameters.Tak);
+        }
+
+        if (leidingParameters.Tab)
+        {
+          result = result.Where(x => x.Tak != null &&  x.Tak.TabIsAllowed);
+        }
+        
+       
       }
+
 
       var pagedList = PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
@@ -44,6 +56,11 @@ namespace kangoeroes.infrastructure.Repositories
     public override Task<Leiding> FindByIdAsync(int id)
     {
       return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public Task<Leiding> FindByEmailAsync(string userEmail)
+    {
+      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Email == userEmail);
     }
 
     //Helper method to get all leiding with all dependencies already included

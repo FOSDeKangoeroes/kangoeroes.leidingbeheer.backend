@@ -34,7 +34,7 @@ namespace kangoeroes.webUI.Controllers
     /// </summary>
     /// <returns>Lijst van alle takken</returns>
     [HttpGet] //GET api/tak
-    public IActionResult Index([FromQuery] ResourceParameters resourceParameters)
+    public IActionResult Index([FromQuery] TakResourceParameters resourceParameters)
     {
       var takken = _takRepository.FindAll(resourceParameters);
 

@@ -21,7 +21,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
     public override PagedList<Totem> FindAll(ResourceParameters resourceParameters)
     {
-      var result = GetAllWithAllIncluded();
+      var result = GetAllWithAllIncluded().AsNoTracking();
 
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
 
