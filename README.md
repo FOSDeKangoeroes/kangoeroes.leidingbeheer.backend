@@ -22,3 +22,6 @@ git clone git@github.com:FOSDeKangoeroes/kangoeroes.backend.git
 
 Om de applicatie aan de praat te krijgen, dien je een appsettings.development.json aan te maken. appsettings.json bevat reeds alle properties die nodig zijn. Je vindt deze in kangoeroes.webUI.
 
+## Branching en deployments
+
+Werk gebeurt op feature branches die eender welke naam mogen hebben. Deze worden dmv Pull Requests gemerged naar master. PRs triggeren een build en test flow. Bij mergen naar master wordt een deploy uitgevoerd naar staging. Als deze succesvol is, wordt hetzelfde gedeployed naar production. De deploy naar production gaat alleen door als er approval gegeven wordt.
