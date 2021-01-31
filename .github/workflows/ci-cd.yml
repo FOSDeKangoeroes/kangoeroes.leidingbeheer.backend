@@ -1,0 +1,64 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Build
+      run: dotnet build src/kangoeroesWeb.sln --configuration Release --output ./output
+    - name: Test
+      run: dotnet test src/kangoeroes.test
+
+    - name: Publish artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: backend
+        path: src/output
+  
+  deploy-to-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    if: github.ref == 'refs/heads/master'
+    needs: [build]
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: backend
+        path: ./output
+    - name: Deploy to Azure 
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: staging-kangoeroe-api
+        publish-profile: ${{secrets.publish_profile}}
+        package: ./output
+
+  deploy-to-production:
+    runs-on: ubuntu-latest
+    environment: production
+    if: github.ref == 'refs/heads/master'
+    needs: [deploy-to-staging]
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: backend
+        path: ./output
+    - name: Deploy to Azure 
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: leidingbeheer-production
+        publish-profile: ${{secrets.backend_publish_profile_production}}
+        package: ./output
