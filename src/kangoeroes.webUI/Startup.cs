@@ -51,7 +51,11 @@ namespace kangoeroes.webUI
       //Te gebruiken database configureren
       services.AddDbContext<ApplicationDbContext>(options =>
       {
-        options.UseSqlServer(Configuration.GetConnectionString("Default"));
+        options
+          .UseSqlServer(Configuration.GetConnectionString("Default"), options =>
+          {
+            options.EnableRetryOnFailure(5);
+          });
       });
       services.AddAutoMapper(typeof(Startup));
 
