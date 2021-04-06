@@ -43,7 +43,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
     public Task<Totem> FindByNaamAsync(string naam)
     {
-      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => String.Equals(x.Naam, naam, StringComparison.CurrentCultureIgnoreCase));
+      return GetAllWithAllIncluded().FirstOrDefaultAsync(x => x.Naam == naam);
     }
 
     private IQueryable<Totem> GetAllWithAllIncluded()
