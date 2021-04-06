@@ -42,9 +42,9 @@ namespace kangoeroes.core.Services
             {
                 Naam = dto.Naam.Trim(),
                 Voornaam = dto.Voornaam.Trim(),
-                LeidingSinds = dto.LeidingSinds.ToLocalTime(),
+                LeidingSinds = dto.LeidingSinds .ToLocalTime(),
                 Tak = tak,
-                Email = dto.Email.Trim().ToLower(),
+                Email = dto.Email?.Trim().ToLower(),
                 Accounts = new List<Account>(2)
             };
 
