@@ -10,5 +10,7 @@ namespace kangoeroes.core.DTOs.Animal
 
     public DateTime CreatedOn { get; set; }
     public int EntryCount { get; set; }
+    
+    public DateTime? ReuseDate { get; set; }
   }
 }

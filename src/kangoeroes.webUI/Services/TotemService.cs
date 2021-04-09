@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace kangoeroes.webUI.Services
 
     public PagedList<BasicAnimalDTO> FindAll(ResourceParameters resourceParameters)
     {
-      var result = FilterTotems(_dbContext.Totems.AsNoTracking().Include(x => x.TotemEntries), resourceParameters);
+      var result = FilterTotems(_dbContext.Totems.AsNoTracking().Include(x => x.TotemEntries).ThenInclude(x => x.Leiding), resourceParameters);
 
       var intermediary = from d in result
         select new BasicAnimalDTO
@@ -38,7 +39,8 @@ namespace kangoeroes.webUI.Services
           Id = d.Id,
           Naam = d.Naam,
           CreatedOn = d.CreatedOn,
-          EntryCount = d.TotemEntries.Count()
+          EntryCount = d.TotemEntries.Count(),
+          ReuseDate = GetEarliestReuseDate(d)
         };
 
       intermediary = SortTotems(intermediary, resourceParameters);
@@ -101,6 +103,18 @@ namespace kangoeroes.webUI.Services
     {
       var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
       return !string.IsNullOrWhiteSpace(sortString) ? currentResults.OrderBy(sortString) : currentResults;
+    }
+
+    private static DateTime? GetEarliestReuseDate(Totem totem)
+    {
+      var entriesWithoutKnownReuseDate = totem.TotemEntries.Any(x => x.ReuseDateTotem.Year == 1);
+
+      if (entriesWithoutKnownReuseDate)
+      {
+        return null;
+      }
+
+      return totem.TotemEntries.Max(x => x.ReuseDateTotem);
     }
 
   }

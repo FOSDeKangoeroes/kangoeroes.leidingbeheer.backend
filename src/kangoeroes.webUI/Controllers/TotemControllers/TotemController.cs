@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace kangoeroes.webUI.Controllers.TotemControllers
 {
-  [Authorize(Roles = "opperhoofd" )]
+  //[Authorize(Roles = "opperhoofd" )]
   public class TotemController : BaseController
   {
     private readonly IMapper _mapper;
