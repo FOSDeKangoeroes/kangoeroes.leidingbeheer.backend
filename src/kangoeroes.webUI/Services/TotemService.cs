@@ -114,7 +114,12 @@ namespace kangoeroes.webUI.Services
         return null;
       }
 
-      return totem.TotemEntries.Max(x => x.ReuseDateTotem);
+      if (!totem.TotemEntries.Any())
+      {
+        return DateTime.MinValue;
+      }
+
+      return totem.TotemEntries?.Max(x => x.ReuseDateTotem);
     }
 
   }

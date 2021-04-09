@@ -12,7 +12,7 @@ namespace kangoeroes.webUI.Controllers
   /// </summary>
   [Route("/api/[controller]")] // Alle endpoints volgen deze url structuur: {basisurl}/api/{controllernaam}
   [ModelStateIsValid] //Bij endpoints in controllers die van deze controller erven wordt gekeken of de modelstate valid is.
-  //[Authorize]
+  [Authorize]
 
   // Ale endpoints in controllers die van deze controller erven produceren JSON.
   // Wordt hier expliciet aangegeven zodat dit correct wordt weergegeven in de Swagger documentatie
