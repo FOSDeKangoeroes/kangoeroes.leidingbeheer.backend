@@ -37,7 +37,7 @@ namespace kangoeroes.infrastructure.Repositories
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
-      var pagedList = PagedList<Tak>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+      var pagedList = PagedList<Tak>.QueryAndCreate(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
       return pagedList;
     }

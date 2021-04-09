@@ -9,7 +9,7 @@ using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models;
 using kangoeroes.core.Models.Accounting;
 using kangoeroes.core.Models.Poef;
-using kangoeroes.core.Services;
+using kangoeroes.webUI.Services;
 using Moq;
 using Xunit;
 

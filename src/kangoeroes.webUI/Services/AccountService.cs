@@ -3,7 +3,7 @@ using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Accounting;
 
-namespace kangoeroes.core.Services
+namespace kangoeroes.webUI.Services
 {
     public class AccountService: IAccountService
     {

@@ -6,7 +6,7 @@
   public class ResourceParameters
   {
     private const int MaxPageSize = 1000;
-    private int _pageSize = 1000;
+    private int _pageSize = 100;
 
     /// <summary>
     /// Terug te geven pagina

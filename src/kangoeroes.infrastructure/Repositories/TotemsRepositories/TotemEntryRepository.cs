@@ -60,7 +60,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
             break;
         }
         
-        return PagedList<TotemEntry>.Create(newCollection, resourceParameters.PageNumber, resourceParameters.PageSize);
+        return PagedList<TotemEntry>.QueryAndCreate(newCollection, resourceParameters.PageNumber, resourceParameters.PageSize);
      
       }
       
@@ -70,7 +70,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
       {
         collectionBeforePaging = collectionBeforePaging.OrderBy(resourceParameters.GetFullSortString());
       }
-      return PagedList<TotemEntry>.Create(collectionBeforePaging, resourceParameters.PageNumber, resourceParameters.PageSize);
+      return PagedList<TotemEntry>.QueryAndCreate(collectionBeforePaging, resourceParameters.PageNumber, resourceParameters.PageSize);
       
     }
 

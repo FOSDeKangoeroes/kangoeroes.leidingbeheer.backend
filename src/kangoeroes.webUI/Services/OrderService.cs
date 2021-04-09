@@ -11,7 +11,7 @@ using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Accounting;
 using kangoeroes.core.Models.Poef;
 
-namespace kangoeroes.core.Services
+namespace kangoeroes.webUI.Services
 {
     /// <summary>
     /// Service voor het beheren van orders.

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using kangoeroes.core.DTOs.Tab.Period;
 using kangoeroes.core.Exceptions;
@@ -9,7 +8,7 @@ using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Poef;
 
-namespace kangoeroes.core.Services
+namespace kangoeroes.webUI.Services
 {
     public class PeriodService: IPeriodService
     {

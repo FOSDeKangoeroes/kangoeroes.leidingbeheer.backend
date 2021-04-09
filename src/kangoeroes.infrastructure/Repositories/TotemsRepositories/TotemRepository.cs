@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
@@ -13,10 +14,12 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
   public class TotemRepository : BaseRepository<Totem>, ITotemRepository
   {
     private readonly DbSet<Totem> _totems;
+    private readonly DbSet<TotemEntry> _entries;
 
     public TotemRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
       _totems = dbContext.Totems;
+      _entries = dbContext.TotemEntries;
     }
 
     public override PagedList<Totem> FindAll(ResourceParameters resourceParameters)
@@ -31,7 +34,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
-      var pagedList = PagedList<Totem>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+      var pagedList = PagedList<Totem>.QueryAndCreate(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
       return pagedList;
     }
@@ -49,6 +52,26 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
     private IQueryable<Totem> GetAllWithAllIncluded()
     {
       return _totems;
+    }
+
+    public Dictionary<int, int> GetCountOfEntriesForTotems()
+    {
+      var query = from entries in _entries
+        group entries by entries.TotemId
+        into g
+        select new {g.Key, Count = g.Count()};
+      var dict = query.ToDictionary(x => x.Key, y => y.Count);
+      return dict;
+    }
+
+    public async Task<DateTime> GetEarliestReuseDateForTotem(int id)
+    {
+      var entries = _entries.Include(x => x.Leiding).Where(x => x.TotemId == id);
+
+      entries = entries.OrderByDescending(x => x.ReuseDateTotem);
+
+      var first = await entries.FirstOrDefaultAsync();
+      return first.ReuseDateTotem;
     }
   }
 }

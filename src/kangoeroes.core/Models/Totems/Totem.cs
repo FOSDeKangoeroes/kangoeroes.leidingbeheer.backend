@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace kangoeroes.core.Models.Totems
 {
@@ -30,5 +32,7 @@ namespace kangoeroes.core.Models.Totems
         /// </summary>
         public DateTime CreatedOn { get; set; }
         
+        public IEnumerable<TotemEntry> TotemEntries { get; set; }
+
     }
 }

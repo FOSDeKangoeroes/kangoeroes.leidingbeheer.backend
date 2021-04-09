@@ -2,7 +2,6 @@ using System;
 using AutoMapper;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
-using kangoeroes.core.Services;
 using kangoeroes.infrastructure;
 using kangoeroes.infrastructure.Repositories;
 using kangoeroes.infrastructure.Repositories.Accounting;

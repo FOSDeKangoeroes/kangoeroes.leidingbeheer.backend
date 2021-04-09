@@ -5,34 +5,39 @@ using kangoeroes.core.Exceptions;
 using kangoeroes.core.Models.Responses;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace kangoeroes.webUI.Middleware
 {
   public class ApplicationErrorHandlerMiddleware
   {
-    private readonly RequestDelegate next;
-    private readonly IHostingEnvironment env;
+    private readonly RequestDelegate _next;
+    private readonly IHostingEnvironment _env;
+    private readonly ILogger<ApplicationErrorHandlerMiddleware> _logger;
 
-    public ApplicationErrorHandlerMiddleware(RequestDelegate next, IHostingEnvironment env)
+    public ApplicationErrorHandlerMiddleware(RequestDelegate next, IHostingEnvironment env, ILogger<ApplicationErrorHandlerMiddleware> logger)
     {
-      this.next = next;
-      this.env = env;
+      _next = next;
+      _env = env;
+      _logger = logger;
     }
 
     public async Task Invoke(HttpContext context)
     {
       try
       {
-        await next(context);
+        await _next(context);
       }
       catch (HttpStatusCodeException e)
       {
         await HandleExceptionAsync(context, e);
+        throw;
       }
       catch (Exception e)
       {
         await HandleExceptionAsync(context, e);
+        throw;
       }
     }
 
@@ -44,8 +49,6 @@ namespace kangoeroes.webUI.Middleware
     /// <returns></returns>
     private Task HandleExceptionAsync(HttpContext context, HttpStatusCodeException exception)
     {
-      var code = HttpStatusCode.InternalServerError;
-
       var result = exception.Message;
 
       context.Response.ContentType = "application/json";
@@ -66,7 +69,7 @@ namespace kangoeroes.webUI.Middleware
       var result =
         new ApiServerErrorResponse("Er heeft zich een onverwachte fout voorgedaan. Probeer het later opnieuw.");
 
-      if (env.IsDevelopment())
+      if (_env.IsDevelopment())
       {
         result.DetailedMessage = e.Message;
         result.StackTrace = e.StackTrace;

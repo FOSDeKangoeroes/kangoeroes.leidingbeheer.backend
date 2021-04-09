@@ -38,7 +38,7 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
-      var pagedList = PagedList<DrankType>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+      var pagedList = PagedList<DrankType>.QueryAndCreate(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
       return pagedList;
     }

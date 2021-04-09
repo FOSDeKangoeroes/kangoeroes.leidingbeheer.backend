@@ -5,7 +5,7 @@ using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Poef;
 
-namespace kangoeroes.core.Services
+namespace kangoeroes.webUI.Services
 {
     public class OrderlineService: IOrderlineService
     {

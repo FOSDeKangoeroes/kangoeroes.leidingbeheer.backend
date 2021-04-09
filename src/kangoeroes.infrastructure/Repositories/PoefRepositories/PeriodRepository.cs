@@ -36,7 +36,7 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
             }
             
             var pagedList =
-                PagedList<Period>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+                PagedList<Period>.QueryAndCreate(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
             return pagedList;
         }

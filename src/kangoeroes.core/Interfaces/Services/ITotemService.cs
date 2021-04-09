@@ -8,7 +8,7 @@ namespace kangoeroes.core.Interfaces.Services
 {
   public interface ITotemService
   {
-    PagedList<Totem> FindAll(ResourceParameters resourceParameters);
+    PagedList<BasicAnimalDTO> FindAll(ResourceParameters resourceParameters);
     Task<BasicAnimalDTO> FindByIdAsync(int id);
     Task<BasicAnimalDTO> AddTotemAsync(AddAnimalDTO viewModel);
     Task<BasicAnimalDTO> UpdateTotemAsync(UpdateAnimalDTO viewModel, int id);

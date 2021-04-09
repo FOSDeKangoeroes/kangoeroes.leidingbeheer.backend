@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 
 namespace kangoeroes.core.Helpers
 {
   public class PagedList<T> : List<T>
   {
-    private PagedList(List<T> items, int count, int pageNumber, int pageSize)
+    public PagedList()
+    {
+      
+    }
+    private PagedList(IEnumerable<T> items, int count, int pageNumber, int pageSize)
     {
       TotalCount = count;
       PageSize = pageSize;
@@ -31,7 +36,7 @@ namespace kangoeroes.core.Helpers
     /// <param name="pageNumber">Pagina waarop de data moet starten</param>
     /// <param name="pageSize">Aantal entiteiten dat moet teruggegeven worden</param>
     /// <returns></returns>
-    public static PagedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
+    public static PagedList<T> QueryAndCreate(IQueryable<T> source, int pageNumber, int pageSize)
     {
       var count = source.Count();
       var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
@@ -39,12 +44,39 @@ namespace kangoeroes.core.Helpers
       return new PagedList<T>(items, count, pageNumber, pageSize);
     }
 
-    public static PagedList<T> Create(IEnumerable<T> source, int pageNumber, int pageSize)
+    public static (PagedListProperties, IQueryable<T>) Paginate(IQueryable<T> source, int pageNumber, int pageSize)
+    {
+      var count = source.Count();
+      var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+      var properties = new PagedListProperties
+      {
+        Count = count,
+        PageNumber = pageNumber,
+        PageSize = pageSize
+      };
+
+      return (properties, items);
+    }
+
+    public static PagedList<T> Create(PagedListProperties properties, IEnumerable<T> items )
+    {
+      return new(items, properties.Count, properties.PageNumber, properties.PageSize);
+    }
+
+    public static PagedList<T> QueryAndCreate(IEnumerable<T> source, int pageNumber, int pageSize)
     {
       var count = source.Count();
       var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
       return new PagedList<T>(items, count, pageNumber, pageSize);
     }
+  }
+
+  public class PagedListProperties
+  {
+    public int Count { get; set; }
+    public int PageNumber { get; set; }
+    public int PageSize { get; set; }
   }
 }

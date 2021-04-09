@@ -33,7 +33,7 @@ namespace kangoeroes.infrastructure.Repositories.TotemsRepositories
 
       if (!string.IsNullOrWhiteSpace(sortString)) result = result.OrderBy(sortString);
 
-      var pagedList = PagedList<Adjectief>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+      var pagedList = PagedList<Adjectief>.QueryAndCreate(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
       return pagedList;
     }

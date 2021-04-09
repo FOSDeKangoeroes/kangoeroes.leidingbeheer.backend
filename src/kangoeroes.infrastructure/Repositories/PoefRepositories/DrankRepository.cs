@@ -28,7 +28,7 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
             result = SortDrinks(result, resourceParameters.SortBy, resourceParameters.SortOrder);
 
-            var pagedList = PagedList<Drank>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+            var pagedList = PagedList<Drank>.QueryAndCreate(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
             return pagedList;
         }
@@ -51,7 +51,7 @@ namespace kangoeroes.infrastructure.Repositories.PoefRepositories
 
             result = SortDrinks(result, resourceParameters.SortBy, resourceParameters.SortOrder);
 
-            var pagedList = PagedList<Drank>.Create(result,resourceParameters.PageNumber, resourceParameters.PageSize);
+            var pagedList = PagedList<Drank>.QueryAndCreate(result,resourceParameters.PageNumber, resourceParameters.PageSize);
 
             return pagedList;
         }

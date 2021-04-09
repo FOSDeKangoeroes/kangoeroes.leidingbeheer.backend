@@ -9,5 +9,6 @@ namespace kangoeroes.core.DTOs.Animal
     public string Naam { get; set; }
 
     public DateTime CreatedOn { get; set; }
+    public int EntryCount { get; set; }
   }
 }

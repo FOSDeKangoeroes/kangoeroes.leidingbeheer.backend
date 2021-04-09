@@ -48,7 +48,7 @@ namespace kangoeroes.infrastructure.Repositories
       }
 
 
-      var pagedList = PagedList<Leiding>.Create(result, resourceParameters.PageNumber, resourceParameters.PageSize);
+      var pagedList = PagedList<Leiding>.QueryAndCreate(result, resourceParameters.PageNumber, resourceParameters.PageSize);
 
       return pagedList;
     }

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 using AutoMapper;
 using kangoeroes.core.DTOs.Animal;
 using kangoeroes.core.Exceptions;
@@ -7,25 +10,44 @@ using kangoeroes.core.Helpers.ResourceParameters;
 using kangoeroes.core.Interfaces.Repositories;
 using kangoeroes.core.Interfaces.Services;
 using kangoeroes.core.Models.Totems;
+using kangoeroes.infrastructure;
+using Microsoft.EntityFrameworkCore;
 
-namespace kangoeroes.core.Services
+namespace kangoeroes.webUI.Services
 {
   public class TotemService : ITotemService
   {
     private readonly IMapper _mapper;
     private readonly ITotemRepository _totemRepository;
+    private readonly ApplicationDbContext _dbContext;
 
-    public TotemService(ITotemRepository totemRepository, IMapper mapper)
+    public TotemService(ITotemRepository totemRepository, IMapper mapper, ApplicationDbContext dbContext)
     {
       _totemRepository = totemRepository;
       _mapper = mapper;
+      _dbContext = dbContext;
     }
 
-    public PagedList<Totem> FindAll(ResourceParameters resourceParameters)
+    public PagedList<BasicAnimalDTO> FindAll(ResourceParameters resourceParameters)
     {
-      var result = _totemRepository.FindAll(resourceParameters);
+      var result = FilterTotems(_dbContext.Totems.AsNoTracking().Include(x => x.TotemEntries), resourceParameters);
 
-      return result;
+      var intermediary = from d in result
+        select new BasicAnimalDTO
+        {
+          Id = d.Id,
+          Naam = d.Naam,
+          CreatedOn = d.CreatedOn,
+          EntryCount = d.TotemEntries.Count()
+        };
+
+      intermediary = SortTotems(intermediary, resourceParameters);
+      var pagedList = PagedList<BasicAnimalDTO>.Paginate(intermediary, resourceParameters.PageNumber, resourceParameters.PageSize);
+
+
+      var newPagedList = PagedList<BasicAnimalDTO>.Create(pagedList.Item1, pagedList.Item2);
+
+      return newPagedList;
     }
 
     public async Task<BasicAnimalDTO> FindByIdAsync(int id)
@@ -69,5 +91,17 @@ namespace kangoeroes.core.Services
 
       return _mapper.Map<BasicAnimalDTO>(totem);
     }
+
+    private IQueryable<Totem> FilterTotems(IQueryable<Totem> currentResults, ResourceParameters resourceParameters)
+    {
+      return !string.IsNullOrWhiteSpace(resourceParameters.Query) ? currentResults.Where(x => x.Naam.ToLower().Contains(resourceParameters.Query.ToLower())) : currentResults;
+    }
+
+    private IQueryable<BasicAnimalDTO> SortTotems(IQueryable<BasicAnimalDTO> currentResults, ResourceParameters resourceParameters)
+    {
+      var sortString = resourceParameters.SortBy + " " + resourceParameters.SortOrder;
+      return !string.IsNullOrWhiteSpace(sortString) ? currentResults.OrderBy(sortString) : currentResults;
+    }
+
   }
 }

@@ -29,6 +29,7 @@ namespace kangoeroes.core.Models.Totems
         ///     Totemdier van de getotemiseerde.
         /// </summary>
         public Totem Totem { get; set; }
+        public int TotemId { get; set; }
 
         /// <summary>
         ///     Adjectief van de getotemiseerde.
